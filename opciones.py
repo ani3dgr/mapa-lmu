@@ -161,6 +161,11 @@ class Opciones:
         self._deslizador(m, fila, T("asp.tam_mapa"), "tamano", 200, 800)
         self._deslizador(m, fila, T("asp.grosor"), "grosor_pista", 1, 8)
         self._deslizador(m, fila, T("asp.opacidad"), "opacidad", 0.2, 1.0, 2)
+        self._fluidez(m, fila)
+        ttk.Label(m, foreground="#666", justify="left",
+                  text=T("asp.fluidez.nota")).grid(
+            row=fila[0], column=0, columnspan=3, sticky="w", padx=(20, 0))
+        fila[0] += 1
         self._titulo(m, fila, T("asp.tit_colores"))
         self._color(m, fila, T("com.mi_coche"), "color_yo")
         self._color(m, fila, T("com.los_demas"), "color_rival")
@@ -179,6 +184,33 @@ class Opciones:
                                       (T("asp.aba_der"), True, True)):
             ttk.Button(marco, text=texto, width=11,
                        command=self._ir_esquina(derecha, abajo)).pack(side="left", padx=2)
+
+    # Solo estos tres valores. El bucle va a 20 por segundo, asi que los
+    # dibujos solo se pueden repartir en 20, 10 o 5; cualquier otro numero
+    # acabaria redondeado a uno de estos y el ajuste mentiria.
+    FLUIDEZ = [20, 10, 5]
+
+    def _fluidez(self, m, fila):
+        """Cuantas veces por segundo se repinta el mapa."""
+        nombres = [T("asp.fluidez.alta"), T("asp.fluidez.media"),
+                   T("asp.fluidez.baja")]
+        ttk.Label(m, text=T("asp.fluidez")).grid(row=fila[0], column=0, sticky="w")
+        actual = self.cfg.get("dibujos_por_segundo", 20)
+        try:
+            i = self.FLUIDEZ.index(int(actual))
+        except (ValueError, TypeError):
+            i = 0
+        var = tk.StringVar(value=nombres[i])
+
+        def cambio(_=None):
+            self.cfg["dibujos_por_segundo"] = self.FLUIDEZ[nombres.index(var.get())]
+            self.guardar(self.cfg)
+
+        combo = ttk.Combobox(m, textvariable=var, values=nombres,
+                             state="readonly", width=22)
+        combo.grid(row=fila[0], column=1, sticky="w", padx=4, pady=1)
+        combo.bind("<<ComboboxSelected>>", cambio)
+        fila[0] += 1
 
     def _ir_esquina(self, derecha, abajo):
         def ir():

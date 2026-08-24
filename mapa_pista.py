@@ -74,6 +74,11 @@ POR_DEFECTO = {
     "color_pista": "#b0b0b0",
     "grosor_pista": 5,
     "opacidad": 0.9,
+    # Veces por segundo que se REDIBUJA el mapa. Leer y grabar van siempre a 20,
+    # asi que bajar esto no cuesta ni una vuelta guardada: solo hace que los
+    # coches se muevan con menos suavidad. Sirve para ordenadores justos, porque
+    # cada redibujado obliga a Windows a mezclar la ventana con el juego.
+    "dibujos_por_segundo": 20,
     "tam_numero": 7,
     "tam_curva": 8,
     "color_curva": "#ffd24a",
@@ -725,12 +730,32 @@ class Mapa:
         try:
             coches = self.fuente.leer()
             self._llevar_comparador(coches)
-            if self.visible:
+            if self.visible and self._toca_dibujar():
                 self.dibujar(coches)
         except Exception:
             apuntar_fallo()
 
         self.root.after(REFRESCO_MS, self.tick)
+
+    def _toca_dibujar(self):
+        """
+        Si en esta vuelta del bucle toca repintar.
+
+        Leer y grabar van siempre a 20 por segundo; el dibujo puede ir mas
+        despacio si el usuario lo baja. Se cuentan vueltas del bucle en vez de
+        mirar el reloj para que el reparto salga parejo y no a tirones.
+        """
+        por_segundo = self.cfg.get("dibujos_por_segundo", 20)
+        try:
+            por_segundo = max(4, min(20, int(por_segundo)))
+        except (TypeError, ValueError):
+            por_segundo = 20
+        cada = max(1, round(1000.0 / REFRESCO_MS / por_segundo))
+        self._cuenta_dibujo = getattr(self, "_cuenta_dibujo", 0) + 1
+        if self._cuenta_dibujo >= cada:
+            self._cuenta_dibujo = 0
+            return True
+        return False
 
     def _llevar_comparador(self, coches):
         """
