@@ -29,21 +29,33 @@ Es gratuito. Úsalo y pásalo a quien quieras.
 - **Siete idiomas**: español, inglés, francés, italiano, alemán, portugués y
   polaco.
 
-## Qué hace falta
+## Cómo se instala
 
-- **Le Mans Ultimate** (Steam o Epic; el programa encuentra la carpeta solo).
-- El juego en modo **borderless**. En pantalla completa exclusiva, Windows no
-  deja poner nada encima y el mapa no se vería.
-- **Python 3.12** o superior. No hace falta instalar nada más: usa solo lo que
-  Python trae de serie.
+**Lo normal: bájate el programa ya montado.** Ve a
+[Releases](../../releases), descarga el `.zip`, descomprímelo **donde quieras**
+y abre `MapaLMU.exe`. No hace falta instalar nada, ni siquiera Python.
 
-## Cómo se usa
+**No lo pongas dentro de `Archivos de programa`**: Windows no deja escribir ahí
+y el programa necesita guardar su configuración, tus vueltas y los circuitos
+que escanees.
 
-1. Descarga la carpeta y déjala donde quieras (el escritorio vale). **No la
-   pongas dentro de `Archivos de programa`**: Windows no deja escribir ahí y el
-   programa necesita guardar su configuración.
-2. En el juego, desactiva el mapa que trae de serie y ponlo en borderless.
-3. Abre `MAPA.bat`.
+La primera vez Windows dirá *"Windows protegió tu PC"*, porque el programa no
+está firmado (firmarlo cuesta dinero). Pulsa **Más información** → **Ejecutar
+de todas formas**.
+
+Y en el juego, antes de nada: ponlo en modo **borderless** y quita el mapa que
+LMU trae de serie. Lo del borderless es obligatorio; en pantalla completa
+exclusiva Windows no deja poner nada encima y no verías el mapa.
+
+Si algo no va, doble clic en `COMPROBAR SI ALGO NO VA.bat`: dice de un vistazo
+qué encuentra y qué no.
+
+## Si prefieres ejecutarlo desde el código
+
+Hace falta **Python 3.12** o superior, y nada más: el programa solo usa lo que
+Python trae de serie. Descarga el repositorio y abre `MAPA.bat`.
+
+Para generar el `.exe` y el `.zip` tú mismo: `python compilar.py`.
 
 Todo lo demás está explicado dentro del programa: cada pestaña de las opciones
 tiene un botón **(i)** con su explicación. Y en `INSTRUCCIONES.txt` está el
@@ -105,21 +117,32 @@ It is free. Use it and pass it on to anyone.
 - **Seven languages**: Spanish, English, French, Italian, German, Portuguese and
   Polish.
 
-## What you need
+## How to install it
 
-- **Le Mans Ultimate** (Steam or Epic; the program finds the folder by itself).
-- The game in **borderless** mode. In exclusive fullscreen, Windows will not let
-  anything sit on top and the map would not show.
-- **Python 3.12** or newer. Nothing else to install: it only uses what Python
-  ships with.
+**The normal way: grab the ready-built program.** Go to
+[Releases](../../releases), download the `.zip`, extract it **wherever you
+like** and open `MapaLMU.exe`. Nothing to install, not even Python.
 
-## How to use it
+**Do not put it inside `Program Files`**: Windows will not allow writing there,
+and the program needs to save its settings, your laps and any tracks you scan.
 
-1. Download the folder and put it wherever you like (the desktop is fine).
-   **Do not put it inside `Program Files`**: Windows will not allow writing
-   there and the program needs to save its settings.
-2. In the game, turn off the built-in map and set borderless.
-3. Open `MAPA.bat`.
+The first time, Windows will say *"Windows protected your PC"*, because the
+program is not signed (signing costs money). Press **More info** → **Run
+anyway**.
+
+And in the game, first of all: set it to **borderless** and turn off the map
+LMU ships with. Borderless is mandatory; in exclusive fullscreen Windows will
+not let anything sit on top and you would not see the map.
+
+If something is wrong, double click `COMPROBAR SI ALGO NO VA.bat`: it says at a
+glance what it finds and what it does not.
+
+## If you would rather run it from source
+
+You need **Python 3.12** or newer, and nothing else: the program only uses what
+Python ships with. Download the repository and open `MAPA.bat`.
+
+To build the `.exe` and the `.zip` yourself: `python compilar.py`.
 
 Everything else is explained inside the program: every options tab has an
 **(i)** button with its own explanation.
