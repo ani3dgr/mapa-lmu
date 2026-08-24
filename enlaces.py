@@ -10,7 +10,7 @@ publicar el programa sin tener todavia la cuenta abierta.
 """
 
 # La pagina del programa (donde se descarga y se lee como va)
-PROYECTO = ""            # p.ej. "https://github.com/tuusuario/mapa-lmu"
+PROYECTO = "https://github.com/ani3dgr/mapa-lmu"
 
 # Donaciones. Ko-fi no cobra comision por las donaciones sueltas; PayPal es el
 # que todo el mundo tiene ya. Con poner una de las dos sobra.

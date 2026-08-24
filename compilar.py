@@ -122,6 +122,13 @@ COMPARTIR CIRCUITOS
   Para pasarle una pista a alguien le mandas ese archivo y lo copia en
   su carpeta "circuitos". El programa lo detecta al arrancar.
 
+DE DONDE SALE ESTO
+
+  Pagina del programa, donde esta siempre la ultima version:
+  https://github.com/ani3dgr/mapa-lmu
+
+  Ahi tambien se pueden pedir cosas o avisar de fallos.
+
 Es gratuito. Usalo y pasalo a quien quieras.
 Patrocinado por ciclotracker.com
 """
