@@ -1,0 +1,42 @@
+# Cosas que NO se suben: son de cada ordenador, no del programa.
+
+# Configuracion y estado propios de quien lo usa
+mapa_config.json
+idioma.txt
+ruta_juego.txt
+
+# Las vueltas grabadas de cada uno: son suyas y ocupan
+sesiones/
+
+# Las grabaciones crudas de los escaneos: pesan mucho y no hacen falta.
+# Lo que sirve ya esta destilado dentro de circuitos/
+escaneos/
+
+# Copias del archivo antiguo de circuitos
+copias_seguridad/
+
+# Lo que sale de compilar: se genera, no se guarda
+build/
+dist/
+
+# Volcados de las herramientas de diagnostico: son de la sesion de quien las
+# ejecuto, no del programa. Se generan de nuevo cuando hagan falta.
+buscar_aviso.txt
+diagnostico.txt
+monitor_amarilla.txt
+prueba_salidas.txt
+
+# Basura de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Sobras de edicion
+*.bak
+*.antes
+*.orig
+
+# SI se suben, a proposito:
+#   circuitos/   los circuitos medidos, para que la gente los tenga
+#   idiomas/     las traducciones
+#   coches.json  la tabla de equipo -> marca y modelo

@@ -1,0 +1,975 @@
+# -*- coding: utf-8 -*-
+"""
+Mapa de pista para Le Mans Ultimate.
+
+Ventana sin bordes, fondo transparente y siempre encima, que dibuja el circuito
+y la posicion de todos los coches leyendo la memoria compartida del juego.
+
+    F9   mostrar / ocultar el mapa
+    F10  abrir / cerrar las opciones
+    Con las opciones abiertas se puede arrastrar el mapa con el raton,
+    y ahi abajo esta el boton CERRAR EL MAPA para salir del programa.
+
+Requiere el juego en modo BORDERLESS (Config_DX11.ini -> Borderless=1).
+En pantalla completa exclusiva Windows no deja poner nada encima.
+
+    python mapa_pista.py          normal
+    python mapa_pista.py --demo   simulacion sin el juego, para ajustar colores
+"""
+import ctypes
+import json
+import math
+import os
+import random
+import sys
+import time
+import tkinter as tk
+from tkinter import ttk, colorchooser
+
+import comparador as comp
+import grabador as grab
+import lector_lmu as lmu
+import rutas
+import idiomas
+import opciones
+
+CARPETA = rutas.carpeta()
+CONFIG = os.path.join(CARPETA, "mapa_config.json")
+CHROMA = "#010203"          # este color se vuelve transparente
+PATROCINIO = idiomas.t("acerca.patrocinio")
+REFRESCO_MS = 50            # 20 veces por segundo
+SEGUNDOS_SIN_DATOS = 3.0    # sin novedades del juego, se da la sesion por salida
+
+
+def nombre_sesion(codigo):
+    """1-4 practicas, 5-8 clasificacion, 9 warmup, 10-13 carrera."""
+    if codigo is None or codigo == 0:
+        return ""
+    if codigo <= 4:
+        return idiomas.t("ses.practica")
+    if codigo <= 8:
+        return idiomas.t("ses.clasificacion")
+    if codigo == 9:
+        return idiomas.t("ses.warmup")
+    return idiomas.t("ses.carrera")
+
+# LMU no siempre llama a las clases igual que nosotros: en Silverstone reporta
+# "GT3" a secas, no "LMGT3". Por eso cada color acepta varios nombres.
+ALIAS_CLASE = {
+    "hypercar": ("hypercar", "hyper", "lmh", "lmdh", "gtp"),
+    "lmp2": ("lmp2", "p2"),
+    "lmgt3": ("lmgt3", "gt3", "gte"),
+}
+
+POR_DEFECTO = {
+    "x": 40, "y": 40, "tamano": 394,
+    "mostrar_oponentes": True,
+    "mostrar_numeros": True,
+    "ver_numero_curva": True,
+    "ver_nombre_curva": False,
+    "usar_colores_clase": True,
+    "radio_yo": 9, "radio_rival": 7,
+    "color_yo": "#00ff00",
+    "color_rival": "#9aa0a6",
+    "color_pista": "#b0b0b0",
+    "grosor_pista": 5,
+    "opacidad": 0.9,
+    "tam_numero": 7,
+    "tam_curva": 8,
+    "color_curva": "#ffd24a",
+    "comparar": True,
+    "ver_texto_estado": True,
+    "ver_sesion": True,
+    "tam_estado": 11,
+    "ver_patrocinador": True,
+    "tam_patrocinador": 10,
+    "color_referencia": "#b06cff",
+    "color_lento": "#ff3b30",
+    "color_igual": "#ffd60a",
+    "color_rapido": "#32d74b",
+    "ver_parados": True,
+    "color_parado": "#ffd60a",
+    "yo_anillo": True,
+    "ver_salidas": True,
+    # Por defecto NO: en carrera el juego solo publica la salida cuando llega
+    # a sancionar, y los avisos de limites de pista no salen en la memoria
+    # compartida. Fiandolo solo al juego se pierden casi todas las salidas.
+    "salidas_segun_juego": False,
+    "margen_salida": 0.8,
+    "color_salida": "#ff9f0a",
+    "tam_salida": 10,
+    "colores_clase": {
+        "hypercar": "#ff4a3d",
+        "lmp2": "#3ddc84",
+        "lmgt3": "#4aa8ff",
+    },
+}
+
+
+def cargar_config():
+    cfg = dict(POR_DEFECTO)
+    cfg["colores_clase"] = dict(POR_DEFECTO["colores_clase"])
+    try:
+        # utf-8-sig y no utf-8: el Bloc de notas y PowerShell anaden un BOM
+        # invisible al guardar, y con utf-8 eso tumba toda la configuracion
+        with open(CONFIG, encoding="utf-8-sig") as f:
+            guardado = json.load(f)
+        cfg.update({k: v for k, v in guardado.items() if k != "colores_clase"})
+        cfg["colores_clase"].update(guardado.get("colores_clase", {}))
+    except (OSError, ValueError):
+        pass
+    return cfg
+
+
+def guardar_config(cfg):
+    try:
+        with open(CONFIG, "w", encoding="utf-8") as f:
+            json.dump(cfg, f, ensure_ascii=False, indent=2)
+    except OSError:
+        pass
+
+
+# ---------------- suavizado del movimiento ----------------
+class Suavizado:
+    """
+    El buffer de scoring solo se refresca 5 veces por segundo (medido), pero el
+    mapa dibuja 20, asi que los coches irian a saltos. Entre dato y dato se
+    estima donde estan prolongando su ultimo desplazamiento conocido.
+    """
+    ADELANTO_MAX = 0.35     # s que se predice como mucho antes de quedarse quieto
+    VELOCIDAD_MAX = 120.0   # m/s; evita que un coche teletransportado salga disparado
+
+    def __init__(self):
+        self.hist = {}
+
+    def reinicia(self):
+        self.hist.clear()
+
+    def posicion(self, clave, x, z, ahora):
+        h = self.hist.get(clave)
+        if h is None:
+            self.hist[clave] = {"pos": (x, z), "t": ahora, "v": (0.0, 0.0)}
+            return x, z
+
+        if (x, z) != h["pos"]:                     # ha llegado dato nuevo
+            dt = ahora - h["t"]
+            if 0.02 < dt < 1.0:
+                vx, vz = (x - h["pos"][0]) / dt, (z - h["pos"][1]) / dt
+                if math.hypot(vx, vz) <= self.VELOCIDAD_MAX:
+                    h["v"] = (vx, vz)
+                else:
+                    h["v"] = (0.0, 0.0)            # salto imposible: no predecir
+            h["pos"], h["t"] = (x, z), ahora
+
+        adelanto = min(ahora - h["t"], self.ADELANTO_MAX)
+        return h["pos"][0] + h["v"][0] * adelanto, h["pos"][1] + h["v"][1] * adelanto
+
+
+# ---------------- teclas globales ----------------
+_user32 = ctypes.windll.user32
+VK = {"F9": 0x78, "F10": 0x79}
+
+
+class Teclas:
+    """Detecta pulsaciones aunque el foco lo tenga el juego."""
+
+    def __init__(self):
+        self.antes = {k: False for k in VK}
+
+    def pulsada(self, nombre):
+        # bit 0x8000 = la tecla esta pulsada ahora mismo
+        # bit 0x0001 = se pulso en algun momento desde la consulta anterior,
+        #              lo que rescata los toques cortos entre sondeo y sondeo
+        estado = _user32.GetAsyncKeyState(VK[nombre])
+        ahora = bool(estado & 0x8000)
+        desde_antes = bool(estado & 0x0001)
+        nueva = (ahora and not self.antes[nombre]) or (desde_antes and not ahora)
+        self.antes[nombre] = ahora
+        return nueva
+
+
+def click_atraviesa(hwnd, activar):
+    """Que los clicks pasen al juego y la ventana nunca robe el foco."""
+    GWL_EXSTYLE = -20
+    WS_EX_LAYERED = 0x80000
+    WS_EX_TRANSPARENT = 0x20
+    WS_EX_NOACTIVATE = 0x8000000
+    try:
+        estilo = _user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
+        if activar:
+            estilo |= WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_NOACTIVATE
+        else:
+            estilo &= ~(WS_EX_TRANSPARENT | WS_EX_NOACTIVATE)
+        _user32.SetWindowLongW(hwnd, GWL_EXSTYLE, estilo)
+    except Exception:
+        pass
+
+
+# ---------------- fuente de datos simulada ----------------
+class Demo:
+    """Reproduce un escaneo como si fuera el juego, para ajustar sin conducir."""
+
+    def __init__(self):
+        circuitos = lmu.cargar_circuitos()
+        clave = "circuitdespafrancorchamps"
+        if clave not in circuitos:
+            clave = sorted(circuitos)[0]
+        self.datos = circuitos[clave]
+        self.aviso = ""
+        pts = self.datos["puntos"]
+        self.largo = sum(math.hypot(pts[(i + 1) % len(pts)][0] - pts[i][0],
+                                    pts[(i + 1) % len(pts)][1] - pts[i][1])
+                         for i in range(len(pts)))
+        clases = ["Hypercar", "LMP2", "LMGT3"]
+        self.lista = [{
+            "nombre": "Piloto %d" % (i + 1),
+            "i": random.randrange(len(pts)),
+            "paso": random.uniform(0.20, 0.30),
+            "clase": clases[i % 3],
+            "es_yo": i == 0,
+            "puesto": i + 1,
+            "vueltas": 0,
+            "ultima": 0.0,
+        } for i in range(14)]
+        self.lista[0]["nombre"] = "Manuel"
+
+    def leer(self):
+        pts = self.datos["puntos"]
+        salida = []
+        for c in self.lista:
+            antes = c["i"]
+            c["i"] = (c["i"] + c["paso"]) % len(pts)
+            if c["i"] < antes:                       # ha cruzado la meta
+                c["vueltas"] += 1
+                # a mayor paso, vuelta mas rapida: da tiempos coherentes
+                c["ultima"] = round(len(pts) / c["paso"] * (REFRESCO_MS / 1000.0), 3)
+            x, z = pts[int(c["i"])]
+            salida.append({"nombre": c["nombre"], "x": x, "z": z,
+                           "clase": c["clase"], "es_yo": c["es_yo"],
+                           "puesto": c["puesto"],
+                           "dist": c["i"] / float(len(pts)) * self.largo,
+                           "vueltas": c["vueltas"], "mejor": c["ultima"],
+                           "ultima": c["ultima"]})
+        return salida
+
+
+# ---------------- fuente de datos real ----------------
+class Juego:
+    def __init__(self):
+        self.sco = None
+        self.circuitos = lmu.cargar_circuitos()
+        self.clave = None
+        self.datos = None
+        self.aviso = idiomas.t("map.esperando_juego")
+        self.off_puesto = None
+        self.largo = 0.0
+        self.sesion = None
+        self.fase_juego = 0
+        self.estado = ""
+        self.nueva_sesion = False      # obliga a empezar de cero
+        self.congelado = False         # el juego no publica: pausa o menu
+        self._version = None
+        self._version_desde = 0.0
+        self._et = None
+        self._ultimos = []
+
+    def leer(self):
+        """Devuelve la lista de coches, o [] si aun no hay datos utilizables."""
+        try:
+            if self.sco is None:
+                self.sco = lmu.Scoring()
+            sco = self.sco
+        except OSError:
+            self.sco = None
+            self.datos = None
+            self.aviso = idiomas.t("map.esperando_juego")
+            return []
+
+        # Al salir al menu principal el juego DEJA DE PUBLICAR pero la memoria
+        # se queda con lo ultimo: mismo circuito, mismos coches. Sin esto el
+        # mapa seguiria pintando una sesion que ya no existe. El contador de
+        # version de la cabecera es lo que delata que ya no llegan datos.
+        version = sco.version()
+        ahora = time.monotonic()
+        if version != self._version:
+            self._version, self._version_desde = version, ahora
+        if ahora - self._version_desde > SEGUNDOS_SIN_DATOS:
+            # Una PAUSA y salir al MENU se ven igual desde fuera: en los dos
+            # casos el juego deja de publicar. Como no se pueden distinguir, no
+            # se borra nada: se deja la ultima imagen y se avisa de que esta
+            # congelada. Asi se pueden seguir ajustando colores y grosores con
+            # el juego en pausa, que es cuando hace falta.
+            self.congelado = True
+            if self.datos:
+                self.estado = idiomas.t("map.pausa")
+                return self._ultimos
+            self.aviso = idiomas.t("map.entra_circuito")
+            return []
+
+        self.congelado = False
+
+        n = sco.n_coches()
+        if n == 0:
+            self.datos = None
+            self.estado = ""
+            self.aviso = idiomas.t("map.esperando_pista")
+            return []
+
+        nombre_pista = sco.circuito()
+        clave, datos = lmu.buscar_circuito(self.circuitos, nombre_pista)
+        if not datos:
+            self.datos = None
+            self.aviso = idiomas.t("map.sin_escanear") % (nombre_pista or "?")
+            return []
+
+        if clave != self.clave:                    # circuito nuevo -> recalibrar
+            self.clave = clave
+            sco.off_pos = None
+
+        if sco.off_pos is None:
+            off, informe = lmu.calibrar(sco.sco, datos, n, verboso=True)
+            print("[calibracion] %s -> %s" % (datos["nombre"], informe))
+            if off is None:
+                self.datos = None
+                self.aviso = "Calibrando..."
+                return []
+            sco.off_pos = off
+            sco.off_jugador = lmu.buscar_jugador(sco.sco, n)
+            sco.off_clase = lmu.calibrar_clase(sco.sco, n) or lmu.OFF_CLASE
+            self.off_puesto = lmu.calibrar_puesto(sco.sco, n) or lmu.OFF_PUESTO
+            print("[calibracion] jugador=%s clase=%s puesto=%s"
+                  % (sco.off_jugador, sco.off_clase, self.off_puesto))
+
+        self.datos = datos
+        self.largo = sco.largo_pista()
+        # El reloj de sesion retrocede al empezar otra: es la senal fiable de
+        # sesion nueva, y la unica que distingue una practica de la practica
+        # siguiente (el codigo de sesion vale 1 en las dos). Ya no se usa el
+        # "dejar de publicar" para esto, porque eso tambien ocurre al pausar y
+        # borraria los datos por una simple pausa.
+        et = sco.tiempo_sesion()
+        if self._et is not None and et < self._et - 5.0:
+            self.nueva_sesion = True
+        self._et = et
+
+        self.sesion = sco.sesion()
+        self.fase_juego = sco.fase_juego()
+        self.estado = nombre_sesion(self.sesion)
+        if not sco.en_pista():
+            self.estado += idiomas.t("ses.garaje")
+        coches = sco.coches()
+        if self.off_puesto is not None:
+            for v, c in enumerate(coches):
+                c["puesto"] = lmu.u1(sco.sco,
+                                     lmu.SCO_BASE + v * lmu.SCO_STRIDE + self.off_puesto)
+        self.aviso = ""
+        self._ultimos = coches
+        return coches
+
+
+# ---------------- ventana del mapa ----------------
+
+ERRORES = "errores.txt"
+ERRORES_MAX = 200 * 1024        # medio megabyte de errores ya es de sobra
+
+
+def apuntar_fallo():
+    """
+    Deja constancia de un fallo, con su hora, en errores.txt.
+
+    No basta con imprimirlo: el mapa se abre sin ventana negra para no molestar
+    mientras juegas, asi que un mensaje por pantalla no lo lee nadie. Sin esto,
+    el programa puede quedarse a medias -por ejemplo dejar de grabar vueltas- y
+    parecer que va bien.
+    """
+    import traceback
+    traceback.print_exc()
+    try:
+        ruta = rutas.datos(ERRORES)
+        if os.path.isfile(ruta) and os.path.getsize(ruta) > ERRORES_MAX:
+            os.remove(ruta)
+        with open(ruta, "a", encoding="utf-8") as f:
+            f.write("\n===== %s =====\n" % time.strftime("%Y-%m-%d %H:%M:%S"))
+            traceback.print_exc(file=f)
+    except Exception:
+        pass
+
+
+class Mapa:
+    def __init__(self, fuente):
+        self.cfg = cargar_config()
+        self.fuente = fuente
+        self.teclas = Teclas()
+        self.opciones = None
+        self.visible = True
+        self.arrastre = None
+        self.modo_mover = False     # con las opciones abiertas se puede arrastrar
+        self.suave = Suavizado()
+        self._fuentes = {}
+        self.comparador = None
+        self.grabador = None
+
+        self.root = tk.Tk()
+        self.root.title(idiomas.t("map.titulo"))
+        self.root.overrideredirect(True)
+        self.root.attributes("-topmost", True)
+        self.root.attributes("-transparentcolor", CHROMA)
+        self.root.attributes("-alpha", self.cfg["opacidad"])
+        self.root.config(bg=CHROMA)
+
+        t = self.cfg["tamano"]
+        self.root.geometry("%dx%d+%d+%d" % (t, t, self.cfg["x"], self.cfg["y"]))
+        self.lienzo = tk.Canvas(self.root, bg=CHROMA, highlightthickness=0,
+                                width=t, height=t)
+        self.lienzo.pack(fill="both", expand=True)
+
+        self.lienzo.bind("<Button-1>", self._empezar_arrastre)
+        self.lienzo.bind("<B1-Motion>", self._arrastrar)
+
+        self.root.update_idletasks()
+        self.hwnd = _user32.GetParent(self.root.winfo_id()) or self.root.winfo_id()
+        click_atraviesa(self.hwnd, True)
+
+        self.root.after(REFRESCO_MS, self.tick)
+
+    # ---- arrastre (solo con las opciones abiertas) ----
+    def _empezar_arrastre(self, e):
+        self.arrastre = (e.x, e.y)
+
+    def _arrastrar(self, e):
+        if not self.arrastre:
+            return
+        self.cfg["x"] += e.x - self.arrastre[0]
+        self.cfg["y"] += e.y - self.arrastre[1]
+        self.root.geometry("+%d+%d" % (self.cfg["x"], self.cfg["y"]))
+
+    # ---- dibujo ----
+    def color_de(self, coche):
+        if coche.get("es_yo"):
+            return self.cfg["color_yo"]
+        if self.cfg["usar_colores_clase"]:
+            clase = (coche.get("clase") or "").lower().replace(" ", "")
+            for cl, color in self.cfg["colores_clase"].items():
+                if any(a in clase for a in ALIAS_CLASE.get(cl, (cl,))):
+                    return color
+        return self.cfg["color_rival"]
+
+    def dibujar(self, coches):
+        c = self.lienzo
+        c.delete("all")
+        t = self.cfg["tamano"]
+
+        if self.modo_mover:
+            # Superficie opaca para poder agarrar el mapa: sobre el fondo
+            # transparente el raton pasa de largo y no hay nada que arrastrar.
+            c.create_rectangle(0, 0, t - 1, t - 1, fill="#202020", outline="#ffcc00",
+                               width=2, dash=(6, 4))
+            c.create_text(t // 2, 14, text=idiomas.t("map.arrastra"),
+                          fill="#ffcc00", font=("Segoe UI", 9, "bold"))
+
+        datos = getattr(self.fuente, "datos", None)
+        if not datos:
+            self.suave.reinicia()      # cambio de sesion: el historial ya no vale
+            aviso = getattr(self.fuente, "aviso", "")
+            if aviso:
+                c.create_text(t // 2, t // 2, text=aviso, fill=self.cfg["color_pista"],
+                              font=("Segoe UI", 10), justify="center")
+            return
+
+        x0, z0, x1, z1 = datos["limites"]
+        margen = max(self.cfg["radio_yo"], self.cfg["radio_rival"]) + 6
+        ancho, alto = max(x1 - x0, 1), max(z1 - z0, 1)
+        # Banda libre arriba para el rotulo de la comparacion: si no, el texto
+        # queda pegado al trazado y se lee mal en marcha.
+        cuantas = len(self._lineas_rotulo())
+        banda = 8 + cuantas * (self.cfg["tam_estado"] + 5) if cuantas else 0
+        # y otra banda abajo para el patrocinador, para que no roce el trazado
+        pie = (self.cfg["tam_patrocinador"] + 8) if self.cfg["ver_patrocinador"] else 0
+        util = t - banda - pie
+        escala = min((t - 2 * margen) / ancho, (util - 2 * margen) / alto)
+        despx = (t - ancho * escala) / 2
+        despy = (util - alto * escala) / 2
+
+        def a_pantalla(x, z):
+            return (despx + (x - x0) * escala,
+                    banda + util - (despy + (z - z0) * escala))  # Z crece hacia arriba
+
+        pantalla = [a_pantalla(x, z) for x, z in datos["puntos"]]
+        puntos = []
+        for px, py in pantalla:
+            puntos.extend((px, py))
+        puntos.extend(puntos[:2])                       # cerrar el circuito
+
+        comparando = (self.cfg["comparar"] and self.comparador is not None
+                      and self.comparador.referencia)
+        base = self.cfg["color_referencia"] if comparando else self.cfg["color_pista"]
+        c.create_line(*puntos, fill=base, width=self.cfg["grosor_pista"],
+                      capstyle="round", joinstyle="round")
+        if comparando:
+            self._pintar_comparacion(c, pantalla)
+
+        self._dibujar_salidas(c, a_pantalla, pantalla)
+        self._dibujar_curvas(c, datos, a_pantalla, t)
+        self._dibujar_textos(c, t)
+
+        ahora = time.monotonic()
+        accidentados = set()
+        if self.cfg["ver_parados"] and self.comparador is not None:
+            accidentados = self.comparador.parados(coches)
+        # medio segundo encendido, medio apagado
+        destello = int(ahora * 2) % 2 == 0
+
+        yo = yo_pos = None
+        for i, coche in enumerate(coches):
+            x, z = self.suave.posicion(i, coche["x"], coche["z"], ahora)
+            if coche.get("es_yo"):
+                yo, yo_pos = coche, (x, z)
+                continue
+            if self.cfg["mostrar_oponentes"]:
+                accidentado = coche.get("nombre") in accidentados
+                color = self.color_de(coche)
+                radio = self.cfg["radio_rival"]
+                if accidentado:
+                    # parpadea y se agranda: la gracia es verlo de un vistazo
+                    # sin apartar la vista de la carretera
+                    color = self.cfg["color_parado"] if destello else color
+                    radio = radio + 3
+                self._punto(c, a_pantalla(x, z), radio, color, coche,
+                            resaltar=accidentado and destello)
+        if yo:                                           # el jugador, siempre el ultimo
+            self._punto(c, a_pantalla(*yo_pos),
+                        self.cfg["radio_yo"], self.color_de(yo), yo, resaltar=True,
+                        hueco=self.cfg["yo_anillo"])
+
+    def _texto_con_sombra(self, c, x, y, texto, color, tam, anclaje="center"):
+        """El mapa va sobre la imagen del juego: sin sombra el texto se pierde."""
+        for ox, oy in ((1, 1), (-1, 1), (1, -1), (-1, -1)):
+            c.create_text(x + ox, y + oy, text=texto, fill="#000000",
+                          font=("Segoe UI", tam, "bold"), anchor=anclaje)
+        c.create_text(x, y, text=texto, fill=color,
+                      font=("Segoe UI", tam, "bold"), anchor=anclaje)
+
+    def _ancho(self, texto, tam):
+        """Cuanto ocupa un texto en pixeles con ese tamano de letra."""
+        try:
+            import tkinter.font as tkfont
+            clave = ("Segoe UI", tam)
+            if clave not in self._fuentes:
+                self._fuentes[clave] = tkfont.Font(family=clave[0], size=tam,
+                                                   weight="bold")
+            return self._fuentes[clave].measure(texto)
+        except Exception:
+            return len(texto) * tam * 0.62      # estimacion de respaldo
+
+    def _lineas_rotulo(self):
+        """Lo que va escrito arriba del mapa, una linea por cosa."""
+        lineas = []
+        if self.cfg["ver_sesion"]:
+            sesion = getattr(self.fuente, "estado", "")
+            if sesion:
+                lineas.append(sesion)
+        if (self.cfg["comparar"] and self.comparador is not None
+                and self.cfg["ver_texto_estado"]):
+            lineas.append(self.comparador.texto_estado())
+        return lineas
+
+    def _dibujar_textos(self, c, t):
+        # Una linea por cosa: juntas se salian del mapa por los dos lados,
+        # porque el ancho del mapa es pequeno y los textos largos.
+        tam = self.cfg["tam_estado"]
+        for n, texto in enumerate(self._lineas_rotulo()):
+            # si el mapa es pequeno el texto no cabe y se sale por los lados,
+            # asi que se encoge la letra hasta que entre
+            propio = tam
+            while propio > 6 and self._ancho(texto, propio) > t - 10:
+                propio -= 1
+            self._texto_con_sombra(c, t / 2, 4 + tam + n * (tam + 5), texto,
+                                   self.cfg["color_referencia"], propio)
+        if self.cfg["ver_patrocinador"]:
+            self._texto_con_sombra(c, t / 2, t - 6, PATROCINIO, "#9aa0a6",
+                                   self.cfg["tam_patrocinador"], anclaje="s")
+
+    def _pintar_comparacion(self, c, pantalla):
+        """
+        Encima del trazado de la referencia se superponen los tramos que ya has
+        pasado en esta vuelta: rojo si vas mas lento, amarillo si igual, verde
+        si le has ganado. Solo se pintan los tramos ya medidos.
+        """
+        colores = {
+            "lento": self.cfg["color_lento"],
+            "igual": self.cfg["color_igual"],
+            "rapido": self.cfg["color_rapido"],
+        }
+        n = len(pantalla)
+        por_tramo = n / float(comp.TRAMOS)
+        grosor = self.cfg["grosor_pista"] + 2
+
+        for k, veredicto in enumerate(self.comparador.colores()):
+            if not veredicto:
+                continue
+            ini = int(k * por_tramo)
+            fin = int((k + 1) * por_tramo)
+            trozo = []
+            for i in range(ini, fin + 1):
+                px, py = pantalla[i % n]
+                trozo.extend((px, py))
+            if len(trozo) >= 4:
+                c.create_line(*trozo, fill=colores[veredicto], width=grosor,
+                              capstyle="round", joinstyle="round")
+
+    def _dibujar_salidas(self, c, a_pantalla, pantalla):
+        """
+        Triangulo de aviso donde te saliste la ultima vez que pasaste por ahi.
+
+        Se guarda la posicion real que tenia el coche al salirse, asi que basta
+        con apartar el simbolo en esa misma direccion respecto al trazado para
+        que caiga siempre del lado correcto y sin taparlo.
+        """
+        if not (self.cfg["ver_salidas"] and self.comparador is not None):
+            return
+        r = self.cfg["tam_salida"]
+        separacion = self.cfg["grosor_pista"] + r + 4
+
+        for datos_salida in self.comparador.salidas.values():
+            px, py = a_pantalla(datos_salida["x"], datos_salida["z"])
+            # punto del trazado mas cercano, para saber hacia donde apartarlo
+            cx, cy = min(pantalla, key=lambda q: (q[0] - px) ** 2 + (q[1] - py) ** 2)
+            dx, dy = px - cx, py - cy
+            largo = math.hypot(dx, dy)
+            if largo < 1.0:                     # justo encima de la linea
+                dx, dy, largo = px - self.cfg["tamano"] / 2, py - self.cfg["tamano"] / 2, None
+                largo = math.hypot(dx, dy) or 1.0
+            ex = cx + dx / largo * separacion
+            ey = cy + dy / largo * separacion
+
+            c.create_polygon(ex, ey - r, ex - r, ey + r * 0.8, ex + r, ey + r * 0.8,
+                             fill=self.cfg["color_salida"], outline="#000000", width=1)
+            c.create_text(ex, ey + r * 0.15, text="!", fill="#000000",
+                          font=("Segoe UI", max(6, int(r * 1.1)), "bold"))
+
+    def _dibujar_curvas(self, c, datos, a_pantalla, t):
+        """Numero y/o nombre junto a cada curva, apartados hacia afuera del
+        trazado para que no tapen la linea ni a los coches."""
+        if not (self.cfg["ver_numero_curva"] or self.cfg["ver_nombre_curva"]):
+            return
+        curvas = datos.get("curvas") or []
+        if not curvas:
+            return
+
+        centro = t / 2.0
+        for cur in curvas:
+            partes = []
+            if self.cfg["ver_numero_curva"]:
+                partes.append(str(cur["n"]))
+            if self.cfg["ver_nombre_curva"] and cur.get("nombre"):
+                partes.append(cur["nombre"])
+            if not partes:
+                continue
+
+            px, py = a_pantalla(cur["x"], cur["z"])
+            # apartar la etiqueta alejandola del centro del mapa
+            dx, dy = px - centro, py - centro
+            dist = math.hypot(dx, dy) or 1.0
+            sep = 6 + self.cfg["tam_curva"]
+            ex, ey = px + dx / dist * sep, py + dy / dist * sep
+
+            texto = " ".join(partes)
+            # sombra oscura debajo: el mapa va sobre imagen del juego y si no
+            # el texto claro se pierde en las zonas claras
+            for ox, oy in ((1, 1), (-1, 1), (1, -1), (-1, -1)):
+                c.create_text(ex + ox, ey + oy, text=texto, fill="#000000",
+                              font=("Segoe UI", self.cfg["tam_curva"], "bold"))
+            c.create_text(ex, ey, text=texto, fill=self.cfg["color_curva"],
+                          font=("Segoe UI", self.cfg["tam_curva"], "bold"))
+
+    def _punto(self, c, pos, r, color, coche, resaltar=False, hueco=False):
+        px, py = pos
+        if resaltar:
+            # anillo de contraste: tu coche se distingue aunque coincida de color
+            # con el trazado o con un rival justo debajo
+            c.create_oval(px - r - 3, py - r - 3, px + r + 3, py + r + 3,
+                          outline="#000000", width=3)
+        if hueco:
+            # Dibujado como anillo, no relleno: a la escala del mapa un metro
+            # son centimetros de pantalla, asi que un coche pegado a ti quedaba
+            # completamente tapado por tu punto. Con el centro vacio se ve.
+            c.create_oval(px - r, py - r, px + r, py + r,
+                          outline=color, width=max(2, r // 3))
+        else:
+            c.create_oval(px - r, py - r, px + r, py + r,
+                          fill=color, outline="#000000", width=1)
+        if self.cfg["mostrar_numeros"] and coche.get("puesto"):
+            c.create_text(px, py, text=str(coche["puesto"]), fill="#000000",
+                          font=("Segoe UI", self.cfg["tam_numero"], "bold"))
+
+    # ---- bucle ----
+    def tick(self):
+        if self.teclas.pulsada("F9"):
+            self.visible = not self.visible
+            (self.root.deiconify if self.visible else self.root.withdraw)()
+        if self.teclas.pulsada("F10"):
+            self.alternar_opciones()
+
+        # Leer y grabar se hacen SIEMPRE, este el mapa a la vista o escondido.
+        #
+        # Antes todo esto colgaba de "si el mapa esta visible", asi que esconder
+        # el mapa con F9 dejaba de grabar las vueltas y de medir la comparacion.
+        # Quien lo escondiera para conducir mas limpio se encontraba luego con
+        # la sesion vacia, y sin ninguna pista de por que. F9 solo decide si se
+        # DIBUJA.
+        #
+        # Todo el ciclo va protegido, no solo la lectura: si algo falla en el
+        # comparador o al dibujar, la excepcion se llevaba por delante el
+        # temporizador y el mapa se quedaba CONGELADO con la ultima imagen,
+        # coches incluidos, sin volver a refrescarse jamas.
+        try:
+            coches = self.fuente.leer()
+            self._llevar_comparador(coches)
+            if self.visible:
+                self.dibujar(coches)
+        except Exception:
+            apuntar_fallo()
+
+        self.root.after(REFRESCO_MS, self.tick)
+
+    def _llevar_comparador(self, coches):
+        """
+        Mide a todos los coches SIEMPRE, este o no activado el modo comparacion.
+
+        Registrar no cuesta nada (ya estamos leyendo las posiciones para pintar
+        el mapa) y asi, cuando se activa el modo, lo normal es que ya haya una
+        vuelta rival medida y la comparacion arranque al instante en vez de
+        tener que esperar a que alguien complete una vuelta desde cero.
+        El interruptor solo decide si se MUESTRA.
+        """
+        largo = getattr(self.fuente, "largo", 0.0)
+        if not largo:
+            return                                  # aun no sabemos el circuito
+        # Al cambiar de circuito O de sesion (practica -> clasificacion ->
+        # carrera) se empieza de cero: los tramos y la referencia de la sesion
+        # anterior ya no valen, y dejarlos puestos enganaria.
+        sesion = getattr(self.fuente, "sesion", None)
+        nueva = getattr(self.fuente, "nueva_sesion", False)
+        if nueva:
+            self.fuente.nueva_sesion = False
+        if (self.comparador is None or nueva
+                or abs(self.comparador.largo - largo) > 50
+                or self.comparador.sesion != sesion):
+            self.comparador = comp.Comparador(largo, sesion)
+            if self.grabador is not None:
+                self.grabador.guardar()          # cierra la sesion anterior
+            self.grabador = None
+
+        # El grabador se crea aparte, y se REINTENTA mientras falte.
+        #
+        # Antes nacia dentro del 'if' de arriba, o sea una sola vez por sesion.
+        # Si en ese preciso instante el circuito aun no estaba identificado -lo
+        # normal al abrir el mapa con la sesion ya empezada- se quedaba sin
+        # grabador para siempre: el mapa se veia, la comparacion funcionaba, y
+        # no se guardaba ni una vuelta. Costaba de ver justamente porque todo
+        # lo demas iba bien.
+        if self.grabador is None:
+            clave = getattr(self.fuente, "clave", None)
+            datos = getattr(self.fuente, "datos", None)
+            if clave and datos:
+                self.grabador = grab.Grabador(
+                    clave, datos["nombre"], sesion, largo,
+                    time.strftime("%Y%m%d_%H%M"))
+                print("[grabador] grabando %s (%s)"
+                      % (datos["nombre"], os.path.basename(self.grabador.archivo)))
+        self.comparador.usar_flag_juego = self.cfg["salidas_segun_juego"]
+        self.comparador.margen_salida = self.cfg["margen_salida"]
+        if coches and not getattr(self.fuente, "congelado", False):
+            ahora = time.monotonic()
+            self.comparador.actualiza(coches, ahora)
+            if self.grabador is not None:
+                self.grabador.actualiza(coches, ahora)
+
+    # ---- opciones ----
+    def alternar_opciones(self):
+        if self.opciones and self.opciones.winfo_exists():
+            self.cerrar_opciones()
+        else:
+            self.abrir_opciones()
+
+    def cerrar_opciones(self):
+        self.modo_mover = False
+        guardar_config(self.cfg)
+        click_atraviesa(self.hwnd, True)
+        if self.opciones:
+            self.opciones.destroy()
+        self.opciones = None
+
+    def abrir_opciones(self):
+        click_atraviesa(self.hwnd, False)      # para poder arrastrar el mapa
+        self.modo_mover = True
+        self.opciones = opciones.abrir(self, guardar_config)
+
+    def cerrar_programa(self):
+        if self.grabador is not None:
+            self.grabador.guardar()          # no perder la sesion al salir
+        """Cierra el mapa del todo. El programa corre sin consola ni barra de
+        titulo, asi que este boton es la unica salida que no pasa por el
+        Administrador de tareas."""
+        guardar_config(self.cfg)
+        self.root.quit()
+        self.root.destroy()
+
+    def ejecutar(self):
+        self.root.mainloop()
+
+
+def main():
+    demo = "--demo" in sys.argv
+    fuente = Demo() if demo else Juego()
+    print("Mapa LMU %s. F9 = ocultar/mostrar, F10 = opciones."
+          % ("(DEMO)" if demo else ""))
+    Mapa(fuente).ejecutar()
+
+
+
+
+def comprobar():
+    """
+    Revision rapida sin necesidad del juego: donde esta cada cosa y si se lee.
+
+    Se pide con   MapaLMU-consola.exe comprobar
+    """
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
+    import circuitos
+    import coches
+    import juego
+    import rutas
+
+    print("=" * 68)
+    print("  REVISION DEL MAPA DE PISTA")
+    print("=" * 68)
+    print("  compilado          : %s" % ("si" if rutas.compilado() else "no"))
+    print("  carpeta del programa: %s" % rutas.carpeta())
+    print()
+
+    fallos = []
+
+    pistas = circuitos.cargar(recargar=True)
+    con_bordes = sum(1 for v in pistas.values() if v.get("bordes"))
+    con_curvas = sum(1 for v in pistas.values() if v.get("curvas"))
+    print("  circuitos medidos  : %d  (%d con bordes, %d con curvas)"
+          % (len(pistas), con_bordes, con_curvas))
+    if not pistas:
+        fallos.append("no hay ningun circuito: falta la carpeta circuitos/")
+
+    disponibles = idiomas.disponibles()
+    print("  idiomas            : %d  (%s)"
+          % (len(disponibles), ", ".join(c for c, _ in disponibles)))
+    print("  idioma elegido     : %s" % idiomas.actual())
+    if len(idiomas.textos_es()) < 100:
+        fallos.append("faltan traducciones: falta la carpeta idiomas/")
+
+    print("  coches conocidos   : %d" % len(coches.cargar()["coches"]))
+
+    carpeta_juego = juego.carpeta()
+    print("  Le Mans Ultimate   : %s" % (carpeta_juego or "NO LO ENCUENTRO"))
+    if not carpeta_juego:
+        fallos.append("no encuentro el juego; ponlo a mano en ruta_juego.txt")
+
+    try:
+        import catalogo
+        print("  trazados instalados: %d" % len(catalogo.inventario()))
+    except Exception as e:
+        print("  trazados instalados: no se han podido leer (%s)" % e)
+
+    try:
+        lmu.Scoring()
+        print("  el juego            : abierto y publicando datos")
+    except OSError:
+        print("  el juego            : cerrado (normal si no estas jugando)")
+
+    # Se monta la ventana de opciones sin ensenarla. Es la parte con mas
+    # codigo de todo el programa, asi que si se dibuja entera es que no falta
+    # nada; compilado, una libreria que se hubiera quedado fuera saltaria aqui.
+    try:
+        import tkinter as tk
+        import tkinter.ttk as ttk
+        import opciones
+        raiz = tk.Tk()
+        raiz.withdraw()
+
+        class Falsa(object):
+            pass
+
+        falsa = Falsa()
+        falsa.root = raiz
+        falsa.cfg = cargar_config()
+        falsa.lienzo = tk.Canvas(raiz)
+        falsa.cerrar_opciones = falsa.cerrar_programa = lambda *a: None
+        ventana = opciones.Opciones(falsa, lambda c: None)
+        cuaderno = [w for w in ventana.v.winfo_children()
+                    if isinstance(w, ttk.Notebook)][0]
+        for i in range(len(cuaderno.tabs())):
+            cuaderno.select(i)
+            raiz.update()
+        print("  ventana de opciones : %d pestanas, todas se dibujan"
+              % len(cuaderno.tabs()))
+        raiz.destroy()
+    except Exception as e:
+        print("  ventana de opciones : FALLA (%s)" % e)
+        fallos.append("la ventana de opciones no se abre: %s" % e)
+
+    print()
+    if fallos:
+        print("  HAY %d COSAS QUE REVISAR:" % len(fallos))
+        for f in fallos:
+            print("    - %s" % f)
+    else:
+        print("  Todo en orden.")
+    print("=" * 68)
+    print()
+    try:
+        input(idiomas.t("sc.cerrar"))
+    except Exception:
+        pass
+    return 1 if fallos else 0
+
+# ---------------------------------------------------------------- arranque
+def arranque():
+    """
+    Por donde entra el programa.
+
+    Compilado, el mismo ejecutable sirve para el mapa y para los escaneos: si
+    le llega un argumento, se ejecuta ese escaneo en vez del mapa. Asi no hay
+    que compilar cinco programas ni repartir cinco iconos.
+    """
+    tareas = {
+        "escanear_circuito": "escanear_circuito",
+        "escanear_bordes": "escanear_bordes",
+        "escanear_boxes": "escanear_boxes",
+        "buscar_aviso": "buscar_aviso",
+    }
+    if len(sys.argv) > 1 and sys.argv[1] == "comprobar":
+        return comprobar()
+    if len(sys.argv) > 1 and sys.argv[1] in tareas:
+        import importlib
+        modulo = importlib.import_module(tareas[sys.argv[1]])
+        try:
+            codigo = modulo.main()
+        except KeyboardInterrupt:
+            codigo = 1
+        except Exception:
+            apuntar_fallo()
+            codigo = 2
+        print()
+        try:
+            input(idiomas.t("sc.cerrar"))
+        except Exception:
+            pass
+        return codigo
+    main()
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(arranque())

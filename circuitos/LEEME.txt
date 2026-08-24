@@ -1,0 +1,20 @@
+CIRCUITOS ESCANEADOS
+====================
+
+Cada circuito es UN archivo .json independiente. Para compartir una pista con
+alguien basta con mandarle su archivo (WhatsApp, Discord, correo...) y que lo
+copie dentro de esta misma carpeta. El programa lo detecta solo al arrancar.
+
+Para quitar un circuito, borra su archivo.
+Para actualizarlo, sobreescribe el archivo por el nuevo.
+
+Que lleva dentro cada archivo:
+  nombre    nombre del circuito tal y como lo da el juego
+  puntos    el trazado (500 puntos X/Z)
+  limites   el rectangulo que ocupa, para encajarlo en el mapa
+  altura    rango de altura, se usa para la calibracion automatica
+  bordes    borde izquierdo y derecho, si se ha escaneado
+  curvas    numero, nombre y sitio de cada curva
+  boxes     el pit lane, si se ha escaneado
+
+No hace falta editarlos a mano.

@@ -1,0 +1,33 @@
+IDIOMAS
+=======
+
+Cada idioma es UN archivo .json de esta carpeta. El nombre del archivo es el
+codigo del idioma: es (espanol), en (ingles), fr (frances), it (italiano),
+de (aleman), pt (portugues), pl (polaco).
+
+Son los siete idiomas a los que esta traducido el propio Le Mans Ultimate,
+que es donde esta la gente que juega.
+
+PARA TRADUCIR A OTRO IDIOMA:
+  1. Copia en.json y ponle el codigo de tu idioma, por ejemplo nl.json
+  2. Abre el archivo con el Bloc de notas
+  3. Cambia SOLO el texto de la DERECHA de cada linea, el de la izquierda no
+  4. Guardalo en esta misma carpeta, en formato UTF-8
+
+El programa lo detecta al arrancar y aparece en la lista de "Acerca de".
+
+No hace falta traducirlo entero de una sentada: lo que falte sale en ingles,
+y si tampoco esta, en espanol. Nunca se queda un hueco en blanco.
+
+QUE SIGNIFICA CADA GRUPO DE CLAVES
+  tab.      nombres de las pestanas
+  ver. asp. tie. tra. esc. coc.   cada una de las pestanas por dentro
+  acerca.   la pagina "Acerca de"
+  ayuda.    las explicaciones del boton (i)
+  map. ses. cmp.   lo que se ve encima del mapa mientras conduces
+  vis. esv. la ventana de comparar trazadas
+  reg.      la pestana de reglajes y las fichas de los coches
+  sc. dg.   las ventanas negras de escaneo y de diagnostico
+
+Los textos con %s, %d o %.1f dentro llevan ahi un dato que pone el programa
+(un nombre, un numero...). Hay que dejarlos tal cual, y en el mismo orden.

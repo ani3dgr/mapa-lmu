@@ -1,0 +1,262 @@
+====================================================================
+  MAPA DE PISTA PARA LE MANS ULTIMATE
+  Patrocinado por ciclotracker.com
+====================================================================
+
+Un mapa que se pone encima del juego y te muestra donde esta cada
+coche, con tu coche bien visible, los rivales por colores de
+categoria, los nombres de las curvas, y un modo para compararte con
+el mas rapido de la sesion.
+
+Es gratuito. Usalo y pasalo a quien quieras.
+
+
+--------------------------------------------------------------------
+  ANTES DE EMPEZAR (solo hay que hacerlo una vez)
+--------------------------------------------------------------------
+
+PASO 1 - Quita el mapa del juego
+  Le Mans Ultimate -> Ajustes -> HUD (o Interfaz)
+  Desactiva el mapa que trae el juego. Si no, tendras dos mapas en
+  pantalla y estorban.
+
+PASO 2 - Pon el juego en modo BORDERLESS
+  Le Mans Ultimate -> Ajustes -> Video (o Graficos)
+  Busca el modo de pantalla y ponlo en "Borderless" (ventana sin
+  bordes a pantalla completa).
+
+  ESTO ES OBLIGATORIO. En pantalla completa exclusiva Windows no
+  deja poner nada encima del juego, y el mapa no se veria. En
+  rendimiento la diferencia hoy es practicamente nula.
+
+PASO 3 - Arranca el mapa
+  Doble clic en MAPA.bat
+  No hace falta instalar nada mas.
+
+
+--------------------------------------------------------------------
+  MANEJO
+--------------------------------------------------------------------
+
+  F9   Ocultar o mostrar el mapa (el programa sigue funcionando)
+  F10  Abrir o cerrar la ventana de opciones
+
+  Arriba del mapa pone en que sesion estas: Practica, Clasificacion o
+  Carrera, y si estas en el garaje.
+
+  Si pausas el juego o sales al menu, el mapa NO desaparece: se queda
+  con la ultima imagen y pone "EN PAUSA O FUERA DE SESION". Se hace a
+  proposito, para que puedas pausar y ajustar colores y grosores
+  viendo como queda. En cuanto vuelves a rodar sigue solo.
+
+  Al pasar de una sesion a otra (de clasificacion a carrera, por
+  ejemplo) se borra todo lo medido: los colores de tu vuelta, la mejor
+  vuelta de referencia y los avisos de salida. Empieza de cero, que es
+  lo suyo: lo de la clasificacion no vale para la carrera.
+
+  Con las opciones abiertas, el mapa se ve con un recuadro amarillo
+  y puedes ARRASTRARLO con el raton a donde quieras. Tambien tienes
+  botones para colocarlo en cualquier esquina.
+
+  Para cerrar el programa: F10 -> pestana "Acerca de" -> CERRAR EL
+  MAPA. (El programa no tiene ventana normal, asi que esa es la
+  salida.)
+
+
+--------------------------------------------------------------------
+  LAS OPCIONES (F10)
+--------------------------------------------------------------------
+
+Estan repartidas en pestanas. Cada una tiene un boton azul con una
+"i" arriba a la derecha que explica para que sirve lo que hay
+dentro. Si tienes dudas, pulsalo.
+
+  QUE SE VE
+    Que aparece dibujado: los rivales, los numeros de posicion, los
+    numeros y nombres de las curvas, los rotulos.
+
+  TAMANOS Y COLORES
+    El tamano de cada cosa y su color. Tu coche se dibuja siempre
+    el ultimo y con un anillo negro, asi que nunca queda tapado
+    aunque se amontonen los puntos.
+    Consejo: no pongas tu coche del mismo color que el trazado.
+
+  COMPARAR TIEMPOS
+    Te mide contra la vuelta mas rapida de los rivales. El circuito
+    se pinta del color de la referencia y encima se superponen tus
+    tramos: ROJO donde vas mas lento, AMARILLO donde vas igual,
+    VERDE donde le ganas.
+    Tus tramos no se borran al cruzar meta, asi que de un vistazo
+    ves donde estas perdiendo tiempo.
+    Aqui estan tambien los avisos de salida de pista: un triangulo
+    marca donde te saliste la ultima vez que pasaste por ahi, y se
+    borra solo cuando vuelves a pasar limpio.
+
+    Y el aviso de BANDERA AMARILLA: cuando el juego la saca, el coche
+    accidentado parpadea en el mapa y se dibuja mas grande, asi ves
+    donde esta antes de llegar. Util sobre todo en curvas ciegas.
+
+  COMPARAR TRAZADAS
+    Se graba solo mientras juegas: de cada vuelta tuya el recorrido,
+    el tiempo y los tres sectores, y de los rivales su vuelta mas
+    rapida.
+    En la lista de sesiones sale una columna con EL COCHE que usaste
+    en cada una, y en la lista de vueltas el coche del rival. Asi, si
+    pruebas varios coches en el mismo circuito, puedes ver con cual
+    fuiste mas rapido.
+
+    Al abrir el comparador eliges una sesion y ves la lista de tus
+    vueltas. La mejor sale en verde y el mejor tiempo de cada sector
+    en azul. Marcando VARIAS con Ctrl las ves superpuestas, que sirve
+    para lo de siempre: en una vuelta fuiste bien en el sector 1 y en
+    otra en el 3, y juntas se ve la vuelta que deberia salir.
+    MUY IMPORTANTE, como se colorea tu trazada:
+      - Con UNA sola vuelta tuya marcada, se pinta en tres colores
+        comparandola con el rival: rojo donde ibas mas lento,
+        amarillo igual y verde mas rapido.
+      - Con VARIAS marcadas, cada una lleva su propio color liso.
+        Con el tricolor no se sabria cual es cual al superponerse.
+    O sea: una vuelta para ver donde ganas y pierdes, varias para
+    comparar por donde pasa cada una.
+
+    Las vueltas ANULADAS (te saliste) tambien se guardan, marcadas en
+    rojo en la lista. El tiempo de esas lo cronometra el programa,
+    porque el juego no lo publica.
+
+    Arriba a la derecha hay un desplegable para ajustar el aspecto:
+    eliges que quieres cambiar (lineas del circuito, trazada del
+    rival, tus vueltas) y ahi al lado salen sus colores y grosores.
+    Rueda del raton para el zoom, arrastrar para mover. Y ahi mismo
+    esta el boton de borrar sesiones, para que no se llene el disco.
+
+  ESCANEAR PISTAS
+    Los circuitos vienen ya medidos. Solo hace falta escanear si
+    sale una pista nueva o si cambian una que ya existe.
+
+  COCHES
+    El juego dice el equipo y el dorsal, pero NO la marca del coche.
+    Aqui se le dice una vez por equipo y ya se acuerda.
+    No hace falta buscar nada: mientras ruedas, el programa apunta
+    solo los equipos que no conoce y los deja arriba en SIN
+    IDENTIFICAR, diciendo en que circuito los vio. Cuando saquen
+    coches nuevos apareceran ahi ellos solos.
+    Para rellenar uno: lo eliges, escribes marca y modelo, eliges la
+    categoria y le das a GUARDAR. Sirve tambien para corregir.
+    Los LMP2 no hay que ponerlos: son todos Oreca 07.
+
+  REGLAJES
+    La ficha de cada coche: que motor lleva, cuanta cilindrada,
+    cuanta potencia, si el motor va delante, en el centro o colgado
+    detras, que ruedas mueve, y un resumen de como se comporta.
+    En la sub-pestana "Reglaje" estan las mismas paginas que tiene el
+    juego en PIT GARAGE -> CONFIGURACION DEL COCHE, con los mismos
+    nombres, para saber donde tocar.
+    TODAVIA NO FUNCIONA: sale en gris con el sello PROXIMAMENTE. Es
+    una vista previa de por donde va a ir.
+
+  ACERCA DE
+    El idioma del programa, las donaciones, el patrocinador, y el
+    boton para cerrar el programa.
+    IDIOMA: se elige de la lista. Lo que ya esta abierto se queda
+    como esta; el cambio se ve entero al volver a abrir el programa.
+    Estan espanol, ingles, frances, italiano, aleman, portugues y
+    polaco, que son los idiomas a los que esta traducido el propio
+    juego. Traducido esta TODO: pestanas, botones, las ayudas de la
+    (i), los rotulos de encima del mapa y las ventanas de escaneo.
+
+
+--------------------------------------------------------------------
+  COMPARTIR PISTAS Y TRADUCCIONES
+--------------------------------------------------------------------
+
+CIRCUITOS
+  Cada circuito escaneado es UN archivo dentro de la carpeta
+  "circuitos". Para pasarle una pista a alguien le mandas ese
+  archivo por donde sea, y el la copia en su carpeta "circuitos".
+  El programa la detecta al arrancar, sin instalar nada.
+  Para quitar una pista, se borra su archivo.
+
+IDIOMAS
+  Igual: cada idioma es un archivo de la carpeta "idiomas", con unos
+  450 textos dentro. Vienen espanol, ingles, frances, italiano,
+  aleman, portugues y polaco.
+  Para anadir otro se copia en.json, se le pone el codigo del idioma
+  nuevo y se traduce el texto de la derecha de cada linea. Aparece
+  solo en la lista de "Acerca de".
+  No hace falta traducirlo entero de golpe: lo que falte sale en
+  ingles, y si tampoco esta, en espanol. Nunca se queda un hueco en
+  blanco.
+  Los textos que llevan %s o %d dentro son huecos que rellena el
+  programa (un nombre, un numero). Hay que dejarlos como estan.
+
+ENLACES
+  Las direcciones de internet (donaciones, pagina del programa)
+  estan todas en el archivo enlaces.py. Los botones cuya direccion
+  este vacia no se dibujan.
+
+
+--------------------------------------------------------------------
+  ESCANEAR UNA PISTA NUEVA
+--------------------------------------------------------------------
+
+Se hace desde la pestana "Escanear pistas". Se abre una ventana
+negra que te va guiando paso a paso; no la cierres hasta que
+termine.
+
+  TRAZADO DEL CIRCUITO
+    Da 3 vueltas DESPACIO y POR EL CENTRO de la calzada. Se dibuja
+    por donde pasas, asi que si vas por la trazada de carrera el
+    mapa sale deformado. No entres en boxes.
+
+  BORDES DE LA PISTA
+    Una vuelta con la rueda IZQUIERDA sobre la linea blanca y otra
+    con la DERECHA, despacio y sin levantarla. El programa te dice
+    en cada momento que toca.
+    Esto sirve para dibujar la pista con su anchura real, que hace
+    falta para comparar trazadas.
+
+  CALLE DE BOXES
+    Sal de boxes y da una vuelta de transicion. Al llegar al final,
+    entra a boxes y recorre la calle entera por el centro del carril
+    sin pararte, hasta salir otra vez a pista.
+    Empieza y termina de grabar solo: el juego avisa de cuando estas
+    en la calle de boxes.
+
+Hazlos en ese orden: trazado, bordes y boxes.
+
+NO HACE FALTA ELEGIR NADA EN LA LISTA para escanear. Los botones
+miden el circuito en el que estes dentro del juego en ese momento.
+La lista solo sirve para ver como quedaron los escaneos y borrarlos.
+
+SI ESCANEAS ALGO QUE YA ESTABA MEDIDO, el programa te pregunta antes
+de sustituirlo. Rehacer el trazado no borra los bordes ni la calle de
+boxes: son medidas aparte y siguen valiendo.
+
+
+--------------------------------------------------------------------
+  SI ALGO NO VA
+--------------------------------------------------------------------
+
+No se ve el mapa encima del juego
+  El juego no esta en borderless. Repasa el PASO 2.
+
+Pone "Esperando al juego..."
+  El juego no esta abierto, o el plugin de telemetria no esta
+  activo. En LMU: Ajustes -> Gameplay -> activa los plugins.
+
+Pone "Circuito sin escanear"
+  Ese circuito no esta medido todavia. Escanealo desde la pestana
+  "Escanear pistas".
+
+Pone "Registrando vueltas de oponentes..." y no cambia
+  Todavia no ha cerrado vuelta ningun rival desde que abriste el
+  programa. Hacen falta una o dos vueltas.
+
+Las teclas F9 o F10 me hacen algo raro en el juego
+  Las tienes asignadas a otra cosa en LMU. Cambiaselas en el juego.
+
+
+--------------------------------------------------------------------
+
+Programa gratuito para la comunidad de Le Mans Ultimate.
+Patrocinado por ciclotracker.com

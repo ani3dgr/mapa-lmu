@@ -1,0 +1,180 @@
+{
+  "_ayuda": "Se edita desde el programa: opciones -> pestana Coches. La clave es el nombre del equipo en minusculas.",
+  "coches": {
+    "manthey dk engineering": {
+      "equipo": "Manthey DK Engineering",
+      "categoria": "GT3",
+      "marca": "Porsche",
+      "modelo": "911 GT3 R"
+    },
+    "the bend manthey": {
+      "equipo": "The Bend Manthey",
+      "categoria": "GT3",
+      "marca": "Porsche",
+      "modelo": "911 GT3 R"
+    },
+    "manthey purerxcing": {
+      "equipo": "Manthey PureRxcing",
+      "categoria": "GT3",
+      "marca": "Porsche",
+      "modelo": "911 GT3 R"
+    },
+    "iron dames": {
+      "equipo": "Iron Dames",
+      "categoria": "GT3",
+      "marca": "Porsche",
+      "modelo": "911 GT3 R"
+    },
+    "proton competition": {
+      "equipo": "Proton Competition",
+      "categoria": "GT3",
+      "marca": "Ford",
+      "modelo": "Mustang GT3"
+    },
+    "team wrt": {
+      "equipo": "Team WRT",
+      "categoria": "GT3",
+      "marca": "BMW",
+      "modelo": "M4 LMGT3"
+    },
+    "tf sport": {
+      "equipo": "TF Sport",
+      "categoria": "GT3",
+      "marca": "Corvette",
+      "modelo": "Z06 GT3.R"
+    },
+    "racing team turkey by tf": {
+      "equipo": "Racing Team Turkey by TF",
+      "categoria": "GT3",
+      "marca": "Corvette",
+      "modelo": "Z06 GT3.R"
+    },
+    "heart of racing team": {
+      "equipo": "Heart of Racing Team",
+      "categoria": "GT3",
+      "marca": "Aston Martin",
+      "modelo": "Vantage AMR"
+    },
+    "vista af corse": {
+      "equipo": "Vista AF Corse",
+      "categoria": "GT3",
+      "marca": "Ferrari",
+      "modelo": "296 GT3"
+    },
+    "af corse": {
+      "equipo": "AF Corse",
+      "categoria": "GT3",
+      "marca": "Ferrari",
+      "modelo": "296 GT3"
+    },
+    "iron lynx": {
+      "equipo": "Iron Lynx",
+      "categoria": "GT3",
+      "marca": "Mercedes",
+      "modelo": "AMG GT3 Evo"
+    },
+    "akkodis asp team": {
+      "equipo": "Akkodis ASP Team",
+      "categoria": "GT3",
+      "marca": "Lexus",
+      "modelo": "RC F GT3"
+    },
+    "garage 59": {
+      "equipo": "Garage 59",
+      "categoria": "GT3",
+      "marca": "McLaren",
+      "modelo": "720S GT3 Evo"
+    },
+    "united autosports": {
+      "equipo": "United Autosports",
+      "categoria": "GT3",
+      "marca": "McLaren",
+      "modelo": "720S GT3 Evo"
+    },
+    "iron lynx - proton": {
+      "equipo": "Iron Lynx - Proton",
+      "categoria": "GT3",
+      "marca": "Mercedes",
+      "modelo": "AMG GT3 Evo"
+    },
+    "porsche penske motorsport": {
+      "equipo": "Porsche Penske Motorsport",
+      "categoria": "Hypercar",
+      "marca": "Porsche",
+      "modelo": "963"
+    },
+    "ferrari af corse": {
+      "equipo": "Ferrari AF Corse",
+      "categoria": "Hypercar",
+      "marca": "Ferrari",
+      "modelo": "499P"
+    },
+    "toyota gazoo racing": {
+      "equipo": "Toyota Gazoo Racing",
+      "categoria": "Hypercar",
+      "marca": "Toyota",
+      "modelo": "GR010"
+    },
+    "cadillac hertz team jota": {
+      "equipo": "Cadillac Hertz Team Jota",
+      "categoria": "Hypercar",
+      "marca": "Cadillac",
+      "modelo": "V-Series.R"
+    },
+    "peugeot totalenergies": {
+      "equipo": "Peugeot TotalEnergies",
+      "categoria": "Hypercar",
+      "marca": "Peugeot",
+      "modelo": "9X8"
+    },
+    "bmw m team wrt": {
+      "equipo": "BMW M Team WRT",
+      "categoria": "Hypercar",
+      "marca": "BMW",
+      "modelo": "M Hybrid V8"
+    },
+    "alpine endurance team": {
+      "equipo": "Alpine Endurance Team",
+      "categoria": "Hypercar",
+      "marca": "Alpine",
+      "modelo": "A424"
+    },
+    "aston martin thor team": {
+      "equipo": "Aston Martin THOR Team",
+      "categoria": "Hypercar",
+      "marca": "Aston Martin",
+      "modelo": "Valkyrie"
+    },
+    "genesis magma racing": {
+      "equipo": "Genesis Magma Racing",
+      "categoria": "Hypercar",
+      "marca": "Genesis",
+      "modelo": "GMR-001"
+    },
+    "isotta fraschini": {
+      "equipo": "Isotta Fraschini",
+      "categoria": "Hypercar",
+      "marca": "Isotta Fraschini",
+      "modelo": "Tipo 6"
+    },
+    "lamborghini iron lynx": {
+      "equipo": "Lamborghini Iron Lynx",
+      "categoria": "Hypercar",
+      "marca": "Lamborghini",
+      "modelo": "SC63"
+    },
+    "cadillac wtr": {
+      "equipo": "Cadillac WTR",
+      "categoria": "Hypercar",
+      "marca": "Cadillac",
+      "modelo": "V-Series.R"
+    },
+    "toyota racing": {
+      "equipo": "Toyota Racing",
+      "categoria": "Hypercar",
+      "marca": "Toyota",
+      "modelo": "GR010 Hybrid"
+    }
+  },
+  "sin_identificar": {}
+}

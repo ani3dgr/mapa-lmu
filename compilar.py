@@ -1,0 +1,178 @@
+# -*- coding: utf-8 -*-
+"""
+Compila el programa y prepara el ZIP que se reparte.
+
+Se ejecuta a mano cuando toca sacar una version:
+
+    python compilar.py
+
+Deja en dist/ la carpeta lista y un ZIP al lado. Quien lo descargue solo tiene
+que descomprimirlo donde quiera y abrir MapaLMU.exe: no hay que instalar nada,
+ni siquiera Python.
+
+QUE VA DENTRO DEL EJECUTABLE Y QUE NO
+  Dentro van el codigo y Python. Fuera, al lado del .exe, van los circuitos,
+  los idiomas y la tabla de coches, para que se puedan cambiar, compartir y
+  ampliar sin volver a compilar. Esa es la gracia: alguien escanea Monza y lo
+  pasa por WhatsApp, y el que lo recibe lo copia en su carpeta y ya esta.
+"""
+import os
+import shutil
+import subprocess
+import sys
+import zipfile
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+DIST = os.path.join(AQUI, "dist")
+BUILD = os.path.join(AQUI, "build")
+CARPETA_FINAL = os.path.join(DIST, "MapaLMU")
+
+VERSION = "1.0"
+
+# Lo que se copia al lado del .exe. Carpetas y archivos sueltos.
+ACOMPANA = ["circuitos", "idiomas", "coches.json", "INSTRUCCIONES.txt",
+            "README.md"]
+
+# Lo que NO se copia aunque este en esas carpetas
+BASURA = ("__pycache__", ".pyc", ".bak", ".antes", ".orig")
+
+
+def limpio(nombre):
+    return not any(nombre.endswith(b) or nombre == b for b in BASURA)
+
+
+def paso(texto):
+    print()
+    print("=" * 68)
+    print("  " + texto)
+    print("=" * 68)
+
+
+def compilar():
+    paso("COMPILANDO")
+    for carpeta in (BUILD, DIST):
+        if os.path.isdir(carpeta):
+            shutil.rmtree(carpeta)
+    orden = [sys.executable, "-m", "PyInstaller", "--noconfirm", "--clean",
+             os.path.join(AQUI, "MapaLMU.spec")]
+    if subprocess.call(orden, cwd=AQUI) != 0:
+        raise SystemExit("PyInstaller ha fallado")
+
+
+def acompanar():
+    paso("COPIANDO LO QUE VA FUERA DEL EJECUTABLE")
+    for cosa in ACOMPANA:
+        origen = os.path.join(AQUI, cosa)
+        destino = os.path.join(CARPETA_FINAL, cosa)
+        if os.path.isdir(origen):
+            shutil.copytree(origen, destino,
+                            ignore=shutil.ignore_patterns(*BASURA))
+            n = len(os.listdir(destino))
+            print("  %-20s carpeta con %d archivos" % (cosa, n))
+        elif os.path.isfile(origen):
+            shutil.copy2(origen, destino)
+            print("  %-20s %d KB" % (cosa, os.path.getsize(origen) / 1024))
+        else:
+            print("  %-20s NO EXISTE, me lo salto" % cosa)
+
+
+def primeros_pasos():
+    """Un papel corto encima de todo, que es lo unico que la gente lee."""
+    texto = """MAPA DE PISTA PARA LE MANS ULTIMATE
+===================================
+
+QUE HAY QUE HACER (dos minutos)
+
+  1. Descomprime esta carpeta DONDE QUIERAS: el escritorio, documentos,
+     donde te venga bien. NO la metas en "Archivos de programa": Windows
+     no deja escribir ahi y el programa necesita guardar sus cosas.
+
+  2. En Le Mans Ultimate:
+       - Ajustes -> Video: pon la pantalla en BORDERLESS (ventana sin
+         bordes). Es obligatorio; a pantalla completa Windows no deja
+         poner nada encima del juego.
+       - Ajustes -> HUD: quita el mapa que trae el juego, o tendras dos.
+
+  3. Abre MapaLMU.exe
+
+     La primera vez Windows puede decir "Windows protegio tu PC". Es
+     porque el programa no esta firmado (firmarlo cuesta dinero). Pulsa
+     "Mas informacion" y luego "Ejecutar de todas formas".
+
+MIENTRAS JUEGAS
+
+  F9   oculta o muestra el mapa
+  F10  abre las opciones
+
+  Con las opciones abiertas puedes arrastrar el mapa con el raton.
+
+EL IDIOMA
+
+  Opciones -> pestana "Acerca de" -> Idioma. Estan espanol, ingles,
+  frances, italiano, aleman, portugues y polaco.
+
+LO DEMAS
+
+  Cada pestana de las opciones lleva un boton (i) que explica lo que
+  hay dentro. Y en INSTRUCCIONES.txt esta el manual entero.
+
+COMPARTIR CIRCUITOS
+
+  Cada circuito medido es un archivo suelto de la carpeta "circuitos".
+  Para pasarle una pista a alguien le mandas ese archivo y lo copia en
+  su carpeta "circuitos". El programa lo detecta al arrancar.
+
+Es gratuito. Usalo y pasalo a quien quieras.
+Patrocinado por ciclotracker.com
+"""
+    ruta = os.path.join(CARPETA_FINAL, "LEEME PRIMERO.txt")
+    with open(ruta, "w", encoding="utf-8") as f:
+        f.write(texto)
+    print("  LEEME PRIMERO.txt")
+
+    # Un boton de revision: si a alguien no le funciona, hace doble clic aqui
+    # y manda una foto de lo que sale. Se ve enseguida que le falta.
+    lineas = ["@echo off",
+              "title Revision del mapa de pista",
+              'cd /d "%~dp0"',
+              "MapaLMU-consola.exe comprobar"]
+    ruta = os.path.join(CARPETA_FINAL, "COMPROBAR SI ALGO NO VA.bat")
+    with open(ruta, "w", encoding="utf-8", newline="\r\n") as f:
+        f.write("\n".join(lineas) + "\n")
+    print("  COMPROBAR SI ALGO NO VA.bat")
+
+
+def comprimir():
+    paso("HACIENDO EL ZIP")
+    nombre = os.path.join(DIST, "MapaLMU-%s.zip" % VERSION)
+    if os.path.isfile(nombre):
+        os.remove(nombre)
+    with zipfile.ZipFile(nombre, "w", zipfile.ZIP_DEFLATED) as z:
+        for raiz, carpetas, archivos in os.walk(CARPETA_FINAL):
+            carpetas[:] = [c for c in carpetas if limpio(c)]
+            for archivo in archivos:
+                if not limpio(archivo):
+                    continue
+                completo = os.path.join(raiz, archivo)
+                dentro = os.path.relpath(completo, DIST)
+                z.write(completo, dentro)
+    print("  %s   (%.1f MB)" % (nombre, os.path.getsize(nombre) / 1048576.0))
+    return nombre
+
+
+def main():
+    compilar()
+    acompanar()
+    primeros_pasos()
+    zip_final = comprimir()
+
+    paso("LISTO")
+    print("  Carpeta : %s" % CARPETA_FINAL)
+    print("  ZIP     : %s" % zip_final)
+    print()
+    print("  Pruebalo antes de repartirlo: abre el .exe de la carpeta dist,")
+    print("  no el de aqui. Si algo falla sera por una ruta, y se ve enseguida.")
+
+
+if __name__ == "__main__":
+    main()
