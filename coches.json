@@ -11,25 +11,25 @@
       "equipo": "The Bend Manthey",
       "categoria": "GT3",
       "marca": "Porsche",
-      "modelo": "911 GT3 R"
+      "modelo": "911 GT3 R LMGT3"
     },
     "manthey purerxcing": {
       "equipo": "Manthey PureRxcing",
       "categoria": "GT3",
       "marca": "Porsche",
-      "modelo": "911 GT3 R"
+      "modelo": "911 GT3 R LMGT3"
     },
     "iron dames": {
       "equipo": "Iron Dames",
       "categoria": "GT3",
       "marca": "Porsche",
-      "modelo": "911 GT3 R"
+      "modelo": "911 GT3 R LMGT3"
     },
     "proton competition": {
       "equipo": "Proton Competition",
       "categoria": "GT3",
       "marca": "Ford",
-      "modelo": "Mustang GT3"
+      "modelo": "Mustang LMGT3"
     },
     "team wrt": {
       "equipo": "Team WRT",
@@ -40,26 +40,26 @@
     "tf sport": {
       "equipo": "TF Sport",
       "categoria": "GT3",
-      "marca": "Corvette",
-      "modelo": "Z06 GT3.R"
+      "marca": "Chevrolet",
+      "modelo": "Corvette Z06 LMGT3.R"
     },
     "racing team turkey by tf": {
       "equipo": "Racing Team Turkey by TF",
       "categoria": "GT3",
-      "marca": "Corvette",
-      "modelo": "Z06 GT3.R"
+      "marca": "Chevrolet",
+      "modelo": "Corvette Z06 LMGT3.R"
     },
     "heart of racing team": {
       "equipo": "Heart of Racing Team",
       "categoria": "GT3",
       "marca": "Aston Martin",
-      "modelo": "Vantage AMR"
+      "modelo": "Vantage AMR LMGT3"
     },
     "vista af corse": {
       "equipo": "Vista AF Corse",
       "categoria": "GT3",
       "marca": "Ferrari",
-      "modelo": "296 GT3"
+      "modelo": "296 LMGT3"
     },
     "af corse": {
       "equipo": "AF Corse",
@@ -70,14 +70,14 @@
     "iron lynx": {
       "equipo": "Iron Lynx",
       "categoria": "GT3",
-      "marca": "Mercedes",
-      "modelo": "AMG GT3 Evo"
+      "marca": "Mercedes-AMG",
+      "modelo": "LMGT3"
     },
     "akkodis asp team": {
       "equipo": "Akkodis ASP Team",
       "categoria": "GT3",
       "marca": "Lexus",
-      "modelo": "RC F GT3"
+      "modelo": "RCF LMGT3"
     },
     "garage 59": {
       "equipo": "Garage 59",
@@ -89,7 +89,7 @@
       "equipo": "United Autosports",
       "categoria": "GT3",
       "marca": "McLaren",
-      "modelo": "720S GT3 Evo"
+      "modelo": "720S LMGT3 Evo"
     },
     "iron lynx - proton": {
       "equipo": "Iron Lynx - Proton",
@@ -125,7 +125,7 @@
       "equipo": "Peugeot TotalEnergies",
       "categoria": "Hypercar",
       "marca": "Peugeot",
-      "modelo": "9X8"
+      "modelo": "9x8"
     },
     "bmw m team wrt": {
       "equipo": "BMW M Team WRT",
@@ -143,13 +143,13 @@
       "equipo": "Aston Martin THOR Team",
       "categoria": "Hypercar",
       "marca": "Aston Martin",
-      "modelo": "Valkyrie"
+      "modelo": "Valkyrie LMH"
     },
     "genesis magma racing": {
       "equipo": "Genesis Magma Racing",
       "categoria": "Hypercar",
       "marca": "Genesis",
-      "modelo": "GMR-001"
+      "modelo": "GMR001"
     },
     "isotta fraschini": {
       "equipo": "Isotta Fraschini",
@@ -173,7 +173,7 @@
       "equipo": "Toyota Racing",
       "categoria": "Hypercar",
       "marca": "Toyota",
-      "modelo": "GR010 Hybrid"
+      "modelo": "TR010"
     }
   },
   "sin_identificar": {}
