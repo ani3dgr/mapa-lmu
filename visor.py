@@ -170,9 +170,10 @@ class Visor:
         marco.pack(fill="both", expand=True, pady=2)
         self.lista = ttk.Treeview(marco, columns=("tiempo", "s1", "s2", "s3"),
                                   height=15, selectmode="extended")
-        self.lista.heading("#0", text="Vuelta")
+        self.lista.heading("#0", text=idiomas.t("vis.col_vuelta"))
         self.lista.column("#0", width=210)
-        for col, titulo, ancho in (("tiempo", "Tiempo", 80), ("s1", "S1", 50),
+        for col, titulo, ancho in (("tiempo", idiomas.t("vis.col_tiempo"), 80),
+                                   ("s1", "S1", 50),
                                    ("s2", "S2", 50), ("s3", "S3", 50)):
             self.lista.heading(col, text=titulo)
             self.lista.column(col, width=ancho, anchor="e", stretch=False)

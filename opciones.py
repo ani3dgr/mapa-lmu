@@ -393,7 +393,7 @@ class Opciones:
         for i in self.tabla.get_children():
             self.tabla.delete(i)
         self.inventario = catalogo.inventario()
-        marca = lambda b: "SI" if b else "-"
+        marca = lambda b: T("com.si") if b else "-"
         for e in self.inventario:
             completo = e["pista"] and e["trazada"] and e["boxes"]
             etiqueta = "completo" if completo else ("vacio" if not e["trazada"] else "")
