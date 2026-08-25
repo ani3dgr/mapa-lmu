@@ -27,6 +27,7 @@ OCULTOS = [
     "comparador",
     "catalogo",
     "coches",
+    "resultados",
     "circuitos",
     "idiomas",
     "reglajes",

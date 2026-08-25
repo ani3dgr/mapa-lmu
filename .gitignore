@@ -36,6 +36,10 @@ __pycache__/
 *.antes
 *.orig
 
+# Lo monta el programa solo leyendo los resultados del juego, y es distinto
+# en cada ordenador: cada uno ha corrido sus carreras.
+catalogo_coches.json
+
 # SI se suben, a proposito:
 #   circuitos/   los circuitos medidos, para que la gente los tenga
 #   idiomas/     las traducciones

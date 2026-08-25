@@ -27,14 +27,19 @@ DIST = os.path.join(AQUI, "dist")
 BUILD = os.path.join(AQUI, "build")
 CARPETA_FINAL = os.path.join(DIST, "MapaLMU")
 
-VERSION = "1.1"
+VERSION = "1.2"
 
 # Lo que se copia al lado del .exe. Carpetas y archivos sueltos.
 ACOMPANA = ["circuitos", "idiomas", "coches.json", "INSTRUCCIONES.txt",
             "README.md"]
 
-# Lo que NO se copia aunque este en esas carpetas
-BASURA = ("__pycache__", ".pyc", ".bak", ".antes", ".orig")
+# Lo que NO se copia aunque este en esas carpetas.
+# catalogo_coches.json lo monta cada programa leyendo los resultados de SU
+# juego: si se repartiera el mio, todo el mundo empezaria con mis carreras
+# dentro. Aparece en dist/ en cuanto se prueba el .exe compilado, asi que
+# tiene que estar aqui o se colaria en el ZIP de la siguiente compilacion.
+BASURA = ("__pycache__", ".pyc", ".bak", ".antes", ".orig",
+          "catalogo_coches.json")
 
 
 def limpio(nombre):

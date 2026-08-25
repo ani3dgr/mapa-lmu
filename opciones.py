@@ -449,6 +449,11 @@ class Opciones:
                   text=T("coc.intro")).grid(row=fila[0], column=0, columnspan=3, sticky="w", pady=(0, 6))
         fila[0] += 1
 
+        self.aviso_catalogo = ttk.Label(m, foreground="#2d6a4f", justify="left")
+        self.aviso_catalogo.grid(row=fila[0], column=0, columnspan=3,
+                                 sticky="w", pady=(0, 6))
+        fila[0] += 1
+
         marco = ttk.Frame(m)
         marco.grid(row=fila[0], column=0, columnspan=3, sticky="nsew")
         fila[0] += 1
@@ -506,12 +511,35 @@ class Opciones:
                    command=self._refrescar_coches).pack(side="right", padx=4)
         ttk.Button(acciones, text=T("coc.traer"),
                    command=self._traer_parrilla).pack(side="left", padx=8)
+        ttk.Button(acciones, text=T("coc.leer_juego"),
+                   command=self._leer_del_juego).pack(side="left", padx=4)
         self._refrescar_coches()
 
+    def _leer_del_juego(self):
+        """Relee los resultados del juego por si hay sesiones nuevas."""
+        import resultados
+        archivos, nuevos = resultados.actualizar()
+        if archivos is None:
+            messagebox.showinfo(T("tab.coches"), T("coc.sin_resultados"),
+                                parent=self.v)
+            return
+        self._refrescar_coches()
+        modelos, decoraciones, sesiones = resultados.resumen()
+        messagebox.showinfo(
+            T("tab.coches"),
+            T("coc.leido") % (archivos, nuevos, modelos, decoraciones, sesiones),
+            parent=self.v)
+
     def _refrescar_coches(self):
+        import resultados
         for i in self.arbol_coches.get_children():
             self.arbol_coches.delete(i)
         self.fichas_coches = {}
+
+        modelos, decoraciones, sesiones = resultados.resumen()
+        self.aviso_catalogo.configure(
+            text=T("coc.del_juego") % (modelos, decoraciones, sesiones)
+            if sesiones else T("coc.sin_leer"))
 
         pendientes = coches.pendientes()
         if pendientes:
@@ -536,6 +564,23 @@ class Opciones:
                     rama, "end", text="   %s" % f.get("equipo", ""),
                     values=(f.get("marca", ""), f.get("modelo", "")))
                 self.fichas_coches[hijo] = f
+
+        # Los modelos que el juego ha dicho que tiene. No son equipos, son la
+        # lista de coches del juego: sirve para ver de un vistazo que hay y es
+        # de donde saldran los reglajes.
+        del_juego = resultados.modelos_por_categoria()
+        if del_juego:
+            raiz = self.arbol_coches.insert(
+                "", "end", open=False, values=("", ""),
+                text=T("coc.modelos_juego") % sum(len(v) for v in del_juego.values()))
+            for categoria in sorted(del_juego):
+                rama = self.arbol_coches.insert(raiz, "end", open=False,
+                                                text="   %s" % categoria,
+                                                values=("", ""))
+                for nombre in del_juego[categoria]:
+                    marca, modelo = coches.partir_modelo(nombre)
+                    self.arbol_coches.insert(rama, "end", text="      %s" % nombre,
+                                             values=(marca, modelo))
 
     def _coche_elegido(self, _=None):
         sel = self.arbol_coches.selection()

@@ -82,9 +82,12 @@ Merece la pena decirlo, porque explica por qué faltan cosas:
   provocados a propósito: LMU no publica ninguna señal de bandera para
   programas externos. Por eso no hay aviso de amarilla, y en su lugar se detecta
   directamente el coche parado, que es el peligro de verdad.
-- **La marca y el modelo del coche.** El juego solo da el nombre del equipo con
-  su dorsal. Por eso hay una tabla en la pestaña *Coches* que se rellena una vez
-  por equipo, y que el programa va completando solo con los que no conoce.
+- **La marca y el modelo del coche, en vivo.** Mientras ruedas el juego solo da
+  el equipo con su dorsal y un código interno del coche. Pero al *terminar* cada
+  sesión sí escribe la marca y el modelo de todos, en
+  `UserData/Log/Results`, con ese mismo código. El programa lee esos archivos y
+  monta su tabla solo. Es la pestaña *Coches*, y no hay que teclear nada: cuando
+  saquen coches nuevos, basta con correr una sesión con ellos delante.
 - **La velocidad de cada coche en cada punto.** Solo publica el tiempo de la
   mejor vuelta, así que una vuelta anterior no se puede reconstruir: solo cuentan
   las vueltas dadas con el programa abierto.
@@ -167,9 +170,12 @@ Worth stating, because it explains what is missing:
 - **Flags.** Checked by recording a full session with deliberate incidents: LMU
   publishes no flag signal at all to external programs. That is why there is no
   yellow-flag warning, and why stopped cars are detected directly instead.
-- **Car make and model.** The game only gives the team name with its number.
-  Hence the table in the *Cars* tab, filled in once per team, which the program
-  keeps topping up on its own.
+- **Car make and model, live.** While you drive, the game only gives the team
+  with its number and an internal code for the car. But when a session *ends* it
+  does write everyone's make and model, in `UserData/Log/Results`, keyed by that
+  same code. The program reads those files and builds its table on its own. That
+  is the *Cars* tab, and there is nothing to type in: when new cars come out,
+  just run a session with them on track.
 - **Each car's speed at each point.** It only publishes the best lap time, so an
   earlier lap cannot be reconstructed: only laps driven with the program open
   count.

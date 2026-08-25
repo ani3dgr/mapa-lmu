@@ -173,19 +173,19 @@ class Grabador:
             "s3": round(tiempo - sec2, 3) if sec2 > 0 and tiempo > sec2 else None,
             "puntos": trazada,
             "valida": valida,
-            # El juego no da el modelo de coche (el campo del archivo es un
-            # codigo interno tipo "10_26_GARA63384034"), pero el equipo con su
-            # dorsal lo identifica igual de bien y no caduca de una temporada
-            # a otra.
+            # En vivo el juego solo da el equipo con su dorsal y un codigo
+            # interno tipo "10_26_GARA63384034". El modelo sale de ese codigo,
+            # buscandolo en el catalogo que se monta con los resultados de las
+            # sesiones terminadas (resultados.py).
             "equipo": equipo_de(c.get("vehiculo", "")),
             "dorsal": dorsal_de(c.get("vehiculo", "")),
             "clase": c.get("clase", ""),
-            "coche": coches.texto(c.get("vehiculo", ""), c.get("clase", "")),
+            "coche": coches.texto(c.get("vehiculo", ""), c.get("clase", ""),
+                                  c.get("codigo", "")),
         }
 
-        # Si este equipo no esta identificado, se apunta para que aparezca en
-        # la pestana Coches. Asi el mantenimiento es automatico: los coches
-        # nuevos salen solos esperando marca y modelo.
+        # Solo cae aqui un coche que no haya terminado ninguna sesion todavia:
+        # en cuanto acabe una, el juego escribe su archivo y se identifica solo.
         coches.anotar_desconocido(c.get("vehiculo", ""), c.get("clase", ""),
                                   self.nombre_circuito, self.marca,
                                   c.get("codigo", ""))

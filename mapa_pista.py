@@ -22,6 +22,7 @@ import math
 import os
 import random
 import sys
+import threading
 import time
 import tkinter as tk
 from tkinter import ttk, colorchooser
@@ -844,9 +845,30 @@ class Mapa:
         self.root.mainloop()
 
 
+def leer_catalogo_de_coches():
+    """
+    Pone al dia la tabla de que coche lleva cada uno, leyendo los resultados
+    que el juego escribe al terminar cada sesion.
+
+    Va en un hilo aparte para no retrasar el arranque: la primera vez hay que
+    leerse el historial entero (con 828 sesiones, un segundo), y a partir de
+    ahi solo se miran los archivos nuevos. Si falla no pasa nada, el mapa
+    funciona igual: los coches saldrian con el nombre del equipo.
+    """
+    try:
+        import resultados
+        archivos, codigos = resultados.actualizar()
+        if archivos:
+            print("Coches: %d sesiones nuevas leidas, %d coches nuevos."
+                  % (archivos, codigos))
+    except Exception:
+        pass
+
+
 def main():
     demo = "--demo" in sys.argv
     fuente = Demo() if demo else Juego()
+    threading.Thread(target=leer_catalogo_de_coches, daemon=True).start()
     print("Mapa LMU %s. F9 = ocultar/mostrar, F10 = opciones."
           % ("(DEMO)" if demo else ""))
     Mapa(fuente).ejecutar()
@@ -894,7 +916,23 @@ def comprobar():
     if len(idiomas.textos_es()) < 100:
         fallos.append("faltan traducciones: falta la carpeta idiomas/")
 
-    print("  coches conocidos   : %d" % len(coches.cargar()["coches"]))
+    print("  coches a mano      : %d" % len(coches.cargar()["coches"]))
+
+    # El catalogo que sale de los resultados del juego. Se lee aqui a proposito,
+    # que asi la revision tambien sirve para ponerlo al dia.
+    import resultados
+    leidos, nuevos = resultados.actualizar()
+    if leidos is None:
+        print("  coches del juego   : no encuentro UserData/Log/Results")
+        fallos.append("no encuentro los resultados del juego: los coches "
+                      "saldran con el nombre del equipo en vez de su modelo")
+    else:
+        modelos, decoraciones, sesiones = resultados.resumen()
+        print("  coches del juego   : %d modelos, %d decoraciones "
+              "(de %d sesiones)" % (modelos, decoraciones, sesiones))
+        if not modelos:
+            fallos.append("el juego no ha dejado ningun resultado todavia: "
+                          "termina una sesion y vuelve a pasar esta revision")
 
     carpeta_juego = juego.carpeta()
     print("  Le Mans Ultimate   : %s" % (carpeta_juego or "NO LO ENCUENTRO"))

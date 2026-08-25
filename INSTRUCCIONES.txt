@@ -134,15 +134,18 @@ dentro. Si tienes dudas, pulsalo.
     sale una pista nueva o si cambian una que ya existe.
 
   COCHES
-    El juego dice el equipo y el dorsal, pero NO la marca del coche.
-    Aqui se le dice una vez por equipo y ya se acuerda.
-    No hace falta buscar nada: mientras ruedas, el programa apunta
-    solo los equipos que no conoce y los deja arriba en SIN
-    IDENTIFICAR, diciendo en que circuito los vio. Cuando saquen
-    coches nuevos apareceran ahi ellos solos.
-    Para rellenar uno: lo eliges, escribes marca y modelo, eliges la
-    categoria y le das a GUARDAR. Sirve tambien para corregir.
-    Los LMP2 no hay que ponerlos: son todos Oreca 07.
+    Que coche lleva cada uno. NO HAY QUE TECLEAR NADA.
+    Al terminar cada sesion, el juego escribe un archivo con la marca
+    y el modelo de todos los coches que habia en pista. El programa
+    lee esos archivos al arrancar y monta con ellos su tabla.
+    Arriba, en verde, se ve cuanto lleva reunido. Abajo del todo,
+    COCHES QUE TIENE EL JUEGO es la lista de modelos encontrados.
+    Cuando saquen coches nuevos entran solos: basta con correr una
+    sesion con ellos delante. El boton "Leer los coches del juego"
+    fuerza esa lectura si no quieres esperar al siguiente arranque.
+    SIN IDENTIFICAR solo sale con un coche que no haya terminado
+    ninguna sesion todavia. Se puede rellenar a mano, pero se
+    identifica solo en cuanto acabes una carrera con el.
 
   REGLAJES
     La ficha de cada coche: que motor lleva, cuanta cilindrada,
