@@ -19,6 +19,7 @@ import os
 import time
 
 import coches
+import idiomas
 
 import rutas
 
@@ -303,15 +304,21 @@ def borrar(ruta):
 
 
 def nombre_sesion(codigo):
-    """5 = clasificacion, 10-13 = carrera... para mostrarlo legible."""
+    """
+    5 = clasificacion, 10-13 = carrera... para mostrarlo legible.
+
+    Lo que se guarda en el archivo de la sesion es el NUMERO, no este texto,
+    asi que las sesiones grabadas hace meses tambien salen en el idioma que
+    tengas puesto ahora.
+    """
     if codigo is None:
         return ""
     if codigo == 0:
-        return "Sin empezar"
+        return idiomas.t("ses.sin_empezar")
     if 1 <= codigo <= 4:
-        return "Practica"
+        return idiomas.t("ses.practica")
     if 5 <= codigo <= 8:
-        return "Clasificacion"
+        return idiomas.t("ses.clasificacion")
     if codigo == 9:
-        return "Warmup"
-    return "Carrera"
+        return idiomas.t("ses.warmup")
+    return idiomas.t("ses.carrera")

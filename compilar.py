@@ -53,8 +53,38 @@ def paso(texto):
     print("=" * 68)
 
 
+def abierto():
+    """
+    Los ejecutables que esten corriendo ahora mismo.
+
+    Hace falta mirarlo ANTES de borrar nada. Windows no deja borrar un archivo
+    en uso, pero rmtree no lo sabe hasta que se topa con el: para entonces ya
+    ha borrado media carpeta y lo que queda es un ejecutable descuartizado que
+    arranca y suelta "Failed to start embedded python interpreter". Ha pasado,
+    y cuesta un rato entender que el fallo no estaba en el codigo.
+    """
+    corriendo = []
+    for nombre in ("MapaLMU.exe", "MapaLMU-consola.exe"):
+        try:
+            salida = subprocess.check_output(
+                ["tasklist", "/fi", "imagename eq " + nombre],
+                text=True, errors="replace")
+        except (OSError, subprocess.SubprocessError):
+            continue          # sin tasklist no se puede saber; que siga
+        if nombre.lower() in salida.lower():
+            corriendo.append(nombre)
+    return corriendo
+
+
 def compilar():
     paso("COMPILANDO")
+    corriendo = abierto()
+    if corriendo:
+        raise SystemExit(
+            "\n  NO PUEDO COMPILAR: tienes abierto %s.\n"
+            "  Cierralo y vuelve a lanzar la compilacion.\n"
+            "  (No he borrado nada: la carpeta dist sigue como estaba.)"
+            % " y ".join(corriendo))
     for carpeta in (BUILD, DIST):
         if os.path.isdir(carpeta):
             shutil.rmtree(carpeta)
