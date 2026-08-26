@@ -49,6 +49,54 @@ BASURA = ("__pycache__", ".pyc", ".bak", ".antes", ".orig",
           "catalogo_coches.json")
 
 
+# Lo que en dist/MapaLMU es DEL USUARIO y no del programa. Compilar borra esa
+# carpeta entera, asi que esto se aparta antes y se devuelve despues del ZIP.
+# Se aprende por las malas: una compilacion se llevo por delante las vueltas
+# grabadas de una sesion de pruebas, que no estaban en ningun otro sitio.
+MIO = ["sesiones", "escaneos", "mapa_config.json", "ruta_juego.txt",
+       "idioma.txt", "catalogo_coches.json", "coches.json"]
+
+GUARDADO = os.path.join(AQUI, ".mio_mientras_compilo")
+
+
+def apartar_lo_mio():
+    """Saca lo del usuario de dist antes de que el rmtree se lo lleve."""
+    if os.path.isdir(GUARDADO):
+        shutil.rmtree(GUARDADO)
+    salvados = []
+    for cosa in MIO:
+        origen = os.path.join(CARPETA_FINAL, cosa)
+        if not os.path.exists(origen):
+            continue
+        os.makedirs(GUARDADO, exist_ok=True)
+        shutil.move(origen, os.path.join(GUARDADO, cosa))
+        salvados.append(cosa)
+    if salvados:
+        print("  guardado lo tuyo    : %s" % ", ".join(salvados))
+    return salvados
+
+
+def devolver_lo_mio():
+    """
+    Lo devuelve DESPUES del ZIP, nunca antes.
+
+    Antes del ZIP se colaria dentro y se repartirian los ajustes y las vueltas
+    de uno mismo. Si ya existe el del programa recien copiado, manda el del
+    usuario: es el que tiene sus cosas dentro.
+    """
+    if not os.path.isdir(GUARDADO):
+        return
+    for cosa in sorted(os.listdir(GUARDADO)):
+        destino = os.path.join(CARPETA_FINAL, cosa)
+        if os.path.isdir(destino):
+            shutil.rmtree(destino)
+        elif os.path.isfile(destino):
+            os.remove(destino)
+        shutil.move(os.path.join(GUARDADO, cosa), destino)
+        print("  devuelto            : %s" % cosa)
+    shutil.rmtree(GUARDADO, ignore_errors=True)
+
+
 def limpio(nombre):
     return not any(nombre.endswith(b) or nombre == b for b in BASURA)
 
@@ -92,6 +140,7 @@ def compilar():
             "  Cierralo y vuelve a lanzar la compilacion.\n"
             "  (No he borrado nada: la carpeta dist sigue como estaba.)"
             % " y ".join(corriendo))
+    apartar_lo_mio()
     for carpeta in (BUILD, DIST):
         if os.path.isdir(carpeta):
             shutil.rmtree(carpeta)
@@ -224,6 +273,7 @@ def main():
     acompanar()
     primeros_pasos()
     zip_final = comprimir()
+    devolver_lo_mio()
 
     paso("LISTO")
     print("  Carpeta : %s" % CARPETA_FINAL)
