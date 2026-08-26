@@ -16,9 +16,10 @@ Es gratuito. Úsalo y pásalo a quien quieras.
   quieras. F9 lo oculta o lo muestra, F10 abre las opciones.
 - **Tu coche destacado** con un anillo, para que no se pierda cuando los puntos
   se amontonan.
-- **Comparar tiempos en vivo** contra la vuelta más rápida de los rivales: el
-  trazado se pinta del color de la referencia y encima se superponen tus tramos
-  en rojo, amarillo o verde. Si un rival mejora, tu vuelta se recolorea sola.
+- **Comparar tiempos en vivo** contra la vuelta más rápida **de tu categoría**,
+  que a un GT3 no se le mide contra un LMP2: el trazado se pinta del color de la
+  referencia y encima se superponen tus tramos en rojo, amarillo o verde. Si un
+  rival de tu clase mejora, tu vuelta se recolorea sola.
 - **Aviso de salidas de pista**, marcando con un triángulo dónde te saliste la
   última vez que pasaste por ahí.
 - **Aviso de coches parados** en plena pista, que parpadean en el mapa. Sirve
@@ -108,9 +109,10 @@ It is free. Use it and pass it on to anyone.
   it, F10 opens the options.
 - **Your car highlighted** with a ring, so it is never covered when the dots
   pile up.
-- **Live time comparison** against the rivals' fastest lap: the track is painted
-  in the reference colour and your own segments are laid over it in red, yellow
-  or green. If a rival improves, your lap recolours itself.
+- **Live time comparison** against the fastest lap **in your own class**, so a
+  GT3 is not judged against an LMP2: the track is painted in the reference
+  colour and your own segments are laid over it in red, yellow or green. If a
+  rival in your class improves, your lap recolours itself.
 - **Off-track warnings**, marking with a triangle where you last went off.
 - **Stopped-car warnings** out on track, flashing on the map. Mainly for blind
   corners.
