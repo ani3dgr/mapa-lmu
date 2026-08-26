@@ -101,6 +101,9 @@ class Visor:
         self.centro = None
         self.arrastre = None
         self._vars = {}
+        self._pendiente = None      # clic de sesion todavia sin atender
+        self._llenando = False      # llenando la lista de vueltas
+        self._ajustando = False     # moviendo el zoom desde el codigo
 
         v = tk.Toplevel(padre)
         self.v = v
@@ -181,7 +184,7 @@ class Visor:
         self.lista.configure(yscrollcommand=barra.set)
         self.lista.pack(side="left", fill="both", expand=True)
         barra.pack(side="left", fill="y")
-        self.lista.bind("<<TreeviewSelect>>", lambda e: self._pintar())
+        self.lista.bind("<<TreeviewSelect>>", self._cambio_vueltas)
         self.lista.tag_configure("anulada", foreground="#b0524a")
         self.lista.tag_configure("mejor", foreground="#2f8f4f")
 
@@ -288,7 +291,48 @@ class Visor:
         sel = self.arbol.selection()
         return self.filas.get(sel[0]) if sel else None
 
+    def _cambio_vueltas(self, _=None):
+        """
+        Repinta cuando marcas vueltas, salvo mientras se llena la lista.
+
+        Al llenarla se marcan solas la vuelta del rival y tu mejor vuelta, y
+        cada marca es otro repintado entero. Se ignoran, y se pinta una sola
+        vez al final.
+        """
+        if self._llenando:
+            return
+        self._pintar()
+
+    def _fin_llenado(self):
+        self._llenando = False
+
     def _elegir_sesion(self, _=None):
+        """
+        Apunta la sesion elegida y devuelve el control enseguida.
+
+        Tkinter no puede pintar la fila azul hasta que este manejador termina.
+        Cargando y dibujando aqui dentro, el clic parecia no hacer nada durante
+        un rato, y entonces la gente vuelve a clicar, que es justo lo peor: cada
+        clic de mas es otra carga entera. Asi que primero el azul, y el trabajo
+        despues.
+        """
+        if not self._sesion_elegida():
+            return
+        self.arbol.update_idletasks()       # la fila azul, ahora mismo
+        # Clics seguidos se pisan unos a otros: solo se atiende el ultimo.
+        if self._pendiente is not None:
+            self.v.after_cancel(self._pendiente)
+        self._pendiente = self.v.after(60, self._cargar_sesion)
+
+    def _cargar_sesion(self):
+        self._pendiente = None
+        # La carga va aplazada: para cuando llega, la ventana puede estar ya
+        # cerrada y entonces cualquier cosa que se toque revienta.
+        try:
+            if not self.v.winfo_exists():
+                return
+        except tk.TclError:
+            return
         s = self._sesion_elegida()
         if not s:
             return
@@ -300,8 +344,16 @@ class Visor:
             return
         self.circuito = lmu.cargar_circuitos().get(self.datos.get("clave"))
         self.centro = None
-        self._llenar_lista()
-        self._encajar()
+        # Tk no entrega los avisos de seleccion al momento: los deja en cola y
+        # los suelta al volver al bucle. Por eso la bandera no se puede quitar
+        # aqui mismo -llegarian despues, con la bandera ya baja, y repintarian
+        # igual-, sino cuando la cola este vacia.
+        self._llenando = True
+        try:
+            self._llenar_lista()
+            self._encajar()
+        finally:
+            self.v.after_idle(self._fin_llenado)
 
     def _llenar_lista(self):
         for i in self.lista.get_children():
@@ -427,17 +479,26 @@ class Visor:
         lim = self._limites()
         if lim:
             self.centro = ((lim[0] + lim[2]) / 2.0, (lim[1] + lim[3]) / 2.0)
-        self.var_zoom.set(1.0)
+        # Mover la barra del zoom dispara sola su repintado. Aqui estorba: se
+        # calla mientras se coloca y se pinta una unica vez, al final.
+        self._ajustando = True
+        try:
+            self.var_zoom.set(1.0)
+        finally:
+            self._ajustando = False
         self.zoom = 1.0
         self._pintar()
 
     def _cambiar_zoom(self, _=None):
+        if self._ajustando:
+            return
         self.zoom = self.var_zoom.get()
         self._pintar()
 
     def _rueda(self, e):
+        # Basta con mover la barra: ella sola llama a _cambiar_zoom. Llamarlo
+        # aqui otra vez era pintar el mapa dos veces por cada muesca de rueda.
         self.var_zoom.set(max(1.0, min(12.0, self.zoom * (1.15 if e.delta > 0 else 0.87))))
-        self._cambiar_zoom()
 
     def _arrastrar(self, e):
         if not self.arrastre or not self.centro:
