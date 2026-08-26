@@ -121,6 +121,34 @@ def normaliza(s):
     return re.sub(r"[^a-z0-9]", "", s.lower())
 
 
+# LMU no siempre llama a las clases igual que nosotros: en Silverstone reporta
+# "GT3" a secas, no "LMGT3". Por eso cada categoria acepta varios nombres. La
+# tabla vive aqui porque la usan el mapa (para el color), el comparador y el
+# grabador (para no medirte contra una categoria que no es la tuya).
+ALIAS_CLASE = {
+    "hypercar": ("hypercar", "hyper", "lmh", "lmdh", "gtp"),
+    "lmp2": ("lmp2", "p2"),
+    "lmgt3": ("lmgt3", "gt3", "gte"),
+}
+
+
+def familia(clase):
+    """
+    La categoria de un coche con el nombre unificado.
+
+    Devuelve "" si el juego no da la clase; entonces quien llame tiene que
+    seguir como antes, sin distinguir categorias, en vez de quedarse sin
+    referencia.
+    """
+    n = normaliza(clase or "")
+    if not n:
+        return ""
+    for familia_, alias in ALIAS_CLASE.items():
+        if any(a in n for a in alias):
+            return familia_
+    return n
+
+
 # ---------------- circuitos ----------------
 def cargar_circuitos(recargar=False):
     """Los circuitos medidos. Cada uno vive en su propio archivo, dentro de

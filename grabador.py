@@ -3,8 +3,9 @@
 Graba las trazadas de cada sesion para poder revisarlas despues.
 
 De cada vuelta que das se guarda el recorrido, el tiempo y los tres sectores.
-De los rivales solo se guarda la vuelta mas rapida, que es la que sirve de
-referencia para comparar.
+De los rivales solo se guarda la vuelta mas rapida DE TU CATEGORIA, que es la
+que sirve de referencia para comparar: medirte contra un coche de otra clase no
+dice nada.
 
 Los archivos van a mapa/sesiones/ , uno por sesion, y se pueden borrar desde
 las opciones del mapa: esto crece con el uso y no es plan de llenar el disco.
@@ -20,6 +21,7 @@ import time
 
 import coches
 import idiomas
+import lector_lmu as lmu
 
 import rutas
 
@@ -72,7 +74,8 @@ class Grabador:
         self.marca = marca_tiempo          # texto con fecha y hora, para el nombre
         self.mis_vueltas = []
         self.contador = 0                  # numero de vuelta, sigue subiendo
-        self.referencia = None             # la vuelta rival mas rapida
+        self.referencia = None             # la vuelta rival mas rapida de tu clase
+        self.mi_clase = ""                 # tu categoria; "" si el juego no la da
         self.coches = {}                   # nombre -> seguimiento
         self._ultimo_guardado = 0.0
         self._sucio = False
@@ -83,6 +86,16 @@ class Grabador:
 
     # ---------- captura ----------
     def actualiza(self, coches, ahora):
+        for c in coches:
+            if c.get("es_yo"):
+                mia = lmu.familia(c.get("clase") or "")
+                if mia and mia != self.mi_clase:
+                    self.mi_clase = mia
+                    if (self.referencia
+                            and lmu.familia(self.referencia.get("clase")) != mia):
+                        self.referencia = None      # era de otra categoria
+                break
+
         for c in coches:
             nombre = c.get("nombre") or ""
             if not nombre:
@@ -209,6 +222,9 @@ class Grabador:
                 if candidatas:
                     self.mis_vueltas.remove(max(candidatas, key=lambda v: v["tiempo"]))
             self._sucio = True
+        elif (self.mi_clase
+              and lmu.familia(c.get("clase") or "") != self.mi_clase):
+            pass                            # rival de otra clase: no es liston
         elif self.referencia is None or tiempo < self.referencia["tiempo"]:
             vuelta["nombre"] = c["nombre"]
             self.referencia = vuelta

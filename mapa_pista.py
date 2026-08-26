@@ -54,13 +54,10 @@ def nombre_sesion(codigo):
         return idiomas.t("ses.warmup")
     return idiomas.t("ses.carrera")
 
-# LMU no siempre llama a las clases igual que nosotros: en Silverstone reporta
-# "GT3" a secas, no "LMGT3". Por eso cada color acepta varios nombres.
-ALIAS_CLASE = {
-    "hypercar": ("hypercar", "hyper", "lmh", "lmdh", "gtp"),
-    "lmp2": ("lmp2", "p2"),
-    "lmgt3": ("lmgt3", "gt3", "gte"),
-}
+# Los nombres que puede dar el juego para cada categoria. La tabla esta en
+# lector_lmu porque el comparador tambien la necesita, y con dos copias una se
+# quedaria atras el dia que aparezca una clase nueva.
+ALIAS_CLASE = lmu.ALIAS_CLASE
 
 POR_DEFECTO = {
     "x": 40, "y": 40, "tamano": 394,

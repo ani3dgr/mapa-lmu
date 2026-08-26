@@ -6,7 +6,10 @@ Como funciona:
   - Se parte el circuito en tramos iguales y se mide la velocidad media de cada
     coche en cada tramo.
   - Cuando un rival cruza la meta, su vuelta queda cerrada. Si es la mas rapida
-    vista hasta ahora, pasa a ser la REFERENCIA.
+    vista hasta ahora DE TU MISMA CATEGORIA, pasa a ser la REFERENCIA. Un LMP2
+    no sirve de liston para un GT3: son coches distintos y la comparacion no
+    dice nada. Si el juego no publica la clase se compara contra todos, como
+    antes.
   - Tus tramos se comparan contra esa referencia y el color se decide en cada
     fotograma, nunca se guarda. Asi, si mas tarde alguien mejora la referencia,
     TODA tu vuelta se recolorea sola contra el nuevo liston.
@@ -23,6 +26,7 @@ publica el tiempo de la mejor vuelta de cada coche, pero no a que velocidad fue
 en cada punto, asi que una vuelta anterior no se puede reconstruir.
 """
 import idiomas
+import lector_lmu as lmu
 import re
 
 TRAMOS = 100              # en cuantos trozos se parte la vuelta
@@ -97,12 +101,32 @@ class Comparador:
         self.margen_salida = MARGEN_SALIDA   # ajustable desde las opciones
         self._en_salida = False      # ya se aviso de la salida que esta en curso
         self._dentro_seguidas = 0
-        self.mejor_sesion = 0.0     # mejor vuelta que publica el juego
+        self.mejor_sesion = 0.0     # mejor vuelta de tu clase que publica el juego
+        self.mi_clase = ""          # tu categoria; "" si el juego no la da
         self.aviso = ""
         self.aviso_hasta = 0.0
 
     # ---------- ciclo principal ----------
+    def _misma_clase(self, c):
+        """Si ese coche corre en tu categoria. Sin clase conocida, todos valen."""
+        if not self.mi_clase:
+            return True
+        return lmu.familia(c.get("clase") or "") == self.mi_clase
+
     def actualiza(self, coches, ahora):
+        # Tu categoria, antes de nada: de ella depende contra quien te mides.
+        # Se guarda la ultima conocida y no se borra si en una lectura suelta no
+        # apareces (paso por boxes), que si no la referencia se iria y volveria.
+        for c in coches:
+            if c.get("es_yo"):
+                mia = lmu.familia(c.get("clase") or "")
+                if mia and mia != self.mi_clase:
+                    self.mi_clase = mia
+                    # lo que hubiera de otra categoria ya no sirve de liston
+                    if self.referencia and self.referencia.get("clase") != mia:
+                        self.referencia = None
+                break
+
         for c in coches:
             # La clave es el NOMBRE, no la posicion en la lista: el juego
             # reordena esa lista segun los puestos en carrera, y siguiendo el
@@ -155,7 +179,8 @@ class Comparador:
             if c["es_yo"]:
                 self.mi_perfil = st["perfil"].perfil()
 
-        mejores = [c["mejor"] for c in coches if c.get("mejor", 0) > 0]
+        mejores = [c["mejor"] for c in coches
+                   if c.get("mejor", 0) > 0 and self._misma_clase(c)]
         if mejores:
             self.mejor_sesion = min(mejores)
 
@@ -241,6 +266,8 @@ class Comparador:
 
         if pen["es_yo"]:
             return                                  # la referencia es de rivales
+        if not self._misma_clase(c):
+            return                                  # otra categoria: no compara
         tiempo = c["ultima"]
         if tiempo <= 0 or st["perfil"].cobertura(pen["vuelta"]) < COBERTURA_MIN:
             return                                  # vuelta incompleta o sin tiempo
@@ -258,6 +285,7 @@ class Comparador:
         mejora = self.referencia is not None
         self.referencia = {"nombre": pen["nombre"], "tiempo": tiempo,
                            "dorsal": pen["dorsal"],
+                           "clase": lmu.familia(c.get("clase") or ""),
                            "perfil": st["perfil"].perfil()}
         self.aviso = idiomas.t("cmp.mejor_tiempo" if mejora
                                else "cmp.referencia") % (
