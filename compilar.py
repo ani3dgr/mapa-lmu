@@ -27,11 +27,18 @@ DIST = os.path.join(AQUI, "dist")
 BUILD = os.path.join(AQUI, "build")
 CARPETA_FINAL = os.path.join(DIST, "MapaLMU")
 
-VERSION = "1.2"
+VERSION = "1.3"
 
 # Lo que se copia al lado del .exe. Carpetas y archivos sueltos.
-ACOMPANA = ["circuitos", "idiomas", "coches.json", "INSTRUCCIONES.txt",
-            "README.md"]
+#
+# coches.json NO va, aunque parezca que deberia. Es el unico archivo que el
+# programa escribe y que ademas viajaba dentro del ZIP: quien actualizara
+# descomprimiendo encima perdia las correcciones que hubiera hecho a mano. Y
+# tampoco se pierde gran cosa por no repartirlo, porque los coches se
+# identifican solos con el catalogo que sale de los resultados del juego
+# (resultados.py); esto son solo retoques a mano, y encima van por nombre de
+# equipo, que online se lo pone cada uno como quiere.
+ACOMPANA = ["circuitos", "idiomas", "INSTRUCCIONES.txt", "README.md"]
 
 # Lo que NO se copia aunque este en esas carpetas.
 # catalogo_coches.json lo monta cada programa leyendo los resultados de SU
@@ -133,6 +140,16 @@ QUE HAY QUE HACER (dos minutos)
      La primera vez Windows puede decir "Windows protegio tu PC". Es
      porque el programa no esta firmado (firmarlo cuesta dinero). Pulsa
      "Mas informacion" y luego "Ejecutar de todas formas".
+
+SI YA TENIAS UNA VERSION ANTERIOR
+
+  Descomprime el ZIP ENCIMA de la carpeta que ya tenias, diciendo que
+  si a reemplazar. NO la borres antes.
+
+  No pierdes nada de lo tuyo: tus pistas escaneadas, tus vueltas
+  grabadas ("sesiones"), los colores, el sitio donde tengas puesto el
+  mapa y el idioma se quedan como estaban. Lo unico que se sustituye
+  es el programa y los circuitos que vengan con el.
 
 MIENTRAS JUEGAS
 

@@ -192,6 +192,15 @@ IDIOMAS
   Los textos que llevan %s o %d dentro son huecos que rellena el
   programa (un nombre, un numero). Hay que dejarlos como estan.
 
+ACTUALIZAR A UNA VERSION NUEVA
+  Se descomprime el ZIP ENCIMA de la carpeta que ya tienes,
+  reemplazando. No hay que borrar nada ni desinstalar.
+  Se quedan como estaban: los circuitos que hayas escaneado tu, las
+  vueltas grabadas (carpeta "sesiones"), los ajustes y colores
+  (mapa_config.json), el idioma y la ruta del juego.
+  Se sustituyen: el programa, y los circuitos que vengan en el ZIP si
+  tienes uno con el mismo nombre.
+
 ENLACES
   Las direcciones de internet (donaciones, pagina del programa)
   estan todas en el archivo enlaces.py. Los botones cuya direccion
