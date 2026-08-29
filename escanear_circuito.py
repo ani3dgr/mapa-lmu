@@ -75,6 +75,40 @@ def guardar_escaneo(pista, filas):
         return None
 
 
+# Cuanto se pueden llevar dos medidas del mismo trazado. El largo lo publica
+# el juego y para un trazado dado sale siempre igual, asi que con diez metros
+# sobra: dos variantes distintas se llevan mucho mas (Silverstone WEC y ELMS,
+# veintidos).
+MARGEN_LARGO = 10.0
+
+
+def _clave_para(circuitos, pista, largo_juego):
+    """
+    Con que nombre se guarda este escaneo.
+
+    Normalmente, el nombre del circuito y ya esta. Pero hay circuitos con
+    dos trazados a los que el juego llama IGUAL (Portimao, en su version
+    normal y en la de ELMS). Si se guardaran los dos con el mismo nombre,
+    el segundo pisaria al primero y siempre faltaria uno.
+
+    Asi que cuando ya hay un trazado guardado con ese nombre y mide otra
+    cosa, este se guarda aparte, con su largo pegado detras. El programa
+    despues elige solo el que cuadra con el circuito que se este corriendo.
+    """
+    base = lmu.normaliza(pista)
+    anterior = circuitos.get(base)
+    if not anterior or not largo_juego:
+        return base
+    largo_viejo = anterior.get("largo")
+    if not largo_viejo:
+        return base            # el de antes no lleva medida: se actualiza
+    if abs(largo_viejo - largo_juego) <= MARGEN_LARGO:
+        return base            # es el mismo trazado, se rehace encima
+    aparte = "%s__%d" % (base, round(largo_juego))
+    print(idiomas.t("sc.tz.otra_variante") % (largo_viejo, largo_juego))
+    return aparte
+
+
 def main():
     try:
         sco = lmu.Scoring()
@@ -89,10 +123,13 @@ def main():
         return 1
 
     pista = sco.circuito()
-    clave = lmu.normaliza(pista)
+    largo_juego = sco.largo_pista()
     print(idiomas.t("sc.tz.detectado") % pista)
+    if largo_juego:
+        print(idiomas.t("sc.tz.largo") % largo_juego)
 
     circuitos = lmu.cargar_circuitos()
+    clave = _clave_para(circuitos, pista, largo_juego)
     if clave in circuitos:
         anterior = circuitos[clave]
         tiene = [n for n, hay in (("bordes", anterior.get("bordes")),
@@ -169,8 +206,15 @@ def main():
     # escaneos aparte y no tienen por que perderse por rehacer este: son
     # coordenadas del mundo y siguen siendo validas.
     entrada = circuitos.get(clave, {})
+    # Se guarda cuanto mide el circuito segun el juego. Es el unico dato
+    # que distingue dos trazados que se llaman IGUAL: Portimao publica
+    # "Algarve International Circuit" tanto en su version normal como en la
+    # de ELMS, asi que por el nombre no hay manera de saber cual es. Con el
+    # largo, el mapa puede avisar de que el trazado dibujado no es el que se
+    # esta corriendo, en vez de pintar mal y dejar que uno se vuelva loco.
     entrada.update({
         "nombre": pista,
+        "largo": round(largo_juego, 1) if largo_juego else None,
         "vuelta_usada": vuelta,
         "puntos": trazado,
         "limites": [min(xs), min(zs), max(xs), max(zs)],

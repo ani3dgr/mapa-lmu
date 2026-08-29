@@ -24,11 +24,35 @@ CARPETA = rutas.carpeta()
 SCO_MAP = "$rFactor2SMMP_Scoring$"
 SCO_BASE = 560          # primer coche
 SCO_STRIDE = 584        # bytes por coche
+
+# LMU publica ADEMAS su propia memoria compartida, aparte de la del plugin de
+# rFactor, documentada en Support/SharedMemoryInterface/. Trae una cosa que la
+# otra no: el juego dice EL MISMO cual de los coches es el del jugador, sin que
+# haya que deducirlo de la marca ni del nombre del piloto.
+LMU_MAP = "LMU_Data"
+LMU_AVISOS = 0                              # lista de los ultimos avisos del
+LMU_AVISOS_N = 16                           # juego; 16 = hueco vacio
+AVISO_UNLOAD = 5                            # ha descargado el circuito
+LMU_SCORING = 1632                          # el bloque de scoring (mTrackName)
+LMU_VEHICULOS = LMU_SCORING + 560           # la lista de coches
+LMU_MAX_VEH = 104                           # plazas que reserva el juego
+LMU_STREAM = 65536                          # el texto de resultados que va detras
+# SharedMemoryTelemetryData: activeVehicles, playerVehicleIdx, playerHasVehicle
+LMU_TELE = LMU_VEHICULOS + LMU_MAX_VEH * SCO_STRIDE + LMU_STREAM
+LMU_TELE_FICHAS = LMU_TELE + 4              # telemInfo[0], que empieza por su mID
+LMU_TELE_STRIDE = 1888                      # bytes por coche en la telemetria
 OFF_TRACK = 12          # nombre del circuito (64 bytes)
 OFF_NUMVEH = 116        # numero de coches (int)
 OFF_JUGADOR = 128       # mPlayerName en la cabecera: tu nombre de piloto
 OFF_SESION = 76         # mSession: 0 = sin empezar, 1-4 practicas,
                         # 5-8 clasificacion, 9 warmup, 10-13 carrera
+OFF_ID = 0              # mID: numero propio de cada coche en esta sesion. Va
+                        # con el COCHE, no con el piloto ni con la decoracion,
+                        # asi que aguanta un cambio de piloto en un relevo.
+                        # OJO: no es el dorsal. El dorsal de verdad (el de la
+                        # pantalla de tiempos) NO esta en este buffer: el
+                        # '#397' de mVehicleName es el numero de la plantilla
+                        # 'Custom Team' y lo llevan todos los coches iguales.
 OFF_NOMBRE = 4          # driverName dentro de la ficha del coche (32 bytes)
 OFF_VEHICULO = 36       # mVehicleName: "Heart of Racing Team 2026 #23:WEC"
 OFF_CODIGO = 544        # mVehFilename: codigo interno del coche, "91_26_MANT..."
@@ -157,19 +181,57 @@ def cargar_circuitos(recargar=False):
     return circuitos.cargar(recargar)
 
 
-def buscar_circuito(circuitos, nombre_juego):
-    """Empareja el nombre que da el juego con uno de los trazados guardados."""
+def base_de(clave):
+    """
+    'algarveinternationalcircuit__4635' -> 'algarveinternationalcircuit'.
+
+    Cuando dos trazados se llaman igual, el segundo se guarda con su largo
+    pegado detras para poder tener los dos a la vez. Esto quita ese sufijo
+    para poder compararlos por el nombre.
+    """
+    return (clave or "").split("__")[0]
+
+
+def buscar_circuito(circuitos, nombre_juego, largo_juego=None):
+    """
+    Empareja el circuito del juego con uno de los trazados guardados.
+
+    POR QUE HACE FALTA EL LARGO
+    Hay circuitos con dos trazados a los que el juego llama IGUAL. Portimao
+    publica "Algarve International Circuit" tanto en su version normal como
+    en la de ELMS, asi que por el nombre es imposible saber cual se esta
+    corriendo. Silverstone si lo dice ("- WEC", "- ELMS"), pero no se puede
+    contar con ello.
+
+    La solucion no es avisar de que algo no cuadra y dejar que se apane
+    quien lo use: es tener los dos medidos y coger el que toca. Cuando hay
+    varios candidatos con el mismo nombre, gana el que mida lo mismo que el
+    circuito de ahora.
+    """
     n = normaliza(nombre_juego)
     if not n:
         return None, None
-    if n in circuitos:
-        return n, circuitos[n]
-    # coincidencia parcial en cualquiera de los dos sentidos
-    mejor, mejor_len = None, 0
-    for clave, datos in circuitos.items():
-        if (n in clave or clave in n) and len(clave) > mejor_len:
-            mejor, mejor_len = clave, len(clave)
-    return (mejor, circuitos[mejor]) if mejor else (None, None)
+
+    # todos los que casan por nombre, sin mirar el sufijo del largo
+    candidatos = [c for c in circuitos
+                  if base_de(c) == n or n in base_de(c) or base_de(c) in n]
+    if not candidatos:
+        return None, None
+    if len(candidatos) == 1:
+        return candidatos[0], circuitos[candidatos[0]]
+
+    # Varios. Si sabemos cuanto mide el de ahora, gana el que mas se le
+    # parezca: eso es lo que separa una variante de otra.
+    if largo_juego:
+        medidos = sorted((abs(circuitos[c]["largo"] - largo_juego), c)
+                         for c in candidatos if circuitos[c].get("largo"))
+        if medidos:
+            return medidos[0][1], circuitos[medidos[0][1]]
+
+    # Sin largos con los que comparar se hace como siempre: gana el nombre
+    # mas largo, que es el mas concreto.
+    mejor = max(candidatos, key=len)
+    return mejor, circuitos[mejor]
 
 
 # ---------------- autocalibracion ----------------
@@ -340,9 +402,17 @@ def calibrar_clase(sco, n_coches):
 class Scoring:
     def __init__(self):
         self.sco = abrir(SCO_MAP)
+        try:
+            # Si no estuviera -otra version del juego- el mapa sigue
+            # funcionando como antes: es una ayuda, no un requisito.
+            self.lmu = abrir(LMU_MAP)
+        except OSError:
+            self.lmu = None
         self.off_pos = None            # se confirma contra el trazado al entrar
         self.off_jugador = OFF_YO      # verificados en pista; la autodeteccion
         self.off_clase = OFF_CLASE     # solo hace falta si el juego los mueve
+        self.id_yo = None              # tu coche, una vez fijado. Lo borra el
+                                       # mapa al empezar otra sesion.
 
     def circuito(self):
         return txt(self.sco, OFF_TRACK, 64)
@@ -398,6 +468,8 @@ class Scoring:
         if self.off_pos is None:
             return salida
         mi_nombre = self.nombre_jugador()
+        con_marca = []      # los que llevan la marca del juego
+        con_mi_nombre = []  # los que conduce alguien que se llama como tu
         for v in range(self.n_coches()):
             b = SCO_BASE + v * SCO_STRIDE
             try:
@@ -407,20 +479,20 @@ class Scoring:
                 continue
             if not (math.isfinite(x) and math.isfinite(z)):
                 continue
+            piloto = txt(self.sco, b + OFF_NOMBRE, 32)
+            if self.off_jugador is not None and u1(self.sco, b + self.off_jugador):
+                con_marca.append(len(salida))
+            if mi_nombre and piloto == mi_nombre:
+                con_mi_nombre.append(len(salida))
             salida.append({
-                "nombre": txt(self.sco, b + OFF_NOMBRE, 32),
+                "id": i4(self.sco, b + OFF_ID),
+                "nombre": piloto,
                 "vehiculo": txt(self.sco, b + OFF_VEHICULO, 64),
                 "codigo": txt(self.sco, b + OFF_CODIGO, 32),
                 "x": x,
                 "z": z,
                 "clase": txt(self.sco, b + self.off_clase, 32) if self.off_clase is not None else "",
-                # Se cruza el byte mIsPlayer con el nombre que da la cabecera:
-                # si el juego pone la marca a cero un instante (paso por boxes,
-                # cumplir una sancion) el coche propio no se pierde.
-                "es_yo": (bool(u1(self.sco, b + self.off_jugador))
-                          if self.off_jugador is not None else False)
-                         or (bool(mi_nombre)
-                             and txt(self.sco, b + OFF_NOMBRE, 32) == mi_nombre),
+                "es_yo": False,          # lo decide _elegir_mi_coche(), abajo
                 "dist": d(self.sco, b + OFF_DIST),        # metros de vuelta
                 "lateral": d(self.sco, b + OFF_LATERAL),
                 "borde": d(self.sco, b + OFF_BORDE),
@@ -435,7 +507,121 @@ class Scoring:
                 "fase": u1(self.sco, b + OFF_FASE),
                 "bandera": u1(self.sco, b + OFF_BANDERA),
             })
+        self._elegir_mi_coche(salida, con_marca, con_mi_nombre)
         return salida
+
+    def circuito_descargado(self):
+        """
+        Si el juego ha DESCARGADO el circuito: la sesion se acabo.
+
+        LMU deja en su memoria la lista de sus ultimos avisos, y al salir de
+        una sesion aparece ahi UNLOAD. Sirve para lo unico que antes no se
+        podia saber: **distinguir una PAUSA de haber salido al menu**. Desde
+        fuera las dos se ven igual -el juego deja de publicar y la memoria se
+        queda con la ultima sesion entera, circuito y coches incluidos-, pero
+        una pausa no descarga nada.
+
+        Medido el 28/08/2026: rodando en pista los avisos son FFB y
+        UPDATE_TELEMETRY; nada mas salir al menu, UNLOAD.
+
+        None si no se puede leer. Ojo: es una senal para BORRAR, nunca para
+        pintar. Si fallara, el mapa se queda como estaba, que es lo de antes.
+        """
+        if self.lmu is None:
+            return None
+        try:
+            for i in range(LMU_AVISOS_N):
+                if i4(self.lmu, LMU_AVISOS + i * 4) == AVISO_UNLOAD:
+                    return True
+            return False
+        except OSError:
+            return None
+
+    def id_segun_el_juego(self):
+        """
+        El coche del jugador, dicho por el propio LMU. None si no lo dice.
+
+        En su memoria compartida (`LMU_Data`) hay un bloque de telemetria que
+        empieza por tres datos: cuantos coches hay, **cual es el del jugador**
+        y si el jugador tiene coche. Se coge ese indice, se lee el `mID` de esa
+        ficha, y ese numero es el que se cruza con la lista de scoring: asi da
+        igual que las dos listas no vayan en el mismo orden.
+
+        Es mejor fuente que la marca `mIsPlayer` y que el nombre del piloto,
+        porque no hay que deducir nada: lo dice el juego.
+        """
+        if self.lmu is None:
+            return None
+        try:
+            activos = u1(self.lmu, LMU_TELE)
+            cual = u1(self.lmu, LMU_TELE + 1)
+            tiene = u1(self.lmu, LMU_TELE + 2)
+            if not tiene or not 0 <= cual < min(activos, LMU_MAX_VEH):
+                return None
+            return i4(self.lmu, LMU_TELE_FICHAS + cual * LMU_TELE_STRIDE)
+        except OSError:
+            return None
+
+    def _elegir_mi_coche(self, coches, con_marca, con_mi_nombre):
+        """
+        Cual de todos los coches eres tu.
+
+        Orden, y el porque de cada escalon:
+
+        1. **Lo que diga el juego** (`id_segun_el_juego`), en CADA lectura. Es
+           la fuente buena y se le hace caso siempre, sin quedarse pegado a
+           nada: asi, si en algun momento se identifico mal, se corrige solo en
+           la lectura siguiente.
+        2. **El ultimo coche conocido**, cuando el juego no dice nada. Ese es
+           el caso del RELEVO en una carrera por equipos: haces tu stint, paras
+           en boxes, entra tu companero y tu te quedas de espectador. Ahi el
+           juego deja de decir "tu coche es este", pero el coche del equipo
+           sigue siendo el mismo y hay que seguir viendolo.
+        3. **La marca `mIsPlayer`** del buffer de scoring.
+        4. **El nombre del piloto**, de ultimo recambio para cuando el juego
+           apaga la marca un instante (paso por boxes, cumplir una sancion).
+
+        Los escalones 3 y 4 van pegados a la PERSONA, no al coche, y por eso
+        estan los ultimos: en un relevo los dos fallan.
+
+        **Por que se hace en cada lectura y no una sola vez.** Se probo a
+        fijarlo una vez y no soltarlo, y salio mal el mismo dia (28/08/2026,
+        Interlagos): si el coche se fija en el momento malo -al entrar, con la
+        memoria todavia llena de la sesion anterior- el mapa se queda pegado a
+        OTRO coche durante toda la sesion, y ademas no se nota, porque el
+        circulo se mueve por el trazado como si fuera el tuyo. Preguntando en
+        cada lectura, un error dura una lectura.
+
+        Se sigue guardando `id_yo` -el `mID`, que va con el COCHE y no con el
+        piloto-, pero solo como recambio del escalon 2. El mapa lo borra al
+        empezar otra sesion y al salir al menu.
+        """
+        # 1) lo que dice el juego, siempre por delante
+        del_juego = self.id_segun_el_juego()
+        if del_juego is not None:
+            for c in coches:
+                if c["id"] == del_juego:
+                    c["es_yo"] = True
+                    self.id_yo = del_juego
+                    return
+
+        # 2) el ultimo conocido: el caso del relevo
+        if self.id_yo is not None:
+            for c in coches:
+                if c["id"] == self.id_yo:
+                    c["es_yo"] = True
+                    return
+            self.id_yo = None          # ese coche ya no esta
+
+        # 3) y 4) los recambios, pegados al piloto
+        cual = None
+        if con_marca:
+            cual = con_marca[0]
+        elif con_mi_nombre:
+            cual = con_mi_nombre[0]
+        if cual is not None:
+            coches[cual]["es_yo"] = True
+            self.id_yo = coches[cual]["id"]
 
 
 def calibrar_puesto(sco, n_coches):

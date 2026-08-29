@@ -176,5 +176,13 @@
       "modelo": "TR010"
     }
   },
-  "sin_identificar": {}
+  "sin_identificar": {
+    "z06gt3r elms custom team": {
+      "equipo": "Z06GT3R ELMS Custom Team",
+      "clase": "GT3",
+      "codigo": "397_25ELMS_Z06GT3R",
+      "visto_en": "Circuit de Barcelona",
+      "visto_el": "20260828_0952"
+    }
+  }
 }

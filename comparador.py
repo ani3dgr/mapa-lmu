@@ -87,7 +87,15 @@ class PerfilRodante:
 
 
 class Comparador:
-    def __init__(self, largo_pista, sesion=None):
+    def __init__(self, largo_pista, sesion=None, circuito=""):
+        # El nombre del circuito se guarda para poder saber que has cambiado
+        # de sitio. Antes solo se miraba el largo y la sesion, y eso falla
+        # entre dos variantes del mismo circuito: Silverstone WEC y
+        # Silverstone ELMS se llevan veintidos metros y las dos pueden ser
+        # "practica", asi que el programa creia que seguias donde estabas y
+        # arrastraba las salidas de pista de la sesion anterior. Salian
+        # triangulos de aviso nada mas entrar, sin haber rodado.
+        self.circuito = circuito or ""
         self.largo = max(float(largo_pista), 1.0)
         self.sesion = sesion        # cambiar de sesion obliga a empezar de cero
         self.coches = {}            # nombre del piloto -> su seguimiento
@@ -242,12 +250,21 @@ class Comparador:
                     self._fuera_seguidas = 0
                     self._en_salida = False
             if (motivo is None and not self.usar_flag_juego and fuera
-                    and self._fuera_seguidas >= LECTURAS_SALIDA
-                    and not self._en_salida):
+                    and self._fuera_seguidas >= LECTURAS_SALIDA):
                 motivo = "rueda fuera"
-                self._en_salida = True
+
+        # La bandera de "ya estoy en una salida" se aplica a los TRES
+        # motivos, no solo al de la geometria. Una misma salida la cazan dos
+        # caminos con menos de un segundo de diferencia: primero la
+        # geometria ve la rueda fuera y despues el juego anula la vuelta.
+        # Marcando los dos salian el doble de triangulos de los que uno se
+        # habia salido, y en un circuito con los limites justos eso llena el
+        # mapa. Medido en pista: 17 avisos para 8 salidas reales.
+        if motivo and self._en_salida:
+            motivo = None
 
         if motivo:
+            self._en_salida = True
             # Una salida larga da muchas lecturas seguidas; el agrupado lo lleva
             # la bandera _en_salida, que solo se suelta al volver a pista un
             # rato. Antes se agrupaba por metros de pista y eso se comia

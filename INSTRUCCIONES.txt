@@ -82,7 +82,8 @@ dentro. Si tienes dudas, pulsalo.
     Consejo: no pongas tu coche del mismo color que el trazado.
 
   COMPARAR TIEMPOS
-    Te mide contra la vuelta mas rapida de los rivales. El circuito
+    Te mide contra la vuelta mas rapida DE TU CATEGORIA, que a un
+    GT3 no se le mide contra un LMP2. El circuito
     se pinta del color de la referencia y encima se superponen tus
     tramos: ROJO donde vas mas lento, AMARILLO donde vas igual,
     VERDE donde le ganas.
@@ -92,9 +93,8 @@ dentro. Si tienes dudas, pulsalo.
     marca donde te saliste la ultima vez que pasaste por ahi, y se
     borra solo cuando vuelves a pasar limpio.
 
-    Y el aviso de BANDERA AMARILLA: cuando el juego la saca, el coche
-    accidentado parpadea en el mapa y se dibuja mas grande, asi ves
-    donde esta antes de llegar. Util sobre todo en curvas ciegas.
+    El aviso de coches parados ya no esta aqui: tiene pestana
+    propia, AVISOS.
 
   COMPARAR TRAZADAS
     Se graba solo mientras juegas: de cada vuelta tuya el recorrido,
@@ -129,6 +129,22 @@ dentro. Si tienes dudas, pulsalo.
     Rueda del raton para el zoom, arrastrar para mover. Y ahi mismo
     esta el boton de borrar sesiones, para que no se llene el disco.
 
+  AVISOS
+    El aviso de coche parado por delante, que es lo unico del
+    programa que te interrumpe mientras conduces. Por eso esta todo
+    junto aqui: para que decidas cuanto quieres que te moleste.
+    NO AVISA POR CERCANIA como un spotter, sino POR SEGUNDOS. El
+    programa sabe por donde va cada coche EN EL TRAZADO, asi que
+    puede avisarte del coche parado mientras todavia estas a diez
+    segundos, que es cuando aun se puede hacer algo. Y medir por el
+    trazado evita el error tonto de avisar de un coche que esta al
+    otro lado de una horquilla: treinta metros en linea recta, pero
+    medio kilometro de pista.
+    Se ajusta con cuanta antelacion avisa, el tamano, el color y el
+    texto del cartel, y el sonido: se elige de una lista, se prueba
+    con un boton y tiene su propio volumen. Si dejas un archivo .wav
+    en la carpeta "sonidos", aparece en la lista sin tocar nada mas.
+
   ESCANEAR PISTAS
     Los circuitos vienen ya medidos. Solo hace falta escanear si
     sale una pista nueva o si cambian una que ya existe.
@@ -148,14 +164,39 @@ dentro. Si tienes dudas, pulsalo.
     identifica solo en cuanto acabes una carrera con el.
 
   REGLAJES
-    La ficha de cada coche: que motor lleva, cuanta cilindrada,
-    cuanta potencia, si el motor va delante, en el centro o colgado
-    detras, que ruedas mueve, y un resumen de como se comporta.
-    En la sub-pestana "Reglaje" estan las mismas paginas que tiene el
-    juego en PIT GARAGE -> CONFIGURACION DEL COCHE, con los mismos
-    nombres, para saber donde tocar.
-    TODAVIA NO FUNCIONA: sale en gris con el sello PROXIMAMENTE. Es
-    una vista previa de por donde va a ir.
+    NUEVO EN LA 1.4. Aqui se tocan los reglajes del coche.
+
+    A la izquierda, la lista de coches. En "Caracteristicas", la
+    ficha de ese coche: que motor lleva, cuanta cilindrada, cuanta
+    potencia, si el motor va delante, en el centro o colgado detras,
+    que ruedas mueve, y un resumen de como se comporta. Si sale un
+    coche nuevo y esta en blanco, lo puedes rellenar tu ahi mismo:
+    se guarda en "fichas_coches.json", al lado del programa, y ese
+    archivo se puede pasar a otro igual que un circuito escaneado.
+
+    En "Reglaje" esta el editor, con LAS MISMAS PAGINAS que tiene el
+    juego en PIT GARAGE -> CONFIGURACION DEL COCHE y con los mismos
+    nombres, pero que se tocan. Al guardar eliges GUARDAR ENCIMA o
+    GUARDAR UNA COPIA. En los dos casos, ANTES de escribir se apunta
+    en el historial como estaba el reglaje ENTERO, asi que
+    sobrescribir tampoco pierde nada: siempre se puede volver atras.
+    En el juego no hace falta salir: en la pantalla de cargar
+    reglaje hay un boton de actualizar que relee la carpeta.
+
+    "Ordenar mis reglajes..." abre la biblioteca: todos los .svm que
+    tienes en el ordenador, puestos por coche y por circuito. Ahi
+    esta tambien el ingeniero: le cuentas el sintoma ("se me va de
+    atras al frenar") y te dice QUE tocar y CUANTO. El QUE sale de
+    una tabla de reglas que puedes abrir, leer y corregir
+    ("reglas.json", al lado del programa). El CUANTO lo aprende de
+    los reglajes que ya tienes en el ordenador.
+    NO HAY NINGUNA IA AQUI DENTRO, y es a proposito: una IA pequena
+    no sabe de Le Mans Ultimate y se inventaria los numeros con
+    mucho aplomo. Una tabla de reglas se puede leer y discutir.
+
+    Antes de tocar nada, la biblioteca guarda el reglaje original en
+    la carpeta "copias_reglajes". Esa carpeta es tuya y no se pierde
+    al actualizar.
 
   ACERCA DE
     El idioma del programa, las donaciones, el patrocinador, y el

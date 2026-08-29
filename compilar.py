@@ -27,7 +27,7 @@ DIST = os.path.join(AQUI, "dist")
 BUILD = os.path.join(AQUI, "build")
 CARPETA_FINAL = os.path.join(DIST, "MapaLMU")
 
-VERSION = "1.3"
+VERSION = "1.4"
 
 # Lo que se copia al lado del .exe. Carpetas y archivos sueltos.
 #
@@ -38,7 +38,15 @@ VERSION = "1.3"
 # identifican solos con el catalogo que sale de los resultados del juego
 # (resultados.py); esto son solo retoques a mano, y encima van por nombre de
 # equipo, que online se lo pone cada uno como quiere.
-ACOMPANA = ["circuitos", "idiomas", "INSTRUCCIONES.txt", "README.md"]
+# reglas.json es la tabla del ingeniero y va suelta, fuera del .exe, a
+# proposito: es el conocimiento del programa y tiene que poder tocarlo
+# quien sepa de reglajes sin recompilar nada. calibracion.json NO va:
+# lo genera cada uno con SUS reglajes, y ademas cambia de un ordenador
+# a otro segun los coches que tenga.
+# los sonidos van sueltos para que cualquiera pueda dejar el suyo en la
+# carpeta y que salga en la lista sin recompilar nada.
+ACOMPANA = ["circuitos", "idiomas", "sonidos", "reglas.json",
+            "INSTRUCCIONES.txt", "README.md"]
 
 # Lo que NO se copia aunque este en esas carpetas.
 # catalogo_coches.json lo monta cada programa leyendo los resultados de SU
@@ -46,15 +54,20 @@ ACOMPANA = ["circuitos", "idiomas", "INSTRUCCIONES.txt", "README.md"]
 # dentro. Aparece en dist/ en cuanto se prueba el .exe compilado, asi que
 # tiene que estar aqui o se colaria en el ZIP de la siguiente compilacion.
 BASURA = ("__pycache__", ".pyc", ".bak", ".antes", ".orig",
-          "catalogo_coches.json")
+          "catalogo_coches.json", "calibracion.json",
+          "historial_reglajes.json", "fichas_coches.json")
 
 
 # Lo que en dist/MapaLMU es DEL USUARIO y no del programa. Compilar borra esa
 # carpeta entera, asi que esto se aparta antes y se devuelve despues del ZIP.
 # Se aprende por las malas: una compilacion se llevo por delante las vueltas
 # grabadas de una sesion de pruebas, que no estaban en ningun otro sitio.
-MIO = ["sesiones", "escaneos", "mapa_config.json", "ruta_juego.txt",
-       "idioma.txt", "catalogo_coches.json", "coches.json"]
+# copias_reglajes son los reglajes originales que guarda la biblioteca antes
+# de tocarles nada. Van aqui por lo mismo que las sesiones: son de quien usa
+# el programa, y encima puede que los haya pagado.
+MIO = ["sesiones", "escaneos", "copias_reglajes", "mapa_config.json",
+       "ruta_juego.txt", "idioma.txt", "catalogo_coches.json",
+       "coches.json", "historial_reglajes.json", "fichas_coches.json"]
 
 GUARDADO = os.path.join(AQUI, ".mio_mientras_compilo")
 

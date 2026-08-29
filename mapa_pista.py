@@ -37,9 +37,22 @@ import opciones
 CARPETA = rutas.carpeta()
 CONFIG = os.path.join(CARPETA, "mapa_config.json")
 CHROMA = "#010203"          # este color se vuelve transparente
+
+# Cuanto puede diferir el largo del trazado guardado del que dice el juego
+# antes de dar por hecho que son dos trazados distintos.
+#
+# Se pone bajo, en 10 m, porque el largo no se mide ni se estima: es el
+# numero que publica el juego, y para un mismo trazado sale siempre igual.
+# Dos variantes del mismo circuito se llevan poco (Silverstone WEC y ELMS,
+# veintidos metros), asi que un margen generoso no las distinguiria, que es
+# justo lo que hace falta cazar.
+MARGEN_LARGO = 10.0
 PATROCINIO = idiomas.t("acerca.patrocinio")
 REFRESCO_MS = 50            # 20 veces por segundo
 SEGUNDOS_SIN_DATOS = 3.0    # sin novedades del juego, se da la sesion por salida
+SALTO_SESION = 5.0          # s de desfase del reloj de sesion contra el reloj
+                            # real a partir de los cuales ya no es la misma
+                            # sesion, sino otra
 
 
 def nombre_sesion(codigo):
@@ -92,6 +105,20 @@ POR_DEFECTO = {
     "color_rapido": "#32d74b",
     "ver_parados": True,
     "color_parado": "#ffd60a",
+    # El aviso grande de coche parado. Va aparte del mapa porque el mapa
+    # se mira cuando se puede y esto tiene que verte a ti.
+    "aviso_parados": True,
+    "aviso_segundos": 8,
+    "aviso_color": "#ff2d2d",
+    "aviso_tam": 26,
+    "aviso_x": 700,
+    "aviso_y": 120,
+    "aviso_sonar": True,
+    # Al 60 y no al maximo a proposito: un pitido a todo volumen que no
+    # esperas, conduciendo, da un susto de verdad. Que suba quien quiera.
+    "aviso_volumen": 60,
+    "aviso_sonido": "doble.wav",
+    "aviso_texto": "",
     "yo_anillo": True,
     "ver_salidas": True,
     # Por defecto NO: en carrera el juego solo publica la salida cuando llega
@@ -274,6 +301,7 @@ class Juego:
         self._version = None
         self._version_desde = 0.0
         self._et = None
+        self._et_real = None   # reloj real, para saber si el de sesion salta
         self._ultimos = []
 
     def leer(self):
@@ -292,16 +320,34 @@ class Juego:
         # se queda con lo ultimo: mismo circuito, mismos coches. Sin esto el
         # mapa seguiria pintando una sesion que ya no existe. El contador de
         # version de la cabecera es lo que delata que ya no llegan datos.
+        #
+        # OJO: NO sirve `mOptionsLocation` de la memoria propia de LMU, que en
+        # la documentacion promete 0=menu 1=cargando 2=monitor 3=en pista.
+        # Medido el 28/08/2026: **LMU lo deja clavado en 0 siempre**, tambien
+        # dentro de una sesion con coches en pista. Es un campo heredado de
+        # rFactor que el juego no rellena. Se probo y dejaba el mapa en blanco.
         version = sco.version()
         ahora = time.monotonic()
         if version != self._version:
             self._version, self._version_desde = version, ahora
         if ahora - self._version_desde > SEGUNDOS_SIN_DATOS:
-            # Una PAUSA y salir al MENU se ven igual desde fuera: en los dos
-            # casos el juego deja de publicar. Como no se pueden distinguir, no
-            # se borra nada: se deja la ultima imagen y se avisa de que esta
-            # congelada. Asi se pueden seguir ajustando colores y grosores con
-            # el juego en pausa, que es cuando hace falta.
+            # Ha dejado de publicar. Puede ser que hayas SALIDO de la sesion o
+            # que la tengas en PAUSA, y desde fuera se ven igual. Se le
+            # pregunta al juego si ha descargado el circuito: si lo ha hecho,
+            # la sesion se acabo y no hay nada que pintar.
+            if sco.circuito_descargado():
+                self.datos = None
+                self.congelado = False
+                self.estado = ""
+                self._ultimos = []
+                sco.id_yo = None      # fuera de sesion, el coche fijado no vale
+                self.aviso = idiomas.t("map.entra_circuito")
+                return []
+            # El circuito sigue cargado, asi que la sesion sigue viva: es una
+            # pausa, una carga o una repeticion, y no se borra nada. Se
+            # deja la ultima imagen y se avisa de que esta congelada, para
+            # poder seguir ajustando colores y grosores con el juego en pausa,
+            # que es cuando hace falta.
             self.congelado = True
             if self.datos:
                 self.estado = idiomas.t("map.pausa")
@@ -319,7 +365,12 @@ class Juego:
             return []
 
         nombre_pista = sco.circuito()
-        clave, datos = lmu.buscar_circuito(self.circuitos, nombre_pista)
+        # Se le pasa el largo para que pueda elegir entre dos trazados que se
+        # llaman igual. Portimao publica "Algarve International Circuit" tanto
+        # en su version normal como en la de ELMS, y por el nombre no hay
+        # manera de saber cual es.
+        clave, datos = lmu.buscar_circuito(self.circuitos, nombre_pista,
+                                           sco.largo_pista())
         if not datos:
             self.datos = None
             self.aviso = idiomas.t("map.sin_escanear") % (nombre_pista or "?")
@@ -345,15 +396,37 @@ class Juego:
 
         self.datos = datos
         self.largo = sco.largo_pista()
-        # El reloj de sesion retrocede al empezar otra: es la senal fiable de
-        # sesion nueva, y la unica que distingue una practica de la practica
-        # siguiente (el codigo de sesion vale 1 en las dos). Ya no se usa el
-        # "dejar de publicar" para esto, porque eso tambien ocurre al pausar y
-        # borraria los datos por una simple pausa.
+        # El reloj de sesion es lo unico que distingue una practica de la
+        # practica siguiente: el codigo de sesion vale 1 en las dos. Ya no se
+        # usa el "dejar de publicar" para esto, porque eso tambien ocurre al
+        # pausar y borraria los datos por una simple pausa.
         et = sco.tiempo_sesion()
-        if self._et is not None and et < self._et - 5.0:
-            self.nueva_sesion = True
+        real = time.monotonic()
+        if self._et is not None and self._et_real is not None:
+            salto = et - self._et
+            paso = real - self._et_real
+            # El reloj de sesion avanza un segundo por cada segundo real. Si
+            # pega un salto que no cuadra con el tiempo que ha pasado de
+            # verdad, es que estas en OTRA sesion, no en la de antes.
+            #
+            # Mirar solo si RETROCEDE no basta, y costo una manana verlo: al
+            # salir de una practica propia y entrar en una SALA DE PRACTICAS
+            # ONLINE que llevaba rato abierta, el reloj no retrocede, pega un
+            # salto hacia ADELANTE (medido: de unos cientos de segundos a
+            # 4991). Circuito, medida y codigo de sesion son los mismos -las
+            # dos son "practica"- asi que el mapa creia que seguias donde
+            # estabas y se traia las salidas de pista de la sesion anterior:
+            # al entrar al garaje el mapa aparecia lleno de triangulos sin
+            # haber rodado.
+            #
+            # Una pausa no dispara esto: ahi el reloj se para, no salta.
+            if salto < -SALTO_SESION or salto > paso + SALTO_SESION:
+                self.nueva_sesion = True
+                # Otra sesion, otro coche: se suelta el que estuviera fijado
+                # para que el lector vuelva a buscar cual eres tu.
+                sco.id_yo = None
         self._et = et
+        self._et_real = real
 
         self.sesion = sco.sesion()
         self.fase_juego = sco.fase_juego()
@@ -365,9 +438,37 @@ class Juego:
             for v, c in enumerate(coches):
                 c["puesto"] = lmu.u1(sco.sco,
                                      lmu.SCO_BASE + v * lmu.SCO_STRIDE + self.off_puesto)
+            self._puesto_de_clase(coches)
         self.aviso = ""
         self._ultimos = coches
         return coches
+
+    def _puesto_de_clase(self, coches):
+        """
+        Cambia el puesto general por el puesto DENTRO DE TU CLASE.
+
+        El juego publica `mPlace`, que es el puesto general contando todas las
+        categorias juntas. Pero en una carrera multiclase eso no es lo que
+        nadie mira: la pantalla de tiempos del propio juego, y los pilotos,
+        cuentan por clase.
+
+        Medido en carrera el 28/08/2026: 20 coches, 5 Hypercar y 15 GT3. Los
+        Hypercar ocupan del 1 al 5, asi que los GT3 van del 6 al 20 y el coche
+        que iba **19 general** era en realidad el **14 de GT3**. El mapa ponia
+        19 y en la pantalla del juego se veia 14.
+
+        Se hace ordenando por el puesto general dentro de cada clase, que asi
+        no hay que saber cuantos coches lleva cada categoria ni si alguna se ha
+        quedado sin ninguno.
+        """
+        por_clase = {}
+        for c in coches:
+            if not c.get("puesto"):
+                continue
+            por_clase.setdefault(lmu.familia(c.get("clase") or ""), []).append(c)
+        for iguales in por_clase.values():
+            for sitio, c in enumerate(sorted(iguales, key=lambda x: x["puesto"]), 1):
+                c["puesto"] = sitio
 
 
 # ---------------- ventana del mapa ----------------
@@ -410,6 +511,7 @@ class Mapa:
         self.suave = Suavizado()
         self._fuentes = {}
         self.comparador = None
+        self.avisador = None
         self.grabador = None
 
         self.root = tk.Tk()
@@ -519,6 +621,7 @@ class Mapa:
         accidentados = set()
         if self.cfg["ver_parados"] and self.comparador is not None:
             accidentados = self.comparador.parados(coches)
+        self._avisar_de_parados(coches, accidentados)
         # medio segundo encendido, medio apagado
         destello = int(ahora * 2) % 2 == 0
 
@@ -775,10 +878,20 @@ class Mapa:
         nueva = getattr(self.fuente, "nueva_sesion", False)
         if nueva:
             self.fuente.nueva_sesion = False
+        # Se compara tambien el NOMBRE del circuito, no solo su largo: dos
+        # variantes del mismo sitio (Silverstone WEC y ELMS) se diferencian
+        # en menos de los cincuenta metros que se miraban, y pasaban por el
+        # mismo circuito.
+        # Se usa la clave del circuito escaneado y no el nombre a secas:
+        # es la que ya distingue una variante de otra
+        # (silverstonegrandprixcircuitwec de ...elms) y la fuente la calcula
+        # de todas formas para saber que trazado pintar.
+        nombre_circuito = getattr(self.fuente, "clave", "") or ""
         if (self.comparador is None or nueva
                 or abs(self.comparador.largo - largo) > 50
-                or self.comparador.sesion != sesion):
-            self.comparador = comp.Comparador(largo, sesion)
+                or self.comparador.sesion != sesion
+                or self.comparador.circuito != nombre_circuito):
+            self.comparador = comp.Comparador(largo, sesion, nombre_circuito)
             if self.grabador is not None:
                 self.grabador.guardar()          # cierra la sesion anterior
             self.grabador = None
@@ -815,8 +928,31 @@ class Mapa:
         else:
             self.abrir_opciones()
 
+    def _avisar_de_parados(self, coches, accidentados):
+        """
+        Ensena el cartel cuando hay un coche parado por delante.
+
+        La cuenta de a cuantos segundos esta la hace avisos.py; aqui solo se
+        le pasa lo que ya tenemos en la mano y se le deja decidir.
+        """
+        if self.comparador is None:
+            return
+        if self.avisador is None:
+            import aviso_gui
+            self.avisador = aviso_gui.Motor(self.root, self.cfg, guardar_config)
+            self.avisador.colocar(self.modo_mover)
+        yo = next((c for c in coches if c.get("es_yo")), None)
+        mi_kmh = None
+        if yo:
+            mi_kmh = (self.comparador.coches.get(yo.get("nombre") or "")
+                      or {}).get("kmh")
+        self.avisador.latido(coches, accidentados,
+                             getattr(self.fuente, "largo", 0.0), mi_kmh)
+
     def cerrar_opciones(self):
         self.modo_mover = False
+        if self.avisador is not None:
+            self.avisador.colocar(False)
         guardar_config(self.cfg)
         click_atraviesa(self.hwnd, True)
         if self.opciones:
@@ -826,6 +962,8 @@ class Mapa:
     def abrir_opciones(self):
         click_atraviesa(self.hwnd, False)      # para poder arrastrar el mapa
         self.modo_mover = True
+        if self.avisador is not None:
+            self.avisador.colocar(True)
         self.opciones = opciones.abrir(self, guardar_config)
 
     def cerrar_programa(self):

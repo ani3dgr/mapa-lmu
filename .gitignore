@@ -36,6 +36,19 @@ __pycache__/
 *.antes
 *.orig
 
+# Los reglajes de quien usa el programa. NO SE SUBEN NUNCA: son archivos
+# suyos, muchos comprados, y este es un repositorio publico.
+copias_reglajes/
+historial_reglajes.json
+
+# La calibracion sale de los reglajes que tenga cada uno en SU ordenador,
+# asi que no vale para nadie mas.
+calibracion.json
+
+# Las fichas que rellene cada uno para los coches nuevos. Las que trae el
+# programa van dentro de fichas.py.
+fichas_coches.json
+
 # Lo monta el programa solo leyendo los resultados del juego, y es distinto
 # en cada ordenador: cada uno ha corrido sus carreras.
 catalogo_coches.json

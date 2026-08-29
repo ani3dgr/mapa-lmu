@@ -2,7 +2,7 @@
 
 Un mapa que se pone encima del juego y te enseña dónde está cada coche, con
 **tu coche bien visible**, los rivales por colores de categoría, los números y
-nombres de las curvas, y un modo para compararte con el más rápido de la sesión.
+nombres de las curvas, y un modo para compararte con el más rápido de tu categoría.
 
 Es gratuito. Úsalo y pásalo a quien quieras.
 
@@ -22,10 +22,22 @@ Es gratuito. Úsalo y pásalo a quien quieras.
   rival de tu clase mejora, tu vuelta se recolorea sola.
 - **Aviso de salidas de pista**, marcando con un triángulo dónde te saliste la
   última vez que pasaste por ahí.
-- **Aviso de coches parados** en plena pista, que parpadean en el mapa. Sirve
-  sobre todo para las curvas ciegas.
+- **Aviso de coches parados** en plena pista, que parpadean en el mapa y
+  suenan. No avisa por cercanía como un spotter, sino **por segundos**: sabe por
+  dónde va cada coche en el trazado y te avisa mientras todavía queda tiempo de
+  hacer algo. El sonido se elige de una lista y puedes dejar el tuyo en la
+  carpeta `sonidos`.
 - **Comparador de trazadas**: guarda tus vueltas con sus sectores y las dibuja
   sobre el circuito a su anchura real, coloreadas contra la del rival.
+- **Reglajes** *(nuevo en la 1.4)*: una biblioteca con todos los `.svm` que
+  tienes en el ordenador, ordenados por coche y circuito, con las fichas de los
+  coches y un editor con **las mismas páginas que el juego**, pero que se tocan.
+  Guarda encima o guarda una copia, y en cualquier caso apunta en el historial
+  cómo estaba el reglaje entero antes, así que **siempre se puede volver atrás**.
+  Incluye un ingeniero al que le cuentas el síntoma ("se me va de atrás al
+  frenar") y te dice qué tocar y cuánto: el qué sale de una tabla de reglas que
+  puedes leer y corregir (`reglas.json`), y el cuánto lo aprende de los reglajes
+  que ya tienes. **No hay ninguna IA aquí dentro**, y es a propósito.
 - **Escáner de circuitos**, para medir una pista nueva desde dentro del juego.
 - **Siete idiomas**: español, inglés, francés, italiano, alemán, portugués y
   polaco.
@@ -99,7 +111,7 @@ Merece la pena decirlo, porque explica por qué faltan cosas:
 
 An overlay map that shows you where every car is, with **your own car clearly
 visible**, rivals coloured by class, corner numbers and names, and a mode that
-measures you against the fastest car in the session.
+measures you against the fastest car in your own class.
 
 It is free. Use it and pass it on to anyone.
 
@@ -114,10 +126,22 @@ It is free. Use it and pass it on to anyone.
   colour and your own segments are laid over it in red, yellow or green. If a
   rival in your class improves, your lap recolours itself.
 - **Off-track warnings**, marking with a triangle where you last went off.
-- **Stopped-car warnings** out on track, flashing on the map. Mainly for blind
-  corners.
+- **Stopped-car warnings** out on track, flashing on the map and sounding an
+  alert. It does not warn by proximity like a spotter, but **by seconds**: it
+  knows where every car is along the track and warns you while there is still
+  time to do something. The sound is picked from a list, and you can drop your
+  own into the `sonidos` folder.
 - **Line comparator**: saves your laps with their sectors and draws them over
   the track at its real width, coloured against the rival's.
+- **Car setups** *(new in 1.4)*: a library of every `.svm` on your computer,
+  sorted by car and track, with car spec sheets and an editor laid out in **the
+  same pages as the game**, only editable. Overwrite or save a copy — either way
+  the whole setup is written to the history first, so **you can always go back**.
+  It includes an engineer you tell the symptom to ("it steps out at the rear
+  under braking") and it tells you what to change and by how much: the *what*
+  comes from a rules table you can read and correct (`reglas.json`), and the
+  *how much* is learnt from the setups you already own. **There is no AI in
+  here**, and that is on purpose.
 - **Track scanner**, to measure a new track from inside the game.
 - **Seven languages**: Spanish, English, French, Italian, German, Portuguese and
   Polish.

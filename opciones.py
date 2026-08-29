@@ -54,6 +54,7 @@ class Opciones:
         self._pestana_aspecto(cuaderno)
         self._pestana_tiempos(cuaderno)
         self._pestana_trazadas(cuaderno)
+        self._pestana_avisos(cuaderno)
         self._pestana_escaneo(cuaderno)
         self._pestana_coches(cuaderno)
         self._pestana_reglajes(cuaderno)
@@ -327,6 +328,91 @@ class Opciones:
 
     def _abrir_visor(self):
         visor.abrir(self.v, self.cfg)
+
+    def _pestana_avisos(self, cuaderno):
+        """
+        El cartel que salta cuando hay un coche parado por delante.
+
+        Va en pestana propia y no junto a los colores del mapa porque no es
+        cosa de aspecto: es lo unico del programa que te interrumpe mientras
+        conduces, y quien lo configure tiene que verlo todo junto para
+        decidir cuanto quiere que le moleste.
+        """
+        import aviso_gui
+        m, fila = self._hoja(cuaderno, T("tab.avisos"), "avisos")
+
+        ttk.Label(m, justify="left", foreground="#555", wraplength=430,
+                  text=T("avi.intro")).grid(row=fila[0], column=0, columnspan=3,
+                                            sticky="w", pady=(0, 8))
+        fila[0] += 1
+
+        self._interruptor(m, fila, T("avi.activado"), "aviso_parados")
+
+        self._titulo(m, fila, T("avi.tit_cuando"))
+        self._deslizador(m, fila, T("avi.antelacion"), "aviso_segundos", 3, 20)
+        ttk.Label(m, foreground="#666", justify="left", wraplength=430,
+                  text=T("avi.antelacion_nota")).grid(
+            row=fila[0], column=0, columnspan=3, sticky="w", padx=(20, 0))
+        fila[0] += 1
+
+        self._titulo(m, fila, T("avi.tit_como"))
+        self._deslizador(m, fila, T("avi.tamano"), "aviso_tam", 12, 60)
+        self._color(m, fila, T("avi.color"), "aviso_color")
+
+        ttk.Label(m, text=T("avi.texto_etiqueta")).grid(
+            row=fila[0], column=0, sticky="w")
+        var_texto = tk.StringVar(value=self.cfg.get("aviso_texto", ""))
+
+        def texto_cambia(*_):
+            self.cfg["aviso_texto"] = var_texto.get()
+            self.guardar(self.cfg)
+        var_texto.trace_add("write", texto_cambia)
+        ttk.Entry(m, textvariable=var_texto, width=30).grid(
+            row=fila[0], column=1, columnspan=2, sticky="w", padx=6)
+        fila[0] += 1
+        ttk.Label(m, foreground="#666", justify="left", wraplength=430,
+                  text=T("avi.texto_nota")).grid(
+            row=fila[0], column=0, columnspan=3, sticky="w", padx=(20, 0))
+        fila[0] += 1
+
+        self._titulo(m, fila, T("avi.tit_sonido"))
+        self._interruptor(m, fila, T("avi.sonar"), "aviso_sonar")
+        self._deslizador(m, fila, T("avi.volumen"), "aviso_volumen", 0, 100)
+        ttk.Label(m, text=T("avi.sonido")).grid(row=fila[0], column=0, sticky="w")
+        var_son = tk.StringVar(value=self.cfg.get("aviso_sonido", "doble.wav"))
+        lista = [T("avi.sin_sonido")] + aviso_gui.sonidos_disponibles()
+
+        def son_cambia(_=None):
+            elegido = var_son.get()
+            self.cfg["aviso_sonido"] = "" if elegido == T("avi.sin_sonido") else elegido
+            self.guardar(self.cfg)
+        combo = ttk.Combobox(m, textvariable=var_son, values=lista, width=18,
+                             state="readonly")
+        combo.grid(row=fila[0], column=1, sticky="w", padx=6)
+        combo.bind("<<ComboboxSelected>>", son_cambia)
+        ttk.Button(m, text=T("avi.probar"),
+                   command=lambda: aviso_gui.tocar(
+                       self.cfg.get("aviso_sonido"),
+                       self.cfg.get("aviso_volumen", 60), True)
+                   ).grid(row=fila[0], column=2, sticky="w")
+        fila[0] += 1
+        # Va justo debajo del boton de probar, que es donde mira uno cuando
+        # le da y no suena nada. Ahi es donde hace falta la explicacion, no
+        # enterrada en la ayuda.
+        ttk.Label(m, foreground="#b03a2e", font=("Segoe UI", 8),
+                  text=T("avi.suena_por")).grid(
+            row=fila[0], column=1, columnspan=2, sticky="w", padx=6)
+        fila[0] += 1
+        ttk.Label(m, foreground="#666", justify="left", wraplength=430,
+                  text=T("avi.sonido_nota")).grid(
+            row=fila[0], column=0, columnspan=3, sticky="w", padx=(20, 0))
+        fila[0] += 1
+
+        ttk.Label(m, foreground="#b03a2e", justify="left", wraplength=430,
+                  font=("Segoe UI", 9, "bold"),
+                  text=T("avi.colocar")).grid(
+            row=fila[0], column=0, columnspan=3, sticky="w", pady=(12, 0))
+        fila[0] += 1
 
     def _pestana_escaneo(self, cuaderno):
         m, fila = self._hoja(cuaderno, T("tab.escaneo"), "escaneo")
@@ -687,10 +773,17 @@ class Opciones:
 
     def _pestana_reglajes(self, cuaderno):
         m, fila = self._hoja(cuaderno, T("tab.reglajes"), "reglajes")
-        ttk.Label(m, foreground="#b03a2e", justify="left",
-                  font=("Segoe UI", 9, "bold"),
-                  text=T("reg.aviso")).grid(row=fila[0], column=0, columnspan=3, sticky="w", pady=(0, 6))
+
+        # La primera parte que ya funciona de verdad. Lo de abajo (las
+        # fichas de coche y la hoja de reglaje) sigue siendo la maqueta.
+        arriba = ttk.Frame(m)
+        arriba.grid(row=fila[0], column=0, columnspan=3, sticky="we", pady=(0, 6))
         fila[0] += 1
+        ttk.Button(arriba, text=T("reg.biblioteca"),
+                   command=self._abrir_biblioteca).pack(side="left")
+        self.rotulo_reglaje = ttk.Label(arriba, foreground="#555",
+                                        justify="left", font=("Segoe UI", 9))
+        self.rotulo_reglaje.pack(side="left", padx=(12, 0))
 
         cuerpo = ttk.Frame(m)
         cuerpo.grid(row=fila[0], column=0, columnspan=3, sticky="nsew")
@@ -718,27 +811,51 @@ class Opciones:
 
         hoja_car = ttk.Frame(sub, padding=6)
         sub.add(hoja_car, text=T("reg.sub.caracteristicas"))
-        self.lienzo_car = tk.Canvas(hoja_car, width=640, height=402,
+        self.lienzo_car = tk.Canvas(hoja_car, width=640, height=372,
                                     bg="white", highlightthickness=1,
                                     highlightbackground="#d5d5d5")
         self.lienzo_car.pack(fill="both", expand=True)
+        bajo = ttk.Frame(hoja_car)
+        bajo.pack(fill="x", pady=(6, 0))
+        self.b_ficha = ttk.Button(bajo, text=T("fic.escribir"),
+                                  command=self._editar_ficha)
+        self.b_ficha.pack(side="left")
+        ttk.Label(bajo, foreground="#777", text=T("fic.nota")).pack(
+            side="left", padx=(10, 0))
 
+        # ---- la hoja de reglaje, que ahora se toca de verdad
         hoja_reg = ttk.Frame(sub, padding=6)
         sub.add(hoja_reg, text=T("reg.sub.reglaje"))
-        # fila de paginas, igual que la del juego
-        self.pagina_reglaje = tk.IntVar(value=0)
-        tira = ttk.Frame(hoja_reg)
-        tira.pack(fill="x", pady=(0, 4))
-        for i, (titulo, _) in enumerate(reglajes.paginas_traducidas()):
-            ttk.Radiobutton(tira, text=titulo.upper(), value=i,
-                            variable=self.pagina_reglaje, style="Toolbutton",
-                            command=self._pintar_reglaje).pack(side="left", padx=1)
-        self.lienzo_reg = tk.Canvas(hoja_reg, width=640, height=376,
-                                    bg="white", highlightthickness=1,
-                                    highlightbackground="#d5d5d5")
-        self.lienzo_reg.pack(fill="both", expand=True)
+        elegir = ttk.Frame(hoja_reg)
+        elegir.pack(fill="x", pady=(0, 4))
+        ttk.Label(elegir, text=T("bib.circuito")).pack(side="left")
+        self.ed_circuito = tk.StringVar()
+        self.combo_ed_circuito = ttk.Combobox(elegir, width=18, state="readonly",
+                                              textvariable=self.ed_circuito)
+        self.combo_ed_circuito.pack(side="left", padx=(4, 10))
+        self.combo_ed_circuito.bind("<<ComboboxSelected>>",
+                                    lambda _: self._llenar_reglajes_editor())
+        self.ed_reglaje = tk.StringVar()
+        self.combo_ed_reglaje = ttk.Combobox(elegir, width=42, state="readonly",
+                                             textvariable=self.ed_reglaje)
+        self.combo_ed_reglaje.pack(side="left")
+        self.combo_ed_reglaje.bind("<<ComboboxSelected>>",
+                                   lambda _: self._cargar_en_editor())
+
+        import editor_gui
+        self.editor = editor_gui.Editor(hoja_reg,
+                                        al_guardar=self._llenar_reglajes_editor)
 
         self._llenar_arbol_reglajes()
+        self._llenar_circuitos_editor()
+
+    def _abrir_biblioteca(self):
+        """
+        La biblioteca va en ventana aparte porque necesita ancho: son
+        ochenta reglajes con siete columnas y aqui no caben.
+        """
+        import biblioteca_gui
+        biblioteca_gui.abrir(self.v)
 
     def _llenar_arbol_reglajes(self):
         arbol = self.arbol_reglajes
@@ -746,8 +863,10 @@ class Opciones:
             arbol.delete(i)
         self.modelo_reglaje = ""
         primero = None
+        import fichas
+        por_cat = fichas.por_categoria()
         for categoria in reglajes.CATEGORIAS:
-            lista = reglajes.por_categoria().get(categoria) or []
+            lista = por_cat.get(categoria) or []
             if not lista:
                 continue
             grupo = arbol.insert("", "end", text="%s  (%d)" % (categoria, len(lista)),
@@ -770,27 +889,38 @@ class Opciones:
             return                       # es una categoria, no un coche
         self.modelo_reglaje = valores[0]
         self._pintar_caracteristicas()
-        self._pintar_reglaje()
 
-    # ---- dibujo
-    def _sello(self, lienzo):
-        """El sello diagonal de PROXIMAMENTE, siempre lo ultimo que se pinta."""
-        ancho = int(lienzo["width"])
-        alto = int(lienzo["height"])
-        lienzo.create_text(ancho / 2 + 2, alto / 2 + 2, text=T("reg.sello"),
-                           angle=24, fill="#ffffff",
-                           font=("Segoe UI", 40, "bold"))
-        lienzo.create_text(ancho / 2, alto / 2, text=T("reg.sello"),
-                           angle=24, fill="#e0554e",
-                           font=("Segoe UI", 40, "bold"))
+    # ---- caracteristicas del coche
+    def _editar_ficha(self):
+        """Escribir o corregir la ficha del coche que este elegido."""
+        if not getattr(self, "modelo_reglaje", ""):
+            return
+        import fichas_gui
+        fichas_gui.Editar(self.v, self.modelo_reglaje,
+                          self._pintar_caracteristicas)
 
     def _pintar_caracteristicas(self):
+        import fichas
         c = self.lienzo_car
         c.delete("all")
-        ficha = reglajes.ficha_traducida(self.modelo_reglaje)
+        ficha = fichas.de(self.modelo_reglaje)
+        self.b_ficha.configure(
+            text=T("fic.corregir") if ficha else T("fic.escribir"))
+
         if not ficha:
-            self._sello(c)
+            # Un coche que el juego ha sacado despues de hacerse el
+            # programa. No se deja en blanco y ya: se dice que pasa y como
+            # arreglarlo, que es lo unico que hace falta para que esto no
+            # se quede muerto el dia que nadie lo mantenga.
+            c.create_text(16, 20, anchor="w",
+                          text=reglajes.bonito(self.modelo_reglaje),
+                          fill=self.GRIS_FUERTE, font=("Segoe UI", 13, "bold"))
+            c.create_text(16, 60, anchor="nw", text=T("fic.no_hay"),
+                          fill=self.GRIS, font=("Segoe UI", 9), width=600)
             return
+        # Si la ficha viene con el programa se ensena traducida; si la
+        # escribio alguien a mano, tal cual la escribio.
+        ficha = dict(fichas.traducida(self.modelo_reglaje) or ficha)
         y = 18
         c.create_text(16, y, anchor="w", text=reglajes.bonito(self.modelo_reglaje),
                       fill=self.GRIS_FUERTE, font=("Segoe UI", 13, "bold"))
@@ -812,45 +942,46 @@ class Opciones:
         y += 22
         c.create_text(16, y, anchor="nw", text=ficha["resumen"], fill=self.GRIS,
                       font=("Segoe UI", 9), width=608)
-        self._sello(c)
 
-    def _pintar_reglaje(self):
-        c = self.lienzo_reg
-        c.delete("all")
-        titulo, secciones = reglajes.paginas_traducidas()[self.pagina_reglaje.get()]
-        c.create_text(14, 16, anchor="w",
-                      text="%s   -   %s" % (titulo.upper(),
-                                            reglajes.bonito(self.modelo_reglaje)),
-                      fill=self.GRIS_FUERTE, font=("Segoe UI", 10, "bold"))
-        c.create_text(626, 16, anchor="e", text=T("reg.ejemplo"),
-                      fill=self.GRIS_FLOJO, font=("Segoe UI", 8))
+    # ---- el editor de reglajes
+    def _llenar_circuitos_editor(self):
+        import biblioteca
+        import biblioteca_gui
+        base = biblioteca_gui.settings()
+        circuitos = biblioteca.circuitos_del_juego(base) if base else []
+        self.combo_ed_circuito.configure(values=circuitos)
+        if circuitos and not self.ed_circuito.get():
+            self.ed_circuito.set(circuitos[0])
+        self._llenar_reglajes_editor()
 
-        # repartir las secciones en dos columnas para que quepan de alto
-        altos = [24 + 21 * len(campos) for _, campos in secciones]
-        total = sum(altos)
-        corte, acumulado = len(secciones), 0
-        for i, alto in enumerate(altos):
-            if acumulado + alto > total / 2.0 and i > 0:
-                corte = i
-                break
-            acumulado += alto
-        columnas = [(14, secciones[:corte]), (330, secciones[corte:])]
+    def _llenar_reglajes_editor(self):
+        """Los reglajes del circuito elegido, para el desplegable."""
+        import biblioteca_gui
+        base = biblioteca_gui.settings()
+        circuito = self.ed_circuito.get()
+        nombres = []
+        if base and circuito:
+            carpeta = os.path.join(base, circuito)
+            try:
+                nombres = sorted(f[:-4] for f in os.listdir(carpeta)
+                                 if f.lower().endswith(".svm"))
+            except OSError:
+                nombres = []
+        self.combo_ed_reglaje.configure(values=nombres)
+        if self.ed_reglaje.get() not in nombres:
+            self.ed_reglaje.set(nombres[0] if nombres else "")
+        self._cargar_en_editor()
 
-        for x, grupo in columnas:
-            y = 44
-            for nombre, campos in grupo:
-                c.create_text(x, y, anchor="w", text=nombre, fill=self.GRIS,
-                              font=("Segoe UI", 8, "bold"))
-                y += 17
-                for etiqueta, valor, ajustable in campos:
-                    tono = self.GRIS_FUERTE if ajustable else self.GRIS_FLOJO
-                    c.create_text(x, y, anchor="w", text=etiqueta, fill=tono,
-                                  font=("Segoe UI", 8))
-                    c.create_text(x + 282, y, anchor="e", text=valor, fill=tono,
-                                  font=("Segoe UI", 8))
-                    y += 21
-                y += 7
-        self._sello(c)
+    def _cargar_en_editor(self):
+        import biblioteca
+        import biblioteca_gui
+        base = biblioteca_gui.settings()
+        circuito, nombre = self.ed_circuito.get(), self.ed_reglaje.get()
+        if not base or not circuito or not nombre:
+            return
+        ficha = biblioteca.leer(os.path.join(base, circuito, nombre + ".svm"))
+        if ficha:
+            self.editor.cargar(ficha)
 
     def _pestana_acerca(self, cuaderno):
         m, fila = self._hoja(cuaderno, T("tab.acerca"), "acerca")
