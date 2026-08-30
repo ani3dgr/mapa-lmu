@@ -53,6 +53,9 @@ SEGUNDOS_SIN_DATOS = 3.0    # sin novedades del juego, se da la sesion por salid
 SALTO_SESION = 5.0          # s de desfase del reloj de sesion contra el reloj
                             # real a partir de los cuales ya no es la misma
                             # sesion, sino otra
+ESPERA_AVISO_YO = 3.0       # s dudando de cual es tu coche antes de sacar el
+                            # cartel: al entrar en una sesion el juego tarda un
+                            # momento en decirlo y no hay que asustar por eso
 
 
 def nombre_sesion(codigo):
@@ -197,7 +200,7 @@ class Suavizado:
 
 # ---------------- teclas globales ----------------
 _user32 = ctypes.windll.user32
-VK = {"F9": 0x78, "F10": 0x79}
+VK = {"F9": 0x78, "F10": 0x79, "F11": 0x7A}
 
 
 class Teclas:
@@ -296,6 +299,8 @@ class Juego:
         self.sesion = None
         self.fase_juego = 0
         self.estado = ""
+        self.yo_origen = None          # de donde ha salido "mi coche"
+        self.yo_fiable = False         # y si esa via lo SABE o lo supone
         self.nueva_sesion = False      # obliga a empezar de cero
         self.congelado = False         # el juego no publica: pausa o menu
         self._version = None
@@ -340,7 +345,8 @@ class Juego:
                 self.congelado = False
                 self.estado = ""
                 self._ultimos = []
-                sco.id_yo = None      # fuera de sesion, el coche fijado no vale
+                sco.fijar_coche(None)  # fuera de sesion, el coche elegido
+                                       # ya no vale: los mID cambian
                 self.aviso = idiomas.t("map.entra_circuito")
                 return []
             # El circuito sigue cargado, asi que la sesion sigue viva: es una
@@ -383,6 +389,7 @@ class Juego:
         if sco.off_pos is None:
             off, informe = lmu.calibrar(sco.sco, datos, n, verboso=True)
             print("[calibracion] %s -> %s" % (datos["nombre"], informe))
+            lmu.apuntar("calibracion en %s: %s" % (datos["nombre"], informe))
             if off is None:
                 self.datos = None
                 self.aviso = "Calibrando..."
@@ -393,6 +400,8 @@ class Juego:
             self.off_puesto = lmu.calibrar_puesto(sco.sco, n) or lmu.OFF_PUESTO
             print("[calibracion] jugador=%s clase=%s puesto=%s"
                   % (sco.off_jugador, sco.off_clase, self.off_puesto))
+            lmu.apuntar("calibracion: jugador=%s clase=%s puesto=%s"
+                        % (sco.off_jugador, sco.off_clase, self.off_puesto))
 
         self.datos = datos
         self.largo = sco.largo_pista()
@@ -423,8 +432,10 @@ class Juego:
             if salto < -SALTO_SESION or salto > paso + SALTO_SESION:
                 self.nueva_sesion = True
                 # Otra sesion, otro coche: se suelta el que estuviera fijado
-                # para que el lector vuelva a buscar cual eres tu.
-                sco.id_yo = None
+                # -incluso el elegido a mano- para que el lector vuelva a
+                # buscar cual eres tu. Los mID no sobreviven a un cambio de
+                # sesion, asi que conservarlo apuntaria a un coche cualquiera.
+                sco.fijar_coche(None)
         self._et = et
         self._et_real = real
 
@@ -434,10 +445,17 @@ class Juego:
         if not sco.en_pista():
             self.estado += idiomas.t("ses.garaje")
         coches = sco.coches()
+        self.yo_origen = sco.origen_yo
+        self.yo_fiable = sco.yo_fiable
         if self.off_puesto is not None:
-            for v, c in enumerate(coches):
+            # OJO con el indice: es el de la FICHA en el buffer, no el de la
+            # fila en esta lista. La lista se salta los coches cuya posicion no
+            # se puede leer, asi que en cuanto falta uno las dos numeraciones
+            # dejan de cuadrar y cada coche se quedaba con el puesto de otro.
+            for c in coches:
                 c["puesto"] = lmu.u1(sco.sco,
-                                     lmu.SCO_BASE + v * lmu.SCO_STRIDE + self.off_puesto)
+                                     lmu.SCO_BASE + c["ficha"] * lmu.SCO_STRIDE
+                                     + self.off_puesto)
             self._puesto_de_clase(coches)
         self.aviso = ""
         self._ultimos = coches
@@ -465,7 +483,15 @@ class Juego:
         for c in coches:
             if not c.get("puesto"):
                 continue
-            por_clase.setdefault(lmu.familia(c.get("clase") or ""), []).append(c)
+            familia = lmu.familia(c.get("clase") or "")
+            if not familia:
+                # Coche sin categoria: los que estan a medio conectar o que no
+                # han llegado a salir. Antes se metian todos en un mismo saco y
+                # se les repartia un 1, un 2, un 3... que no significaban nada
+                # y confundian con los puestos de verdad. Se quedan con el
+                # puesto general, que es lo unico que se sabe de ellos.
+                continue
+            por_clase.setdefault(familia, []).append(c)
         for iguales in por_clase.values():
             for sitio, c in enumerate(sorted(iguales, key=lambda x: x["puesto"]), 1):
                 c["puesto"] = sitio
@@ -505,6 +531,9 @@ class Mapa:
         self.fuente = fuente
         self.teclas = Teclas()
         self.opciones = None
+        self.eleccion = None            # ventana de "cual es tu coche" (F11)
+        self._dudando_desde = None      # desde cuando no se sabe cual eres
+        self._elegido_restaurado = False
         self.visible = True
         self.arrastre = None
         self.modo_mover = False     # con las opciones abiertas se puede arrastrar
@@ -668,29 +697,61 @@ class Mapa:
             return len(texto) * tam * 0.62      # estimacion de respaldo
 
     def _lineas_rotulo(self):
-        """Lo que va escrito arriba del mapa, una linea por cosa."""
+        """
+        Lo que va escrito arriba del mapa: una linea por cosa, con su color.
+
+        La primera es el aviso de que el mapa no sabe cual eres tu, y va la
+        primera y en rojo a proposito: es lo unico que puede dejar todo lo
+        demas sin valor. En Silverstone el mapa siguio a otro coche seis horas
+        sin decir ni pio.
+        """
         lineas = []
+        aviso = self._aviso_de_quien_soy()
+        if aviso:
+            lineas.append((aviso, self.cfg["aviso_color"]))
         if self.cfg["ver_sesion"]:
             sesion = getattr(self.fuente, "estado", "")
             if sesion:
-                lineas.append(sesion)
+                lineas.append((sesion, self.cfg["color_referencia"]))
         if (self.cfg["comparar"] and self.comparador is not None
                 and self.cfg["ver_texto_estado"]):
-            lineas.append(self.comparador.texto_estado())
+            lineas.append((self.comparador.texto_estado(),
+                           self.cfg["color_referencia"]))
         return lineas
+
+    def _aviso_de_quien_soy(self):
+        """
+        Cartel de "ojo, que igual no eres tu ese coche". "" cuando no hay duda.
+
+        Solo se calla si la eleccion viene de una via que SABE la respuesta: el
+        propio juego o el usuario. Si el mapa ha tenido que deducirlo por el
+        nombre del piloto, lo dice; y si no lo sabe nadie, lo dice mas alto.
+        """
+        origen = getattr(self.fuente, "yo_origen", "juego")
+        fiable = getattr(self.fuente, "yo_fiable", True)
+        if origen is not None and fiable:
+            self._dudando_desde = None
+            return ""
+        ahora = time.monotonic()
+        if self._dudando_desde is None:
+            self._dudando_desde = ahora
+        if ahora - self._dudando_desde < ESPERA_AVISO_YO:
+            return ""                    # dale un momento al juego
+        return idiomas.t("map.yo_desconocido" if origen is None
+                         else "map.yo_sin_confirmar")
 
     def _dibujar_textos(self, c, t):
         # Una linea por cosa: juntas se salian del mapa por los dos lados,
         # porque el ancho del mapa es pequeno y los textos largos.
         tam = self.cfg["tam_estado"]
-        for n, texto in enumerate(self._lineas_rotulo()):
+        for n, (texto, color) in enumerate(self._lineas_rotulo()):
             # si el mapa es pequeno el texto no cabe y se sale por los lados,
             # asi que se encoge la letra hasta que entre
             propio = tam
             while propio > 6 and self._ancho(texto, propio) > t - 10:
                 propio -= 1
             self._texto_con_sombra(c, t / 2, 4 + tam + n * (tam + 5), texto,
-                                   self.cfg["color_referencia"], propio)
+                                   color, propio)
         if self.cfg["ver_patrocinador"]:
             self._texto_con_sombra(c, t / 2, t - 6, PATROCINIO, "#9aa0a6",
                                    self.cfg["tam_patrocinador"], anclaje="s")
@@ -810,11 +871,19 @@ class Mapa:
 
     # ---- bucle ----
     def tick(self):
-        if self.teclas.pulsada("F9"):
-            self.visible = not self.visible
-            (self.root.deiconify if self.visible else self.root.withdraw)()
-        if self.teclas.pulsada("F10"):
-            self.alternar_opciones()
+        try:
+            if self.teclas.pulsada("F9"):
+                self.visible = not self.visible
+                (self.root.deiconify if self.visible else self.root.withdraw)()
+            if self.teclas.pulsada("F10"):
+                self.alternar_opciones()
+            if self.teclas.pulsada("F11"):
+                self.alternar_eleccion()
+        except Exception:
+            # Protegido por lo mismo que el resto del ciclo: si abrir una
+            # ventana fallara, la excepcion saldria del temporizador de tkinter
+            # y el mapa se quedaria congelado con la ultima imagen.
+            apuntar_fallo()
 
         # Leer y grabar se hacen SIEMPRE, este el mapa a la vista o escondido.
         #
@@ -830,6 +899,7 @@ class Mapa:
         # coches incluidos, sin volver a refrescarse jamas.
         try:
             coches = self.fuente.leer()
+            self._restaurar_elegido(coches)
             self._llevar_comparador(coches)
             if self.visible and self._toca_dibujar():
                 self.dibujar(coches)
@@ -878,6 +948,10 @@ class Mapa:
         nueva = getattr(self.fuente, "nueva_sesion", False)
         if nueva:
             self.fuente.nueva_sesion = False
+            # Otra sesion: los mID se reparten de nuevo, asi que el coche que
+            # se hubiera elegido a mano ya no significa nada.
+            self.cfg["coche_fijado"] = None
+            self._elegido_restaurado = True
         # Se compara tambien el NOMBRE del circuito, no solo su largo: dos
         # variantes del mismo sitio (Silverstone WEC y ELMS) se diferencian
         # en menos de los cincuenta metros que se miraban, y pasaban por el
@@ -959,6 +1033,78 @@ class Mapa:
             self.opciones.destroy()
         self.opciones = None
 
+    # ---- cual es tu coche (F11) ----
+    def alternar_eleccion(self):
+        if self.eleccion and self.eleccion.winfo_exists():
+            self.cerrar_eleccion()
+        else:
+            self.abrir_eleccion()
+
+    def abrir_eleccion(self):
+        import elegir_coche
+        self.eleccion = elegir_coche.abrir(self)
+
+    def cerrar_eleccion(self):
+        if self.eleccion:
+            self.eleccion.destroy()
+        self.eleccion = None
+
+    def fijar_mi_coche(self, mid):
+        """
+        El usuario dice cual es su coche (o `None` para volver a automatico).
+
+        Se guarda tambien en la configuracion para que un reinicio del mapa en
+        mitad de una carrera no lo pierda: en resistencia el mapa se abre y se
+        cierra a media carrera mas de lo que parece.
+        """
+        sco = getattr(self.fuente, "sco", None)
+        if sco is None:
+            return
+        sco.fijar_coche(mid)
+        guardado = None
+        if mid is not None:
+            elegido = next((c for c in getattr(self.fuente, "_ultimos", [])
+                            if c["id"] == mid), None)
+            if elegido is not None:
+                guardado = {"id": mid,
+                            "piloto": elegido.get("nombre", ""),
+                            "vehiculo": elegido.get("vehiculo", ""),
+                            "clave": getattr(self.fuente, "clave", None),
+                            "sesion": getattr(self.fuente, "sesion", None)}
+        self.cfg["coche_fijado"] = guardado
+        self._elegido_restaurado = True
+        guardar_config(self.cfg)
+
+    def _restaurar_elegido(self, coches):
+        """
+        Recupera el coche elegido a mano si el mapa se ha reiniciado.
+
+        Solo vale para la MISMA sesion del MISMO circuito, y ademas el coche
+        tiene que seguir siendo el mismo (mismo mID y mismo equipo). Los mID se
+        reparten de nuevo en cada sesion, asi que sin esas comprobaciones se
+        estaria fijando un coche al azar -que es exactamente el fallo que se
+        esta arreglando-.
+        """
+        if self._elegido_restaurado or not coches:
+            return
+        sco = getattr(self.fuente, "sco", None)
+        guardado = self.cfg.get("coche_fijado") or {}
+        if sco is None:
+            return
+        self._elegido_restaurado = True
+        if not guardado:
+            return
+        if (guardado.get("clave") != getattr(self.fuente, "clave", None)
+                or guardado.get("sesion") != getattr(self.fuente, "sesion", None)):
+            self.cfg["coche_fijado"] = None       # es de otra sesion
+            return
+        for c in coches:
+            if (c["id"] == guardado.get("id")
+                    and c.get("vehiculo") == guardado.get("vehiculo")):
+                sco.fijar_coche(c["id"])
+                return
+        self.cfg["coche_fijado"] = None           # ese coche ya no esta
+
     def abrir_opciones(self):
         click_atraviesa(self.hwnd, False)      # para poder arrastrar el mapa
         self.modo_mover = True
@@ -967,6 +1113,7 @@ class Mapa:
         self.opciones = opciones.abrir(self, guardar_config)
 
     def cerrar_programa(self):
+        self.cerrar_eleccion()
         if self.grabador is not None:
             self.grabador.guardar()          # no perder la sesion al salir
         """Cierra el mapa del todo. El programa corre sin consola ni barra de

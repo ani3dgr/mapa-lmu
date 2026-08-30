@@ -14,6 +14,9 @@ Es gratuito. Úsalo y pásalo a quien quieras.
 
 - **Mapa transparente** encima del juego, en cualquier esquina y del tamaño que
   quieras. F9 lo oculta o lo muestra, F10 abre las opciones.
+- **Tú decides cuál es tu coche** (F11) cuando el juego no lo dice: entrando de
+  espectador o al coger el coche en un relevo. Si el mapa no lo sabe, lo avisa
+  en rojo en vez de seguir a un coche cualquiera.
 - **Tu coche destacado** con un anillo, para que no se pierda cuando los puntos
   se amontonan.
 - **Comparar tiempos en vivo** contra la vuelta más rápida **de tu categoría**,
@@ -119,6 +122,9 @@ It is free. Use it and pass it on to anyone.
 
 - **Transparent overlay map**, in any corner and at any size. F9 hides or shows
   it, F10 opens the options.
+- **You can tell it which car is yours** (F11) when the game does not: joining as
+  a spectator, or taking over in a driver swap. When the map does not know, it
+  says so in red instead of following some other car.
 - **Your car highlighted** with a ring, so it is never covered when the dots
   pile up.
 - **Live time comparison** against the fastest lap **in your own class**, so a

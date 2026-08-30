@@ -26,6 +26,12 @@ diagnostico.txt
 monitor_amarilla.txt
 prueba_salidas.txt
 
+# Lo que el programa apunta mientras corre: los fallos y las decisiones que
+# toma solo (que coche eres tu, donde estan las posiciones en el buffer).
+# Son de la sesion de cada uno.
+errores.txt
+registro.txt
+
 # Basura de Python
 __pycache__/
 *.pyc

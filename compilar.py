@@ -27,7 +27,7 @@ DIST = os.path.join(AQUI, "dist")
 BUILD = os.path.join(AQUI, "build")
 CARPETA_FINAL = os.path.join(DIST, "MapaLMU")
 
-VERSION = "1.4"
+VERSION = "1.5"
 
 # Lo que se copia al lado del .exe. Carpetas y archivos sueltos.
 #
@@ -217,8 +217,14 @@ MIENTRAS JUEGAS
 
   F9   oculta o muestra el mapa
   F10  abre las opciones
+  F11  dice cual de los coches es el tuyo
 
   Con las opciones abiertas puedes arrastrar el mapa con el raton.
+
+  Lo normal es que el juego diga cual es tu coche y no haya que tocar
+  nada. Pero si entras de espectador, o coges el coche en un relevo,
+  el juego no lo dice: entonces sale un aviso en rojo encima del mapa
+  y con F11 lo eliges de la lista.
 
 EL IDIOMA
 

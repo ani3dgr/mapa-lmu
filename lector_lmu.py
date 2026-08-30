@@ -239,6 +239,8 @@ MARGEN_XZ = 150.0     # m que un coche puede estar fuera del trazado (boxes, esc
 MARGEN_Y = 30.0       # m fuera del rango de altura conocido del circuito
 SALTO_MAX = 250.0     # m maximos que puede recorrer un coche entre dos lecturas
 DISPERSION_MIN = 25.0  # m que como minimo separan al primer coche del ultimo
+FUERA_MAX = 0.20      # proporcion de coches a los que se les permite estar fuera
+                      # del trazado: los del garaje y los que se desconectan
 
 
 def _dist_al_trazado(x, z, puntos):
@@ -258,21 +260,42 @@ def _evaluar(ternas, puntos, altura):
     """
     Devuelve (desvio maximo al trazado, dispersion entre coches) si la muestra
     puede ser posiciones de coches, o None si no lo es.
+
+    **No se exige que TODOS los coches esten sobre el trazado, y es a
+    proposito.** Antes bastaba con uno fuera para tumbar el offset entero, y
+    siempre hay alguno: el garaje de Daytona queda a 165 m de la pista, y ahi
+    hay coches parados toda la sesion; los que se desconectan tambien se
+    quedan tirados en cualquier parte.
+
+    Medido el 30/08/2026 en Daytona, 62 coches: dos en el garaje (151 y 165 m)
+    hacian que el offset bueno -el 264 de siempre- se descartara, y la busqueda
+    a ciegas se quedaba entonces con otro que no eran posiciones. El mapa
+    dibujaba la carrera entera mal y no habia forma de enterarse.
+
+    Asi que se pide que la GRAN MAYORIA encaje y se mide el desvio solo con
+    esos. Los coches sueltos ya no pueden con la calibracion, pero una zona de
+    ceros o de velocidades sigue sin colar: para eso estan la altura, la
+    distancia al trazado y, sobre todo, la dispersion.
     """
     ymin, ymax = altura
-    peor = 0.0
+    dentro = []
+    fuera = 0
+    permitidos = max(1, int(len(ternas) * FUERA_MAX))
     for x, y, z in ternas:
-        if not (math.isfinite(x) and math.isfinite(y) and math.isfinite(z)):
-            return None
-        if not (ymin - MARGEN_Y <= y <= ymax + MARGEN_Y):
-            return None          # altura imposible en este circuito
-        dist = _dist_al_trazado(x, z, puntos)
-        if dist > MARGEN_XZ:
-            return None          # ese coche no esta en el circuito
-        peor = max(peor, dist)
+        if (not (math.isfinite(x) and math.isfinite(y) and math.isfinite(z))
+                or not (ymin - MARGEN_Y <= y <= ymax + MARGEN_Y)
+                or _dist_al_trazado(x, z, puntos) > MARGEN_XZ):
+            fuera += 1
+            if fuera > permitidos:
+                return None
+            continue
+        dentro.append((x, y, z))
 
-    xs = [t[0] for t in ternas]
-    zs = [t[2] for t in ternas]
+    if not dentro:
+        return None
+    peor = max(_dist_al_trazado(x, z, puntos) for x, y, z in dentro)
+    xs = [t[0] for t in dentro]
+    zs = [t[2] for t in dentro]
     return peor, math.hypot(max(xs) - min(xs), max(zs) - min(zs))
 
 
@@ -328,8 +351,12 @@ def calibrar(sco, datos, n_coches, verboso=False):
     # los coches de verdad estan repartidos por el circuito (cientos de metros),
     # mientras que las zonas de ceros y los tiempos de vuelta se quedan en unas
     # pocas decenas. En pista la diferencia es de un orden de magnitud.
+    # Si el de siempre esta entre los que encajan, es el de siempre: entre dos
+    # candidatos parecidos, el verificado en pista gana a uno que ha salido de
+    # una busqueda. Asi la calibracion no baila de una sesion a otra.
     candidatos.sort(reverse=True)
-    dispersion, off, peor = candidatos[0]
+    conocido = [c for c in candidatos if c[1] == OFF_POS]
+    dispersion, off, peor = conocido[0] if conocido else candidatos[0]
     informe = "offset posicion = %d (desvio max %.1f m, coches separados %.0f m, %d candidatos)" % (
         off, peor, dispersion, len(candidatos))
     if verboso:
@@ -349,22 +376,23 @@ def _solo_uno(sco, off, n_coches):
 
 def buscar_jugador(sco, n_coches):
     """
-    Offset del byte que marca al coche del jugador.
+    Offset del byte que marca al coche del jugador: SIEMPRE el verificado, 196.
 
-    Se usa el verificado (196) siempre que cumpla. Solo si no cumpliera -- por
-    ejemplo si una actualizacion del juego moviera el campo -- se busca a ciegas.
+    Antes, si el 196 no cumplia -exactamente un coche a 1-, se buscaba a ciegas
+    el primer byte de la ficha que tuviera esa pinta. **Eso costo la carrera de
+    6 h de Silverstone del 29/08/2026.** Manuel entro de ESPECTADOR: ahi no hay
+    ningun coche marcado, asi que la busqueda a ciegas se quedo con un byte
+    cualquiera de los muchos que valen 1 en un solo coche a ratos (mInPits, por
+    ejemplo), el mapa se engancho a un BMW M4 de otro equipo y siguio con el
+    las seis horas, grabando sus vueltas como si fueran las de Manuel.
 
-    Buscar a ciegas es lo que habia antes y daba problemas: con 18 coches hay
-    varios bytes que por casualidad tienen un unico 1 (el 457 marca al que ha
-    pedido entrar a boxes), y quedarse con el de offset mas bajo podia acabar
-    siguiendo a otro piloto. Sintoma: tu circulo se convertia de repente en el
-    de un rival.
+    Y no se corregia nunca, porque el offset malo se calibra UNA vez al entrar
+    al circuito y ya se queda.
+
+    Adivinar en silencio sale mucho mas caro que no saberlo. Si el 196 no marca
+    a nadie -espectador, relevo, sala online rara- ahora simplemente no hay
+    marca: el mapa lo dice en pantalla y el coche se elige a mano.
     """
-    if n_coches > 0 and _solo_uno(sco, OFF_YO, n_coches):
-        return OFF_YO
-    for off in range(0, SCO_STRIDE):
-        if off != OFF_YO and _solo_uno(sco, off, n_coches):
-            return off
     return OFF_YO
 
 
@@ -398,6 +426,31 @@ def calibrar_clase(sco, n_coches):
     return None
 
 
+REGISTRO = "registro.txt"
+REGISTRO_MAX = 200 * 1024
+
+
+def apuntar(texto):
+    """
+    Deja por escrito, con su hora, algo que el mapa ha decidido solo.
+
+    El mapa corre sin consola: cuando algo sale raro no queda ni rastro de por
+    que eligio lo que eligio. Despues de las 6 h de Silverstone (29/08/2026)
+    hubo que deducir a que coche habia estado siguiendo a partir de los
+    resultados del juego. Aqui van las dos decisiones que pueden estropear una
+    sesion entera sin que se note: que coche eres tu y donde estan las
+    posiciones dentro del buffer.
+    """
+    try:
+        ruta = os.path.join(CARPETA, REGISTRO)
+        if os.path.isfile(ruta) and os.path.getsize(ruta) > REGISTRO_MAX:
+            os.remove(ruta)
+        with open(ruta, "a", encoding="utf-8") as f:
+            f.write("%s  %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"), texto))
+    except OSError:
+        pass
+
+
 # ---------------- lectura en vivo ----------------
 class Scoring:
     def __init__(self):
@@ -413,6 +466,28 @@ class Scoring:
         self.off_clase = OFF_CLASE     # solo hace falta si el juego los mueve
         self.id_yo = None              # tu coche, una vez fijado. Lo borra el
                                        # mapa al empezar otra sesion.
+        self.fijado = None             # mID elegido A MANO por el usuario.
+                                       # Manda por encima de todo lo demas.
+        self.origen_yo = None          # de donde salio la eleccion: "manual",
+                                       # "juego", "marca", "nombre" o None
+        self.yo_fiable = False         # si la eleccion viene de una fuente que
+                                       # NO adivina. Con False el mapa avisa y
+                                       # no graba vueltas como tuyas.
+        self._apunte = None            # ultimo apunte escrito, para no repetir
+
+    def fijar_coche(self, mid):
+        """
+        El usuario dice cual es su coche. `None` vuelve a automatico.
+
+        Existe porque hay salas donde el juego no dice de quien eres -entrar de
+        espectador a una carrera por equipos, sobre todo- y ahi antes el mapa
+        se lo inventaba. Ahora, si no lo sabe, lo pregunta.
+        """
+        self.fijado = mid
+        self.id_yo = mid
+        self.origen_yo = "manual" if mid is not None else None
+        self.yo_fiable = mid is not None
+        self._apunte = None            # que el cambio quede apuntado
 
     def circuito(self):
         return txt(self.sco, OFF_TRACK, 64)
@@ -486,6 +561,11 @@ class Scoring:
                 con_mi_nombre.append(len(salida))
             salida.append({
                 "id": i4(self.sco, b + OFF_ID),
+                "ficha": v,              # su sitio en el buffer. Hace falta
+                                         # porque esta lista se salta los
+                                         # coches sin posicion y ya no cuadra
+                                         # con el numero de orden del buffer
+
                 "nombre": piloto,
                 "vehiculo": txt(self.sco, b + OFF_VEHICULO, 64),
                 "codigo": txt(self.sco, b + OFF_CODIGO, 32),
@@ -493,6 +573,8 @@ class Scoring:
                 "z": z,
                 "clase": txt(self.sco, b + self.off_clase, 32) if self.off_clase is not None else "",
                 "es_yo": False,          # lo decide _elegir_mi_coche(), abajo
+                "yo_fiable": False,      # y si esa decision es de fiar o es
+                                         # una suposicion
                 "dist": d(self.sco, b + OFF_DIST),        # metros de vuelta
                 "lateral": d(self.sco, b + OFF_LATERAL),
                 "borde": d(self.sco, b + OFF_BORDE),
@@ -562,26 +644,32 @@ class Scoring:
         except OSError:
             return None
 
+    # De donde puede salir la respuesta a "cual de estos coches soy yo", y si
+    # esa fuente SABE la respuesta o se la esta inventando. Solo las fiables
+    # dejan grabar vueltas como tuyas.
+    FIABLES = ("manual", "juego", "marca")
+
     def _elegir_mi_coche(self, coches, con_marca, con_mi_nombre):
         """
         Cual de todos los coches eres tu.
 
         Orden, y el porque de cada escalon:
 
-        1. **Lo que diga el juego** (`id_segun_el_juego`), en CADA lectura. Es
-           la fuente buena y se le hace caso siempre, sin quedarse pegado a
-           nada: asi, si en algun momento se identifico mal, se corrige solo en
-           la lectura siguiente.
-        2. **El ultimo coche conocido**, cuando el juego no dice nada. Ese es
-           el caso del RELEVO en una carrera por equipos: haces tu stint, paras
-           en boxes, entra tu companero y tu te quedas de espectador. Ahi el
-           juego deja de decir "tu coche es este", pero el coche del equipo
-           sigue siendo el mismo y hay que seguir viendolo.
-        3. **La marca `mIsPlayer`** del buffer de scoring.
-        4. **El nombre del piloto**, de ultimo recambio para cuando el juego
-           apaga la marca un instante (paso por boxes, cumplir una sancion).
+        1. **El que hayas elegido A MANO** (`fijado`). Manda por encima de todo:
+           si el usuario ha tenido que decirlo es porque el juego no lo decia.
+        2. **Lo que diga el juego** (`id_segun_el_juego`), en CADA lectura.
+        3. **El ultimo coche conocido**, cuando el juego no dice nada. Ese es el
+           caso del RELEVO en una carrera por equipos: haces tu stint, paras en
+           boxes, entra tu companero y tu te quedas de espectador. Ahi el juego
+           deja de decir "tu coche es este", pero el coche del equipo sigue
+           siendo el mismo y hay que seguir viendolo. La confianza se hereda de
+           como se eligio en su momento.
+        4. **La marca `mIsPlayer`**, y SOLO si la lleva exactamente un coche.
+        5. **El nombre del piloto**, y solo si hay uno solo que se llame como
+           tu. Este ultimo escalon NO es de fiar (ver abajo) y se marca como
+           tal: el mapa lo pinta pero avisa, y no graba vueltas.
 
-        Los escalones 3 y 4 van pegados a la PERSONA, no al coche, y por eso
+        Los escalones 4 y 5 van pegados a la PERSONA, no al coche, y por eso
         estan los ultimos: en un relevo los dos fallan.
 
         **Por que se hace en cada lectura y no una sola vez.** Se probo a
@@ -592,36 +680,86 @@ class Scoring:
         circulo se mueve por el trazado como si fuera el tuyo. Preguntando en
         cada lectura, un error dura una lectura.
 
-        Se sigue guardando `id_yo` -el `mID`, que va con el COCHE y no con el
-        piloto-, pero solo como recambio del escalon 2. El mapa lo borra al
-        empezar otra sesion y al salir al menu.
+        **Por que ninguna via inventa ya un coche.** Silverstone, 6 h del
+        29/08/2026: Manuel entro de espectador, ninguna via sabia quien era, y
+        el mapa se engancho a un BMW M4 ajeno durante las seis horas -y grabo
+        sus vueltas como propias-. Un circulo verde en el coche equivocado es
+        peor que no tener circulo, porque no hay forma de notarlo: da vueltas
+        igual. Ahora, cuando no se sabe, no se sabe y se dice.
         """
-        # 1) lo que dice el juego, siempre por delante
+        # 1) lo que haya dicho el usuario
+        if self.fijado is not None:
+            for c in coches:
+                if c["id"] == self.fijado:
+                    return self._marcar(c, "manual")
+            self.fijado = None             # ese coche ya no esta en la sala
+
+        # 2) lo que dice el juego
         del_juego = self.id_segun_el_juego()
         if del_juego is not None:
             for c in coches:
                 if c["id"] == del_juego:
-                    c["es_yo"] = True
-                    self.id_yo = del_juego
-                    return
+                    return self._marcar(c, "juego")
 
-        # 2) el ultimo conocido: el caso del relevo
+        # 3) el ultimo conocido: el caso del relevo. Se conserva la confianza
+        #    que tuviera la eleccion original.
         if self.id_yo is not None:
             for c in coches:
                 if c["id"] == self.id_yo:
-                    c["es_yo"] = True
-                    return
-            self.id_yo = None          # ese coche ya no esta
+                    return self._marcar(c, self.origen_yo or "recuerdo",
+                                        fiable=self.yo_fiable)
+            self.id_yo = None              # ese coche ya no esta
 
-        # 3) y 4) los recambios, pegados al piloto
-        cual = None
-        if con_marca:
-            cual = con_marca[0]
-        elif con_mi_nombre:
-            cual = con_mi_nombre[0]
-        if cual is not None:
-            coches[cual]["es_yo"] = True
-            self.id_yo = coches[cual]["id"]
+        # 4) la marca del juego, solo si no hay empate. Si la llevan varios
+        #    -o ninguno, que es lo que pasa de espectador- no dice nada.
+        if len(con_marca) == 1:
+            return self._marcar(coches[con_marca[0]], "marca")
+
+        # 5) el nombre, de ultimo recambio y sin fiarse. En una sala online la
+        #    cabecera puede traer el nombre de quien estas MIRANDO, no el tuyo.
+        if len(con_mi_nombre) == 1:
+            return self._marcar(coches[con_mi_nombre[0]], "nombre")
+
+        self._olvidar()
+
+    def _marcar(self, coche, origen, fiable=None):
+        """Deja marcado el coche elegido y apunta de donde salio la decision."""
+        if fiable is None:
+            fiable = origen in self.FIABLES
+        coche["es_yo"] = True
+        coche["yo_fiable"] = fiable
+        self.id_yo = coche["id"]
+        self.origen_yo = origen
+        self.yo_fiable = fiable
+        self._apuntar(origen, coche, fiable)
+
+    def _olvidar(self):
+        """Nadie es "yo". Es un resultado legitimo, no un fallo: de espectador
+        recien entrado el juego no ha dicho todavia de quien eres."""
+        self.origen_yo = None
+        self.yo_fiable = False
+        self._apuntar(None, None, False)
+
+    def _apuntar(self, origen, coche, fiable):
+        """
+        Deja por escrito a quien esta siguiendo el mapa y por que.
+
+        El mapa corre sin consola, asi que cuando algo sale mal no queda ni
+        rastro de por que eligio ese coche. Despues de Silverstone hubo que
+        deducirlo de los resultados del juego. Se apunta solo cuando CAMBIA,
+        que en una carrera entera son cuatro lineas.
+        """
+        clave = (origen, coche["id"] if coche else None)
+        if clave == self._apunte:
+            return
+        self._apunte = clave
+        if coche is None:
+            apuntar("tu coche: NADIE, ninguna via sabe cual es")
+        else:
+            apuntar("tu coche: %s (%s) mID %d  <- %s%s"
+                    % (coche.get("nombre", "?"), coche.get("vehiculo", "?"),
+                       coche["id"], origen,
+                       "" if fiable else "  [SUPOSICION]"))
 
 
 def calibrar_puesto(sco, n_coches):

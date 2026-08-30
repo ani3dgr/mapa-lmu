@@ -126,7 +126,7 @@ class Comparador:
         # Se guarda la ultima conocida y no se borra si en una lectura suelta no
         # apareces (paso por boxes), que si no la referencia se iria y volveria.
         for c in coches:
-            if c.get("es_yo"):
+            if c.get("es_yo") and c.get("yo_fiable", True):
                 mia = lmu.familia(c.get("clase") or "")
                 if mia and mia != self.mi_clase:
                     self.mi_clase = mia
@@ -170,7 +170,10 @@ class Comparador:
                 # ha cruzado la meta: la vuelta queda cerrada, pero el tiempo
                 # tarda un instante en publicarse, asi que se deja en espera
                 st["pendiente"] = {"vuelta": st["vuelta"], "t": ahora,
-                                   "nombre": c["nombre"], "es_yo": c["es_yo"],
+                                   "nombre": c["nombre"],
+                                   # solo cuenta como tuya si no es una
+                                   # suposicion del mapa
+                                   "es_yo": c["es_yo"] and c.get("yo_fiable", True),
                                    "dorsal": dorsal(c.get("vehiculo", ""))}
                 st["vuelta"] += 1
             elif ahora_d > antes:
@@ -180,11 +183,11 @@ class Comparador:
                     st["kmh"] = kmh
                 if 0 < kmh < VELOCIDAD_MAX:
                     st["perfil"].anota(tramo, kmh, st["vuelta"])
-                if c["es_yo"]:
+                if c["es_yo"] and c.get("yo_fiable", True):
                     self._vigila_salida(c, tramo, st["vuelta"])
 
             st["dist"], st["t"] = ahora_d, ahora
-            if c["es_yo"]:
+            if c["es_yo"] and c.get("yo_fiable", True):
                 self.mi_perfil = st["perfil"].perfil()
 
         mejores = [c["mejor"] for c in coches

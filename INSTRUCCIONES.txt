@@ -40,6 +40,24 @@ PASO 3 - Arranca el mapa
 
   F9   Ocultar o mostrar el mapa (el programa sigue funcionando)
   F10  Abrir o cerrar la ventana de opciones
+  F11  Decir cual de los coches es el tuyo
+
+  CUAL ES TU COCHE (F11)
+
+  Casi siempre lo dice el juego y no hay nada que hacer. Pero hay
+  salas donde no lo dice: si entras de ESPECTADOR, o si coges el
+  coche en un relevo de una carrera por equipos, el juego no marca
+  a nadie.
+
+  Cuando eso pasa, arriba del mapa sale en rojo NO SE CUAL ES TU
+  COCHE. Pulsa F11, busca el vuestro en la lista -van por categoria
+  y por puesto, con el equipo y el modelo- y dale a "Este es mi
+  coche". El mapa lo seguira aunque entre tu companero, porque se
+  queda con el COCHE y no con el piloto.
+
+  Mientras el coche no este confirmado, el mapa no guarda ninguna
+  vuelta como tuya: mas vale una sesion vacia que una sesion llena
+  de vueltas de un desconocido.
 
   Arriba del mapa pone en que sesion estas: Practica, Clasificacion o
   Carrera, y si estas en el garaje.

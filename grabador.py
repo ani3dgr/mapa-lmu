@@ -87,7 +87,7 @@ class Grabador:
     # ---------- captura ----------
     def actualiza(self, coches, ahora):
         for c in coches:
-            if c.get("es_yo"):
+            if c.get("es_yo") and c.get("yo_fiable", True):
                 mia = lmu.familia(c.get("clase") or "")
                 if mia and mia != self.mi_clase:
                     self.mi_clase = mia
@@ -205,6 +205,16 @@ class Grabador:
                                   c.get("codigo", ""))
 
         if c.get("es_yo"):
+            # Si el mapa no SABE que ese coche es el tuyo -lo ha supuesto- la
+            # vuelta no se guarda ni como tuya ni como referencia rival. En
+            # Silverstone (6 h, 29/08/2026) se guardaron 168 vueltas de un BMW
+            # ajeno como si fueran de Manuel, y ahi siguen: una sesion con
+            # datos de otro coche es peor que una sesion vacia, porque no hay
+            # forma de saber que no es tuya.
+            if not c.get("yo_fiable", True):
+                print("[grabador] vuelta NO guardada: aun no se sabe si "
+                      "ese coche es el tuyo (F11 para decirlo)")
+                return
             self.contador += 1
             vuelta["n"] = self.contador
             print("[grabador] TU: vuelta %d guardada  %.3f s%s"
