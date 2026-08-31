@@ -27,7 +27,7 @@ DIST = os.path.join(AQUI, "dist")
 BUILD = os.path.join(AQUI, "build")
 CARPETA_FINAL = os.path.join(DIST, "MapaLMU")
 
-VERSION = "1.5"
+VERSION = "1.6"
 
 # Lo que se copia al lado del .exe. Carpetas y archivos sueltos.
 #
@@ -218,6 +218,13 @@ MIENTRAS JUEGAS
   F9   oculta o muestra el mapa
   F10  abre las opciones
   F11  dice cual de los coches es el tuyo
+
+LA BOLA DE FUERZAS G (nueva)
+
+  Una circunferencia con un punto que se va hacia donde tira el peso
+  del coche: arriba al frenar, abajo al acelerar y hacia fuera en las
+  curvas. Viene APAGADA: se enciende en Opciones -> En pista ->
+  Fuerzas G, y se arrastra con el raton a donde quieras.
 
   Con las opciones abiertas puedes arrastrar el mapa con el raton.
 

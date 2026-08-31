@@ -47,17 +47,32 @@ class Opciones:
         v.resizable(False, False)
         v.protocol("WM_DELETE_WINDOW", mapa.cerrar_opciones)
 
+        # Dos alturas de pestanas: arriba el grupo, dentro la hoja.
+        #
+        # Eran nueve pestanas seguidas y ya no cabian de ancho, y encima se
+        # anaden funciones cada poco. Agrupadas se busca por donde se usa:
+        # lo que se VE en el mapa, lo que te ayuda EN PISTA, los TIEMPOS y lo
+        # que el programa tiene GUARDADO.
         cuaderno = ttk.Notebook(v)
         cuaderno.pack(fill="both", expand=True, padx=8, pady=(8, 0))
 
-        self._pestana_ver(cuaderno)
-        self._pestana_aspecto(cuaderno)
-        self._pestana_tiempos(cuaderno)
-        self._pestana_trazadas(cuaderno)
-        self._pestana_avisos(cuaderno)
-        self._pestana_escaneo(cuaderno)
-        self._pestana_coches(cuaderno)
-        self._pestana_reglajes(cuaderno)
+        mapa_ = self._grupo(cuaderno, T("grupo.mapa"))
+        self._pestana_ver(mapa_)
+        self._pestana_aspecto(mapa_)
+
+        pista = self._grupo(cuaderno, T("grupo.pista"))
+        self._pestana_fuerzas(pista)
+        self._pestana_avisos(pista)
+
+        tiempos = self._grupo(cuaderno, T("grupo.tiempos"))
+        self._pestana_tiempos(tiempos)
+        self._pestana_trazadas(tiempos)
+
+        biblioteca = self._grupo(cuaderno, T("grupo.biblioteca"))
+        self._pestana_coches(biblioteca)
+        self._pestana_reglajes(biblioteca)
+        self._pestana_escaneo(biblioteca)
+
         self._pestana_acerca(cuaderno)
 
         pie = ttk.Frame(v, padding=(10, 6))
@@ -66,6 +81,14 @@ class Opciones:
                   text=T("pie.teclas")).pack(side="left")
 
     # ---------- utilidades de construccion ----------
+    def _grupo(self, cuaderno, titulo):
+        """Una pestana de arriba, que por dentro lleva sus propias hojas."""
+        marco = ttk.Frame(cuaderno)
+        cuaderno.add(marco, text=titulo)
+        dentro = ttk.Notebook(marco)
+        dentro.pack(fill="both", expand=True, padx=6, pady=6)
+        return dentro
+
     def _hoja(self, cuaderno, titulo, clave_ayuda):
         marco = ttk.Frame(cuaderno, padding=12)
         cuaderno.add(marco, text=titulo)
@@ -148,6 +171,7 @@ class Opciones:
         self._interruptor(m, fila, T("ver.rotulo"), "ver_texto_estado")
         self._interruptor(m, fila, T("ver.patrocinador"), "ver_patrocinador")
 
+
     def _pestana_aspecto(self, cuaderno):
         m, fila = self._hoja(cuaderno, T("tab.aspecto"), "aspecto")
         self._titulo(m, fila, T("asp.tit_tamanos"))
@@ -224,6 +248,35 @@ class Opciones:
             self.mapa.root.geometry("+%d+%d" % (self.cfg["x"], self.cfg["y"]))
             self.guardar(self.cfg)
         return ir
+
+    def _pestana_fuerzas(self, cuaderno):
+        """
+        La bola de fuerzas G.
+
+        Tiene hoja propia porque no es "algo que se ve en el mapa": es un
+        instrumento aparte, con su ventana, su sitio en la pantalla y sus
+        ajustes.
+        """
+        m, fila = self._hoja(cuaderno, T("tab.fuerzas"), "fuerzas")
+        self._interruptor(m, fila, T("bola.ver"), "bola_ver")
+        self._interruptor(m, fila, T("bola.circulo"), "bola_circulo")
+        self._interruptor(m, fila, T("bola.numeros"), "bola_numeros")
+        self._titulo(m, fila, T("bola.tit_ajustes"))
+        self._deslizador(m, fila, T("bola.tam"), "bola_tam", 70, 260)
+        self._deslizador(m, fila, T("bola.escala"), "bola_escala", 1.5, 4.0, 1)
+        self._deslizador(m, fila, T("bola.suavidad"), "bola_suavidad", 0, 95)
+        ttk.Label(m, foreground="#666", justify="left",
+                  text=T("bola.nota_suavidad")).grid(
+            row=fila[0], column=0, columnspan=3, sticky="w", padx=(20, 0))
+        fila[0] += 1
+        self._titulo(m, fila, T("asp.tit_colores"))
+        self._color(m, fila, T("bola.color_punto"), "bola_color_punto")
+        self._color(m, fila, T("bola.color_circulo"), "bola_color_circulo")
+        self._color(m, fila, T("bola.color_numeros"), "bola_color_numeros")
+        ttk.Label(m, foreground="#666", justify="left",
+                  text=T("bola.nota")).grid(
+            row=fila[0], column=0, columnspan=3, sticky="w", pady=(10, 0))
+        fila[0] += 1
 
     def _pestana_tiempos(self, cuaderno):
         m, fila = self._hoja(cuaderno, T("tab.tiempos"), "tiempos")

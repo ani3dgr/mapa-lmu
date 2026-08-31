@@ -41,6 +41,18 @@ LMU_STREAM = 65536                          # el texto de resultados que va detr
 LMU_TELE = LMU_VEHICULOS + LMU_MAX_VEH * SCO_STRIDE + LMU_STREAM
 LMU_TELE_FICHAS = LMU_TELE + 4              # telemInfo[0], que empieza por su mID
 LMU_TELE_STRIDE = 1888                      # bytes por coche en la telemetria
+# Dentro de la ficha de TELEMETRIA (la de 1888 bytes de LMU_Data), calculados
+# del InternalsPlugin.hpp con pack(4). Comprobados: la struct suma 1888 justos
+# y mRearBrakeBias cae en 664, que ya estaba verificado en pista.
+TEL_ET = 12             # mElapsedTime
+TEL_VEL = 184           # mLocalVel (3 dobles)
+TEL_ACC = 208           # mLocalAccel: +x al lado izquierdo, +y arriba, +z atras
+TEL_FUEL = 524          # litros
+TEL_RUEDA0 = 848        # primera rueda; orden del/izq, del/der, tras/izq, tras/der
+TEL_RUEDA_STRIDE = 260
+TEL_SUSPF = 16          # mSuspForce, en newtons: la carga de esa esquina
+TEL_CARGA = 104         # mTireLoad. NO USAR: LMU lo deja a cero casi siempre
+
 OFF_TRACK = 12          # nombre del circuito (64 bytes)
 OFF_NUMVEH = 116        # numero de coches (int)
 OFF_JUGADOR = 128       # mPlayerName en la cabecera: tu nombre de piloto
@@ -474,6 +486,54 @@ class Scoring:
                                        # NO adivina. Con False el mapa avisa y
                                        # no graba vueltas como tuyas.
         self._apunte = None            # ultimo apunte escrito, para no repetir
+
+    def telemetria(self):
+        """
+        Lo que le esta pasando a TU coche ahora mismo: las G y el peso que
+        lleva cada rueda. None si el juego no dice cual es tu coche.
+
+        Sale de la ficha de telemetria de `LMU_Data` (1888 bytes por coche).
+        Los offsets estan calculados del `InternalsPlugin.hpp` del propio
+        juego con `pack(4)`, y cuadran por dos sitios: la ficha entera suma
+        exactamente 1888 bytes y el reparto de frenada cae en el 664, que ya
+        estaba verificado en pista.
+
+        **Las cargas salen de `mSuspForce` y no de `mTireLoad`.** Medido el
+        30/08/2026 en Daytona (24 minutos de sesion, 16.081 muestras):
+        `mTireLoad` vale cero el 97 % del tiempo -solo se rellena unos
+        segundos al cargar el coche- y en esos pocos instantes vale EXACTAMENTE
+        lo mismo que `mSuspForce`. Asi que `mSuspForce` es la carga vertical de
+        la esquina, comparable entre el eje delantero y el trasero, y ademas es
+        la que esta siempre.
+        """
+        if self.lmu is None:
+            return None
+        try:
+            if not u1(self.lmu, LMU_TELE + 2):        # playerHasVehicle
+                return None
+            cual = u1(self.lmu, LMU_TELE + 1)
+            activos = u1(self.lmu, LMU_TELE)
+            if not 0 <= cual < min(activos, LMU_MAX_VEH):
+                return None
+            b = LMU_TELE_FICHAS + cual * LMU_TELE_STRIDE
+            cargas = [d(self.lmu, b + TEL_RUEDA0 + r * TEL_RUEDA_STRIDE + TEL_SUSPF)
+                      for r in range(4)]
+            return {
+                "id": i4(self.lmu, b),
+                "reloj": d(self.lmu, b + TEL_ET),
+                # +x sale por el lado IZQUIERDO del coche y +z por DETRAS (lo
+                # dice el header y se confirmo con los datos: frenando a tope
+                # el eje z se va a +3 G, y girando a izquierdas el peso se
+                # marcha a la derecha).
+                "g_lateral": d(self.lmu, b + TEL_ACC) / 9.81,
+                "g_larga": d(self.lmu, b + TEL_ACC + 16) / 9.81,
+                "kmh": math.sqrt(sum(d(self.lmu, b + TEL_VEL + 8 * i) ** 2
+                                     for i in range(3))) * 3.6,
+                "cargas": cargas,          # del izq, del der, tras izq, tras der
+                "combustible": d(self.lmu, b + TEL_FUEL),
+            }
+        except (OSError, struct.error, ValueError):
+            return None
 
     def fijar_coche(self, mid):
         """

@@ -58,6 +58,22 @@ ESPERA_AVISO_YO = 3.0       # s dudando de cual es tu coche antes de sacar el
                             # momento en decirlo y no hay que asustar por eso
 
 
+def reparto_de(cargas):
+    """
+    De las cuatro cargas al reparto en tanto por ciento (delante, izquierda).
+
+    Se acota entre 0 y 100 porque en un piano o en un salto una rueda puede
+    quedarse en el aire y dar fuerza negativa, y entonces salen porcentajes
+    imposibles (medido: hasta -60 % y 110 %). None si no hay peso que repartir.
+    """
+    total = sum(cargas)
+    if total < 500:                  # el coche en el aire o sin datos
+        return None
+    delante = 100.0 * (cargas[0] + cargas[1]) / total
+    izquierda = 100.0 * (cargas[0] + cargas[2]) / total
+    return (max(0.0, min(100.0, delante)), max(0.0, min(100.0, izquierda)))
+
+
 def nombre_sesion(codigo):
     """1-4 practicas, 5-8 clasificacion, 9 warmup, 10-13 carrera."""
     if codigo is None or codigo == 0:
@@ -123,6 +139,24 @@ POR_DEFECTO = {
     "aviso_sonido": "doble.wav",
     "aviso_texto": "",
     "yo_anillo": True,
+    # La bola de reparto de carga (el circulo con el punto que se mueve)
+    "bola_ver": False,
+    "bola_x": 60,
+    "bola_y": 60,
+    "bola_tam": 130,
+    "bola_circulo": True,
+    "bola_numeros": False,
+    # 2,5 G llena el circulo. Medido en Daytona con el LMP2: con esa escala el
+    # punto toca el borde el 1,5 % del tiempo -o sea, en lo mas fuerte de la
+    # frenada y de las curvas rapidas- y el resto del rato se mueve por dentro.
+    # Con 3 G no llegaba al borde casi nunca y el dibujo se quedaba soso.
+    "bola_escala": 2.5,
+    # Cuanto se frena el punto. 0 = tal cual llega del juego, que es como
+    # estaba y bailaba demasiado para poder leerlo conduciendo.
+    "bola_suavidad": 75,
+    "bola_color_punto": "#00ff00",
+    "bola_color_circulo": "#b0b0b0",
+    "bola_color_numeros": "#ffffff",
     "ver_salidas": True,
     # Por defecto NO: en carrera el juego solo publica la salida cuando llega
     # a sancionar, y los avisos de limites de pista no salen en la memoria
@@ -299,6 +333,7 @@ class Juego:
         self.sesion = None
         self.fase_juego = 0
         self.estado = ""
+        self.tele = None               # G y cargas de TU coche
         self.yo_origen = None          # de donde ha salido "mi coche"
         self.yo_fiable = False         # y si esa via lo SABE o lo supone
         self.nueva_sesion = False      # obliga a empezar de cero
@@ -445,6 +480,7 @@ class Juego:
         if not sco.en_pista():
             self.estado += idiomas.t("ses.garaje")
         coches = sco.coches()
+        self.tele = sco.telemetria()
         self.yo_origen = sco.origen_yo
         self.yo_fiable = sco.yo_fiable
         if self.off_puesto is not None:
@@ -541,6 +577,8 @@ class Mapa:
         self._fuentes = {}
         self.comparador = None
         self.avisador = None
+        self.bola = None
+        self._bola_pos = [0.0, 0.0]     # el punto ya suavizado
         self.grabador = None
 
         self.root = tk.Tk()
@@ -899,6 +937,7 @@ class Mapa:
         # coches incluidos, sin volver a refrescarse jamas.
         try:
             coches = self.fuente.leer()
+            self._llevar_bola()
             self._restaurar_elegido(coches)
             self._llevar_comparador(coches)
             if self.visible and self._toca_dibujar():
@@ -1027,11 +1066,68 @@ class Mapa:
         self.modo_mover = False
         if self.avisador is not None:
             self.avisador.colocar(False)
+        if self.bola is not None:
+            self.bola.colocar(False)
         guardar_config(self.cfg)
         click_atraviesa(self.hwnd, True)
         if self.opciones:
             self.opciones.destroy()
         self.opciones = None
+
+    def _llevar_bola(self):
+        """
+        Mueve el punto de la bola de reparto de carga.
+
+        El punto va con las **G**, no con el reparto de carga, y es a
+        proposito: asi esta en el centro cuando el coche va recto y quieto,
+        que es lo que uno espera de este dibujo. El reparto de carga real no
+        sirve para eso, porque un LMP2 rodando lleva SIEMPRE mas peso detras
+        (medido en Daytona: 37 % delante en paso por curva, contra 48 % parado,
+        por la carga aerodinamica), asi que el punto viviria pegado abajo.
+
+        Donde si se ensena el reparto de verdad es en los numeros, que salen
+        del peso medido en cada rueda.
+        """
+        if not self.cfg.get("bola_ver", False) and self.bola is None:
+            return
+        if self.bola is None:
+            import bola_gui
+            self.bola = bola_gui.Bola(self.root, self.cfg, guardar_config)
+            self.bola.colocar(self.modo_mover)
+        if not self.cfg.get("bola_ver", False):
+            self.bola.esconder()
+            return
+        tele = getattr(self.fuente, "tele", None)
+        if not tele or getattr(self.fuente, "congelado", False):
+            self.bola.pintar(0.0, 0.0, None)
+            return
+        escala = max(0.5, float(self.cfg.get("bola_escala", 2.5)))
+        # +x del juego sale por tu lado izquierdo y +z por detras del coche:
+        # frenando, el punto sube; girando a izquierdas, el peso -y el punto-
+        # se van a la derecha. Comprobado con los datos de Daytona.
+        x, y = self._suavizar(tele["g_lateral"] / escala, tele["g_larga"] / escala)
+        self.bola.pintar(x, y, reparto_de(tele["cargas"]))
+
+    def _suavizar(self, x, y):
+        """
+        Frena el punto para que se pueda leer conduciendo.
+
+        El juego publica las G tal cual las calcula, con todo el temblor del
+        piano y del bordillo dentro, y a veinte dibujos por segundo el punto
+        vibra tanto que no da tiempo a leerlo. Lo que se hace NO es mirar el
+        dato menos veces -eso lo dejaria dando saltos, que es peor- sino
+        dejar que el punto persiga al dato: cada vuelta del bucle avanza solo
+        una parte del camino que le falta. Con 0 va tal cual llega; cuanto mas
+        alto, mas tarda en llegar y mas quieto se ve.
+        """
+        try:
+            suavidad = float(self.cfg.get("bola_suavidad", 75))
+        except (TypeError, ValueError):
+            suavidad = 75.0
+        paso = 1.0 - max(0.0, min(95.0, suavidad)) / 100.0
+        self._bola_pos[0] += (x - self._bola_pos[0]) * paso
+        self._bola_pos[1] += (y - self._bola_pos[1]) * paso
+        return self._bola_pos[0], self._bola_pos[1]
 
     # ---- cual es tu coche (F11) ----
     def alternar_eleccion(self):
@@ -1110,6 +1206,8 @@ class Mapa:
         self.modo_mover = True
         if self.avisador is not None:
             self.avisador.colocar(True)
+        if self.bola is not None:
+            self.bola.colocar(True)
         self.opciones = opciones.abrir(self, guardar_config)
 
     def cerrar_programa(self):

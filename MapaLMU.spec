@@ -47,6 +47,7 @@ OCULTOS = [
     "rutas",
     "lector_lmu",
     "elegir_coche",
+    "bola_gui",
 ]
 
 a = Analysis(

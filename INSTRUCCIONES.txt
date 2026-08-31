@@ -85,9 +85,16 @@ PASO 3 - Arranca el mapa
   LAS OPCIONES (F10)
 --------------------------------------------------------------------
 
-Estan repartidas en pestanas. Cada una tiene un boton azul con una
+Estan repartidas en pestanas, en dos alturas: arriba el grupo y
+dentro las hojas de ese grupo. Cada hoja tiene un boton azul con una
 "i" arriba a la derecha que explica para que sirve lo que hay
 dentro. Si tienes dudas, pulsalo.
+
+  EL MAPA ....... Que se ve  ·  Tamanos y colores
+  EN PISTA ...... Fuerzas G  ·  Avisos
+  TIEMPOS ....... Comparar tiempos  ·  Comparar trazadas
+  LO GUARDADO ... Coches  ·  Reglajes  ·  Escanear pistas
+  ACERCA DE
 
   QUE SE VE
     Que aparece dibujado: los rivales, los numeros de posicion, los
@@ -113,6 +120,31 @@ dentro. Si tienes dudas, pulsalo.
 
     El aviso de coches parados ya no esta aqui: tiene pestana
     propia, AVISOS.
+
+  FUERZAS G
+    Una circunferencia con un punto que se va hacia donde tira el
+    peso del coche: arriba al frenar, abajo al acelerar y hacia
+    fuera en las curvas. En el centro, el coche va equilibrado.
+    Se enciende y se apaga aqui, igual que la circunferencia y los
+    numeros, por si prefieres solo el punto.
+
+    SENSIBILIDAD son las G que hacen falta para que el punto llegue
+    al borde. Con 2,5 G un LMP2 solo toca el borde en lo mas fuerte
+    de la frenada y de las curvas rapidas; con un coche mas lento,
+    bajala.
+
+    SUAVIDAD frena el punto para poder leerlo conduciendo. El juego
+    publica las G con todo el temblor de los pianos dentro y a
+    veinte dibujos por segundo el punto vibra demasiado. No se leen
+    menos datos: es el punto el que persigue al dato.
+
+    LOS NUMEROS son el reparto de peso de verdad, medido en las
+    cuatro ruedas. Ojo, que no es 50/50: un LMP2 rodando lleva casi
+    siempre mas peso detras -unos dos tercios en paso por curva- por
+    la carga aerodinamica, y eso es normal.
+
+    Con las opciones abiertas se arrastra con el raton a donde
+    quieras, igual que el mapa.
 
   COMPARAR TRAZADAS
     Se graba solo mientras juegas: de cada vuelta tuya el recorrido,
