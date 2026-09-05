@@ -161,6 +161,53 @@ BASE = {
                              "guarda una copia del original en la carpeta "
                              "copias_reglajes.\n\n¿Los arreglo?",
     "bib.cuadrados": "Arreglados: %d",
+    "bib.eliminar": "Eliminar los elegidos",
+    "bib.ver_todos": "Ver todos otra vez",
+    "bib.col.parecido": "En que se parecen",
+    "bib.el_original": "el que yo me quedaria",
+    "bib.no_sobra": "aqui no sobra ninguno",
+    "bib.copia_exacta": "IGUAL que el de arriba",
+    "bib.copia_casi": "mismo reglaje, distinta gasolina",
+    "bib.resumen_repetidos": "%d grupos de repetidos.   Copias exactas "
+                             "elegidas: %d",
+    "bib.ya_no_hay_repetidos": "Ya no queda ningun repetido. Vuelvo a la lista "
+                               "de siempre.",
+    "bib.repetidos_ayuda": "La lista ensena ahora solo los repetidos, cada "
+                           "copia justo debajo del reglaje del que es copia. "
+                           "Cada grupo va sobre un fondo para que se vean "
+                           "aparte.\n\nEn ROJO, las copias exactas: mismo "
+                           "reglaje y misma gasolina. Esas son las que sobran "
+                           "y ya te las he dejado elegidas.\n\nEn AMBAR, los "
+                           "que llevan el coche igual pero cambian la gasolina "
+                           "o las paradas: suele ser el de clasificacion y el "
+                           "de carrera, y quieres los dos.\n\nPulsa Ver "
+                           "todos otra vez para volver a la lista entera.",
+    "bib.repetidos_ayuda_sin": "La lista ensena ahora solo los repetidos, cada "
+                               "uno justo debajo del reglaje al que se "
+                               "parece.\n\nNinguno es copia exacta de otro: "
+                               "el coche va igual pero cambian la gasolina o "
+                               "las paradas, que suele ser el de clasificacion "
+                               "y el de carrera, y quieres los dos. Asi que no "
+                               "te he elegido ninguno.\n\nPulsa Ver todos "
+                               "otra vez para volver a la lista entera.",
+    "bib.confirmar_eliminar": "Se van a quitar %d reglajes:\n\n%s\n\n"
+                              "No se borran del todo: se guardan en la carpeta "
+                              "copias_reglajes/_borrados del programa, por si "
+                              "te arrepientes.\n\n¿Los quito?",
+    "bib.eliminar_no_sobran": "OJO: %d de los que has elegido no dejan "
+                              "ninguna copia detras. Si los quitas, ese "
+                              "reglaje desaparece. Los que salen en AMBAR son "
+                              "el mismo reglaje con distinta gasolina, que "
+                              "suele ser el de clasificacion y el de carrera, "
+                              "y seguramente quieres quedarte con los "
+                              "dos.\n\n",
+    "bib.eliminar_en_juego": "OJO: %d de ellos los tienes asignados en el "
+                             "juego.\n\n",
+    "bib.eliminados": "Eliminados: %d",
+    "bib.no_pude_eliminar": "No he podido quitar %d. Puede que el juego los "
+                            "tenga abiertos: cierralo y prueba otra vez.",
+    "bib.y_mas": "... y %d mas.",
+
     "bib.sin_duplicados": "No hay dos reglajes iguales con nombres distintos.",
     "bib.hay_duplicados": "Hay %d reglajes repetidos con nombres distintos:",
     "bib.zip_vacio": "En ese archivo no hay ningun reglaje.",
@@ -271,7 +318,6 @@ BASE = {
 _actual = None
 _textos = {}
 
-
 def _leer(codigo):
     try:
         with open(os.path.join(CARPETA, "%s.json" % codigo), encoding="utf-8-sig") as f:
@@ -279,7 +325,6 @@ def _leer(codigo):
         return d if isinstance(d, dict) else {}
     except (OSError, ValueError):
         return {}
-
 
 def actual():
     """El idioma elegido. Por defecto, espanol."""
@@ -293,7 +338,6 @@ def actual():
         _actual = codigo if codigo in dict(disponibles()) else "es"
         _cargar()
     return _actual
-
 
 def _cargar():
     """
@@ -311,7 +355,6 @@ def _cargar():
         if _actual != "en":
             _textos.update(_leer(_actual))
 
-
 def elegir(codigo):
     """Guarda el idioma. Lo que ya esta dibujado no cambia hasta reabrir."""
     global _actual
@@ -326,10 +369,8 @@ def elegir(codigo):
     _cargar()
     return True
 
-
 def nombre(codigo):
     return dict(IDIOMAS).get(codigo, codigo)
-
 
 def disponibles():
     """
@@ -351,7 +392,6 @@ def disponibles():
         pass
     return lista
 
-
 def t(clave):
     """El texto en el idioma elegido, con el ingles y el espanol por debajo."""
     actual()
@@ -359,7 +399,6 @@ def t(clave):
     if texto:
         return texto
     return BASE.get(clave, clave)
-
 
 def textos_es():
     """
@@ -371,14 +410,12 @@ def textos_es():
     completo.update(_leer("es"))
     return completo
 
-
 def guardar(codigo, textos):
     """Escribe un archivo de idioma. Solo lo usan las herramientas."""
     os.makedirs(CARPETA, exist_ok=True)
     with open(os.path.join(CARPETA, "%s.json" % codigo), "w", encoding="utf-8") as f:
         json.dump(textos, f, ensure_ascii=False, indent=2, sort_keys=True)
     return len(textos)
-
 
 def que_falta(codigo):
     """Las frases que ese idioma todavia no tiene traducidas."""

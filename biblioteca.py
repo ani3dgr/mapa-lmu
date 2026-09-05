@@ -567,27 +567,45 @@ def nombre_propuesto(datos):
 
 # -------------------------------------------------------------- duplicados
 
-def huella(ficha):
+def huella(ficha, con_gasolina=False):
     """
     Lo que de verdad define un reglaje.
 
-    Se compara solo el reglaje en si y no el archivo entero, porque dos
-    copias del mismo pueden traer distinta firma del ingeniero, distinta
-    ruta de instalacion o distinta carga de gasolina sin ser reglajes
-    distintos: el coche va exactamente igual.
+    Por defecto se compara solo el reglaje en si y no el archivo entero,
+    porque dos copias del mismo pueden traer distinta firma del ingeniero,
+    distinta ruta de instalacion o distinta carga de gasolina sin ser
+    reglajes distintos: el coche va exactamente igual.
+
+    Con con_gasolina se mira TAMBIEN el deposito y las paradas. Hace falta
+    para saber cual se puede borrar, que es otra pregunta: el reglaje de
+    clasificacion y el de carrera de un mismo pack suelen llevar el coche
+    igual y cambiar solo la gasolina, y ahi no sobra ninguno de los dos.
     """
-    fuera = ("FuelSetting", "FuelCapacitySetting", "VirtualEnergySetting",
-             "NumPitstopsSetting")
+    fuera = () if con_gasolina else (
+        "FuelSetting", "FuelCapacitySetting", "VirtualEnergySetting",
+        "NumPitstopsSetting")
     return "|".join("%s=%s" % (c, ficha["ajustes"][c]["indice"])
                     for c in sorted(ficha["ajustes"])
                     if ficha["ajustes"][c]["clave"] not in fuera)
 
 
-def buscar_duplicados(fichas):
-    """Agrupa los que son el mismo reglaje con distinto nombre."""
+def buscar_duplicados(fichas, mismo_circuito=False, con_gasolina=False):
+    """
+    Agrupa los que son el mismo reglaje con distinto nombre.
+
+    Con mismo_circuito solo se juntan los que ademas viven en la misma
+    carpeta, que son los que de verdad sobran. El mismo reglaje en Monza y
+    en Spa no es una copia de mas: hace falta en los dos sitios, porque el
+    circuito de un reglaje es la carpeta donde esta.
+
+    Con con_gasolina se exige que sean iguales hasta en el deposito, que es
+    lo que hay que pedir antes de proponerle a nadie que borre uno.
+    """
     por_huella = {}
     for f in fichas:
-        por_huella.setdefault(huella(f), []).append(f)
+        h = huella(f, con_gasolina)
+        por_huella.setdefault((f["circuito"], h) if mismo_circuito else h,
+                              []).append(f)
     return [g for g in por_huella.values() if len(g) > 1]
 
 

@@ -37,6 +37,7 @@ class Ventana(tk.Toplevel):
         self.configure(bg="#202020")
         self.protocol("WM_DELETE_WINDOW", mapa.cerrar_eleccion)
         self._ids = []                 # mID de cada fila, en el mismo orden
+        self._filas = []               # el texto que hay pintado ahora mismo
         self._tarea = None
 
         marco = tk.Frame(self, bg="#202020", padx=12, pady=12)
@@ -95,8 +96,7 @@ class Ventana(tk.Toplevel):
         lista = sorted(self._coches(), key=lambda c: (c.get("clase") or "~",
                                                       c.get("puesto") or 99,
                                                       c.get("nombre") or ""))
-        self.lista.delete(0, "end")
-        self._ids = []
+        filas, ids = [], []
         for c in lista:
             if c.get("id") is None:
                 continue
@@ -105,15 +105,27 @@ class Ventana(tk.Toplevel):
             equipo = cat.equipo_de(c.get("vehiculo", ""))
             modelo = cat.texto(c.get("vehiculo", ""), c.get("clase", ""),
                                c.get("codigo", ""))
-            self.lista.insert("end", "%s%2s  %-20.20s  %-22.22s  %-20.20s %s"
-                              % ("> " if c.get("es_yo") else "  ",
-                                 c.get("puesto") or "", c.get("nombre") or "?",
-                                 equipo, modelo, c.get("clase") or ""))
-            self._ids.append(c["id"])
-        if antes in self._ids:
-            fila = self._ids.index(antes)
-            self.lista.selection_set(fila)
-            self.lista.see(fila)
+            filas.append("%s%2s  %-20.20s  %-22.22s  %-20.20s %s"
+                         % ("> " if c.get("es_yo") else "  ",
+                            c.get("puesto") or "", c.get("nombre") or "?",
+                            equipo, modelo, c.get("clase") or ""))
+            ids.append(c["id"])
+
+        # Solo se rehace la lista si ha CAMBIADO algo. Antes se borraba y se
+        # volvia a escribir entera cada segundo, y eso devuelve la barra al
+        # principio: con sesenta coches era imposible elegir uno de abajo,
+        # porque bajabas con la rueda y un segundo despues estabas arriba
+        # otra vez. Y cuando si hay que rehacerla, se apunta por donde ibas
+        # y se vuelve a dejar ahi.
+        if filas != self._filas:
+            arriba = self.lista.yview()[0]
+            self.lista.delete(0, "end")
+            for texto in filas:
+                self.lista.insert("end", texto)
+            self._filas, self._ids = filas, ids
+            if antes in self._ids:
+                self.lista.selection_set(self._ids.index(antes))
+            self.lista.yview_moveto(arriba)
 
         yo = next((c for c in self._coches() if c.get("es_yo")), None)
         quien = ("%s  (%s)" % (yo.get("nombre") or "?", yo.get("vehiculo") or "")

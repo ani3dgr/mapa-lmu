@@ -477,9 +477,22 @@ class Juego:
         self.sesion = sco.sesion()
         self.fase_juego = sco.fase_juego()
         self.estado = nombre_sesion(self.sesion)
-        if not sco.en_pista():
-            self.estado += idiomas.t("ses.garaje")
         coches = sco.coches()
+        # OJO: mInRealtime habla de TI, no del coche. En una carrera por
+        # equipos, mientras conduce el companero tu figuras "en el garaje"
+        # pero el coche esta rodando y el mapa lo sigue perfectamente. Poner
+        # "(garaje)" a secas asustaba, porque parecia que no se estaba
+        # grabando nada, y si se graba (con el nombre de quien va al volante
+        # pegado a cada vuelta). Se mira si TU coche esta en boxes para
+        # separar las dos situaciones.
+        self.conduzco = sco.en_pista()
+        if not self.conduzco:
+            yo = next((c for c in coches if c.get("es_yo")), None)
+            quien = (yo or {}).get("nombre") or ""
+            if yo is not None and not yo.get("en_boxes") and quien:
+                self.estado += idiomas.t("ses.conduce_otro") % quien
+            else:
+                self.estado += idiomas.t("ses.garaje")
         self.tele = sco.telemetria()
         self.yo_origen = sco.origen_yo
         self.yo_fiable = sco.yo_fiable
@@ -1098,7 +1111,14 @@ class Mapa:
             self.bola.esconder()
             return
         tele = getattr(self.fuente, "tele", None)
-        if not tele or getattr(self.fuente, "congelado", False):
+        # La telemetria es siempre la de TU coche mientras lo llevas tu. En
+        # cuanto se lo pasas a un companero el juego deja de refrescarla, y
+        # la bola se quedaba clavada en la ultima G que hubo antes de entrar
+        # a boxes: parecia un coche frenando eternamente. Al centro, que es
+        # lo que ya se hace cuando no hay datos.
+        if (not tele or getattr(self.fuente, "congelado", False)
+                or not getattr(self.fuente, "conduzco", True)):
+            self._bola_pos[0] = self._bola_pos[1] = 0.0
             self.bola.pintar(0.0, 0.0, None)
             return
         escala = max(0.5, float(self.cfg.get("bola_escala", 2.5)))

@@ -557,6 +557,7 @@
   "sel.titulo": "Cual es tu coche",
   "ses.carrera": "Carrera",
   "ses.clasificacion": "Clasificacion",
+  "ses.conduce_otro": " (conduce %s)",
   "ses.garaje": " (garaje)",
   "ses.practica": "Practica",
   "ses.sin_empezar": "Sin empezar",

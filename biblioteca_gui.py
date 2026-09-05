@@ -30,6 +30,11 @@ T = idiomas.t
 # y el programa no puede ser el motivo de que pierda uno.
 COPIAS = rutas.datos("copias_reglajes")
 
+# Y aqui van los que se eliminan. Dentro de copias_reglajes a proposito:
+# esa carpeta es del usuario y compilar de nuevo el programa no se la
+# lleva por delante, asi que un reglaje quitado sigue ahi manana.
+PAPELERA = os.path.join(COPIAS, "_borrados")
+
 SESIONES = ["Qualy", "Race", "Endu"]
 ESTILOS = ["Safe", "Fast"]
 
@@ -53,6 +58,24 @@ class Biblioteca:
         self.asignados = {}       # ruta -> lo que el juego tiene asignado
         self.ultimo_asignado = None
         self.primera_vez = True
+        # La lista tiene dos vistas: la de siempre (todos los reglajes) y la
+        # de repetidos, que ensena cada copia justo debajo del reglaje del
+        # que es copia. Es la misma tabla, solo cambia lo que se mete.
+        self.modo_repetidos = False
+        # El cuadro que explica los colores sale una vez y no vuelve a
+        # salir: la segunda vez ya no explica nada, solo estorba entre el
+        # boton y la lista.
+        self.explicado = False
+        # Los montones de reglaje identico de la vista de repetidos, cada
+        # uno con las filas que lo forman. Sirven para una sola cosa, pero
+        # importante: avisar cuando lo que se va a borrar es un monton
+        # ENTERO, porque entonces ese reglaje no se queda en ninguna copia
+        # y desaparece. Es el paso que sale solo: quitas las copias rojas,
+        # la lista se queda con las parejas de clasificacion y carrera, y
+        # parece que esas tambien sobran.
+        self.montones = []
+        self.sobran = 0
+        self.grupos = 0
 
         v = tk.Toplevel(padre)
         self.v = v
@@ -113,8 +136,9 @@ class Biblioteca:
                         variable=self.solo_malos,
                         command=self.recargar).pack(side="left", padx=(16, 0))
 
-        ttk.Button(barra, text=T("bib.duplicados"),
-                   command=self.ver_duplicados).pack(side="right")
+        self.boton_dup = ttk.Button(barra, text=T("bib.duplicados"),
+                                    command=self.ver_duplicados)
+        self.boton_dup.pack(side="right")
         ttk.Button(barra, text=T("bib.calibrar"),
                    command=self.calibrar).pack(side="right", padx=(0, 8))
 
@@ -197,7 +221,19 @@ class Biblioteca:
         self.tabla.tag_configure("enjuego", foreground=VERDE,
                                  font=("Segoe UI", 9, "bold"))
         self.tabla.tag_configure("asignado", foreground="#7a8b7f")
+        # Para la vista de repetidos: el fondo se va alternando de un grupo
+        # al siguiente, que es lo que hace que se vean como bloques sin
+        # tener que leer nada. Dentro del bloque, el texto dice el papel de
+        # cada uno: rojo el que es copia exacta y ambar el que solo cambia
+        # la gasolina.
+        for i, fondo in enumerate(("#ffffff", "#e7eef0")):
+            self.tabla.tag_configure("g%d" % i, background=fondo)
+            self.tabla.tag_configure("g%dexacta" % i, background=fondo,
+                                     foreground=ROJO)
+            self.tabla.tag_configure("g%dcasi" % i, background=fondo,
+                                     foreground=AMBAR)
         self.tabla.bind("<<TreeviewSelect>>", self._elegido)
+        self.tabla.bind("<Delete>", self.eliminar)
 
     def _detalle(self, v):
         m = ttk.LabelFrame(v, text=T("bib.detalle"), padding=(10, 6))
@@ -245,6 +281,11 @@ class Biblioteca:
         self.estado.pack(side="left", padx=(16, 0))
         ttk.Button(pie, text=T("bib.cerrar"),
                    command=self.v.destroy).pack(side="right")
+        # El de borrar va al otro lado y separado de los demas, en rojo:
+        # es el unico boton que quita algo, y se pulsa con prisa entre
+        # sesion y sesion. Lejos del raton de "Comparar" no estorba.
+        tk.Button(pie, text=T("bib.eliminar"), fg=ROJO,
+                  command=self.eliminar).pack(side="right", padx=(0, 24))
 
     # ------------------------------------------------------------- llenar
     def recargar(self):
@@ -264,9 +305,14 @@ class Biblioteca:
         self.tabla.delete(*self.tabla.get_children())
         self.fichas.clear()
         self.datos.clear()
+        self.montones = []
 
+        # Primero se lee todo y despues se llena la tabla. Van separados
+        # porque la vista de repetidos necesita tener delante los reglajes
+        # enteros para compararlos entre ellos: no se puede decidir de quien
+        # es copia una fila mientras se van metiendo de una en una.
         mirar = circuitos if elegido == T("bib.todos") else [elegido]
-        malos = 0
+        leidos, malos = [], 0
         for circuito in mirar:
             carpeta = os.path.join(base, circuito)
             for archivo in sorted(os.listdir(carpeta)):
@@ -281,13 +327,120 @@ class Biblioteca:
                     malos += 1
                 if self.solo_malos.get() and not (c and c["estado"] == "malo"):
                     continue
-                self._fila(circuito, ficha, d)
+                leidos.append((circuito, ficha, d))
 
-        self.estado.configure(
-            text=T("bib.resumen") % (len(self.fichas), malos),
-            foreground=ROJO if malos else "#555")
+        if self.modo_repetidos:
+            self._llenar_repetidos(leidos)
+        else:
+            for circuito, ficha, d in leidos:
+                self._fila(circuito, ficha, d)
+            self.estado.configure(
+                text=T("bib.resumen") % (len(self.fichas), malos),
+                foreground=ROJO if malos else "#555")
         self._marcar_los_del_juego(ir_a_el=self.primera_vez)
         self.primera_vez = False
+
+    def _peso(self, ficha):
+        """
+        Por donde va cada reglaje dentro de su grupo de repetidos.
+
+        Delante el que el juego tenga asignado, porque ese es el que no se
+        puede tocar sin que se note en la proxima sesion. Si no hay
+        ninguno, el primero por nombre, que con los packs deja delante el
+        original y detras la copia numerada que se colo al importar dos
+        veces el mismo pack.
+        """
+        return (os.path.abspath(ficha["ruta"]).lower() not in self.asignados,
+                ficha["nombre"].lower())
+
+    def _llenar_repetidos(self, leidos):
+        """
+        La tabla con los repetidos y nada mas, cada copia justo debajo del
+        reglaje del que es copia.
+
+        Antes esto era una lista dentro de un cuadro de dialogo: te decia
+        que tenias repetidos y luego te tocaba buscarlos a mano por las
+        carpetas, que con casi doscientos reglajes es lo mismo que no
+        decirte nada. Aqui salen en la propia lista, se ven emparejados y
+        se borran desde el mismo sitio.
+
+        Cada grupo va sobre un fondo, alternando, para que se vea donde
+        acaba uno y empieza el siguiente. Y dentro del grupo hay dos
+        parentescos distintos, que NO son lo mismo:
+
+        - copia exacta (rojo): mismo reglaje y misma gasolina. Sobra, y por
+          eso se queda elegida para poder quitarla de una pasada.
+        - casi igual (ambar): el coche va igual pero cambia el deposito o
+          las paradas. Suele ser el reglaje de clasificacion y el de
+          carrera del mismo pack, que hacen falta los dos. Se ensena para
+          que se entienda por que estan juntos, pero no se elige.
+        """
+        info = {os.path.abspath(f["ruta"]).lower(): (c, d)
+                for c, f, d in leidos}
+        grupos = B.buscar_duplicados([f for _, f, _ in leidos],
+                                     mismo_circuito=True)
+        # Arriba del todo los grupos en los que hay algo que sobra, que son
+        # a los que se ha venido; detras las parejas de clasificacion y
+        # carrera, que se ensenan solo para explicar por que estan ahi. Y
+        # dentro de cada bloque, por circuito, para no ir dando saltos de
+        # una carpeta a otra mientras se hace limpieza.
+        def sitio(g):
+            hay_copia = len(set(B.huella(f, con_gasolina=True) for f in g)) < len(g)
+            return (not hay_copia, g[0]["circuito"].lower(),
+                    min(f["nombre"].lower() for f in g))
+
+        grupos.sort(key=sitio)
+
+        sobran = []
+        for n, grupo in enumerate(grupos):
+            fondo = "g%d" % (n % 2)
+            # Si en el grupo no hay dos iguales del todo, no sobra nada: se
+            # dice, en vez de dejar al primero con el cartel de "el que yo
+            # me quedaria", que ahi sonaria a que hay que tirar el otro.
+            sobra_algo = not sitio(grupo)[0]
+            # Dentro del grupo se hacen montones de copia exacta, y cada
+            # monton sale junto: asi la copia siempre cae pegada debajo de
+            # su gemelo y no al final de una lista larga.
+            montones = {}
+            for f in grupo:
+                montones.setdefault(B.huella(f, con_gasolina=True), []).append(f)
+            orden = sorted((sorted(m, key=self._peso)
+                            for m in montones.values()),
+                           key=lambda m: self._peso(m[0]))
+
+            primero = True
+            for monton in orden:
+                filas = []
+                for i, f in enumerate(monton):
+                    circuito, d = info[os.path.abspath(f["ruta"]).lower()]
+                    if i:
+                        nombre = "        ↳ " + f["nombre"]
+                        parecido = T("bib.copia_exacta")
+                        marca = fondo + "exacta"
+                    elif primero:
+                        nombre = "%s  ·  %s" % (circuito, f["nombre"])
+                        parecido = (T("bib.el_original") if sobra_algo
+                                    else T("bib.no_sobra"))
+                        marca = fondo
+                    else:
+                        nombre = "    ≈ " + f["nombre"]
+                        parecido = T("bib.copia_casi")
+                        marca = fondo + "casi"
+                    fid = self._fila(circuito, f, d, nombre, parecido, marca)
+                    filas.append(fid)
+                    if i:
+                        sobran.append(fid)
+                self.montones.append(set(filas))
+                primero = False
+
+        self.grupos, self.sobran = len(grupos), len(sobran)
+        if sobran:
+            self.tabla.selection_set(sobran)
+            self.tabla.focus(sobran[0])
+            self.tabla.see(sobran[0])
+        self.estado.configure(
+            text=T("bib.resumen_repetidos") % (len(grupos), len(sobran)),
+            foreground=ROJO if sobran else "#555")
 
     def _marcar_los_del_juego(self, ir_a_el=False):
         """
@@ -311,8 +464,9 @@ class Biblioteca:
                     actual = self.tabla.set(fid, "actual")
                     if not actual.startswith("► "):
                         self.tabla.set(fid, "actual", "► " + actual)
-                self.tabla.item(fid, tags=("enjuego" if es_el_de_ahora
-                                           else "asignado",))
+                if not self.modo_repetidos:
+                    self.tabla.item(fid, tags=("enjuego" if es_el_de_ahora
+                                               else "asignado",))
                 if es_el_de_ahora and suyo is None:
                     suyo = fid
         if ir_a_el and suyo:
@@ -321,7 +475,7 @@ class Biblioteca:
             self.tabla.see(suyo)
             self._elegido()
 
-    def _fila(self, circuito, ficha, d):
+    def _fila(self, circuito, ficha, d, nombre=None, parecido=None, marca=None):
         c = d["combustible"]
         if not c:
             gasolina, tag = T("bib.sin_energia"), ""
@@ -336,14 +490,19 @@ class Biblioteca:
 
         tipo = "%s / %s / %s" % (T("bib.wet") if d["mojado"] else T("bib.dry"),
                                  d["sesion"], d["estilo"])
+        # En la vista de repetidos manda la marca del grupo: ahi el color
+        # dice de quien es copia cada fila, que es a lo que se ha ido. Lo
+        # de la gasolina sigue escrito con todas las letras en su columna.
         fid = self.tabla.insert(
-            "", "end", tags=(tag,) if tag else (),
-            values=(("%s  ·  %s" % (circuito, ficha["nombre"]))[:60],
-                    B.nombre_propuesto(d),
+            "", "end", tags=(marca,) if marca else ((tag,) if tag else ()),
+            values=(nombre if nombre is not None else
+                    ("%s  ·  %s" % (circuito, ficha["nombre"]))[:60],
+                    B.nombre_propuesto(d) if parecido is None else parecido,
                     d["coche"]["corto"], d["coche"]["categoria"],
                     tipo, gasolina, d["fuente"]))
         self.fichas[fid] = ficha
         self.datos[fid] = d
+        return fid
 
     # ------------------------------------------------------------ detalle
     def _uno(self):
@@ -404,6 +563,83 @@ class Biblioteca:
             return True
         except OSError:
             return False
+
+    def _a_la_papelera(self, ruta):
+        """Saca el archivo de la carpeta del juego sin perderlo."""
+        try:
+            destino = os.path.join(PAPELERA,
+                                   os.path.basename(os.path.dirname(ruta)))
+            os.makedirs(destino, exist_ok=True)
+            shutil.move(ruta, B.sin_pisar(os.path.join(
+                destino, os.path.basename(ruta))))
+            return True
+        except OSError:
+            return False
+
+    def eliminar(self, _=None):
+        """
+        Quita del juego los reglajes elegidos, de uno en uno o a montones.
+
+        No se borra nada de verdad. Cada archivo se guarda en la carpeta
+        copias_reglajes/_borrados, dentro de la de su circuito, y de ahi se
+        recupera arrastrandolo de vuelta. Un reglaje bueno cuesta horas de
+        pista o cuesta dinero, asi que aqui no hay ningun boton sin vuelta
+        atras.
+
+        Se avisa aparte si alguno de los elegidos es de los que el juego
+        tiene asignados: ese te lo carga solo al entrar en ese circuito con
+        ese coche, y quitarlo se nota en la proxima sesion.
+        """
+        sel = self.tabla.selection()
+        if not sel:
+            messagebox.showinfo(T("bib.titulo"), T("bib.elige"), parent=self.v)
+            return
+
+        # Se ensena la lista entera hasta quince. Con mas, un cuadro de
+        # dialogo de ochenta lineas ya no se lee: se dice cuantos quedan.
+        nombres = "\n".join("· %s  ·  %s" % (self.fichas[f]["circuito"],
+                                             self.fichas[f]["nombre"])
+                            for f in sel[:15])
+        if len(sel) > 15:
+            nombres += "\n" + T("bib.y_mas") % (len(sel) - 15)
+
+        puestos = sum(1 for f in sel
+                      if os.path.abspath(self.fichas[f]["ruta"]).lower()
+                      in self.asignados)
+        aviso = T("bib.eliminar_en_juego") % puestos if puestos else ""
+        # Este va el primero de todos. Borrar una copia no cuesta nada;
+        # borrar el reglaje de carrera pensando que era una copia se
+        # descubre el dia de la carrera.
+        elegidas = set(sel)
+        enteros = sum(1 for m in self.montones if m and m <= elegidas)
+        if enteros:
+            aviso = T("bib.eliminar_no_sobran") % enteros + aviso
+        if not messagebox.askyesno(
+                T("bib.titulo"),
+                aviso + T("bib.confirmar_eliminar") % (len(sel), nombres),
+                parent=self.v, icon="warning", default="no"):
+            return
+
+        hechos, fallos = 0, 0
+        for fid in sel:
+            if self._a_la_papelera(self.fichas[fid]["ruta"]):
+                hechos += 1
+            else:
+                fallos += 1
+        self.recargar()
+        # Si estabas haciendo limpieza y ya no queda ningun repetido, la
+        # tabla se quedaria vacia y parecia que se habian ido todos tus
+        # reglajes. Se vuelve solo a la lista de siempre.
+        if self.modo_repetidos and not self.fichas:
+            self._vista(False)
+            messagebox.showinfo(T("bib.titulo"), T("bib.ya_no_hay_repetidos"),
+                                parent=self.v)
+        self.estado.configure(text=T("bib.eliminados") % hechos,
+                              foreground=VERDE)
+        if fallos:
+            messagebox.showwarning(T("bib.titulo"),
+                                   T("bib.no_pude_eliminar") % fallos,
+                                   parent=self.v)
 
     def renombrar(self):
         """
@@ -523,20 +759,53 @@ class Biblioteca:
                                               sum(len(v) for v in c["pasos"].values())),
                             parent=self.v)
 
+    def _vista(self, repetidos):
+        """
+        Cambia entre la lista de siempre y la de repetidos.
+
+        Es la misma tabla y los mismos botones; lo unico que cambia es que
+        se meten unas filas u otras. Se hace asi y no en otra ventana
+        aparte porque lo que se quiere hacer con un repetido es quitarlo, y
+        el boton de quitar ya esta aqui abajo.
+        """
+        self.modo_repetidos = repetidos
+        self.boton_dup.configure(text=T("bib.ver_todos") if repetidos
+                                 else T("bib.duplicados"))
+        # La segunda columna deja de proponer nombre y pasa a decir de
+        # quien es copia cada fila, que en esta vista es lo unico que
+        # importa. Se cambia el titulo tambien, que si no enganaria.
+        self.tabla.heading("nuevo", text=T("bib.col.parecido") if repetidos
+                           else T("bib.col.nuevo"))
+        self.recargar()
+
     def ver_duplicados(self):
-        grupos = B.buscar_duplicados(list(self.fichas.values()))
-        if not grupos:
+        """
+        Ensena los repetidos en la propia lista, emparejados.
+
+        La primera vez cuenta en un cuadro como se leen los colores; el que
+        ya lo sepa lo cierra y sigue. Si no hay ni un repetido no se cambia
+        de vista, que dejar la lista vacia sin explicar nada asusta.
+        """
+        if self.modo_repetidos:
+            self._vista(False)
+            return
+
+        self._vista(True)
+        if not self.fichas:
+            self._vista(False)
             messagebox.showinfo(T("bib.titulo"), T("bib.sin_duplicados"),
                                 parent=self.v)
             return
-        lineas = []
-        for g in grupos:
-            lineas.append("· " + "\n  ".join(
-                "%s  (%s)" % (f["nombre"], f["circuito"]) for f in g))
-        messagebox.showinfo(T("bib.titulo"),
-                            T("bib.hay_duplicados") % len(grupos)
-                            + "\n\n" + "\n\n".join(lineas[:12]),
-                            parent=self.v)
+        if self.explicado:
+            return
+        self.explicado = True
+        # Cuantas hay elegidas no se cuenta aqui: lo dice el renglon de
+        # abajo, que ademas se va actualizando segun vas limpiando.
+        messagebox.showinfo(
+            T("bib.titulo"),
+            T("bib.repetidos_ayuda") if self.sobran
+            else T("bib.repetidos_ayuda_sin"),
+            parent=self.v)
 
     # ----------------------------------------------------------- importar
     def importar(self):
