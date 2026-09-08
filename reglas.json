@@ -27,318 +27,992 @@
   "tengas puesto, sale el ingles. Para anadir el tuyo, copia la linea 'en'",
   "y ponle el codigo de tu idioma."
  ],
-
  "nombres": {
-  "RWSetting":                  {"es": "Aleron trasero", "en": "Rear wing"},
-  "FWSetting":                  {"es": "Aleron delantero", "en": "Front wing"},
-  "WaterRadiatorSetting":       {"es": "Radiador de agua", "en": "Water radiator"},
-  "OilRadiatorSetting":         {"es": "Radiador de aceite", "en": "Oil radiator"},
-  "BrakeDuctSetting":           {"es": "Conductos de freno delanteros", "en": "Front brake ducts"},
-  "BrakeDuctRearSetting":       {"es": "Conductos de freno traseros", "en": "Rear brake ducts"},
-  "FrontAntiSwaySetting":       {"es": "Barra estabilizadora delantera", "en": "Front anti-roll bar"},
-  "RearAntiSwaySetting":        {"es": "Barra estabilizadora trasera", "en": "Rear anti-roll bar"},
-  "FrontToeInSetting":          {"es": "Convergencia delantera", "en": "Front toe"},
-  "RearToeInSetting":           {"es": "Convergencia trasera", "en": "Rear toe"},
-  "Front3rdSpringSetting":      {"es": "Tercer muelle delantero", "en": "Front third spring"},
-  "Rear3rdSpringSetting":       {"es": "Tercer muelle trasero", "en": "Rear third spring"},
-  "Front3rdPackerSetting":      {"es": "Tope del tercer elemento delantero", "en": "Front third packer"},
-  "Rear3rdPackerSetting":       {"es": "Tope del tercer elemento trasero", "en": "Rear third packer"},
-  "SpringSetting":              {"es": "Muelle", "en": "Spring"},
-  "RideHeightSetting":          {"es": "Altura", "en": "Ride height"},
-  "CamberSetting":              {"es": "Caida", "en": "Camber"},
-  "PressureSetting":            {"es": "Presion de neumatico", "en": "Tyre pressure"},
-  "PackerSetting":              {"es": "Tope de suspension", "en": "Packer"},
-  "SlowBumpSetting":            {"es": "Compresion lenta", "en": "Slow bump"},
-  "SlowReboundSetting":         {"es": "Rebote lento", "en": "Slow rebound"},
-  "FastBumpSetting":            {"es": "Compresion rapida", "en": "Fast bump"},
-  "FastReboundSetting":         {"es": "Rebote rapido", "en": "Fast rebound"},
-  "CompoundSetting":            {"es": "Compuesto de neumatico", "en": "Tyre compound"},
-  "RearBrakeSetting":           {"es": "Reparto de frenada", "en": "Brake balance"},
-  "BrakePressureSetting":       {"es": "Presion de freno", "en": "Brake pressure"},
-  "BrakeMigrationSetting":      {"es": "Migracion de frenada", "en": "Brake migration"},
-  "BrakeDiscSetting":           {"es": "Disco de freno", "en": "Brake disc"},
-  "BrakePadSetting":            {"es": "Pastillas de freno", "en": "Brake pads"},
-  "SteerLockSetting":           {"es": "Angulo de volante", "en": "Steering lock"},
-  "TractionControlMapSetting":  {"es": "Control de traccion", "en": "Traction control"},
-  "TCPowerCutMapSetting":       {"es": "Corte de potencia del control de traccion", "en": "TC power cut"},
-  "TCSlipAngleMapSetting":      {"es": "Angulo de deslizamiento del control de traccion", "en": "TC slip angle"},
-  "ABSSetting":                 {"es": "ABS", "en": "ABS"},
-  "AntilockBrakeSystemMapSetting": {"es": "Mapa de ABS", "en": "ABS map"},
-  "EngineMixtureSetting":       {"es": "Mezcla del motor", "en": "Engine mixture"},
-  "EngineBrakingMapSetting":    {"es": "Freno motor", "en": "Engine braking"},
-  "RevLimitSetting":            {"es": "Limitador de revoluciones", "en": "Rev limiter"},
-  "RegenerationMapSetting":     {"es": "Recuperacion de energia", "en": "Energy recovery"},
-  "ElectricMotorMapSetting":    {"es": "Motor electrico", "en": "Electric motor"},
-  "DiffPowerSetting":           {"es": "Diferencial en aceleracion", "en": "Diff power"},
-  "DiffCoastSetting":           {"es": "Diferencial en retencion", "en": "Diff coast"},
-  "DiffPreloadSetting":         {"es": "Precarga del diferencial", "en": "Diff preload"},
-  "FinalDriveSetting":          {"es": "Grupo final", "en": "Final drive"},
-  "RatioSetSetting":            {"es": "Juego de relaciones", "en": "Gear ratio set"},
-  "FuelSetting":                {"es": "Capacidad de combustible", "en": "Fuel capacity"},
-  "FuelCapacitySetting":        {"es": "Combustible cargado", "en": "Fuel loaded"},
-  "VirtualEnergySetting":       {"es": "Energia virtual", "en": "Virtual energy"},
-  "NumPitstopsSetting":         {"es": "Paradas previstas", "en": "Planned pit stops"}
+  "RWSetting": {
+   "es": "Aleron trasero",
+   "en": "Rear wing"
+  },
+  "FWSetting": {
+   "es": "Aleron delantero",
+   "en": "Front wing"
+  },
+  "WaterRadiatorSetting": {
+   "es": "Radiador de agua",
+   "en": "Water radiator"
+  },
+  "OilRadiatorSetting": {
+   "es": "Radiador de aceite",
+   "en": "Oil radiator"
+  },
+  "BrakeDuctSetting": {
+   "es": "Conductos de freno delanteros",
+   "en": "Front brake ducts"
+  },
+  "BrakeDuctRearSetting": {
+   "es": "Conductos de freno traseros",
+   "en": "Rear brake ducts"
+  },
+  "FrontAntiSwaySetting": {
+   "es": "Barra estabilizadora delantera",
+   "en": "Front anti-roll bar"
+  },
+  "RearAntiSwaySetting": {
+   "es": "Barra estabilizadora trasera",
+   "en": "Rear anti-roll bar"
+  },
+  "FrontToeInSetting": {
+   "es": "Convergencia delantera",
+   "en": "Front toe"
+  },
+  "RearToeInSetting": {
+   "es": "Convergencia trasera",
+   "en": "Rear toe"
+  },
+  "Front3rdSpringSetting": {
+   "es": "Tercer muelle delantero",
+   "en": "Front third spring"
+  },
+  "Rear3rdSpringSetting": {
+   "es": "Tercer muelle trasero",
+   "en": "Rear third spring"
+  },
+  "Front3rdPackerSetting": {
+   "es": "Tope del tercer elemento delantero",
+   "en": "Front third packer"
+  },
+  "Rear3rdPackerSetting": {
+   "es": "Tope del tercer elemento trasero",
+   "en": "Rear third packer"
+  },
+  "SpringSetting": {
+   "es": "Muelle",
+   "en": "Spring"
+  },
+  "RideHeightSetting": {
+   "es": "Altura",
+   "en": "Ride height"
+  },
+  "CamberSetting": {
+   "es": "Caida",
+   "en": "Camber"
+  },
+  "PressureSetting": {
+   "es": "Presion de neumatico",
+   "en": "Tyre pressure"
+  },
+  "PackerSetting": {
+   "es": "Tope de suspension",
+   "en": "Packer"
+  },
+  "SlowBumpSetting": {
+   "es": "Compresion lenta",
+   "en": "Slow bump"
+  },
+  "SlowReboundSetting": {
+   "es": "Rebote lento",
+   "en": "Slow rebound"
+  },
+  "FastBumpSetting": {
+   "es": "Compresion rapida",
+   "en": "Fast bump"
+  },
+  "FastReboundSetting": {
+   "es": "Rebote rapido",
+   "en": "Fast rebound"
+  },
+  "CompoundSetting": {
+   "es": "Compuesto de neumatico",
+   "en": "Tyre compound"
+  },
+  "RearBrakeSetting": {
+   "es": "Reparto de frenada",
+   "en": "Brake balance"
+  },
+  "BrakePressureSetting": {
+   "es": "Presion de freno",
+   "en": "Brake pressure"
+  },
+  "BrakeMigrationSetting": {
+   "es": "Migracion de frenada",
+   "en": "Brake migration"
+  },
+  "BrakeDiscSetting": {
+   "es": "Disco de freno",
+   "en": "Brake disc"
+  },
+  "BrakePadSetting": {
+   "es": "Pastillas de freno",
+   "en": "Brake pads"
+  },
+  "SteerLockSetting": {
+   "es": "Angulo de volante",
+   "en": "Steering lock"
+  },
+  "TractionControlMapSetting": {
+   "es": "Control de traccion",
+   "en": "Traction control"
+  },
+  "TCPowerCutMapSetting": {
+   "es": "Corte de potencia del control de traccion",
+   "en": "TC power cut"
+  },
+  "TCSlipAngleMapSetting": {
+   "es": "Angulo de deslizamiento del control de traccion",
+   "en": "TC slip angle"
+  },
+  "ABSSetting": {
+   "es": "ABS",
+   "en": "ABS"
+  },
+  "AntilockBrakeSystemMapSetting": {
+   "es": "Mapa de ABS",
+   "en": "ABS map"
+  },
+  "EngineMixtureSetting": {
+   "es": "Mezcla del motor",
+   "en": "Engine mixture"
+  },
+  "EngineBrakingMapSetting": {
+   "es": "Freno motor",
+   "en": "Engine braking"
+  },
+  "RevLimitSetting": {
+   "es": "Limitador de revoluciones",
+   "en": "Rev limiter"
+  },
+  "RegenerationMapSetting": {
+   "es": "Recuperacion de energia",
+   "en": "Energy recovery"
+  },
+  "ElectricMotorMapSetting": {
+   "es": "Motor electrico",
+   "en": "Electric motor"
+  },
+  "DiffPowerSetting": {
+   "es": "Diferencial en aceleracion",
+   "en": "Diff power"
+  },
+  "DiffCoastSetting": {
+   "es": "Diferencial en retencion",
+   "en": "Diff coast"
+  },
+  "DiffPreloadSetting": {
+   "es": "Precarga del diferencial",
+   "en": "Diff preload"
+  },
+  "FinalDriveSetting": {
+   "es": "Grupo final",
+   "en": "Final drive"
+  },
+  "RatioSetSetting": {
+   "es": "Juego de relaciones",
+   "en": "Gear ratio set"
+  },
+  "FuelSetting": {
+   "es": "Capacidad de combustible",
+   "en": "Fuel capacity"
+  },
+  "FuelCapacitySetting": {
+   "es": "Combustible cargado",
+   "en": "Fuel loaded"
+  },
+  "VirtualEnergySetting": {
+   "es": "Energia virtual",
+   "en": "Virtual energy"
+  },
+  "NumPitstopsSetting": {
+   "es": "Paradas previstas",
+   "en": "Planned pit stops"
+  }
  },
-
  "donde": [
-  {"id": "frenando", "es": "Frenando",             "en": "Under braking"},
-  {"id": "entrada",  "es": "Entrando en curva",    "en": "Turning in"},
-  {"id": "apoyo",    "es": "En mitad de la curva", "en": "Mid corner"},
-  {"id": "salida",   "es": "Saliendo de la curva", "en": "On corner exit"},
-  {"id": "recta",    "es": "En recta",             "en": "On the straights"},
-  {"id": "bordillos","es": "En los bordillos",     "en": "Over kerbs"}
+  {
+   "id": "frenando",
+   "es": "Frenando",
+   "en": "Under braking"
+  },
+  {
+   "id": "entrada",
+   "es": "Entrando en curva",
+   "en": "Turning in"
+  },
+  {
+   "id": "apoyo",
+   "es": "En mitad de la curva",
+   "en": "Mid corner"
+  },
+  {
+   "id": "salida",
+   "es": "Saliendo de la curva",
+   "en": "On corner exit"
+  },
+  {
+   "id": "recta",
+   "es": "En recta",
+   "en": "On the straights"
+  },
+  {
+   "id": "bordillos",
+   "es": "En los bordillos",
+   "en": "Over kerbs"
+  }
  ],
-
  "que": [
-  {"id": "suelto",  "es": "Se va de atras (sobrevira)",   "en": "The rear steps out (oversteer)"},
-  {"id": "nogira",  "es": "No gira, se va de morro",      "en": "It will not turn (understeer)"},
-  {"id": "rebota",  "es": "Rebota o va nervioso",         "en": "It bounces or feels nervous"},
-  {"id": "bloqueo", "es": "Se bloquean las ruedas",       "en": "The wheels lock up"},
-  {"id": "patina",  "es": "Patina al acelerar",           "en": "It spins the wheels"},
-  {"id": "roza",    "es": "Se hunde y roza el suelo",     "en": "It bottoms out"},
-  {"id": "lento",   "es": "Le falta velocidad punta",     "en": "It lacks top speed"}
+  {
+   "id": "suelto",
+   "es": "Se va de atras (sobrevira)",
+   "en": "The rear steps out (oversteer)"
+  },
+  {
+   "id": "nogira",
+   "es": "No gira, se va de morro",
+   "en": "It will not turn (understeer)"
+  },
+  {
+   "id": "rebota",
+   "es": "Rebota o va nervioso",
+   "en": "It bounces or feels nervous"
+  },
+  {
+   "id": "bloqueo",
+   "es": "Se bloquean las ruedas",
+   "en": "The wheels lock up"
+  },
+  {
+   "id": "patina",
+   "es": "Patina al acelerar",
+   "en": "It spins the wheels"
+  },
+  {
+   "id": "roza",
+   "es": "Se hunde y roza el suelo",
+   "en": "It bottoms out"
+  },
+  {
+   "id": "lento",
+   "es": "Le falta velocidad punta",
+   "en": "It lacks top speed"
+  }
  ],
-
  "cuando": [
-  {"id": "siempre",  "es": "Siempre",                        "en": "Always"},
-  {"id": "rapidas",  "es": "Solo en curvas rapidas",         "en": "Only in fast corners"},
-  {"id": "lentas",   "es": "Solo en curvas lentas",          "en": "Only in slow corners"},
-  {"id": "lleno",    "es": "Con el deposito lleno",          "en": "With a full tank"},
-  {"id": "calientes","es": "Cuando se calientan las gomas",  "en": "When the tyres heat up"},
-  {"id": "final",    "es": "Solo al final del relevo",       "en": "Only late in the stint"}
+  {
+   "id": "siempre",
+   "es": "Siempre",
+   "en": "Always"
+  },
+  {
+   "id": "rapidas",
+   "es": "Solo en curvas rapidas",
+   "en": "Only in fast corners"
+  },
+  {
+   "id": "lentas",
+   "es": "Solo en curvas lentas",
+   "en": "Only in slow corners"
+  },
+  {
+   "id": "lleno",
+   "es": "Con el deposito lleno",
+   "en": "With a full tank"
+  },
+  {
+   "id": "calientes",
+   "es": "Cuando se calientan las gomas",
+   "en": "When the tyres heat up"
+  },
+  {
+   "id": "final",
+   "es": "Solo al final del relevo",
+   "en": "Only late in the stint"
+  }
  ],
-
  "reglas": [
   {
-   "donde": ["entrada", "apoyo"], "que": ["suelto"], "cuando": ["rapidas"],
+   "donde": [
+    "entrada",
+    "apoyo"
+   ],
+   "que": [
+    "suelto"
+   ],
+   "cuando": [
+    "rapidas"
+   ],
    "es": "En curva rapida el que manda es el aire. Si se va de atras justo ahi y en las lentas no, es que al tren trasero le falta apoyo aerodinamico.",
    "en": "In fast corners aerodynamics rule. If the rear steps out there but not in slow corners, the rear axle is short of downforce.",
    "cambios": [
-    {"param": "REARWING/RWSetting", "dir": 1, "pasos": 1,
+    {
+     "param": "REARWING/RWSetting",
+     "dir": 1,
+     "pasos": 1,
      "es": "Mas aleron trasero: es lo que pega el coche al suelo justo donde te falta. Cuesta algo de punta en recta, y merece la pena.",
-     "en": "More rear wing: that is what pins the car down exactly where you need it. It costs a little top speed, and it is worth it."},
-    {"param": "SUSPENSION/RearToeInSetting", "dir": 1, "pasos": 1,
+     "en": "More rear wing: that is what pins the car down exactly where you need it. It costs a little top speed, and it is worth it."
+    },
+    {
+     "param": "SUSPENSION/RearToeInSetting",
+     "dir": 1,
+     "pasos": 1,
      "es": "Mas convergencia trasera: estabiliza el eje de atras en los cambios de direccion. Calienta un pelin mas las gomas.",
-     "en": "More rear toe-in: it steadies the rear axle through direction changes. It heats the tyres slightly more."}
+     "en": "More rear toe-in: it steadies the rear axle through direction changes. It heats the tyres slightly more."
+    },
+    {
+     "param": "SUSPENSION/FrontAntiSwaySetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Barra delantera mas dura: cuando atras ya no se puede ablandar mas, se endurece delante. El equilibrio es la diferencia entre los dos ejes, asi que quitar agarre delante da el mismo resultado que meterlo atras.",
+     "en": "Stiffer front bar: when the rear cannot be softened any further, stiffen the front. Balance is the difference between the two axles, so taking grip off the front does the same job as adding it at the rear."
+    },
+    {
+     "param": "EJE_del/SpringSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Muelles delanteros mas duros: la otra forma de equilibrar cuando el eje de atras esta topado. El morro se apoya menos y el coche deja de girar tanto.",
+     "en": "Stiffer front springs: the other way to balance the car when the rear axle is maxed out. The nose leans less and the car stops rotating so much."
+    },
+    {
+     "param": "EJE_tras/SlowReboundSetting",
+     "dir": -1,
+     "pasos": 1,
+     "es": "Rebote lento trasero mas blando: la rueda de atras vuelve al suelo antes al salir del apoyo, en vez de quedarse descargada. Da agarro justo en el momento en que se te va.",
+     "en": "Softer rear slow rebound: the rear wheel returns to the road sooner as the car unloads, instead of staying light. It finds grip exactly when you are losing it."
+    }
    ]
   },
   {
-   "donde": ["entrada"], "que": ["suelto"], "cuando": ["lentas", "siempre"],
+   "donde": [
+    "entrada"
+   ],
+   "que": [
+    "suelto"
+   ],
+   "cuando": [
+    "lentas",
+    "siempre"
+   ],
    "es": "En curva lenta el aire ya no sujeta nada. Si se va de atras al entrar, casi siempre es la frenada, que esta cargando demasiado el eje trasero.",
    "en": "In slow corners aero does nothing. If the rear steps out on turn-in, it is usually the brakes putting too much load on the rear axle.",
    "cambios": [
-    {"param": "CONTROLS/RearBrakeSetting", "dir": -1, "pasos": 1,
+    {
+     "param": "CONTROLS/RearBrakeSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Reparto de frenada mas adelante: quita trabajo a las ruedas de atras justo cuando estas girando.",
-     "en": "Move the brake balance forward: it takes work off the rear wheels right when you are turning in."},
-    {"param": "SUSPENSION/RearAntiSwaySetting", "dir": -1, "pasos": 1,
+     "en": "Move the brake balance forward: it takes work off the rear wheels right when you are turning in."
+    },
+    {
+     "param": "SUSPENSION/RearAntiSwaySetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Barra trasera mas blanda: reparte mejor el peso entre las dos ruedas de atras y les saca mas agarre.",
-     "en": "Softer rear bar: it shares the load better between the two rear wheels and finds more grip."}
+     "en": "Softer rear bar: it shares the load better between the two rear wheels and finds more grip."
+    },
+    {
+     "param": "SUSPENSION/FrontAntiSwaySetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Barra delantera mas dura: cuando atras ya no se puede ablandar mas, se endurece delante. El equilibrio es la diferencia entre los dos ejes, asi que quitar agarre delante da el mismo resultado que meterlo atras.",
+     "en": "Stiffer front bar: when the rear cannot be softened any further, stiffen the front. Balance is the difference between the two axles, so taking grip off the front does the same job as adding it at the rear."
+    },
+    {
+     "param": "DRIVELINE/DiffCoastSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Mas bloqueo del diferencial en retencion: al levantar el pie las dos ruedas de atras van juntas y el coche no se cruza. OJO: en muchos GT3 viene cerrado de fabrica y no se puede tocar.",
+     "en": "More differential lock on coast: as you lift, both rear wheels stay together and the car does not step out. NOTE: on many GT3s this is fixed and cannot be changed."
+    },
+    {
+     "param": "SUSPENSION/RearToeInSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Mas convergencia trasera: las ruedas de atras apuntan un pelin hacia dentro y el eje va mas atado. Estabiliza sin tocar la suspension. Calienta un poco mas las gomas y quita un pelin de punta.",
+     "en": "More rear toe-in: the rear wheels point slightly inward and the axle tracks straighter. It steadies the car without touching the suspension. It heats the tyres a little more and costs a touch of top speed."
+    },
+    {
+     "param": "EJE_del/SpringSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Muelles delanteros mas duros: la otra forma de equilibrar cuando el eje de atras esta topado. El morro se apoya menos y el coche deja de girar tanto.",
+     "en": "Stiffer front springs: the other way to balance the car when the rear axle is maxed out. The nose leans less and the car stops rotating so much."
+    }
    ]
   },
   {
-   "donde": ["apoyo", "salida"], "que": ["suelto"], "cuando": [],
+   "donde": [
+    "apoyo",
+    "salida"
+   ],
+   "que": [
+    "suelto"
+   ],
+   "cuando": [],
    "es": "Al eje trasero le falta agarre mecanico en mitad de la curva.",
    "en": "The rear axle is short of mechanical grip through the corner.",
    "cambios": [
-    {"param": "SUSPENSION/RearAntiSwaySetting", "dir": -1, "pasos": 1,
+    {
+     "param": "SUSPENSION/RearAntiSwaySetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Barra trasera mas blanda: es el ajuste mas directo para meter agarre atras.",
-     "en": "Softer rear bar: the most direct way to add rear grip."},
-    {"param": "EJE_tras/SpringSetting", "dir": -1, "pasos": 1,
+     "en": "Softer rear bar: the most direct way to add rear grip."
+    },
+    {
+     "param": "EJE_tras/SpringSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Muelles traseros mas blandos: la rueda sigue mejor el suelo y agarra mas.",
-     "en": "Softer rear springs: the wheel follows the road better and grips more."}
+     "en": "Softer rear springs: the wheel follows the road better and grips more."
+    },
+    {
+     "param": "SUSPENSION/FrontAntiSwaySetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Barra delantera mas dura: cuando atras ya no se puede ablandar mas, se endurece delante. El equilibrio es la diferencia entre los dos ejes, asi que quitar agarre delante da el mismo resultado que meterlo atras.",
+     "en": "Stiffer front bar: when the rear cannot be softened any further, stiffen the front. Balance is the difference between the two axles, so taking grip off the front does the same job as adding it at the rear."
+    },
+    {
+     "param": "REARWING/RWSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Mas aleron trasero: pega el eje de atras al suelo. Es lo mas efectivo en curva rapida y no depende de la suspension, asi que sirve aunque muelles y barra esten al minimo. Cuesta algo de punta en recta.",
+     "en": "More rear wing: it pins the rear axle down. Most effective in fast corners and it does not depend on the suspension, so it works even with springs and bar at minimum. It costs a little top speed."
+    },
+    {
+     "param": "SUSPENSION/RearToeInSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Mas convergencia trasera: las ruedas de atras apuntan un pelin hacia dentro y el eje va mas atado. Estabiliza sin tocar la suspension. Calienta un poco mas las gomas y quita un pelin de punta.",
+     "en": "More rear toe-in: the rear wheels point slightly inward and the axle tracks straighter. It steadies the car without touching the suspension. It heats the tyres a little more and costs a touch of top speed."
+    },
+    {
+     "param": "EJE_del/SpringSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Muelles delanteros mas duros: la otra forma de equilibrar cuando el eje de atras esta topado. El morro se apoya menos y el coche deja de girar tanto.",
+     "en": "Stiffer front springs: the other way to balance the car when the rear axle is maxed out. The nose leans less and the car stops rotating so much."
+    },
+    {
+     "param": "EJE_tras/SlowReboundSetting",
+     "dir": -1,
+     "pasos": 1,
+     "es": "Rebote lento trasero mas blando: la rueda de atras vuelve al suelo antes al salir del apoyo, en vez de quedarse descargada. Da agarro justo en el momento en que se te va.",
+     "en": "Softer rear slow rebound: the rear wheel returns to the road sooner as the car unloads, instead of staying light. It finds grip exactly when you are losing it."
+    },
+    {
+     "param": "CONTROLS/TractionControlMapSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Un punto mas de control de traccion: es lo mas rapido de probar, no toca el equilibrio del coche y se deshace en un segundo si no te gusta. Sobre todo para cuando se va de atras abriendo gas.",
+     "en": "One more click of traction control: quickest thing to try, it does not upset the car's balance and you can undo it in a second. Mainly for when the rear steps out on throttle."
+    },
+    {
+     "param": "DRIVELINE/DiffPowerSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Mas bloqueo del diferencial en aceleracion: ata las dos ruedas de atras al abrir gas y el eje deja de cruzarse. OJO: muchos GT3, el Lexus entre ellos, traen el diferencial cerrado por reglamento y entonces esto no aparece.",
+     "en": "More differential lock on power: it ties both rear wheels together as you open the throttle and stops the axle stepping out. NOTE: many GT3s, the Lexus among them, have a fixed differential by regulation, so this will not show up."
+    }
    ]
   },
   {
-   "donde": ["salida", "apoyo", "recta"], "que": ["patina"], "cuando": [],
+   "donde": [
+    "salida",
+    "apoyo",
+    "recta"
+   ],
+   "que": [
+    "patina"
+   ],
+   "cuando": [],
    "es": "El coche se suelta al pisar el acelerador: sale mas potencia de la que las gomas pueden aguantar.",
    "en": "The car breaks loose when you get on the throttle: more power than the tyres can take.",
    "cambios": [
-    {"param": "CONTROLS/TractionControlMapSetting", "dir": 1, "pasos": 1,
+    {
+     "param": "CONTROLS/TractionControlMapSetting",
+     "dir": 1,
+     "pasos": 1,
      "es": "Un punto mas de control de traccion. Es lo mas rapido de probar y no toca el equilibrio del coche.",
-     "en": "One more click of traction control. Quickest thing to try, and it does not upset the car's balance."},
-    {"param": "DRIVELINE/DiffPowerSetting", "dir": -1, "pasos": 1,
+     "en": "One more click of traction control. Quickest thing to try, and it does not upset the car's balance."
+    },
+    {
+     "param": "DRIVELINE/DiffPowerSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Menos bloqueo del diferencial al acelerar: deja que las dos ruedas de atras giren mas libres y patinen menos a la vez.",
-     "en": "Less diff lock on power: it lets the two rear wheels turn more freely and spin less together."}
+     "en": "Less diff lock on power: it lets the two rear wheels turn more freely and spin less together."
+    }
    ]
   },
   {
-   "donde": ["salida"], "que": ["suelto"], "cuando": [],
+   "donde": [
+    "salida"
+   ],
+   "que": [
+    "suelto"
+   ],
+   "cuando": [],
    "es": "El coche se suelta al pisar el acelerador: sale mas potencia de la que las gomas pueden aguantar.",
    "en": "The car breaks loose when you get on the throttle: more power than the tyres can take.",
    "cambios": [
-    {"param": "CONTROLS/TractionControlMapSetting", "dir": 1, "pasos": 1,
+    {
+     "param": "CONTROLS/TractionControlMapSetting",
+     "dir": 1,
+     "pasos": 1,
      "es": "Un punto mas de control de traccion. Es lo mas rapido de probar y no toca el equilibrio del coche.",
-     "en": "One more click of traction control. Quickest thing to try, and it does not upset the car's balance."},
-    {"param": "SUSPENSION/RearAntiSwaySetting", "dir": -1, "pasos": 1,
+     "en": "One more click of traction control. Quickest thing to try, and it does not upset the car's balance."
+    },
+    {
+     "param": "SUSPENSION/RearAntiSwaySetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Barra trasera mas blanda: mete agarre atras justo cuando estas abriendo gas.",
-     "en": "Softer rear bar: it adds rear grip right when you are opening the throttle."}
+     "en": "Softer rear bar: it adds rear grip right when you are opening the throttle."
+    },
+    {
+     "param": "DRIVELINE/DiffPowerSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Mas bloqueo del diferencial en aceleracion: ata las dos ruedas de atras al abrir gas y el eje deja de cruzarse. OJO: muchos GT3, el Lexus entre ellos, traen el diferencial cerrado por reglamento y entonces esto no aparece.",
+     "en": "More differential lock on power: it ties both rear wheels together as you open the throttle and stops the axle stepping out. NOTE: many GT3s, the Lexus among them, have a fixed differential by regulation, so this will not show up."
+    },
+    {
+     "param": "REARWING/RWSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Mas aleron trasero: pega el eje de atras al suelo. Es lo mas efectivo en curva rapida y no depende de la suspension, asi que sirve aunque muelles y barra esten al minimo. Cuesta algo de punta en recta.",
+     "en": "More rear wing: it pins the rear axle down. Most effective in fast corners and it does not depend on the suspension, so it works even with springs and bar at minimum. It costs a little top speed."
+    },
+    {
+     "param": "SUSPENSION/FrontAntiSwaySetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Barra delantera mas dura: cuando atras ya no se puede ablandar mas, se endurece delante. El equilibrio es la diferencia entre los dos ejes, asi que quitar agarre delante da el mismo resultado que meterlo atras.",
+     "en": "Stiffer front bar: when the rear cannot be softened any further, stiffen the front. Balance is the difference between the two axles, so taking grip off the front does the same job as adding it at the rear."
+    },
+    {
+     "param": "SUSPENSION/RearToeInSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Mas convergencia trasera: las ruedas de atras apuntan un pelin hacia dentro y el eje va mas atado. Estabiliza sin tocar la suspension. Calienta un poco mas las gomas y quita un pelin de punta.",
+     "en": "More rear toe-in: the rear wheels point slightly inward and the axle tracks straighter. It steadies the car without touching the suspension. It heats the tyres a little more and costs a touch of top speed."
+    },
+    {
+     "param": "EJE_tras/SlowReboundSetting",
+     "dir": -1,
+     "pasos": 1,
+     "es": "Rebote lento trasero mas blando: la rueda de atras vuelve al suelo antes al salir del apoyo, en vez de quedarse descargada. Da agarro justo en el momento en que se te va.",
+     "en": "Softer rear slow rebound: the rear wheel returns to the road sooner as the car unloads, instead of staying light. It finds grip exactly when you are losing it."
+    }
    ]
   },
   {
-   "donde": ["bordillos"], "que": ["suelto"], "cuando": [],
+   "donde": [
+    "bordillos"
+   ],
+   "que": [
+    "suelto"
+   ],
+   "cuando": [],
    "es": "El bordillo te descoloca el coche. El golpe descarga la rueda de dentro y el eje trasero se queda sin nada a lo que agarrarse.",
    "en": "The kerb unsettles the car. The hit unloads the inside wheel and the rear axle is left with nothing to hang on to.",
    "cambios": [
-    {"param": "EJE_tras/FastReboundSetting", "dir": -1, "pasos": 2,
+    {
+     "param": "EJE_tras/FastReboundSetting",
+     "dir": -1,
+     "pasos": 2,
      "es": "Rebote rapido trasero mas blando: la rueda vuelve al suelo antes despues del bordillo, en vez de quedarse en el aire.",
-     "en": "Softer rear fast rebound: the wheel gets back down sooner after the kerb instead of hanging in the air."},
-    {"param": "SUSPENSION/RearAntiSwaySetting", "dir": -1, "pasos": 1,
+     "en": "Softer rear fast rebound: the wheel gets back down sooner after the kerb instead of hanging in the air."
+    },
+    {
+     "param": "SUSPENSION/RearAntiSwaySetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Barra trasera mas blanda: las dos ruedas de atras trabajan mas independientes y una no arrastra a la otra al pisar el bordillo.",
-     "en": "Softer rear bar: the two rear wheels work more independently and one does not drag the other over the kerb."}
+     "en": "Softer rear bar: the two rear wheels work more independently and one does not drag the other over the kerb."
+    },
+    {
+     "param": "EJE_tras/SlowBumpSetting",
+     "dir": -1,
+     "pasos": 1,
+     "es": "Compresion lenta trasera mas blanda: el eje de atras acepta mejor la transferencia de peso en vez de rebotar contra ella.",
+     "en": "Softer rear slow bump: the rear axle takes the weight transfer instead of fighting it."
+    },
+    {
+     "param": "SUSPENSION/FrontAntiSwaySetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Barra delantera mas dura: cuando atras ya no se puede ablandar mas, se endurece delante. El equilibrio es la diferencia entre los dos ejes, asi que quitar agarre delante da el mismo resultado que meterlo atras.",
+     "en": "Stiffer front bar: when the rear cannot be softened any further, stiffen the front. Balance is the difference between the two axles, so taking grip off the front does the same job as adding it at the rear."
+    },
+    {
+     "param": "EJE_del/SpringSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Muelles delanteros mas duros: la otra forma de equilibrar cuando el eje de atras esta topado. El morro se apoya menos y el coche deja de girar tanto.",
+     "en": "Stiffer front springs: the other way to balance the car when the rear axle is maxed out. The nose leans less and the car stops rotating so much."
+    }
    ]
   },
   {
-   "donde": ["frenando"], "que": ["rebota"], "cuando": [],
+   "donde": [
+    "frenando"
+   ],
+   "que": [
+    "rebota"
+   ],
+   "cuando": [],
    "es": "El coche cabecea al frenar: se hunde de morro y rebota. Eso es la amortiguacion lenta, que es la que controla como se mueve la carroceria.",
    "en": "The car pitches under braking: it dives and bounces back. That is the slow damping, which controls how the body moves.",
    "cambios": [
-    {"param": "EJE_del/SlowReboundSetting", "dir": 1, "pasos": 1,
+    {
+     "param": "EJE_del/SlowReboundSetting",
+     "dir": 1,
+     "pasos": 1,
      "es": "Rebote lento delantero mas duro: el morro tarda mas en volver a subir y el coche deja de cabecear.",
-     "en": "Firmer front slow rebound: the nose takes longer to come back up and the car stops pitching."},
-    {"param": "CONTROLS/BrakePressureSetting", "dir": -1, "pasos": 1,
+     "en": "Firmer front slow rebound: the nose takes longer to come back up and the car stops pitching."
+    },
+    {
+     "param": "CONTROLS/BrakePressureSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Y algo menos de presion de freno, que es lo que esta hundiendo el morro de golpe.",
-     "en": "And a little less brake pressure, which is what is slamming the nose down."}
+     "en": "And a little less brake pressure, which is what is slamming the nose down."
+    }
    ]
   },
   {
-   "donde": ["entrada"], "que": ["bloqueo"], "cuando": [],
+   "donde": [
+    "entrada"
+   ],
+   "que": [
+    "bloqueo"
+   ],
+   "cuando": [],
    "es": "Se bloquea justo al girar: las ruedas de delante estan haciendo dos cosas a la vez, frenar y girar, y no les da para las dos.",
    "en": "It locks up right as you turn in: the front wheels are doing two jobs at once, braking and steering, and cannot manage both.",
    "cambios": [
-    {"param": "CONTROLS/BrakeMigrationSetting", "dir": 1, "pasos": 1,
+    {
+     "param": "CONTROLS/BrakeMigrationSetting",
+     "dir": 1,
+     "pasos": 1,
      "es": "Mas migracion de frenada: segun sueltas el pedal, el reparto se va hacia atras solo y libera las ruedas de delante para girar.",
-     "en": "More brake migration: as you release the pedal the balance shifts rearward on its own and frees the front wheels to steer."},
-    {"param": "CONTROLS/BrakePressureSetting", "dir": -1, "pasos": 1,
+     "en": "More brake migration: as you release the pedal the balance shifts rearward on its own and frees the front wheels to steer."
+    },
+    {
+     "param": "CONTROLS/BrakePressureSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Menos presion de freno: dejas de pedirle a la goma mas de lo que puede dar.",
-     "en": "Less brake pressure: you stop asking the tyre for more than it can give."}
+     "en": "Less brake pressure: you stop asking the tyre for more than it can give."
+    }
    ]
   },
   {
-   "donde": ["entrada", "apoyo"], "que": ["nogira"], "cuando": ["lentas", "siempre"],
+   "donde": [
+    "entrada",
+    "apoyo"
+   ],
+   "que": [
+    "nogira"
+   ],
+   "cuando": [
+    "lentas",
+    "siempre"
+   ],
    "es": "Al tren delantero le falta agarre: el coche se va recto donde tu quieres girar.",
    "en": "The front axle is short of grip: the car runs wide where you want to turn.",
    "cambios": [
-    {"param": "SUSPENSION/FrontAntiSwaySetting", "dir": -1, "pasos": 1,
+    {
+     "param": "SUSPENSION/FrontAntiSwaySetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Barra delantera mas blanda: mete agarre delante sin tocar nada mas.",
-     "en": "Softer front bar: adds front grip without touching anything else."},
-    {"param": "EJE_del/PressureSetting", "dir": -1, "pasos": 1,
+     "en": "Softer front bar: adds front grip without touching anything else."
+    },
+    {
+     "param": "EJE_del/PressureSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Un poco menos de presion delante: la goma apoya mas plana y agarra mas. Vigila que no se pase de calor.",
-     "en": "A little less front pressure: the tyre sits flatter and grips more. Watch that it does not overheat."}
+     "en": "A little less front pressure: the tyre sits flatter and grips more. Watch that it does not overheat."
+    }
    ]
   },
   {
-   "donde": ["entrada", "apoyo"], "que": ["nogira"], "cuando": ["rapidas"],
+   "donde": [
+    "entrada",
+    "apoyo"
+   ],
+   "que": [
+    "nogira"
+   ],
+   "cuando": [
+    "rapidas"
+   ],
    "es": "En curva rapida no gira: le falta apoyo aerodinamico delante, o lleva demasiado detras.",
    "en": "It will not turn in fast corners: short of front downforce, or carrying too much at the rear.",
    "cambios": [
-    {"param": "REARWING/RWSetting", "dir": -1, "pasos": 1,
+    {
+     "param": "REARWING/RWSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Un punto menos de aleron trasero: reparte el apoyo mas hacia delante y de paso ganas recta.",
-     "en": "One less click of rear wing: it shifts the balance forward and you gain a bit on the straights."},
-    {"param": "EJE_del/RideHeightSetting", "dir": -1, "pasos": 1,
+     "en": "One less click of rear wing: it shifts the balance forward and you gain a bit on the straights."
+    },
+    {
+     "param": "EJE_del/RideHeightSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Morro un poco mas bajo: mete carga delante. Cuidado si el coche ya roza.",
-     "en": "Nose slightly lower: adds front load. Careful if the car is already bottoming out."}
+     "en": "Nose slightly lower: adds front load. Careful if the car is already bottoming out."
+    }
    ]
   },
   {
-   "donde": ["salida"], "que": ["nogira"], "cuando": [],
+   "donde": [
+    "salida"
+   ],
+   "que": [
+    "nogira"
+   ],
+   "cuando": [],
    "es": "Se va recto al abrir gas: el diferencial esta bloqueando demasiado y empuja las dos ruedas por igual.",
    "en": "It runs wide as you open the throttle: the diff is locking too much and pushing both wheels alike.",
    "cambios": [
-    {"param": "DRIVELINE/DiffPowerSetting", "dir": -1, "pasos": 1,
+    {
+     "param": "DRIVELINE/DiffPowerSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Menos bloqueo al acelerar: deja que la rueda de fuera gire mas y el coche entra en la curva.",
-     "en": "Less lock on power: it lets the outside wheel turn faster and the car tucks into the corner."},
-    {"param": "DRIVELINE/DiffPreloadSetting", "dir": -1, "pasos": 1,
+     "en": "Less lock on power: it lets the outside wheel turn faster and the car tucks into the corner."
+    },
+    {
+     "param": "DRIVELINE/DiffPreloadSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Menos precarga: el diferencial tarda menos en soltarse.",
-     "en": "Less preload: the diff releases sooner."}
+     "en": "Less preload: the diff releases sooner."
+    }
    ]
   },
   {
-   "donde": ["frenando"], "que": ["bloqueo"], "cuando": [],
+   "donde": [
+    "frenando"
+   ],
+   "que": [
+    "bloqueo"
+   ],
+   "cuando": [],
    "es": "Estas pasandote de fuerza de frenada para el agarre que hay.",
    "en": "You are asking for more braking force than the grip available.",
    "cambios": [
-    {"param": "CONTROLS/BrakePressureSetting", "dir": -1, "pasos": 1,
+    {
+     "param": "CONTROLS/BrakePressureSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Menos presion de freno. Frenas un pelin mas largo pero puedes apretar sin miedo, y a la larga eso es mas rapido.",
-     "en": "Less brake pressure. You brake slightly earlier but you can lean on it without fear, which is faster over a lap."},
-    {"param": "CONTROLS/BrakeMigrationSetting", "dir": -1, "pasos": 1,
+     "en": "Less brake pressure. You brake slightly earlier but you can lean on it without fear, which is faster over a lap."
+    },
+    {
+     "param": "CONTROLS/BrakeMigrationSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Menos migracion de frenada: el reparto deja de irse hacia atras segun sueltas el pedal.",
-     "en": "Less brake migration: the balance stops drifting rearward as you release the pedal."}
+     "en": "Less brake migration: the balance stops drifting rearward as you release the pedal."
+    }
    ]
   },
   {
-   "donde": ["frenando"], "que": ["suelto"], "cuando": [],
+   "donde": [
+    "frenando"
+   ],
+   "que": [
+    "suelto"
+   ],
+   "cuando": [],
    "es": "El eje trasero se descarga al frenar y se pone a bailar.",
    "en": "The rear axle unloads under braking and starts to move around.",
    "cambios": [
-    {"param": "CONTROLS/RearBrakeSetting", "dir": -1, "pasos": 1,
+    {
+     "param": "CONTROLS/RearBrakeSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Reparto de frenada mas adelante: es el ajuste que arregla esto y ademas lo puedes tocar desde el volante sin entrar a boxes.",
-     "en": "Brake balance forward: this is the fix, and you can change it from the wheel without pitting."},
-    {"param": "ENGINE/EngineBrakingMapSetting", "dir": -1, "pasos": 1,
+     "en": "Brake balance forward: this is the fix, and you can change it from the wheel without pitting."
+    },
+    {
+     "param": "ENGINE/EngineBrakingMapSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Menos freno motor: deja de arrastrar las ruedas de atras al levantar el pie.",
-     "en": "Less engine braking: it stops dragging the rear wheels when you lift."}
+     "en": "Less engine braking: it stops dragging the rear wheels when you lift."
+    },
+    {
+     "param": "DRIVELINE/DiffCoastSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Mas bloqueo del diferencial en retencion: al levantar el pie las dos ruedas de atras van juntas y el coche no se cruza. OJO: en muchos GT3 viene cerrado de fabrica y no se puede tocar.",
+     "en": "More differential lock on coast: as you lift, both rear wheels stay together and the car does not step out. NOTE: on many GT3s this is fixed and cannot be changed."
+    },
+    {
+     "param": "SUSPENSION/FrontAntiSwaySetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Barra delantera mas dura: cuando atras ya no se puede ablandar mas, se endurece delante. El equilibrio es la diferencia entre los dos ejes, asi que quitar agarre delante da el mismo resultado que meterlo atras.",
+     "en": "Stiffer front bar: when the rear cannot be softened any further, stiffen the front. Balance is the difference between the two axles, so taking grip off the front does the same job as adding it at the rear."
+    },
+    {
+     "param": "SUSPENSION/RearToeInSetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Mas convergencia trasera: las ruedas de atras apuntan un pelin hacia dentro y el eje va mas atado. Estabiliza sin tocar la suspension. Calienta un poco mas las gomas y quita un pelin de punta.",
+     "en": "More rear toe-in: the rear wheels point slightly inward and the axle tracks straighter. It steadies the car without touching the suspension. It heats the tyres a little more and costs a touch of top speed."
+    }
    ]
   },
   {
-   "donde": ["frenando"], "que": ["nogira"], "cuando": [],
+   "donde": [
+    "frenando"
+   ],
+   "que": [
+    "nogira"
+   ],
+   "cuando": [],
    "es": "Frenas y el coche sigue recto: las ruedas de delante van pasadas de frenada y no les queda agarre para girar.",
    "en": "You brake and the car goes straight: the front wheels are overworked and have no grip left to steer.",
    "cambios": [
-    {"param": "CONTROLS/RearBrakeSetting", "dir": 1, "pasos": 1,
+    {
+     "param": "CONTROLS/RearBrakeSetting",
+     "dir": 1,
+     "pasos": 1,
      "es": "Reparto de frenada mas atras: alivia las ruedas de delante para que puedan girar.",
-     "en": "Brake balance rearward: it frees up the front wheels so they can steer."}
+     "en": "Brake balance rearward: it frees up the front wheels so they can steer."
+    }
    ]
   },
   {
-   "donde": ["bordillos", "recta", "entrada", "apoyo", "salida"], "que": ["rebota"], "cuando": [],
+   "donde": [
+    "bordillos",
+    "recta",
+    "entrada",
+    "apoyo",
+    "salida"
+   ],
+   "que": [
+    "rebota"
+   ],
+   "cuando": [],
    "es": "El coche no absorbe los golpes secos: la amortiguacion rapida va demasiado dura y las ruedas se despegan del suelo.",
    "en": "The car cannot soak up sharp hits: the fast damping is too stiff and the wheels skip off the road.",
    "cambios": [
-    {"param": "EJE_del/FastBumpSetting", "dir": -1, "pasos": 2,
+    {
+     "param": "EJE_del/FastBumpSetting",
+     "dir": -1,
+     "pasos": 2,
      "es": "Compresion rapida mas blanda delante: es la que se ocupa de los golpes secos, bordillos y baches.",
-     "en": "Softer fast bump at the front: this is what deals with sharp hits, kerbs and bumps."},
-    {"param": "EJE_tras/FastBumpSetting", "dir": -1, "pasos": 2,
+     "en": "Softer fast bump at the front: this is what deals with sharp hits, kerbs and bumps."
+    },
+    {
+     "param": "EJE_tras/FastBumpSetting",
+     "dir": -1,
+     "pasos": 2,
      "es": "Lo mismo detras, para que el coche no quede descompensado.",
-     "en": "Same at the rear, so the car does not end up lopsided."},
-    {"param": "EJE_del/FastReboundSetting", "dir": -1, "pasos": 1,
+     "en": "Same at the rear, so the car does not end up lopsided."
+    },
+    {
+     "param": "EJE_del/FastReboundSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Rebote rapido mas blando: la rueda vuelve antes al suelo despues del golpe.",
-     "en": "Softer fast rebound: the wheel returns to the road sooner after the hit."}
+     "en": "Softer fast rebound: the wheel returns to the road sooner after the hit."
+    }
    ]
   },
   {
-   "donde": ["recta", "frenando", "entrada", "apoyo", "salida", "bordillos"],
-   "que": ["roza"], "cuando": ["lleno", "siempre"],
+   "donde": [
+    "recta",
+    "frenando",
+    "entrada",
+    "apoyo",
+    "salida",
+    "bordillos"
+   ],
+   "que": [
+    "roza"
+   ],
+   "cuando": [
+    "lleno",
+    "siempre"
+   ],
    "es": "El coche toca el suelo. Con el deposito lleno pesa casi cien kilos mas y se hunde lo que no se hundia vacio.",
    "en": "The car is hitting the road. With a full tank it carries almost a hundred kilos more and sinks where it did not before.",
    "cambios": [
-    {"param": "EJE_del/RideHeightSetting", "dir": 1, "pasos": 1,
+    {
+     "param": "EJE_del/RideHeightSetting",
+     "dir": 1,
+     "pasos": 1,
      "es": "Sube el morro medio centimetro. Pierdes un poco de carga y ganas no ir dando golpes toda la carrera.",
-     "en": "Raise the nose half a centimetre. You lose a little downforce and stop pounding the floor all race."},
-    {"param": "EJE_tras/RideHeightSetting", "dir": 1, "pasos": 1,
+     "en": "Raise the nose half a centimetre. You lose a little downforce and stop pounding the floor all race."
+    },
+    {
+     "param": "EJE_tras/RideHeightSetting",
+     "dir": 1,
+     "pasos": 1,
      "es": "Y la parte de atras igual, para no cambiarle el equilibrio al coche.",
-     "en": "And the rear to match, so you do not change the car's balance."}
+     "en": "And the rear to match, so you do not change the car's balance."
+    }
    ]
   },
   {
-   "donde": ["recta"], "que": ["lento"], "cuando": [],
+   "donde": [
+    "recta"
+   ],
+   "que": [
+    "lento"
+   ],
+   "cuando": [],
    "es": "Te falta punta en recta. Casi siempre es que llevas mas aleron del que necesitas para este circuito.",
    "en": "You are down on top speed. Nine times out of ten you are carrying more wing than this track needs.",
    "cambios": [
-    {"param": "REARWING/RWSetting", "dir": -1, "pasos": 1,
+    {
+     "param": "REARWING/RWSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Un punto menos de aleron. Ganaras recta y el coche estara algo mas suelto en curva rapida: prueba antes de bajar dos.",
-     "en": "One click less wing. You gain on the straights and the car gets looser in fast corners: try one before you take two."}
+     "en": "One click less wing. You gain on the straights and the car gets looser in fast corners: try one before you take two."
+    }
    ]
   },
   {
-   "donde": ["entrada", "apoyo", "salida"], "que": ["suelto", "nogira"], "cuando": ["calientes", "final"],
+   "donde": [
+    "entrada",
+    "apoyo",
+    "salida"
+   ],
+   "que": [
+    "suelto",
+    "nogira"
+   ],
+   "cuando": [
+    "calientes",
+    "final"
+   ],
    "es": "Al principio va bien y luego se estropea: es cosa de temperatura y presion, no del equilibrio del coche.",
    "en": "It is fine at first and goes off later: that is temperature and pressure, not the car's balance.",
    "cambios": [
-    {"param": "EJE_tras/PressureSetting", "dir": -1, "pasos": 1,
+    {
+     "param": "EJE_tras/PressureSetting",
+     "dir": -1,
+     "pasos": 1,
      "es": "Baja un poco la presion de salida: la goma sube de presion sola segun coge calor, y si sales alto acabas fuera de rango.",
-     "en": "Drop the starting pressure a little: the tyre gains pressure on its own as it heats, and if you start high you end up out of range."},
-    {"param": "BODYAERO/BrakeDuctSetting", "dir": 1, "pasos": 1,
+     "en": "Drop the starting pressure a little: the tyre gains pressure on its own as it heats, and if you start high you end up out of range."
+    },
+    {
+     "param": "BODYAERO/BrakeDuctSetting",
+     "dir": 1,
+     "pasos": 1,
      "es": "Abre los conductos de freno: enfrian el freno y de paso la rueda.",
-     "en": "Open the brake ducts: they cool the brakes and the wheel with them."}
+     "en": "Open the brake ducts: they cool the brakes and the wheel with them."
+    }
    ]
   }
  ]

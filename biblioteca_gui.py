@@ -196,9 +196,12 @@ class Biblioteca:
         # Los anchos salen de medir los nombres de verdad, no a ojo: el
         # nombre mas largo que puede salir ocupa unos sesenta caracteres, y
         # con la columna estrecha se cortaba justo lo unico que hay que
-        # leer. Mejor sobrar de ancho que cortar un nombre.
+        # leer. Mejor sobrar de ancho que cortar un nombre. La primera se
+        # lleva algo mas desde que el ingeniero numera las pruebas: al
+        # nombre del reglaje se le va sumando _p2, _p3... y eso pasa de
+        # sesenta caracteres enseguida.
         cols = ("actual", "nuevo", "coche", "cat", "tipo", "gasolina", "fuente")
-        anchos = (400, 330, 140, 62, 128, 132, 66)
+        anchos = (470, 330, 140, 62, 128, 132, 66)
         self.tabla = ttk.Treeview(marco, columns=cols, show="headings",
                                   selectmode="extended")
         for c, a in zip(cols, anchos):
@@ -495,8 +498,14 @@ class Biblioteca:
         # de la gasolina sigue escrito con todas las letras en su columna.
         fid = self.tabla.insert(
             "", "end", tags=(marca,) if marca else ((tag,) if tag else ()),
+            # El nombre va ENTERO. Antes se cortaba a sesenta caracteres, y
+            # justo lo que se perdia era el final, que es donde el ingeniero
+            # escribe el _p2, _p3... de cada prueba: dos reglajes distintos
+            # salian con el mismo nombre en la lista y no habia forma de
+            # saber cual era cual. Si no cabe en la columna, se ensancha
+            # arrastrando; lo que no se puede es perder el dato.
             values=(nombre if nombre is not None else
-                    ("%s  ·  %s" % (circuito, ficha["nombre"]))[:60],
+                    "%s  ·  %s" % (circuito, ficha["nombre"]),
                     B.nombre_propuesto(d) if parecido is None else parecido,
                     d["coche"]["corto"], d["coche"]["categoria"],
                     tipo, gasolina, d["fuente"]))
@@ -868,9 +877,11 @@ class Destino:
         marco.pack(fill="both", expand=True)
         self.tabla = ttk.Treeview(marco, columns=("archivo", "coche", "circuito"),
                                   show="headings", selectmode="extended")
-        for c, a in (("archivo", 300), ("coche", 140), ("circuito", 200)):
+        # Ancha de sobra: aqui tambien salen los _p2, _p3... del ingeniero,
+        # y el final del nombre es justo lo que distingue una prueba de otra.
+        for c, a in (("archivo", 380), ("coche", 140), ("circuito", 200)):
             self.tabla.heading(c, text=T("bib.col." + c))
-            self.tabla.column(c, width=a)
+            self.tabla.column(c, width=a, stretch=(c == "archivo"))
         self.tabla.tag_configure("falta", foreground=ROJO)
         self.tabla.pack(side="left", fill="both", expand=True)
         barra = ttk.Scrollbar(marco, orient="vertical", command=self.tabla.yview)

@@ -137,13 +137,27 @@ class Ingeniero:
         ttk.Label(m, text=T("ing.uno_cada_vez"), foreground=ROJO,
                   font=("Segoe UI", 9, "bold")).pack(anchor="w", pady=(0, 4))
 
+        # Por donde empezar, dicho con todas las letras. La lista ya venia
+        # ordenada por prioridad y el primero salia marcado, pero eso no se
+        # entiende mirando la pantalla: parece que este senalado por
+        # casualidad. Si el programa sabe cual es el mejor sitio por donde
+        # empezar, tiene que decirlo y no dejar que se adivine.
+        self.consejo = ttk.Label(m, text="", foreground=VERDE,
+                                 font=("Segoe UI", 9, "bold"))
+        self.consejo.pack(anchor="w", pady=(0, 4))
+
         cuerpo = ttk.Frame(m)
         cuerpo.pack(fill="both", expand=True)
-        self.tabla = ttk.Treeview(cuerpo, columns=("ajuste", "ahora", "nuevo"),
+        self.tabla = ttk.Treeview(cuerpo,
+                                  columns=("orden", "ajuste", "ahora", "nuevo"),
                                   show="headings", selectmode="browse", height=5)
-        for c, a in (("ajuste", 330), ("ahora", 150), ("nuevo", 150)):
+        for c, a in (("orden", 55), ("ajuste", 290), ("ahora", 140),
+                     ("nuevo", 140)):
             self.tabla.heading(c, text=T("ing.col." + c))
             self.tabla.column(c, width=a)
+        self.tabla.column("orden", anchor="center", stretch=False)
+        self.tabla.tag_configure("primero", background="#e6f4ea",
+                                 font=("Segoe UI", 9, "bold"))
         self.tabla.pack(side="left", fill="both", expand=True)
         self.tabla.bind("<<TreeviewSelect>>", self._porque)
 
@@ -161,7 +175,35 @@ class Ingeniero:
         self.estado.pack(side="left", padx=(14, 0))
         ttk.Button(pie, text=T("bib.cerrar"),
                    command=v.destroy).pack(side="right")
+        # Esta pantalla SIEMPRE contesta algo, y ahi esta su trampa: parece
+        # que cualquier problema se arregle tocando el coche. El aviso va
+        # detras de un boton y no en mitad de la pantalla a proposito: al
+        # que no le hace falta no le da la brasa, y el que lleva veinte
+        # cambios y sigue igual lo tiene a mano.
+        ttk.Button(pie, text=T("ing.y_si_no"),
+                   command=self._y_si_no).pack(side="right", padx=(0, 8))
         self.pensar()
+
+    def _y_si_no(self):
+        """Lo que nadie le dice a nadie: que a lo mejor no es el coche."""
+        w = tk.Toplevel(self.v)
+        w.title(T("ing.y_si_no_titulo"))
+        w.attributes("-topmost", True)
+        w.geometry("620x460")
+        ttk.Label(w, padding=(14, 12), font=("Segoe UI", 11, "bold"),
+                  text=T("ing.y_si_no_titulo")).pack(fill="x")
+        marco = ttk.Frame(w, padding=(14, 0))
+        marco.pack(fill="both", expand=True)
+        caja = tk.Text(marco, wrap="word", relief="flat", padx=10, pady=10,
+                       background="#f9f9f9", font=("Segoe UI", 9))
+        barra = ttk.Scrollbar(marco, orient="vertical", command=caja.yview)
+        caja.configure(yscrollcommand=barra.set)
+        caja.pack(side="left", fill="both", expand=True)
+        barra.pack(side="left", fill="y")
+        caja.insert("1.0", T("ing.y_si_no_texto"))
+        caja.configure(state="disabled")
+        ttk.Button(w, text=T("bib.cerrar"),
+                   command=w.destroy).pack(pady=10)
 
     # ------------------------------------------------------------ trabajo
     def _elegido(self, cual):
@@ -183,6 +225,8 @@ class Ingeniero:
         self.tabla.delete(*self.tabla.get_children())
         self._escribir(self.explica, "")
 
+        self.consejo.configure(text="")
+
         if not regla:
             self._escribir(self.diagnostico, T("ing.sin_regla"))
             self.propuestas = []
@@ -195,7 +239,7 @@ class Ingeniero:
             texto = T("ing.parecido") + "\n\n" + texto
         self._escribir(self.diagnostico, texto)
         self.propuestas = I.proponer(self.ficha, regla, self.cal, self.codigo)
-        for p in self.propuestas:
+        for n, p in enumerate(self.propuestas, 1):
             # Se dice cuanto sube o baja, no el numero interno del juego: a
             # nadie le dice nada que la presion de freno "pase al 78".
             # Si el programa ha aprendido la escala de este coche, se dice
@@ -203,14 +247,19 @@ class Ingeniero:
             # sigue siendo mas util que el numero interno del juego.
             queda = p["queda"] or ("%s%d" % ("+" if p["sube"] else "-",
                                              p["saltos"]))
+            # El numero de orden ES la recomendacion. La lista viene ordenada
+            # de lo que mas arregla el sintoma a lo que menos, y los que
+            # estan topados se han caido solos por el camino, asi que el 1
+            # siempre es algo que se puede tocar de verdad en este coche.
             self.tabla.insert("", "end",
-                              values=(p["nombre"], p["ahora"], queda))
+                              values=(n, p["nombre"], p["ahora"], queda),
+                              tags=("primero",) if n == 1 else ())
         hijos = self.tabla.get_children()
         if not hijos:
             self._escribir(self.explica, T("ing.no_se_puede"))
         if hijos:
-            # El primero va marcado porque la lista viene ordenada por lo
-            # que mas cambia el coche: es por donde hay que empezar.
+            self.consejo.configure(
+                text=T("ing.empieza_por") % self.propuestas[0]["nombre"])
             self.tabla.selection_set(hijos[0])
 
     def _porque(self, _=None):
@@ -219,7 +268,12 @@ class Ingeniero:
             return
         i = self.tabla.index(sel[0])
         if 0 <= i < len(self.propuestas):
-            self._escribir(self.explica, self.propuestas[i]["porque"])
+            porque = self.propuestas[i]["porque"]
+            # Al de arriba se le pone delante por que es el de arriba. Los
+            # demas siguen ahi por si el primero no convence o ya se probo.
+            if i == 0:
+                porque = T("ing.es_el_primero") + "\n\n" + porque
+            self._escribir(self.explica, porque)
 
     def aplicar(self):
         sel = self.tabla.selection()

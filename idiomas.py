@@ -300,9 +300,12 @@ BASE = {
     'ing.col.ahora': 'Como esta ahora',
     'ing.col.ajuste': 'Que tocar',
     'ing.col.nuevo': 'Como quedaria',
+    'ing.col.orden': 'Orden',
     'ing.cuando': 'Cuando',
     'ing.donde': 'Donde pasa',
     'ing.elige_cambio': 'Elige de la lista el cambio que quieres probar.',
+    'ing.empieza_por': 'Empieza por aqui: %s',
+    'ing.es_el_primero': 'POR AQUI SE EMPIEZA. De todo lo que se puede tocar en este coche para lo que has contado, esto es lo que mas lo arregla y lo que menos estropea de paso. Los de debajo son el recambio, por si este no cuaja o ya lo probaste.',
     'ing.elige_uno': 'Elige un reglaje de la lista, el que estes usando en pista.',
     'ing.guardado': 'Guardado como %s',
     'ing.guardado_largo': 'Hecho. El reglaje nuevo se llama:\n\n%s\n\nEl de antes sigue donde estaba, sin tocar.\n\nCargalo en el juego, da unas vueltas y fijate solo en una cosa: %s.\nSi no mejora, vuelve al de antes y probamos otra cosa.',
@@ -313,6 +316,36 @@ BASE = {
     'ing.sin_regla': "De esa combinacion todavia no se nada. Prueba a cambiar el 'cuando' a Siempre, o cuentamelo a mi y anadimos la regla.",
     'ing.titulo': 'Ingeniero de pista',
     'ing.uno_cada_vez': 'Cambia UNA cosa, da unas vueltas y vuelve. Si tocas cinco a la vez no sabras cual funciono.',
+    'ing.y_si_no': '¿Y si no es el reglaje?',
+    'ing.y_si_no_titulo': '¿Seguro que es el reglaje?',
+    'ing.y_si_no_texto': (
+        'Esta pantalla siempre te va a dar una respuesta, y ahi esta su trampa: parece que '
+        'cualquier cosa que haga el coche se arregle tocando el reglaje. Muchas veces no.\n\n'
+        'La cuenta que hacen los ingenieros de verdad es esta: un buen reglaje vale DECIMAS por '
+        'vuelta. La conduccion vale SEGUNDOS. Asi que si llevas tiempo atascado en el mismo '
+        'tiempo, lo mas probable es que esos segundos esten en como das la vuelta y no en la '
+        'barra estabilizadora.\n\n'
+        'Y esto no va de saber conducir o no saber. Le pasa a todo el mundo, y le pasa sobre todo '
+        'al estrenar coche: cada uno frena en un sitio, entra de una manera y aguanta cosas '
+        'distintas. Un reglaje que le va de maravilla a otro piloto te puede ir fatal a ti solo '
+        'porque el entra a la curva de otra forma.\n\n\n'
+        'LA PRUEBA PARA SALIR DE DUDAS\n\n'
+        'Da cinco vueltas seguidas y mira los tiempos.\n\n'
+        'Si se llevan mucho entre ellas, medio segundo o mas, el coche todavia no es el problema. '
+        'Lo que falta es repetir: misma frenada, mismo punto de giro, mismo gas. Cuando las '
+        'vueltas empiecen a parecerse, el reglaje se notara. Antes no, porque cada vuelta le '
+        'estas pidiendo al coche una cosa distinta y no hay reglaje que valga para todas.\n\n'
+        'Si salen muy parecidas y aun asi te falta ritmo, entonces si es el momento. El coche '
+        'esta haciendo siempre lo mismo, ya puedes decir con seguridad que hace, y esta pantalla '
+        'te va a servir de verdad.\n\n\n'
+        'LA OTRA SENAL\n\n'
+        'Si el coche hace una cosa distinta cada vuelta en la misma curva, eso no lo arregla '
+        'ningun reglaje.\n\n'
+        'Si hace siempre lo mismo, en el mismo sitio y en el mismo momento, entonces si es del '
+        'coche. Y para eso esta esto.\n\n\n'
+        'Y una ultima: estrenar coche es volver a empezar. Un GT3 y un Hypercar no se conducen '
+        'igual ni de lejos, y las primeras horas con uno nuevo lo raro seria ir rapido. Dale un '
+        'tiempo antes de darle la culpa al reglaje.'),
 }
 
 _actual = None
