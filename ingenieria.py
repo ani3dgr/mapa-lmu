@@ -346,7 +346,13 @@ def leer_calibracion():
         return {"pasos": {}, "tipos": {}, "valores": {}, "reglajes_mirados": 0}
 
 
-_TROZOS = re.compile(r"[\d]+[.,]?[\d]*")
+# El signo va DENTRO del numero. Sin el, al reescribir el valor del
+# segundo reglaje con el formato del primero se perdia el menos, y
+# dos valores opuestos se ensenaban iguales: la convergencia trasera
+# +0.06 y -0.06 salian las dos como "0.06 deg" en la comparacion,
+# que es justo el caso que hizo encontrar esto. Afecta a todo lo que
+# puede ser negativo: caida, convergencia y migracion de frenos.
+_TROZOS = re.compile(r"-?[\d]+[.,]?[\d]*")
 
 
 def con_el_formato_de(modelo, otro):

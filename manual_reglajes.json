@@ -31,14 +31,16 @@
    "id": "metodo",
    "titulo": {
     "es": "Antes de tocar nada",
-    "en": "Before you touch anything"
+    "en": "Before you touch anything",
+    "fr": "Avant de toucher a quoi que ce soit"
    },
    "temas": [
     {
      "id": "para-que",
      "titulo": {
       "es": "Para que sirve este manual",
-      "en": "What this manual is for"
+      "en": "What this manual is for",
+      "fr": "A quoi sert ce manuel"
      },
      "texto": {
       "es": [
@@ -52,6 +54,12 @@
        "You do not have to read it all. If you come with a specific problem, go to the recipes chapter. If you want to understand a setting you have seen on the garage screen, look it up by name: they are all here, with the same name the game gives them.",
        "And if you come across a word that appears nowhere in the garage ('close the differential', 'downforce', 'platform'), it is explained in the chapter THE WORDS, with the game line it corresponds to and how you will see it written.",
        "Everything here is written for Le Mans Ultimate. Where the game behaves differently from a real car, it says so."
+      ],
+      "fr": [
+       "Un reglage n'est pas une liste de bons chiffres. C'est la reponse a une question : qu'est-ce que fait la voiture qui ne vous plait pas, et ou. Ce manuel est organise pour cela. D'abord comment on travaille, puis ce que fait chaque reglage un par un, puis ce qui se touche avec quoi, et a la fin ce qui est propre a chaque categorie, a chaque voiture et a chaque circuit.",
+       "Il n'est pas necessaire de le lire en entier. Si vous venez avec un probleme precis, allez au chapitre des recettes. Si vous voulez comprendre un reglage vu dans le garage, cherchez-le par son nom : ils y sont tous, avec le nom que leur donne le jeu.",
+       "Et si vous rencontrez un mot qui n'apparait nulle part dans le garage (\"fermer le differentiel\", \"appui\", \"plateforme\"), il est explique au chapitre LES MOTS, avec la ligne du jeu qui lui correspond et la facon dont vous allez le voir ecrit.",
+       "Tout ce qui est ici est ecrit pour Le Mans Ultimate. Quand le jeu se comporte autrement qu'une vraie voiture, c'est dit."
       ]
      }
     },
@@ -59,7 +67,8 @@
      "id": "fov-aviso",
      "titulo": {
       "es": "Antes que el reglaje: el campo de vision (FOV)",
-      "en": "Before the setup: field of view (FOV)"
+      "en": "Before the setup: field of view (FOV)",
+      "fr": "Avant le reglage : le champ de vision (FOV)"
      },
      "boton": {
       "accion": "fov"
@@ -78,6 +87,13 @@
        "The correct value is not a matter of taste: it comes from the size of your screen and how far your eyes are from it. THE PROGRAM HAS THE CALCULATOR BUILT IN: press the button below (or the one in Options, next to the manual button), enter the width, the height and the distance, and it gives you the angle to set in the game.",
        "The number Le Mans Ultimate asks for is the VERTICAL one, the big one. You change it inside the car, in the camera or seat options.",
        "This is covered in full, along with the wheel, the pedals and sound, in the DRIVING VOLUME, chapter 'Before you drive: your setup at home'."
+      ],
+      "fr": [
+       "Cet avertissement est ici, dans le tome des reglages, parce que c'est la qu'il sert : beaucoup de gens passent des semaines a bouger des barres et des amortisseurs alors que ce qui va mal, c'est leur facon de voir l'ecran.",
+       "Le CHAMP DE VISION (FOV) est la quantite de scene qui tient sur votre moniteur. S'il est trop ouvert, comme les jeux le livrent souvent, tout parait plus lent et plus loin qu'en realite : vous freinez tard, vous jugez mal la vitesse d'entree et vous ne sentez pas la voiture commencer a glisser. Aucun reglage ne corrige cela.",
+       "La bonne valeur n'est pas affaire de gout : elle depend de la taille de votre ecran et de la distance a vos yeux. LE PROGRAMME CONTIENT LE CALCULATEUR : appuyez sur le bouton ci-dessous (ou sur celui des Options, a cote du bouton du manuel), entrez la largeur, la hauteur et la distance, et il vous donne les degres a mettre dans le jeu.",
+       "Le chiffre que demande Le Mans Ultimate est le VERTICAL, le gros. Il se change dans la voiture, dans les options de camera ou de siege.",
+       "Tout cela est raconte en entier, avec le volant, les pedales et le son, dans le TOME CONDUITE, chapitre \"Avant de rouler : votre poste de pilotage\"."
       ]
      }
     },
@@ -85,7 +101,8 @@
      "id": "una-cosa",
      "titulo": {
       "es": "Una cosa cada vez",
-      "en": "One thing at a time"
+      "en": "One thing at a time",
+      "fr": "Une chose a la fois"
      },
      "texto": {
       "es": [
@@ -97,6 +114,11 @@
        "It is the rule that saves the most time and the one everybody breaks. If you change three things and the car improves, you do not know which of the three did it, and the other two stay in there getting in the way forever.",
        "Change one setting. Go out. Do three or four laps. Come back. If you feel nothing, the change was small: double the step before writing it off.",
        "The exception is settings that genuinely work in pairs, and they are flagged one by one in their entries: the ride height of one axle almost always means looking at the other, and a rear wing change means looking at the front. Even so, move the pair and nothing else."
+      ],
+      "fr": [
+       "C'est la regle qui fait gagner le plus de temps et celle que tout le monde enfreint. Si vous changez trois choses et que la voiture s'ameliore, vous ne savez pas laquelle des trois l'a fait, et les deux autres restent la-dedans a gener pour toujours.",
+       "Changez un reglage. Sortez. Faites trois ou quatre tours. Revenez. Si vous ne sentez rien, le changement etait petit : doublez le pas avant de le declarer inutile.",
+       "L'exception, ce sont les reglages qui vont vraiment par paire, et ils sont signales un par un dans leurs fiches : la hauteur d'un essieu oblige presque toujours a regarder l'autre, et un changement d'aileron arriere oblige a regarder l'avant. Meme la, bougez la paire et rien d'autre."
       ]
      }
     },
@@ -104,7 +126,8 @@
      "id": "como-se-prueba",
      "titulo": {
       "es": "Como se prueba un cambio",
-      "en": "How to test a change"
+      "en": "How to test a change",
+      "fr": "Comment tester un changement"
      },
      "texto": {
       "es": [
@@ -120,6 +143,13 @@
        "FUEL. A hundred litres change the balance more than almost any setting. Test with the load you are going to race with, and if you are comparing two setups, with the same load.",
        "TRACK. The rubber going down raises grip second by second. If you have been running for half an hour, the track of the last run is not the track of the first. That is why it pays to go back to the previous setup now and then, instead of trusting a comparison with something from an hour ago.",
        "And trust what you feel at a specific point on the track, not the lap time. A lap time bundles twenty corners into one number and hides the fact that you gained two tenths in one and lost two in another."
+      ],
+      "fr": [
+       "Si les deux essais ne se font pas dans les memes conditions, ce que vous mesurez ne vaut rien. Trois choses comptent plus que le reglage :",
+       "LES PNEUS. Un train use donne moins d'adherence et se comporte autrement. Testez toujours avec des pneus dans le meme etat, et avec les pressions deja montees : les deux ou trois premiers tours, le pneu est froid et la voiture ment.",
+       "LE CARBURANT. Cent litres changent l'equilibre plus que presque n'importe quel reglage. Testez avec la charge que vous allez utiliser en course, et si vous comparez deux reglages, avec la meme.",
+       "LA PISTE. La gomme qui se depose fait monter l'adherence seconde apres seconde. Si vous roulez depuis une demi-heure, la piste du dernier essai n'est plus celle du premier. C'est pourquoi il vaut mieux revenir de temps en temps au reglage precedent que de se fier a une comparaison avec quelque chose d'il y a une heure.",
+       "Et fiez-vous a ce que vous sentez a un endroit precis de la piste, pas au chrono. Le chrono regroupe vingt virages en un seul chiffre et cache que vous avez gagne deux dixiemes dans l'un et perdu deux dans l'autre."
       ]
      }
     },
@@ -127,7 +157,8 @@
      "id": "diferencia",
      "titulo": {
       "es": "El equilibrio es una diferencia",
-      "en": "Balance is a difference"
+      "en": "Balance is a difference",
+      "fr": "L'equilibre est une difference"
      },
      "texto": {
       "es": [
@@ -141,6 +172,12 @@
        "From that come two routes to the same result. If the car steps out at the rear, you can give grip to the rear axle, or take it away from the front. Both balance the car equally well.",
        "They are not the same thing, mind. Adding grip at the rear makes the car faster; taking it off the front makes it slower but easier to drive. Always start by adding where it is missing. Only when that side is MAXED OUT (it cannot be softened or lowered any further, and in the program's editor the arrow on that side goes grey) do you touch the other axle.",
        "This is also why two setups with completely different numbers can give the same car. Do not look at the number: look at the difference between the two axles."
+      ],
+      "fr": [
+       "Cette idee explique la moitie d'une feuille de reglages. La voiture ne tourne pas plus ou moins parce qu'un essieu a beaucoup d'adherence : elle tourne selon la DIFFERENCE d'adherence entre l'avant et l'arriere.",
+       "De la sortent deux chemins vers le meme resultat. Si la voiture part de l'arriere, vous pouvez donner de l'adherence a l'essieu arriere, ou en enlever a l'avant. Les deux equilibrent aussi bien.",
+       "Ce n'est pas pareil, attention. Ajouter de l'adherence a l'arriere rend la voiture plus rapide ; en enlever a l'avant la rend plus lente mais plus facile a conduire. Commencez toujours par ajouter la ou il manque. Ce n'est que lorsque ce cote est EN BUTEE (on ne peut plus l'assouplir ni le baisser, et dans l'editeur du programme la fleche de ce cote s'eteint) que l'on touche a l'autre essieu.",
+       "C'est aussi ce qui fait que deux reglages aux chiffres completement differents donnent la meme voiture. Ne regardez pas le chiffre : regardez la difference entre les deux essieux."
       ]
      }
     },
@@ -148,7 +185,8 @@
      "id": "cuando-manda-que",
      "titulo": {
       "es": "En curva lenta manda el muelle, en rapida manda el aire",
-      "en": "In slow corners the spring rules, in fast ones the air does"
+      "en": "In slow corners the spring rules, in fast ones the air does",
+      "fr": "En virage lent c'est le ressort, en virage rapide c'est l'air"
      },
      "texto": {
       "es": [
@@ -162,6 +200,12 @@
        "SLOW CORNER (first, second gear, hairpin exits). There the car is slow and the wing does almost nothing. Mechanical grip rules: springs, bars, differential, toe and the tyre itself.",
        "FAST CORNER (fourth gear upwards, long loaded corners). There aerodynamic load matters more than the spring. The wing rules, along with ride height and how well the platform is kept.",
        "So if the car steps out ONLY in the fast corners and is fine in the slow ones, do not touch the bar: you are short of rear downforce. And if it only happens in the slow ones, do not touch the wing: the problem is mechanical."
+      ],
+      "fr": [
+       "Avant de toucher a quoi que ce soit, il faut savoir a quelle vitesse se produit votre probleme, parce que cela change completement ce qu'il faut regler.",
+       "VIRAGE LENT (premiere, deuxieme, sorties d'epingle). La la voiture va doucement et l'aileron ne fait presque rien. C'est la mecanique qui commande : ressorts, barres, differentiel, parallelisme et le pneu lui-meme.",
+       "VIRAGE RAPIDE (quatrieme et au-dela, virages a appui soutenu). La la charge aerodynamique pese plus que le ressort. Ce sont l'aileron, la hauteur de caisse et la tenue de la plateforme qui commandent.",
+       "Donc si la voiture part de l'arriere SEULEMENT dans les rapides et va bien dans les lentes, ne touchez pas la barre : il vous manque de l'appui a l'arriere. Et si cela n'arrive que dans les lentes, ne touchez pas l'aileron : le probleme est mecanique."
       ]
      }
     },
@@ -169,7 +213,8 @@
      "id": "por-donde",
      "titulo": {
       "es": "Por donde se empieza un reglaje",
-      "en": "Where to start a setup"
+      "en": "Where to start a setup",
+      "fr": "Par ou commencer un reglage"
      },
      "texto": {
       "es": [
@@ -187,6 +232,14 @@
        "3. BARS AND DIFFERENTIAL. This is where you really adjust whether the car turns or not, and where you will spend most of your time.",
        "4. DAMPERS. How the car arrives everywhere: transitions, kerbs, direction changes. You touch these once the rest is done.",
        "5. BRAKES, PRESSURES AND CAMBER. The finishing touches. Brake bias to suit how you brake, pressures so they end up in their window, camber so the tyre sits flat where it matters."
+      ],
+      "fr": [
+       "Du gros au fin. Changer cet ordre, c'est ce qui fait passer des heures a se battre avec les amortisseurs alors que ce qui va mal, c'est l'aileron.",
+       "1. AERODYNAMIQUE ET RAPPORTS. Combien d'aileron le circuit accepte, et faire en sorte que le dernier rapport arrive juste au bout de la plus longue ligne droite. Cela conditionne tout le reste.",
+       "2. HAUTEURS ET RESSORTS. La plateforme de la voiture. Aussi bas et aussi raide que le trace le permet sans toucher ni sauter.",
+       "3. BARRES ET DIFFERENTIEL. C'est la qu'on regle vraiment si la voiture tourne ou non, et c'est la que vous passerez le plus de temps.",
+       "4. AMORTISSEURS. Comment la voiture arrive partout : transferts, vibreurs, changements d'appui. On y touche quand le reste est fait.",
+       "5. FREINS, PRESSIONS ET CARROSSAGE. La finition. Repartition de freinage selon votre facon de freiner, pressions pour qu'elles finissent dans leur fenetre, carrossage pour que le pneu porte a plat la ou il faut."
       ]
      }
     },
@@ -194,7 +247,8 @@
      "id": "juego-vs-real",
      "titulo": {
       "es": "Lo que el juego copia bien y lo que no",
-      "en": "What the game copies well and what it does not"
+      "en": "What the game copies well and what it does not",
+      "fr": "Ce que le jeu copie bien et ce qu'il copie moins bien"
      },
      "texto": {
       "es": [
@@ -208,6 +262,12 @@
        "WHAT COMES OUT VERY FAITHFUL: aerodynamics and their relationship with ride height, the effect of the differential, brake bias, tyre wear and heating, and how fuel changes the balance.",
        "WHAT COMES OUT WEAKER: the MAGNITUDE of suspension changes. A click of bar or damper is usually felt less than it would be on a real track. The direction is right, the size is small: that is why you sometimes have to move two or three clicks to feel anything.",
        "ALSO: tyre grip falls off less than it should when a wheel is overloaded, so very stiff, very flat setups come off better here than they would in reality. And the surface is smoother, so bump settings (fast bump and rebound) matter less than on a real car, except over kerbs."
+      ],
+      "fr": [
+       "Le Mans Ultimate fait partie des simulateurs serieux : le sens de presque tous les changements est correct, et ce que vous apprenez ici vaut dehors. Mais il faut savoir ou il s'ecarte de la realite, sinon on finit par chercher dans son reglage un defaut qui appartient au modele.",
+       "CE QUI SORT TRES FIDELE : l'aerodynamique et sa relation avec la hauteur de caisse, l'effet du differentiel, la repartition de freinage, l'usure et la montee en temperature des pneus, et la facon dont le carburant change l'equilibre.",
+       "CE QUI SORT PLUS FAIBLE : l'AMPLEUR des changements de suspension. Un cran de barre ou d'amortisseur se sent moins qu'il ne se sentirait sur une vraie piste. Le sens est bon, la taille est petite : c'est pour cela qu'il faut parfois bouger de deux ou trois crans pour sentir quelque chose.",
+       "AUSSI : l'adherence du pneu chute moins qu'elle ne le devrait quand une roue est surchargee, donc les reglages tres raides et tres plats s'en tirent mieux ici que dans la realite. Et la surface est plus lisse, donc les reglages de bosse (compression et detente rapides) comptent moins que sur une vraie voiture, sauf sur les vibreurs."
       ]
      }
     },
@@ -215,7 +275,8 @@
      "id": "escalon",
      "titulo": {
       "es": "Cuanto es un clic",
-      "en": "How much is a click"
+      "en": "How much is a click",
+      "fr": "Combien vaut un cran"
      },
      "texto": {
       "es": [
@@ -227,6 +288,11 @@
        "The game does not show units on many settings, only positions. A click of bar is not worth the same as a click of spring, nor is a click of bar in a GT3 the same as in a Hypercar.",
        "RULE OF THUMB: if a one click change cannot be felt in three laps, it is not that the setting does nothing, it is that the step is small. Go to two or three clicks to find the direction, then work back to fine tune.",
        "And the other way round: tyre pressure, brake bias and wing are felt on the first click. There you go one at a time."
+      ],
+      "fr": [
+       "Le jeu n'affiche pas d'unites sur beaucoup de reglages, seulement des positions. Un cran de barre ne vaut pas un cran de ressort, et un cran de barre sur une GT3 ne vaut pas un cran de barre sur une Hypercar.",
+       "REGLE PRATIQUE : si un changement d'un cran ne se sent pas en trois tours, ce n'est pas que le reglage ne sert a rien, c'est que le pas est petit. Passez a deux ou trois crans pour trouver le sens, puis affinez en revenant.",
+       "Et a l'inverse : pression des pneus, repartition de freinage et aileron se sentent des le premier cran. La, on y va un par un."
       ]
      }
     },
@@ -234,7 +300,8 @@
      "id": "guardar",
      "titulo": {
       "es": "Guarda lo que funciona",
-      "en": "Save what works"
+      "en": "Save what works",
+      "fr": "Sauvegardez ce qui marche"
      },
      "texto": {
       "es": [
@@ -246,6 +313,11 @@
        "Before you start experimenting, save the setup you are starting from with a name you will recognise tomorrow. It sounds obvious and it is always forgotten.",
        "When you reach something that works, save it even if you intend to keep improving. Half an hour later you will have gone three steps backwards without noticing and you will want to go back.",
        "Give them names that say what they are: track, car and purpose ('spa race wet', 'barcelona qualifying'). A setup called 'test3' is no use to anybody, including you a week later."
+      ],
+      "fr": [
+       "Avant de commencer a experimenter, sauvegardez le reglage de depart sous un nom que vous reconnaitrez demain. Cela parait evident et on l'oublie toujours.",
+       "Quand vous arrivez a quelque chose qui marche, sauvegardez-le meme si vous comptez continuer. Une demi-heure plus tard vous aurez recule de trois pas sans vous en apercevoir et vous voudrez revenir.",
+       "Donnez-leur des noms qui disent ce qu'ils sont : circuit, voiture et usage (\"spa course pluie\", \"barcelone qualifs\"). Un reglage appele \"essai3\" ne sert a personne, y compris a vous une semaine plus tard."
       ]
      }
     }
@@ -255,7 +327,8 @@
    "id": "palabras",
    "titulo": {
     "es": "Las palabras, y como se llaman en el juego",
-    "en": "The words, and what they are called in the game"
+    "en": "The words, and what they are called in the game",
+    "fr": "Les mots, et comment ils s'appellent dans le jeu"
    },
    "entrada": {
     "es": [
@@ -267,6 +340,11 @@
      "People who talk about setups use words that appear nowhere on the game's screen. They say 'close the differential' and there is nothing in the garage called close: there is 'Power' and a number.",
      "This chapter is the translation between the two. Every piece of jargon, what it means, which line of the garage it is, and HOW YOU WILL SEE IT written, because the same setting is shown one way in one car and another way in another.",
      "If anywhere in the manual you find a word you do not recognise from the game's screen, it is explained here."
+    ],
+    "fr": [
+     "Ceux qui parlent de reglages emploient des mots qui n'apparaissent nulle part a l'ecran du jeu. On dit \"fermer le differentiel\" et dans le garage il n'y a rien qui s'appelle fermer : il y a \"Puissance\" et un chiffre.",
+     "Ce chapitre est la traduction entre les deux. Chaque mot du jargon, ce qu'il veut dire, sur quelle ligne du garage il se trouve et COMMENT VOUS ALLEZ LE VOIR ecrit, parce que le meme reglage s'affiche d'une facon sur une voiture et d'une autre ailleurs.",
+     "Si vous tombez quelque part dans le manuel sur un mot que vous ne reconnaissez pas de l'ecran du jeu, il est explique ici."
     ]
    },
    "temas": [
@@ -274,7 +352,8 @@
      "id": "dif-cerrar",
      "titulo": {
       "es": "Cerrar y abrir el diferencial",
-      "en": "Closing and opening the differential"
+      "en": "Closing and opening the differential",
+      "fr": "Fermer et ouvrir le differentiel"
      },
      "texto": {
       "es": [
@@ -296,6 +375,16 @@
        "   Lexus RC F and other GT3s ... 'Non-adjustable'. The car does not let you touch it, and that is not a bug in the program.",
        "   Preload ... always in Nm ('10 Nm', '125 Nm'). More Nm, more tightly held.",
        "RULE SO YOU DO NOT GET IT WRONG: if the number is a percentage or Nm, raising it is closing. If it is ramp degrees, raising it is opening. If in doubt, move one click and see whether the car spins the wheels more or less on the throttle."
+      ],
+      "fr": [
+       "Aucun reglage ne porte ce nom. Fermer le differentiel, c'est MONTER le chiffre de \"Puissance\" ou d'\"Inertie\", dans Transmission > DIFFERENTIEL. L'ouvrir, c'est le baisser.",
+       "Ferme veut dire que les deux roues de l'essieu sont plus liees entre elles (plus de motricite, moins de rotation). Ouvert, que chacune va plus a sa guise (plus de rotation, plus de patinage).",
+       "COMMENT VOUS ALLEZ LE VOIR : cela change d'une voiture a l'autre et cela trompe beaucoup.",
+       "   Porsche 963 et beaucoup de prototypes ... \"Puissance 40%\", \"Inertie 75%\". C'est le pourcentage de blocage : plus de pour cent, plus ferme.",
+       "   Oreca 07 LMP2 ... \"FF6-60 deg\", \"FF6-25 deg\". Ce sont les degres de la rampe interne. Ici PLUS DE DEGRES veut dire MOINS ferme, l'inverse du pourcentage : une rampe de 30 degres bloque plus qu'une de 60.",
+       "   Lexus RC F et d'autres GT3 ... \"Non-adjustable\". La voiture ne laisse pas y toucher, et ce n'est pas un defaut du programme.",
+       "   Precharge ... toujours en Nm (\"10 Nm\", \"125 Nm\"). Plus de Nm, plus serre.",
+       "REGLE POUR NE PAS SE TROMPER : si le chiffre est un pourcentage ou des Nm, le monter c'est fermer. Si ce sont des degres de rampe, le monter c'est ouvrir. En cas de doute, bougez d'un cran et regardez si la voiture patine plus ou moins a l'acceleration."
       ]
      }
     },
@@ -303,7 +392,8 @@
      "id": "apoyo",
      "titulo": {
       "es": "Apoyo, carga aerodinamica, 'pegar el coche al suelo'",
-      "en": "Downforce, aerodynamic load, 'sticking the car to the ground'"
+      "en": "Downforce, aerodynamic load, 'sticking the car to the ground'",
+      "fr": "Appui, charge aerodynamique, \"coller la voiture au sol\""
      },
      "texto": {
       "es": [
@@ -317,6 +407,12 @@
        "In the garage you adjust it with 'Rear wing' (Chassis and aerodynamics > REAR CHASSIS) and with 'Ride height' (Suspension).",
        "HOW YOU WILL SEE IT: the wing is in degrees, '9.0 deg'. More degrees, more downforce and less straight line speed.",
        "When the manual says 'you are short of rear downforce', it means: raise the rear wing or lower the rear ride height."
+      ],
+      "fr": [
+       "C'est la force avec laquelle l'air pousse la voiture vers le bas quand vous allez vite. Ce n'est pas un reglage : c'est ce que vous obtenez avec l'aileron et avec la hauteur de caisse.",
+       "Dans le garage cela se touche sur \"Aileron arriere\" (Chassis et aerodynamique > CHASSIS ARRIERE) et sur \"Hauteur de caisse\" (Suspension).",
+       "COMMENT VOUS ALLEZ LE VOIR : l'aileron est en degres, \"9.0 deg\". Plus de degres, plus d'appui et moins de vitesse en ligne droite.",
+       "Quand le manuel dit \"il vous manque de l'appui a l'arriere\", cela veut dire : montez l'aileron arriere ou baissez la hauteur arriere."
       ]
      }
     },
@@ -324,7 +420,8 @@
      "id": "subvira",
      "titulo": {
       "es": "Subvirar y sobrevirar",
-      "en": "Understeer and oversteer"
+      "en": "Understeer and oversteer",
+      "fr": "Sous-virer et survirer"
      },
      "texto": {
       "es": [
@@ -338,6 +435,12 @@
        "UNDERSTEER is when it will not turn: you add steering and the car carries on straight, washing out towards the outside. In this manual you will also see it as 'it will not turn' or 'it washes out at the front'.",
        "OVERSTEER is when it turns too much: the rear axle goes wide and the car steps out. Also: 'the rear steps out', 'it lets go at the rear'.",
        "The game does not use these words on any screen. The program's engineer (the 'the car is doing something odd' one) does use them, in plain language."
+      ],
+      "fr": [
+       "Ce sont les deux facons qu'a la voiture de ne pas aller ou vous voulez.",
+       "SOUS-VIRER, c'est quand elle ne tourne pas : vous mettez du volant et la voiture continue tout droit, le nez part vers l'exterieur. Dans le manuel vous le verrez aussi ecrit \"elle ne tourne pas\" ou \"elle part du nez\".",
+       "SURVIRER, c'est quand elle tourne trop : l'essieu arriere part vers l'exterieur et la voiture se met en travers. Aussi : \"elle part de l'arriere\", \"l'arriere decroche\".",
+       "Le jeu n'emploie ces mots sur aucun ecran. L'ingenieur du programme (celui du \"la voiture fait quelque chose de bizarre\") les emploie, en langage clair."
       ]
      }
     },
@@ -345,7 +448,8 @@
      "id": "duro-blando",
      "titulo": {
       "es": "Duro y blando, y los numeros de posicion",
-      "en": "Stiff and soft, and the position numbers"
+      "en": "Stiff and soft, and the position numbers",
+      "fr": "Dur et souple, et les numeros de position"
      },
      "texto": {
       "es": [
@@ -367,6 +471,16 @@
        "   '1400 lbf/in' ... the same in imperial units (the Oreca's third spring).",
        "   'D18 H-H' ... the Oreca's bar: tube diameter and which hole the lever sits in. Thicker means stiffer.",
        "   A bare number ('2', '6') ... it is the manufacturer's spring number. Higher means stiffer."
+      ],
+      "fr": [
+       "Ressorts, barres antiroulis et amortisseurs se parlent toujours en dur et souple. Plus dur veut dire que cela bouge moins ; plus souple, que cela bouge plus et suit mieux le sol.",
+       "Sur tous, MONTER LE CHIFFRE VEUT DIRE PLUS DUR.",
+       "COMMENT VOUS ALLEZ LE VOIR, selon la voiture :",
+       "   \"P8\", \"P2\", \"P3\" ... une position, sans unite. C'est la norme pour les amortisseurs et pour les barres de GT3. P8 est plus dur que P7.",
+       "   \"150 N/mm\" ... la vraie raideur du ressort, sur les prototypes.",
+       "   \"1400 lbf/in\" ... la meme chose en unites anglaises (troisieme ressort de l'Oreca).",
+       "   \"D18 H-H\" ... la barre de l'Oreca : diametre du tube et trou dans lequel se trouve le levier. Plus epais, plus dur.",
+       "   Un chiffre seul (\"2\", \"6\") ... c'est le numero de ressort du fabricant. Plus haut, plus dur."
       ]
      }
     },
@@ -374,7 +488,8 @@
      "id": "detached",
      "titulo": {
       "es": "Desconectado ('Detached')",
-      "en": "Detached"
+      "en": "Detached",
+      "fr": "Deconnecte (\"Detached\")"
      },
      "texto": {
       "es": [
@@ -386,6 +501,11 @@
        "When an anti-roll bar reads 0 or 'Detached', it is not that it is very soft: it is that the part IS NOT FITTED. That axle has no bar at all.",
        "It genuinely happens in several setups going around, above all with the Lexus RC F's rear bar.",
        "The program flags it in amber and bold in the setup editor, so you do not read straight past it."
+      ],
+      "fr": [
+       "Quand une barre antiroulis affiche 0 ou \"Detached\", ce n'est pas qu'elle est tres souple : c'est que la piece N'EST PAS MONTEE. Cet essieu se retrouve sans barre.",
+       "Cela arrive pour de vrai dans plusieurs reglages qui circulent, surtout sur la barre arriere de la Lexus RC F.",
+       "Le programme le signale en ambre et en gras dans l'editeur de reglages, pour que vous ne passiez pas dessus sans le voir."
       ]
      }
     },
@@ -393,7 +513,8 @@
      "id": "bump-rebote",
      "titulo": {
       "es": "Compresion y rebote (bump y rebound)",
-      "en": "Bump and rebound (compression and extension)"
+      "en": "Bump and rebound (compression and extension)",
+      "fr": "Compression et detente (bump et rebound)"
      },
      "texto": {
       "es": [
@@ -408,6 +529,12 @@
        "In the garage they are four lines, on the Dampers page: 'Slow bump', 'Slow rebound', 'Fast bump' and 'Fast rebound'.",
        "SLOW is the movement of the car (braking, loading, accelerating). FAST is the movement of the bump (a kerb, an expansion joint).",
        "HOW YOU WILL SEE IT: positions, 'P8'."
+      ],
+      "fr": [
+       "Ce sont les deux sens de travail de l'amortisseur. La COMPRESSION, c'est la roue qui monte vers la voiture (la voiture qui s'enfonce) ; la DETENTE, c'est la roue qui descend, la voiture qui remonte.",
+       "Dans le garage ce sont quatre lignes, page Amortisseurs : \"Compression lente\", \"Detente lente\", \"Compression rapide\" et \"Detente rapide\".",
+       "LENT, c'est le mouvement de la voiture (freiner, appuyer, accelerer). RAPIDE, c'est celui de la bosse (un vibreur, un joint de dilatation).",
+       "COMMENT VOUS ALLEZ LE VOIR : des positions, \"P8\"."
       ]
      }
     },
@@ -415,7 +542,8 @@
      "id": "topes",
      "titulo": {
       "es": "Topes, packers y muelle tender",
-      "en": "Packers, bump stops and tender springs"
+      "en": "Packers, bump stops and tender springs",
+      "fr": "Butees, packers et ressort tender"
      },
      "texto": {
       "es": [
@@ -427,6 +555,11 @@
        "PACKERS is the line you will see elsewhere as 'bump stops': a stop that limits how far the suspension can compress. In the garage it is under Suspension > 'Packers', shown in centimetres ('0.5 cm').",
        "A TENDER SPRING is a second, much softer spring that only works at the start of the travel. It appears as 'Tender spring rate' and 'Tender travel'.",
        "THE THIRD SPRING (or centre spring) is an extra spring per axle that only works when both wheels compress together. In the garage: 'Third spring'."
+      ],
+      "fr": [
+       "BUTEES, c'est la ligne que vous verrez ailleurs sous le nom de \"packers\" ou \"bump stops\" : une butee qui limite l'enfoncement de la suspension. Dans le garage, Suspension > \"Butees\", et cela s'affiche en centimetres (\"0.5 cm\").",
+       "Le RESSORT TENDER est un deuxieme ressort, beaucoup plus souple, qui ne travaille qu'au debut de la course. Il apparait comme \"Ressort tender\" et \"Course du tender\".",
+       "Le TROISIEME RESSORT (ou ressort central) est un ressort supplementaire par essieu qui ne travaille que lorsque les deux roues s'enfoncent en meme temps. Dans le garage : \"Troisieme ressort\"."
       ]
      }
     },
@@ -434,7 +567,8 @@
      "id": "frenada",
      "titulo": {
       "es": "Reparto de frenada y migracion",
-      "en": "Brake bias and migration"
+      "en": "Brake bias and migration",
+      "fr": "Repartition de freinage et migration"
      },
      "texto": {
       "es": [
@@ -448,6 +582,12 @@
        "HOW YOU WILL SEE IT: two numbers separated by a colon, FRONT:REAR. '54.6:45.4' means 54.6% front and 45.4% rear. When the manual says 'move the brakes forward', that means raising the first number.",
        "MIGRATION is a bias that moves by itself as you release the pedal. It shows as '2.5% F', or as 0.0 if the car does not use it.",
        "One thing to watch: inside the setup file (.svm) this setting is stored the other way round, as the REAR brake position. That is why the program shows it the way the game shows it and not the way it is written inside."
+      ],
+      "fr": [
+       "La REPARTITION (ou balance) DE FREINAGE, c'est la part de freinage qui va a chaque essieu. Dans le garage c'est \"Repartition de freinage\", sous Roues et freins > FREINS.",
+       "COMMENT VOUS ALLEZ LA VOIR : deux chiffres separes par deux points, AVANT:ARRIERE. \"54.6:45.4\" veut dire 54,6 % a l'avant et 45,4 % a l'arriere. Quand le manuel dit \"avancez le freinage\", c'est monter le premier chiffre.",
+       "La MIGRATION est une repartition qui bouge toute seule au fur et a mesure que vous relachez la pedale. Elle s'affiche \"2.5% F\", ou 0.0 si la voiture n'en a pas.",
+       "Attention a une chose : dans le fichier du reglage (.svm), ce reglage est enregistre a l'envers, comme position du frein ARRIERE. C'est pourquoi le programme l'affiche comme le jeu et non comme il est ecrit dedans."
       ]
      }
     },
@@ -455,7 +595,8 @@
      "id": "plataforma",
      "titulo": {
       "es": "Plataforma, rake e inclinacion",
-      "en": "Platform and rake"
+      "en": "Platform and rake",
+      "fr": "Plateforme, rake et assiette"
      },
      "texto": {
       "es": [
@@ -467,6 +608,11 @@
        "PLATFORM is not a setting: it is the way of saying 'how the car sits on its wheels and how much that moves under braking and in corners'. A car with a stable platform keeps its ride height, and therefore its aerodynamics, everywhere.",
        "RAKE is the difference in ride height between the front axle and the rear. That is not a separate setting either: it comes out of the two 'Ride height' lines, in centimetres. If you run 5.0 cm at the front and 10.0 cm at the rear, the car is nose down.",
        "When the manual talks about rake, always look at BOTH ride heights, not one."
+      ],
+      "fr": [
+       "PLATEFORME n'est pas un reglage : c'est la facon de dire \"comment la voiture est posee sur ses roues et combien cela bouge au freinage et en virage\". Une voiture avec une plateforme stable garde sa hauteur, et donc son aerodynamique, partout.",
+       "Le RAKE ou l'ASSIETTE, c'est la difference de hauteur entre l'essieu avant et l'arriere. Ce n'est pas non plus un reglage a part : cela sort des deux lignes de \"Hauteur de caisse\", en centimetres. Avec 5,0 cm a l'avant et 10,0 cm a l'arriere, la voiture est nez en bas.",
+       "Quand le manuel parle du rake, regardez toujours les DEUX hauteurs, pas une."
       ]
      }
     },
@@ -474,7 +620,8 @@
      "id": "gomas-palabras",
      "titulo": {
       "es": "Caida, convergencia y presiones",
-      "en": "Camber, toe and pressures"
+      "en": "Camber, toe and pressures",
+      "fr": "Carrossage, parallelisme et pressions"
      },
      "texto": {
       "es": [
@@ -486,6 +633,11 @@
        "CAMBER is how far the wheel leans in when seen from the front. In the garage, 'Camber', shown in negative degrees: '-2.0 deg'. MORE NEGATIVE IS MORE CAMBER. Careful, because inside the setup file the number runs the other way.",
        "TOE is how the wheels point when seen from above. Positive is toe in (pointing inwards); negative is toe out.",
        "PRESSURES: LMU gives them in kPa, not psi. As a reference, 136 kPa is about 19.7 psi. You set them cold, and they rise on their own as you run."
+      ],
+      "fr": [
+       "Le CARROSSAGE, c'est l'inclinaison de la roue vue de face. Dans le garage, \"Carrossage\", affiche en degres negatifs : \"-2.0 deg\". PLUS NEGATIF VEUT DIRE PLUS DE CARROSSAGE. Attention, car dans le fichier du reglage le chiffre va a l'envers.",
+       "Le PARALLELISME, c'est la facon dont les roues pointent vues du dessus. Positif, vers l'interieur (pincement) ; negatif, vers l'exterieur (ouverture).",
+       "PRESSIONS : LMU les donne en kPa, pas en livres. Pour reference, 136 kPa font environ 19,7 psi. On les regle a froid, et elles montent seules en roulant."
       ]
      }
     },
@@ -493,7 +645,8 @@
      "id": "energia",
      "titulo": {
       "es": "Energia virtual, combustible y vueltas",
-      "en": "Virtual energy, fuel and laps"
+      "en": "Virtual energy, fuel and laps",
+      "fr": "Energie virtuelle, carburant et tours"
      },
      "texto": {
       "es": [
@@ -507,6 +660,12 @@
        "'Fuel capacity' is not what it looks like: it is how many litres are loaded per 1% of virtual energy ('0.95'). It is the line that makes fuel and energy run out together... or leaves you stranded.",
        "In LMP2 there is no virtual energy: there the fuel line is shown directly in litres, '75.0L (22.0 laps)'.",
        "The program warns you about this by itself, in the setup library: it is the short-fuel warning."
+      ],
+      "fr": [
+       "En Hypercar et en LMGT3, la voiture est limitee par l'ENERGIE, pas par les litres. La ligne \"Energie virtuelle\" s'affiche \"100% (29.6 Tours)\".",
+       "\"Capacite de carburant\" n'est pas ce qu'on croit : c'est le nombre de litres charges par 1 % d'energie virtuelle (\"0.95\"). C'est la ligne qui fait que le carburant et l'energie s'epuisent en meme temps... ou pas.",
+       "En LMP2 il n'y a pas d'energie virtuelle : la ligne de carburant s'affiche directement en litres, \"75.0L (22.0 laps)\".",
+       "Le programme vous previent tout seul, dans la bibliotheque de reglages : c'est l'avertissement de carburant court."
       ]
      }
     },
@@ -514,7 +673,8 @@
      "id": "no-se-toca",
      "titulo": {
       "es": "'Non-adjustable' y 'N/A'",
-      "en": "'Non-adjustable' and 'N/A'"
+      "en": "'Non-adjustable' and 'N/A'",
+      "fr": "\"Non-adjustable\" et \"N/A\""
      },
      "texto": {
       "es": [
@@ -524,6 +684,10 @@
       "en": [
        "It means THAT car does not let you change that line. It appears on the differential of almost every GT3, on the engine braking of several prototypes and on a few other things.",
        "It is not a fault in the game or in the program: it is the class regulations. In the setup editor those lines are grey and have no arrows."
+      ],
+      "fr": [
+       "Cela veut dire que CETTE voiture ne laisse pas toucher cette ligne. Cela apparait sur le differentiel de presque toutes les GT3, sur le frein moteur de plusieurs prototypes et sur quelques autres choses.",
+       "Ce n'est un defaut ni du jeu ni du programme : c'est le reglement de la categorie. Dans l'editeur, ces lignes sont en gris et sans fleches."
       ]
      }
     },
@@ -531,7 +695,8 @@
      "id": "clic",
      "titulo": {
       "es": "Un clic, un paso, una posicion",
-      "en": "A click, a step, a position"
+      "en": "A click, a step, a position",
+      "fr": "Un cran, un pas, une position"
      },
      "texto": {
       "es": [
@@ -541,6 +706,10 @@
       "en": [
        "When the manual says 'go up one click' it means moving the setting ONE position, whatever that is on that car: P7 to P8, 40% to 45%, -2.0 to -2.2 degrees.",
        "How much a click is worth is not something the game tells you. The program learns it from the setups you have on your computer (the 'Learn from my setups' button), and that is why the engineer can tell you how much to move and not just what to move."
+      ],
+      "fr": [
+       "Quand le manuel dit \"montez d'un cran\", cela veut dire bouger le reglage d'UNE position, quelle qu'elle soit sur cette voiture : de P7 a P8, de 40 % a 45 %, de -2,0 a -2,2 degres.",
+       "Ce que vaut un cran, le jeu ne le dit pas. Le programme l'apprend des reglages que vous avez sur votre ordinateur (bouton \"Apprendre de mes reglages\"), et c'est pour cela que l'ingenieur peut vous dire de combien bouger et pas seulement quoi bouger."
       ]
      }
     },
@@ -548,7 +717,8 @@
      "id": "lentas-rapidas",
      "titulo": {
       "es": "Curva lenta y curva rapida",
-      "en": "Slow corners and fast corners"
+      "en": "Slow corners and fast corners",
+      "fr": "Virage lent et virage rapide"
      },
      "texto": {
       "es": [
@@ -558,6 +728,10 @@
       "en": [
        "This is not about the corner number, it is about the speed you take it at. Slow is first or second gear, a hairpin; fast is fourth gear upwards, the kind you take without braking or nearly.",
        "It matters because in slow corners mechanical grip rules (springs, bars, differential) and in fast ones the air rules (wing and ride height). The same problem is fixed in different places depending on where it happens to you."
+      ],
+      "fr": [
+       "Cela ne depend pas du numero du virage mais de la vitesse a laquelle vous le passez. Lent, c'est en premiere ou en deuxieme, une epingle ; rapide, c'est en quatrieme et au-dela, de ceux qui se passent sans freiner ou presque.",
+       "C'est important parce que dans les lents c'est la mecanique qui commande (ressorts, barres, differentiel) et dans les rapides c'est l'air (aileron et hauteur de caisse). Le meme probleme se corrige a des endroits differents selon l'endroit ou il vous arrive."
       ]
      }
     },
@@ -565,7 +739,8 @@
      "id": "agarre",
      "titulo": {
       "es": "Agarre mecanico y agarre aerodinamico",
-      "en": "Mechanical grip and aerodynamic grip"
+      "en": "Mechanical grip and aerodynamic grip",
+      "fr": "Adherence mecanique et adherence aerodynamique"
      },
      "texto": {
       "es": [
@@ -577,6 +752,11 @@
        "MECHANICAL GRIP is what the tyre gives sitting on the ground: it depends on weight, springs, bars and the rubber. You have it at any speed, even stationary.",
        "AERODYNAMIC GRIP is what appears with speed, when the air pushes the car into the ground. At 60 km/h it does not exist; at 250 it is most of what is holding you.",
        "That is why a car can be brilliant in fast corners and have nothing in the slow ones, or the other way round."
+      ],
+      "fr": [
+       "L'ADHERENCE MECANIQUE, c'est celle que donne le pneu pose au sol : elle depend du poids, des ressorts, des barres et de la gomme. Vous l'avez a n'importe quelle vitesse, meme a l'arret.",
+       "L'ADHERENCE AERODYNAMIQUE, c'est celle qui apparait avec la vitesse, quand l'air plaque la voiture au sol. A 60 km/h elle n'existe pas ; a 250 c'est l'essentiel de ce qui vous tient.",
+       "C'est pour cela qu'une voiture peut etre a l'aise dans les virages rapides et n'avoir rien dans les lents, ou l'inverse."
       ]
      }
     },
@@ -584,7 +764,8 @@
      "id": "topado",
      "titulo": {
       "es": "Topado",
-      "en": "Maxed out"
+      "en": "Maxed out",
+      "fr": "En butee"
      },
      "texto": {
       "es": [
@@ -596,6 +777,11 @@
        "Said of a setting that cannot be moved any further that way: the bar is already at its softest, the wing at maximum.",
        "In the program's setup editor it is obvious: the arrow on that side goes grey and does not respond.",
        "When one axle is maxed out, the only way to keep balancing the car is to move the OTHER axle in the opposite direction."
+      ],
+      "fr": [
+       "Se dit d'un reglage qu'on ne peut plus bouger de ce cote-la : la barre est deja au plus souple, l'aileron au maximum.",
+       "Dans l'editeur de reglages du programme cela se voit tout de suite : la fleche de ce cote s'eteint et ne repond plus.",
+       "Quand un essieu est en butee, la seule facon de continuer a equilibrer la voiture est de bouger l'AUTRE essieu en sens inverse."
       ]
      }
     }
@@ -605,7 +791,8 @@
    "id": "ajustes",
    "titulo": {
     "es": "Los ajustes, uno a uno",
-    "en": "The settings, one by one"
+    "en": "The settings, one by one",
+    "fr": "Les reglages, un par un"
    },
    "entrada": {
     "es": [
@@ -617,6 +804,11 @@
      "Every setting you can change in the game's garage, with the same name the game gives it and telling you which garage page it is on.",
      "Each entry answers the same questions: what it is, what happens if you raise the number, what happens if you lower it, where you feel it on track, which other setting it is adjusted together with, and what to watch out for.",
      "If your car does not have one of these, or has it locked, that is not a fault: each class lets you change some things and not others."
+    ],
+    "fr": [
+     "Tous les reglages que l'on peut modifier dans le garage du jeu, avec le meme nom que celui que leur donne le jeu et en indiquant sur quelle page du garage se trouve chacun.",
+     "Chaque fiche repond aux memes questions : ce que c'est, ce qui se passe si vous montez le chiffre, ce qui se passe si vous le baissez, ou cela se sent en piste, avec quel autre reglage il se touche en couple, et de quoi il faut se mefier.",
+     "Si votre voiture n'a pas l'un d'eux, ou s'il est bloque, ce n'est pas un defaut : chaque categorie laisse toucher certaines choses et pas d'autres."
     ]
    },
    "grupos": [
@@ -3029,7 +3221,8 @@
    "id": "recetas",
    "titulo": {
     "es": "Recetas: que se toca junto con que",
-    "en": "Recipes: what is adjusted together with what"
+    "en": "Recipes: what is adjusted together with what",
+    "fr": "Recettes : ce qui se touche avec quoi"
    },
    "entrada": {
     "es": [
@@ -3043,6 +3236,12 @@
      "The steps are in order: try the first, and only move to the second if it is not enough. Do not do them all at once.",
      "A general warning: before touching the setup, rule out the obvious. Cold tyres, wrong pressures, a full tank and a dirty track explain more odd behaviour than any setting.",
      "VOCABULARY: here we say 'close' and 'open' the differential, which is what everybody calls it but is not how it appears in the game. Closing is raising the number of 'Power' or 'Coast' (Drivetrain > DIFFERENTIAL) and opening is lowering it, with one exception: in cars that show it in ramp degrees, like the Oreca, it is the other way round. It is explained in the chapter THE WORDS."
+    ],
+    "fr": [
+     "On ne corrige presque jamais un comportement avec un seul reglage. On le corrige avec un reglage principal et un autre qui compense ce que le premier abime. Ce chapitre est classe par ce que fait la voiture, pas par ce qu'on touche.",
+     "Les etapes sont dans l'ordre : essayez la premiere, et ne passez a la seconde que si cela ne suffit pas. Ne les faites pas toutes d'un coup.",
+     "Un avertissement general : avant de toucher au reglage, ecartez l'evident. Pneus froids, mauvaises pressions, plein d'essence et piste sale expliquent plus de comportements etranges que n'importe quel reglage.",
+     "VOCABULAIRE : ici on dit \"fermer\" et \"ouvrir\" le differentiel, comme tout le monde, mais cela n'apparait pas ainsi dans le jeu. Fermer, c'est monter le chiffre de \"Puissance\" ou d'\"Inertie\" (Transmission > DIFFERENTIEL), et ouvrir c'est le baisser, avec une exception : sur les voitures qui l'affichent en degres de rampe, comme l'Oreca, c'est l'inverse. C'est explique au chapitre LES MOTS."
     ]
    },
    "recetas": [
@@ -3474,7 +3673,8 @@
    "id": "categorias",
    "titulo": {
     "es": "Por categoria de coche",
-    "en": "By class"
+    "en": "By class",
+    "fr": "Par categorie"
    },
    "entrada": {
     "es": [
@@ -3482,6 +3682,9 @@
     ],
     "en": [
      "Each class in LMU is set up differently, not for the sake of it but because what holds the car up is different. In a prototype the air rules; in a GT3, mechanical grip and the tyres. Apply one class's method to the other and you waste your time."
+    ],
+    "fr": [
+     "Chaque categorie de LMU se regle differemment, non par caprice mais parce que ce qui tient la voiture n'est pas le meme. Dans un prototype, c'est l'air qui commande ; dans une GT3, la mecanique et les pneus. Appliquez la methode de l'une a l'autre et vous perdez votre temps."
     ]
    },
    "temas": [
@@ -3604,7 +3807,8 @@
    "id": "coches",
    "titulo": {
     "es": "Por coche",
-    "en": "By car"
+    "en": "By car",
+    "fr": "Par voiture"
    },
    "entrada": {
     "es": [
@@ -3618,6 +3822,12 @@
      "The technical sheet for each one (engine, capacity, power, where the engine sits and which wheels it drives) is in the program's Cars tab; this is the other half.",
      "Anything marked VERIFIED BY US we measured on track with the game's own telemetry. The rest is the normal way of working with that car layout: a starting point, not gospel.",
      "If a new car comes out and is not on the list, look for one with the engine in the same place and in the same class. They will be more alike than you think."
+    ],
+    "fr": [
+     "Les 35 voitures du jeu, groupees par categorie. Ce qui est ici, ce sont leurs manies AU MOMENT DE LES REGLER : par ou il faut generalement les prendre et ce qu'elles demandent.",
+     "La fiche technique de chacune (moteur, cylindree, puissance, position du moteur et roues motrices) est dans l'onglet Voitures du programme ; ceci est l'autre moitie.",
+     "Ce qui est marque VERIFIE PAR NOUS a ete mesure en piste avec la telemetrie du jeu. Le reste est la facon normale de travailler avec cette architecture de voiture : un point de depart, pas une verite absolue.",
+     "Si une voiture nouvelle sort et n'est pas dans la liste, cherchez-en une avec le moteur au meme endroit et de la meme categorie."
     ]
    },
    "grupos": [
@@ -4413,7 +4623,8 @@
    "id": "circuitos",
    "titulo": {
     "es": "Por circuito",
-    "en": "By track"
+    "en": "By track",
+    "fr": "Par circuit"
    },
    "entrada": {
     "es": [
@@ -4423,6 +4634,10 @@
     "en": [
      "What each track asks for. These are not finished setups: they are the decisions that change from one track to the next, and why.",
      "The question to ask at every track is always the same: is the time in the corners or on the straights? The answer decides the wing, and the wing decides almost everything else."
+    ],
+    "fr": [
+     "Ce que demande chaque trace. Ce ne sont pas des reglages tout faits : ce sont les decisions qui changent d'un circuit a l'autre, et pourquoi.",
+     "La question a se poser sur chaque circuit est toujours la meme : le temps est-il dans les virages ou dans les lignes droites ? La reponse decide de l'aileron, et l'aileron decide presque tout le reste."
     ]
    },
    "temas": [
