@@ -25,7 +25,8 @@
    "titulo": {
     "es": "Antes de rodar: tu puesto",
     "en": "Before you drive: your setup at home",
-    "fr": "Avant de rouler : votre poste de pilotage"
+    "fr": "Avant de rouler : votre poste de pilotage",
+    "de": "Bevor du faehrst: dein Platz zu Hause"
    },
    "temas": [
     {
@@ -33,7 +34,8 @@
      "titulo": {
       "es": "Por que esto va antes que la tecnica",
       "en": "Why this comes before technique",
-      "fr": "Pourquoi cela passe avant la technique"
+      "fr": "Pourquoi cela passe avant la technique",
+      "de": "Warum das vor der Technik kommt"
      },
      "texto": {
       "es": [
@@ -50,6 +52,11 @@
        "Avec un poste de pilotage mal reglé on ne peut pas bien conduire, quelle que soit votre technique. Ce n'est pas une question de confort : les informations avec lesquelles vous decidez (a quelle vitesse vous allez, combien il reste avant le virage, combien la voiture glisse) vous arrivent par les yeux, par les mains et par les oreilles, et si ces trois canaux sont mal reglés vous decidez avec de fausses donnees.",
        "Presque tout le monde saute ce chapitre et passe ensuite des mois a se battre contre des problemes qui n'etaient pas les siens. Une demi-heure ici vaut plus que vingt sessions.",
        "Et il y a un avantage : cela se regle UNE FOIS et c'est valable pour toujours, pour toutes les voitures et tous les circuits."
+      ],
+      "de": [
+       "Mit falsch eingestelltem Platz kann man nicht gut fahren, egal wie gut die Technik ist. Das ist keine Frage der Bequemlichkeit: die Informationen, mit denen du entscheidest (wie schnell du bist, wie weit die Kurve noch weg ist, wie stark das Auto rutscht), kommen ueber die Augen, die Haende und die Ohren. Sind diese drei Kanaele falsch eingestellt, entscheidest du mit falschen Daten.",
+       "Fast jeder ueberspringt dieses Kapitel und kaempft danach monatelang mit Problemen, die nie seine waren. Eine halbe Stunde hier ist mehr wert als zwanzig Runs.",
+       "Und es gibt einen Vorteil: das stellt man EINMAL ein und es gilt fuer immer, fuer jedes Auto und jede Strecke."
       ]
      }
     },
@@ -58,7 +65,8 @@
      "titulo": {
       "es": "El campo de vision (FOV): lo mas importante y lo que nadie toca",
       "en": "Field of view (FOV): the most important thing, and the one nobody touches",
-      "fr": "Le champ de vision (FOV) : le plus important, et ce que personne ne touche"
+      "fr": "Le champ de vision (FOV) : le plus important, et ce que personne ne touche",
+      "de": "Das Sichtfeld (FOV): das Wichtigste, und das, was keiner anfasst"
      },
      "texto": {
       "es": [
@@ -84,6 +92,14 @@
        "LE CHIFFRE QUI COMPTE EST LE VERTICAL, c'est ainsi que Le Mans Ultimate (et rFactor 2) le demande. Les deux autres affiches en dessous, horizontal et diagonal, servent pour d'autres jeux. Dans LMU on le change dans la voiture, dans les options de camera ou de siege.",
        "ATTENTION : un FOV correct SEMBLE MAUVAIS les premiers jours. On a l'impression d'aller plus vite, de voir moins et que la voiture est plus nerveuse. C'est precisement ce qui vous manquait. Tenez trois ou quatre sessions avant de juger.",
        "Si vous ne supportez pas la valeur correcte, approchez-vous-en petit a petit. Tout pas dans cette direction est deja une amelioration."
+      ],
+      "de": [
+       "Das Sichtfeld ist, wie viel von der Szene auf deinen Bildschirm passt. Ist es zu weit (der Wert, mit dem Spiele meist ausgeliefert werden), siehst du viel Welt, aber ALLES WIRKT LANGSAMER UND WEITER WEG als es ist.",
+       "Die Folgen sind genau die Probleme, die man anderen Dingen zuschreibt: du bremst zu spaet, weil die Kurve weiter weg aussieht, du schaetzt die Eingangsgeschwindigkeit falsch ein, und du merkst nicht, wenn das Auto zu rutschen beginnt, weil kleine Bewegungen winzig aussehen.",
+       "SO STELLT MAN ES EIN: der richtige Wert haengt von der Groesse deines Bildschirms und seinem Abstand zu deinen Augen ab, nicht von deinem Geschmack. Das Programm hat den Rechner eingebaut: druecke den Knopf hier unten, gib Breite, Hoehe und den Abstand zu deinen Augen ein, und du bekommst die Grad. Wenn du Breite und Hoehe nicht kennst, rechnet er sie aus den Zoll aus.",
+       "DIE ZAHL, DIE ZAEHLT, IST DIE VERTIKALE, so verlangt es Le Mans Ultimate (und rFactor 2). Die beiden anderen darunter, horizontal und diagonal, sind fuer Spiele, die anders danach fragen. In LMU aenderst du es im Auto, in den Kamera- oder Sitzoptionen.",
+       "ACHTUNG: ein richtiges Sichtfeld fuehlt sich die ersten Tage FALSCH an. Es wirkt schneller, du siehst scheinbar weniger und das Auto wirkt nervoeser. Genau das hat dir vorher gefehlt. Halte drei oder vier Runs durch, bevor du urteilst.",
+       "Wenn du den richtigen Wert nicht ertraegst, naehere dich ihm Schritt fuer Schritt. Jeder Schritt in diese Richtung ist schon eine Verbesserung."
       ]
      },
      "boton": {
@@ -95,7 +111,8 @@
      "titulo": {
       "es": "Los grados del volante tienen que coincidir",
       "en": "Your wheel rotation has to match",
-      "fr": "Les degres du volant doivent correspondre"
+      "fr": "Les degres du volant doivent correspondre",
+      "de": "Der Lenkeinschlag muss zusammenpassen"
      },
      "texto": {
       "es": [
@@ -115,6 +132,12 @@
        "Resultat : vous ne savez jamais vraiment quelle quantite de braquage vous mettez, et vos corrections sont trop courtes ou exagerees.",
        "COMMENT FAIRE : le plus simple est de regler la base sur le maximum qu'utilise le jeu (dans LMU, 900 degres est une bonne reference generale) et de laisser le jeu commander. Ensuite, dans la voiture, le reglage 'Angle de braquage' change la rotation des roues : celui-la, oui, est un reglage et une affaire de gout.",
        "VERIFICATION RAPIDE : voiture a l'arret, tournez votre volant d'un quart de tour et regardez le volant a l'ecran. Il doit avoir tourne pareil."
+      ],
+      "de": [
+       "Dein Lenkrad hat einen Gesamtdrehwinkel (900, 1080, was du in der Software der Basis eingestellt hast) und das Auto im Spiel hat seinen eigenen. Passen sie nicht zusammen, drehen sich die Raeder im Spiel um etwas anderes, wenn du zu Hause eine halbe Umdrehung machst.",
+       "Das Ergebnis: du weisst nie genau, wie viel Lenkung du gibst, und deine Korrekturen fallen zu kurz oder zu gross aus.",
+       "SO GEHT ES: am einfachsten stellst du die Basis auf das Maximum, das das Spiel nutzt (in LMU sind 900 Grad eine gute allgemeine Referenz) und laesst das Spiel bestimmen. Danach aendert im Auto die Einstellung 'Lenkeinschlag', wie weit die Raeder drehen: das IST eine Setup-Entscheidung und Geschmackssache.",
+       "SCHNELLE PROBE: Auto anhalten, dein Lenkrad eine Vierteldrehung drehen und das Lenkrad auf dem Bildschirm anschauen. Es muss sich gleich weit gedreht haben."
       ]
      }
     },
@@ -123,7 +146,8 @@
      "titulo": {
       "es": "La fuerza del volante es informacion, no musculacion",
       "en": "Force feedback is information, not a workout",
-      "fr": "Le retour de force est une information, pas de la musculation"
+      "fr": "Le retour de force est une information, pas de la musculation",
+      "de": "Force Feedback ist Information, kein Krafttraining"
      },
      "texto": {
       "es": [
@@ -143,6 +167,12 @@
        "L'ERREUR TYPIQUE est de monter la force au maximum. Quand la force est trop elevee, les pics sont coupes (on dit que ca sature) et tous les details disparaissent dans un mur de force constante. Vous sentez beaucoup et vous apprenez peu.",
        "COMMENT LE REGLER : baissez la force jusqu'a ce que, dans le virage le plus appuye du circuit, le volant soit lourd sans vous vaincre, puis montez ou descendez doucement en cherchant a sentir le moment ou le pneu avant commence a renoncer.",
        "ATTENTION A UNE PARTICULARITE DE LMU : si le jeu detecte que la physique tourne au ralenti (parce que l'ordinateur peine), il REDUIT tout seul la force du volant pour vous proteger. Si un jour le volant perd sa force d'un coup sans que vous ayez touche a rien, ce n'est pas la base : c'est le jeu. Fermez et rouvrez."
+      ],
+      "de": [
+       "Das Lenkrad ist nicht da, um dich zu ermueden: es ist da, um dir zu erzaehlen, was die Vorderachse macht. Wenn die Nase nach aussen zu schieben beginnt, wird das Lenkrad LEICHT. Diese Warnung kommt vor dem Bild, und sie ist der Unterschied zwischen rechtzeitig korrigieren und geradeaus in die Auslaufzone fahren.",
+       "DER TYPISCHE FEHLER ist, die Kraft auf Maximum zu stellen. Ist die Kraft zu hoch, werden die Spitzen abgeschnitten (man sagt, es 'clippt') und alle Details verschwinden in einer Wand konstanter Kraft. Du spuerst viel und erfaehrst wenig.",
+       "SO STELLT MAN ES EIN: senke die Kraft, bis das Lenkrad in der schwersten Kurve der Strecke schwer ist, dich aber nicht besiegt, und gehe von dort langsam hoch oder runter, bis du den Moment spuerst, in dem der Vorderreifen aufgibt.",
+       "ACHTUNG, EINE LMU-EIGENHEIT: erkennt das Spiel, dass die Physik zu langsam laeuft (weil der Rechner nicht hinterherkommt), REDUZIERT es die Lenkkraft von selbst, um dich zu schuetzen. Wenn das Lenkrad eines Tages ploetzlich schwach wird, ohne dass du etwas geaendert hast, ist es nicht die Basis: es ist das Spiel. Schliessen und neu starten."
       ]
      }
     },
@@ -151,7 +181,8 @@
      "titulo": {
       "es": "Los pedales: el freno es el que se aprende",
       "en": "Pedals: the brake is the one you learn",
-      "fr": "Les pedales : c'est le frein qui s'apprend"
+      "fr": "Les pedales : c'est le frein qui s'apprend",
+      "de": "Die Pedale: die Bremse ist die, die man lernt"
      },
      "texto": {
       "es": [
@@ -174,6 +205,13 @@
        "SI VOUS N'EN AVEZ PAS, il faudra etre plus fin avec la course, et il sera utile de baisser la 'Pression maximale de freinage' dans le reglage de la voiture pour avoir plus de plage utile.",
        "CALIBRAGE : assurez-vous qu'a fond vous atteignez 100 % et qu'au repos vous affichez 0. Un frein qui s'arrete a 92 % vous enleve du freinage dans tous les virages de la course.",
        "EXERCICE : dans une longue ligne droite, freinez a fond et relachez la pedale en comptant jusqu'a trois, de facon continue. Repetez dix fois. C'est la moitie du pilotage rapide."
+      ],
+      "de": [
+       "Gas und Kupplung sind fast egal. Ueber deine Rundenzeiten entscheidet die Bremse.",
+       "MIT LOAD CELL (eine Bremse, die auf KRAFT reagiert und nicht auf Weg) muss dein Fuss lernen, Kilo zu druecken, nicht Zentimeter zu fahren. Das trainiert man mit dem Bremsbalken auf dem Bildschirm: 100 % sicher erreichen und vor allem von 100 auf 40 sauber und wiederholbar loesen.",
+       "OHNE LOAD CELL musst du feiner mit dem Weg umgehen, und es lohnt sich, den 'Maximalen Bremsdruck' im Setup zu senken, um mehr nutzbaren Bereich zu haben.",
+       "KALIBRIERUNG: stelle sicher, dass du voll durchgetreten 100 % erreichst und losgelassen 0 anzeigst. Eine Bremse, die bei 92 % stehen bleibt, nimmt dir in jeder Kurve des Rennens Bremsleistung weg.",
+       "UEBUNG: auf einer langen Geraden voll bremsen und das Pedal beim Zaehlen bis drei gleichmaessig loesen. Zehnmal. Das ist die Haelfte des schnellen Fahrens."
       ]
      }
     },
@@ -182,7 +220,8 @@
      "titulo": {
       "es": "El sonido es un instrumento",
       "en": "Sound is an instrument",
-      "fr": "Le son est un instrument"
+      "fr": "Le son est un instrument",
+      "de": "Der Ton ist ein Instrument"
      },
      "texto": {
       "es": [
@@ -202,6 +241,12 @@
        "QUOI ECOUTER : le crissement des pneus quand ils commencent a glisser (c'est l'avertissement le plus fiable que vous demandez plus qu'il n'y a) ; le moteur, pour passer les rapports sans regarder ; et le bruit du fond qui frotte, qui vous dit que la voiture est trop basse ou que vous roulez sur quelque chose a eviter.",
        "Reglez le casque ou les enceintes a un volume ou VOUS ENTENDEZ LES PNEUS. Si vous n'entendez que le moteur, vous conduisez avec un canal en moins.",
        "Et coupez la musique. Cela parait bete, mais celui qui roule avec de la musique n'entend pas la voiture glisser."
+      ],
+      "de": [
+       "In einem echten Auto sagt dir der Koerper, was passiert. Zu Hause nicht, also muss das Ohr das ausgleichen, und es gibt mehr her, als man denkt.",
+       "WORAUF ZU HOEREN IST: das Quietschen der Reifen, wenn sie zu rutschen beginnen (die zuverlaessigste Warnung, dass du mehr verlangst als da ist); der Motor, um ohne Hinsehen zu schalten; und das Kratzen des Unterbodens, das dir sagt, dass das Auto zu tief ist oder dass du ueber etwas faehrst, das du meiden solltest.",
+       "Stelle Kopfhoerer oder Boxen so laut, dass du DIE REIFEN HOERST. Hoerst du nur den Motor, faehrst du mit einem Kanal weniger.",
+       "Und mach die Musik aus. Klingt albern, aber wer mit Musik faehrt, hoert das Auto nicht rutschen."
       ]
      }
     },
@@ -210,7 +255,8 @@
      "titulo": {
       "es": "Mira donde quieres ir, no donde estas",
       "en": "Look where you want to go, not where you are",
-      "fr": "Regardez ou vous voulez aller, pas ou vous etes"
+      "fr": "Regardez ou vous voulez aller, pas ou vous etes",
+      "de": "Schau dorthin, wo du hinwillst, nicht dorthin, wo du bist"
      },
      "texto": {
       "es": [
@@ -230,6 +276,12 @@
        "EN PRATIQUE : pendant que vous freinez, vous devez deja regarder la corde du virage. Quand vous arrivez a la corde, vous devez deja regarder la sortie. En sortant, vous regardez le prochain point de freinage.",
        "Cela corrige tout seul un tas d'erreurs : entrees de travers, sorties etroites et corrections tardives.",
        "Et cela aide beaucoup dans le trafic : en regardant loin, vous voyez arriver la voiture lente bien avant, et vous arrivez avec un plan au lieu d'une frayeur."
+      ],
+      "de": [
+       "Das ist der aelteste Rat ueberhaupt und der, den die meisten ignorieren. Das Auto faehrt dorthin, wo du hinschaust. Schaust du auf den Asphalt vor der Motorhaube, faehrst du reagierend; schaust du auf den Punkt, an dem du in zwei Sekunden sein willst, faehrst du vorausschauend.",
+       "IN DER PRAXIS: waehrend du bremst, musst du schon den Scheitelpunkt anschauen. Am Scheitelpunkt schaust du schon auf den Ausgang. Beim Herausbeschleunigen schaust du auf den naechsten Bremspunkt.",
+       "Das repariert von allein einen Haufen Fehler: schiefe Eingaenge, enge Ausgaenge und zu spaete Korrekturen.",
+       "Und es hilft enorm im Verkehr: wer weit schaut, sieht das langsamere Auto lange vorher und kommt mit einem Plan an statt mit einem Schreck."
       ]
      }
     }
@@ -240,7 +292,8 @@
    "titulo": {
     "es": "La tecnica, curva a curva",
     "en": "Technique, corner by corner",
-    "fr": "La technique, virage par virage"
+    "fr": "La technique, virage par virage",
+    "de": "Die Technik, Kurve fuer Kurve"
    },
    "temas": [
     {
@@ -248,7 +301,8 @@
      "titulo": {
       "es": "Una curva son cuatro cosas seguidas",
       "en": "A corner is four things in a row",
-      "fr": "Un virage, c'est quatre choses a la suite"
+      "fr": "Un virage, c'est quatre choses a la suite",
+      "de": "Eine Kurve besteht aus vier Dingen nacheinander"
      },
      "texto": {
       "es": [
@@ -277,6 +331,15 @@
        "4. SORTIE, en ouvrant le volant et les gaz en meme temps.",
        "L'ERREUR LA PLUS COURANTE est de tout melanger : arriver en freinant, tourner, et remettre les gaz avant que la voiture ne pointe vers la sortie. Ainsi on sort un peu mal de tous les virages.",
        "REGLE GENERALE : on perd plus de temps a mal sortir d'un virage long qu'a y entrer lentement. Le virage qui debouche sur une longue ligne droite est toujours le plus important du circuit."
+      ],
+      "de": [
+       "Jede Kurve, in jedem Auto, geht gleich: bremsen, einlenken, warten, herausbeschleunigen. Was sich zwischen einem GT3 und einem Hypercar aendert, ist nicht die Reihenfolge, sondern wie lange jeder Teil dauert.",
+       "1. BREMSEN, geradeaus und hart.",
+       "2. EINGANG, die Bremse loesen, waehrend du einlenkst.",
+       "3. SCHEITELPUNKT, der Punkt, an dem du dem inneren Rand am naechsten bist. Dort ist das Auto am langsamsten.",
+       "4. AUSGANG, Lenkung aufmachen und Gas geben, gleichzeitig.",
+       "DER HAEUFIGSTE FEHLER ist, alles auf einmal zu machen: bremsend ankommen, einlenken und Gas geben, bevor das Auto Richtung Ausgang zeigt. So kommt man aus jeder Kurve ein bisschen schlecht heraus.",
+       "GRUNDREGEL: man verliert mehr Zeit durch einen schlechten Ausgang aus einer langen Kurve als durch einen langsamen Eingang. Die Kurve vor der langen Geraden ist immer die wichtigste der Strecke."
       ]
      }
     },
@@ -285,7 +348,8 @@
      "titulo": {
       "es": "Frenar es tres cosas, no una",
       "en": "Braking is three things, not one",
-      "fr": "Freiner, c'est trois choses, pas une"
+      "fr": "Freiner, c'est trois choses, pas une",
+      "de": "Bremsen sind drei Dinge, nicht eines"
      },
      "texto": {
       "es": [
@@ -311,6 +375,14 @@
        "LE RELACHEMENT. Les derniers metres, quand vous tournez deja. La le frein se relache tres lentement, et c'est cela qui fait tourner la voiture.",
        "COMMENT S'ENTRAINER : au lieu de chercher a freiner plus tard, cherchez a freiner MIEUX. Freinez au meme endroit mais plus fort au debut et plus doux a la fin. Le point de freinage recule tout seul.",
        "SIGNE QUE C'EST BON : vous arrivez a la corde avec le pied deja hors du frein et sans avoir eu a corriger le volant."
+      ],
+      "de": [
+       "Das Bremsen hat drei Teile, und jeder wird einzeln trainiert.",
+       "DER SCHLAG. Am Anfang, mit geradem Auto und hoher Geschwindigkeit, kannst du am staerksten bremsen (die Luft drueckt das Auto auf den Boden und die Reifen halten mehr aus). Dort muss man HART und schnell treten, fast auf einmal. Die meisten druecken zu langsam und verschenken Meter.",
+       "DIE MODULATION. Mit sinkender Geschwindigkeit gibt es weniger Abtrieb, also musst du LOESEN, sonst blockierst du. Gut bremsen heisst, ab dem ersten Schlag nach und nach zu loesen, nicht den Fuss stehen zu lassen.",
+       "DAS AUSLEITEN. Die letzten Meter, wenn du schon einlenkst. Dort loest man die Bremse sehr langsam, und genau das laesst das Auto einlenken.",
+       "SO TRAINIERT MAN ES: statt spaeter zu bremsen, bremse BESSER. Bremse an deinem gewohnten Punkt, aber haerter am Anfang und weicher am Ende. Der Bremspunkt wandert von selbst nach hinten.",
+       "ZEICHEN, DASS ES STIMMT: du erreichst den Scheitelpunkt mit dem Fuss schon von der Bremse und ohne korrigiert zu haben."
       ]
      }
     },
@@ -319,7 +391,8 @@
      "titulo": {
       "es": "Soltar el freno girando (lo que otros llaman 'trail braking')",
       "en": "Releasing the brake as you turn (trail braking)",
-      "fr": "Relacher le frein en tournant (le trail braking)"
+      "fr": "Relacher le frein en tournant (le trail braking)",
+      "de": "Die Bremse im Einlenken loesen (Trail Braking)"
      },
      "texto": {
       "es": [
@@ -342,6 +415,13 @@
        "COMMENT FAIRE : quand le volant entre, le pied sort. Les deux mouvements ensemble et proportionnels : plus de volant, moins de frein. Comme une balancoire.",
        "ATTENTION : si vous exagerez, le train arriere devient tres leger et la voiture part. C'est la qu'intervient la repartition de freinage. Commencez en trainant peu de frein et allongez progressivement.",
        "OU CELA COMPTE LE PLUS : dans les virages lents et moyens a longue entree. Dans un virage rapide il n'y a presque rien a trainer."
+      ],
+      "de": [
+       "Das ist die Technik, die einen schnellen Fahrer von einem normalen trennt. Auf Deutsch: WEITER EIN WENIG BREMSEN, WAEHREND DU EINLENKST, und das Pedal nach und nach loesen, je mehr du einschlaegst.",
+       "WARUM ES FUNKTIONIERT: beim Bremsen wandert das Gewicht nach vorn, die Vorderraeder druecken staerker auf den Boden und haben mehr Grip. Laesst du die Bremse vor dem Einlenken auf einmal los, geht dieses Gewicht weg und die Nase steht genau dann ohne Grip da, wenn du ihn brauchst.",
+       "SO GEHT ES: waehrend die Lenkung hineingeht, geht der Fuss heraus. Beide Bewegungen gleichzeitig und im Verhaeltnis: mehr Lenkung, weniger Bremse. Wie eine Wippe.",
+       "VORSICHT: uebertreibst du es, wird die Hinterachse sehr leicht und das Auto dreht sich weg. Genau dort kommt die Bremsbalance ins Spiel. Fange mit wenig Restbremse an und steigere dich.",
+       "WO ES AM MEISTEN ZAEHLT: in langsamen und mittleren Kurven mit langem Eingang. In einer schnellen Kurve gibt es kaum etwas mitzuschleppen."
       ]
      }
     },
@@ -350,7 +430,8 @@
      "titulo": {
       "es": "El vertice: casi siempre, mas tarde de lo que crees",
       "en": "The apex: almost always later than you think",
-      "fr": "La corde : presque toujours plus tard qu'on ne croit"
+      "fr": "La corde : presque toujours plus tard qu'on ne croit",
+      "de": "Der Scheitelpunkt: fast immer spaeter, als man denkt"
      },
      "texto": {
       "es": [
@@ -373,6 +454,13 @@
        "CORDE TARDIVE : vous sacrifiez un peu de vitesse d'entree, vous tournez plus tard et vous arrivez a la corde avec la voiture deja pointee vers la sortie. Vous remettez les gaz plus tot et toute la ligne droite suivante est plus rapide.",
        "REGLE PRATIQUE : plus la ligne droite qui suit est longue, plus la corde doit etre tardive.",
        "ET L'INVERSE : dans un virage rapide qui debouche sur un autre virage, la corde peut avancer, car l'important n'est pas de remettre les gaz mais de ne pas perdre de vitesse."
+      ],
+      "de": [
+       "Der Scheitelpunkt ist der Punkt, an dem du dem inneren Rand am naechsten faehrst. Ihn gut zu waehlen ist die halbe Kurve.",
+       "FRUEHER SCHEITELPUNKT: du faehrst schnell hinein und es fuehlt sich gut an... und dann kommt das Auto am Ausgang an und zeigt nach aussen, und du musst vom Gas. Das ist der klassische Fehler, und ein hinterhaeltiger, weil es sich im Moment richtig anfuehlt.",
+       "SPAETER SCHEITELPUNKT: du gibst etwas Eingangsgeschwindigkeit auf, lenkst spaeter ein und erreichst den Scheitelpunkt mit dem Auto schon in Richtung Ausgang. Du gehst frueher ans Gas und die ganze folgende Gerade ist schneller.",
+       "FAUSTREGEL: je laenger die Gerade danach, desto spaeter der Scheitelpunkt.",
+       "UND UMGEKEHRT: in einer schnellen Kurve, die in eine weitere Kurve fuehrt, darf der Scheitelpunkt frueher liegen, denn dort zaehlt nicht das Gasgeben, sondern kein Tempo zu verlieren."
       ]
      }
     },
@@ -381,7 +469,8 @@
      "titulo": {
       "es": "La salida: el volante abre antes que el gas",
       "en": "The exit: the steering opens before the throttle does",
-      "fr": "La sortie : le volant s'ouvre avant les gaz"
+      "fr": "La sortie : le volant s'ouvre avant les gaz",
+      "de": "Der Ausgang: die Lenkung geht vor dem Gas auf"
      },
      "texto": {
       "es": [
@@ -404,6 +493,13 @@
        "SI VOUS PATINEZ EN SORTIE, ce n'est presque jamais trop de gaz : c'est des gaz avec trop de volant encore mis. Essayez d'ouvrir les mains plus tot plutot que d'appuyer moins.",
        "UTILISEZ TOUTE LA PISTE : en sortie il faut aller jusqu'au bord exterieur. Si vous finissez le virage au milieu du bitume, vous avez tourne plus que necessaire et vous etes alle moins vite que possible.",
        "DANS LES VOITURES TURBO il y a un retard entre l'appui et la poussee : il faut appuyer AVANT ce qui semble naturel, en comptant ce retard."
+      ],
+      "de": [
+       "Die Regel ist einfach: Gas und Lenkung koennen nicht beide am Maximum sein. Je mehr Lenkung drin ist, desto weniger Gas kannst du geben.",
+       "SO GEHT EIN GUTER AUSGANG: ab dem Scheitelpunkt machst du die Lenkung auf (du laesst das Auto nach aussen laufen) und gibst gleichzeitig Gas. Wenn das Lenkrad gerade steht, ist das Gas voll offen.",
+       "WENN DU AM AUSGANG DURCHDREHST, ist es fast nie zu viel Gas: es ist Gas mit zu viel Lenkung. Mach die Haende frueher auf, statt weniger zu treten.",
+       "NUTZE DIE GANZE STRECKE: am Ausgang muss man bis an den aeusseren Rand. Endest du in der Streckenmitte, hast du mehr eingelenkt als noetig und bist langsamer gefahren als moeglich.",
+       "BEI TURBOAUTOS gibt es eine Verzoegerung zwischen Treten und Schub: du musst FRUEHER treten, als es sich richtig anfuehlt."
       ]
      }
     },
@@ -412,7 +508,8 @@
      "titulo": {
       "es": "Las manos: cuanto menos, mejor",
       "en": "Your hands: the less, the better",
-      "fr": "Les mains : moins il y en a, mieux c'est"
+      "fr": "Les mains : moins il y en a, mieux c'est",
+      "de": "Die Haende: je weniger, desto besser"
      },
      "texto": {
       "es": [
@@ -432,6 +529,12 @@
        "SIGNE QU'IL Y A TROP DE VOLANT : si vous corrigez tout le long d'un virage, c'est que vous y etes entre avec le volant mal place des le depart. La solution n'est pas de mieux corriger, c'est d'entrer autrement.",
        "DOUX NE VEUT PAS DIRE LENT : on peut mettre le volant vite et rester doux. Ce qui est brutal, c'est le a-coup, le changement d'avis en plein virage.",
        "ET NE SERREZ PAS le volant. Les mains crispees, vous ne sentez pas ce que la base vous raconte, ce qui est pourtant tout son interet."
+      ],
+      "de": [
+       "Das Lenkrad will wenige, grosse und weiche Bewegungen. Jede kleine Korrektur ist Grip, den du fuer nichts ausgibst.",
+       "ZEICHEN FUER ZU VIEL LENKUNG: korrigierst du die ganze Kurve hindurch, bist du von Anfang an mit falscher Lenkung hineingefahren. Die Loesung ist nicht, besser zu korrigieren, sondern anders hineinzufahren.",
+       "WEICH HEISST NICHT LANGSAM: man kann schnell einlenken und trotzdem weich sein. Hart ist der Ruck, der Sinneswandel mitten in der Kurve.",
+       "UND DRUECKE DAS LENKRAD NICHT. Mit verkrampften Haenden spuerst du nicht, was die Basis dir erzaehlt, und genau dafuer ist sie da."
       ]
      }
     },
@@ -440,7 +543,8 @@
      "titulo": {
       "es": "Los pianos: cuales se pisan y cuales no",
       "en": "Kerbs: which ones you use and which you do not",
-      "fr": "Les vibreurs : lesquels on prend et lesquels on evite"
+      "fr": "Les vibreurs : lesquels on prend et lesquels on evite",
+      "de": "Kerbs: welche man nimmt und welche nicht"
      },
      "texto": {
       "es": [
@@ -466,6 +570,14 @@
        "EN PROTOTYPE, MOINS DE VIBREUR : ils roulent plus bas et plus dur, et un vibreur haut derange leur aerodynamique en plus de leur suspension. Une LMP2 perd plus qu'elle ne gagne sur presque tous les vibreurs hauts.",
        "DEUX ROUES OUI, UNE NON : monter les deux roues d'un cote a la fois est bien plus stable que de lever une seule roue.",
        "ET ATTENTION AUX LIMITES : dans LMU, depasser les limites de piste annule votre tour ou vous vaut une penalite. Sur la carte du programme, un triangle marque l'endroit ou vous etes sorti la derniere fois."
+      ],
+      "de": [
+       "Ein gut genommener Kerb kuerzt die Kurve ab; ein schlecht genommener bringt das Auto aus der Ruhe oder macht es kaputt.",
+       "MAN NIMMT flache, niedrige Kerbs, vor allem am Scheitelpunkt mittlerer Kurven und mit bereits beruhigtem Auto.",
+       "MAN NIMMT NICHT die hohen, gezackten (die Schikanen in Monza oder Imola) mit beladenem Auto, und auch nicht die AUSGANGSKERBS, solange das Auto noch einlenkt: das ist der schnellste Weg zum Dreher.",
+       "IN PROTOTYPEN WENIGER KERB: sie fahren tiefer und haerter, und ein hoher Kerb stoert neben der Federung auch die Aerodynamik. Ein LMP2 verliert auf fast jedem hohen Kerb mehr, als er gewinnt.",
+       "MIT ZWEI RAEDERN JA, MIT EINEM NEIN: beide Raeder einer Seite gleichzeitig ueber den Kerb ist weit stabiler, als ein einzelnes Rad anzuheben.",
+       "UND ACHTUNG AUF DIE STRECKENGRENZEN: in LMU wird eine Runde geloescht oder bestraft, wenn du die Grenzen ueberschreitest. Die Karte dieses Programms zeigt ein Dreieck dort, wo du zuletzt neben die Strecke geraten bist."
       ]
      }
     },
@@ -474,7 +586,8 @@
      "titulo": {
       "es": "Marchas y freno motor",
       "en": "Gears and engine braking",
-      "fr": "Rapports et frein moteur"
+      "fr": "Rapports et frein moteur",
+      "de": "Gaenge und Motorbremse"
      },
      "texto": {
       "es": [
@@ -497,6 +610,13 @@
        "EN MONTANT : dans ces voitures on monte sans lever le pied. Il n'y a rien a accompagner, la voiture s'en charge.",
        "LE FREIN MOTEUR SE REGLE : si la voiture part de l'arriere quand vous levez, la ligne 'Frein moteur' du garage reduit cette retenue, et dans beaucoup de voitures elle se change au volant en roulant. Dans les hybrides, la regeneration fait aussi office de frein moteur.",
        "EN COURSE LONGUE : passer avant le rupteur economise le moteur et le carburant et ne coute presque rien."
+      ],
+      "de": [
+       "RUNTERSCHALTEN: die Gaenge gehen waehrend des Bremsens herunter, nicht alle am Ende. Wirfst du alle Schaltvorgaenge direkt vor dem Einlenken hinein, trifft die Motorbremse die Hinterachse auf einmal und kann sie loesen.",
+       "NICHT VORGREIFEN: zu frueh heruntergeschaltet bremst der Motor mehr, als du willst, genau waehrend du einlenkst.",
+       "BEIM HOCHSCHALTEN: in diesen Autos schaltet man ohne vom Gas zu gehen. Es gibt nichts zu begleiten, das macht das Auto.",
+       "DIE MOTORBREMSE IST EINE EINSTELLUNG: geht das Auto beim Gaswegnehmen hinten weg, reduziert die Zeile 'Motorbremse' in der Box diese Verzoegerung, und in vielen Autos laesst sie sich am Lenkrad waehrend der Fahrt aendern. Bei Hybriden wirkt auch die Rekuperation wie eine Motorbremse.",
+       "IN LANGEN RENNEN: vor dem Begrenzer schalten schont Motor und Sprit und kostet fast keine Zeit."
       ]
      }
     },
@@ -505,7 +625,8 @@
      "titulo": {
       "es": "Cuando el coche se cruza",
       "en": "When the car steps out",
-      "fr": "Quand la voiture part"
+      "fr": "Quand la voiture part",
+      "de": "Wenn das Auto ausbricht"
      },
      "texto": {
       "es": [
@@ -528,6 +649,13 @@
        "ET ENSUITE, RATTRAPER : des que la voiture repointe droit, il faut enlever le contre-braquage aussi vite que vous l'avez mis, sinon la voiture part de l'autre cote. Ce deuxieme depart finit souvent dans le mur.",
        "SI C'EST DEJA PERDU : embrayage a fond et frein. Un tete-a-queue tenu sur place coute moins de temps qu'un tete-a-queue qui traverse le bac a gravier.",
        "EN COURSE, SI CELA ARRIVE, regardez les retroviseurs avant de repartir. En multiclasse, une Hypercar peut arriver a deux cents."
+      ],
+      "de": [
+       "Zuerst: die meisten Dreher gehen nicht im Moment des Drehers verloren, sondern zwei Sekunden vorher, bei einem schlechten Eingang.",
+       "WAS ZU TUN IST: das Lenkrad in die Richtung drehen, in die das Heck geht (oder einfacher: SCHAU DORTHIN, WO DU HINWILLST, und lass die Haende den Augen folgen), und das Gas gleichmaessig zuruecknehmen. Nie abrupt: schlagartig vom Gas mitten im Rutschen macht aus einem Schreck einen Dreher.",
+       "UND DANN EINFANGEN: sobald das Auto wieder geradeaus zeigt, musst du den Gegenlenkeinschlag genauso schnell herausnehmen, wie du ihn hineingegeben hast, sonst schlaegt das Auto zur anderen Seite aus. Dieser zweite Ausschlag endet meist in der Mauer.",
+       "WENN ES SCHON VORBEI IST: Kupplung treten und bremsen. Ein Dreher auf der Stelle kostet weniger Zeit als einer quer durch das Kiesbett.",
+       "IM RENNEN, WENN ES PASSIERT, schau in die Spiegel, bevor du wieder auf die Strecke faehrst. Im Multiclass kann ein Hypercar mit zweihundert ankommen."
       ]
      }
     },
@@ -536,7 +664,8 @@
      "titulo": {
       "es": "Rapido no es lo mismo que consistente",
       "en": "Fast is not the same as consistent",
-      "fr": "Rapide n'est pas la meme chose que regulier"
+      "fr": "Rapide n'est pas la meme chose que regulier",
+      "de": "Schnell ist nicht dasselbe wie konstant"
      },
      "texto": {
       "es": [
@@ -556,6 +685,12 @@
        "LE TEST : faites cinq tours de suite et regardez les chronos. S'ils varient de plus d'une demi-seconde, le travail est de repeter, pas d'aller plus vite.",
        "COMMENT Y ARRIVER : rouler deux ou trois dixiemes sous votre limite. Cela sonne mal et c'est exactement l'inverse de ce qu'on croit : celui qui roule a 98 % fait de meilleures moyennes que celui qui vise 100 % et se trompe un tour sur trois.",
        "ET EN COURSE, en plus, celui qui roule a la limite use plus de pneus, plus de carburant et plus de freins."
+      ],
+      "de": [
+       "In der Langstrecke sind fuenf gleiche Runden mehr wert als eine gute und vier maessige. Und ausserdem: solange du nicht konstant bist, KANNST DU DAS AUTO NICHT ABSTIMMEN, weil du ihm in jeder Runde etwas anderes abverlangst.",
+       "DER TEST: fahre fuenf Runden am Stueck und schau dir die Zeiten an. Liegen sie mehr als eine halbe Sekunde auseinander, liegt die Arbeit im Wiederholen, nicht im Schnellerfahren.",
+       "WIE MAN DORTHIN KOMMT: zwei oder drei Zehntel unter deinem Limit fahren. Klingt falsch und ist genau umgekehrt: wer mit 98 % faehrt, hat bessere Durchschnitte als wer 100 % versucht und jede dritte Runde patzt.",
+       "UND IM RENNEN verbraucht der am Limit ausserdem mehr Reifen, mehr Sprit und mehr Bremsen."
       ]
      }
     }
@@ -566,7 +701,8 @@
    "titulo": {
     "es": "Como se aprende un circuito",
     "en": "How to learn a track",
-    "fr": "Comment apprendre un circuit"
+    "fr": "Comment apprendre un circuit",
+    "de": "Wie man eine Strecke lernt"
    },
    "temas": [
     {
@@ -574,7 +710,8 @@
      "titulo": {
       "es": "El metodo, en cuatro pasos",
       "en": "The method, in four steps",
-      "fr": "La methode, en quatre etapes"
+      "fr": "La methode, en quatre etapes",
+      "de": "Die Methode, in vier Schritten"
      },
      "texto": {
       "es": [
@@ -597,6 +734,13 @@
        "3. MONTEZ LE RYTHME PAR SECTEURS. N'essayez pas de faire tout le tour vite : prenez un secteur et faites-le bien, puis un autre. Un bon tour est la somme de bons secteurs.",
        "4. QUAND VOUS REPETEZ, commencez a toucher au reglage. Pas avant : vous ne sauriez pas si le changement a servi a quelque chose.",
        "Un circuit vraiment nouveau s'apprend en une bonne heure. Mal l'apprendre coute des semaines a se debarrasser de mauvaises habitudes."
+      ],
+      "de": [
+       "1. FAHRE LANGSAME RUNDEN. Drei oder vier, ohne zu druecken, und schau dir an, wohin die Strecke geht und wo die Kerbs, die Kuppen und die Fallen sind. Das ist langweilig und spart Stunden.",
+       "2. SUCHE DEINE ORIENTIERUNGSPUNKTE. Fuer jede Kurve brauchst du einen festen Punkt zum Bremsen, einen zum Einlenken und einen, den du beim Herausfahren anschaust.",
+       "3. STEIGERE DAS TEMPO ABSCHNITTSWEISE. Versuche nicht, gleich die ganze Runde schnell zu fahren: nimm dir einen Sektor vor und mach ihn gut, dann den naechsten. Eine gute Runde ist die Summe guter Sektoren.",
+       "4. WENN DU ES WIEDERHOLEN KANNST, fang an, das Setup zu aendern. Vorher nicht: du koenntest nicht beurteilen, ob eine Aenderung etwas gebracht hat.",
+       "Eine wirklich neue Strecke lernt man in einer guten Stunde. Sie schlecht zu lernen kostet Wochen, um sich die Angewohnheiten wieder abzugewoehnen."
       ]
      }
     },
@@ -605,7 +749,8 @@
      "titulo": {
       "es": "Referencias que no se mueven",
       "en": "References that do not move",
-      "fr": "Des reperes qui ne bougent pas"
+      "fr": "Des reperes qui ne bougent pas",
+      "de": "Orientierungspunkte, die sich nicht bewegen"
      },
      "texto": {
       "es": [
@@ -625,6 +770,12 @@
        "NE VALENT PAS : les traces de gomme (elles changent pendant la session), les voitures garees, les ombres (elles changent avec l'heure) ni les cones d'un degagement.",
        "ET ATTENTION A LA NUIT : la moitie de vos reperes disparait quand il fait sombre. Si vous courez longtemps, faites quelques tours de nuit en cherchant des reperes visibles aux phares.",
        "ASTUCE : au lieu de 'je freine au panneau des 100', prenez 'je freine quand le panneau des 100 passe au bord du capot'. Attache a votre propre vue, il ne ment jamais."
+      ],
+      "de": [
+       "Ein Orientierungspunkt taugt, wenn er IMMER an derselben Stelle ist und du ihn rechtzeitig siehst. Bremsschilder, Farbwechsel im Asphalt, das Ende einer Mauer, eine Bruecke, ein Zaunpfosten: alle gut.",
+       "TAUGEN NICHT: Gummiabrieb (aendert sich waehrend der Session), geparkte Autos, Schatten (aendern sich mit der Tageszeit) oder Pylonen in einer Auslaufzone.",
+       "UND ACHTUNG BEI NACHT: die Haelfte deiner Orientierungspunkte verschwindet im Dunkeln. Wenn du ein langes Rennen faehrst, dreh ein paar Runden bei Nacht und suche Punkte, die man im Scheinwerferlicht sieht.",
+       "TIPP: statt 'ich bremse beim 100er-Schild' nimm 'ich bremse, wenn das 100er-Schild die Kante meiner Motorhaube passiert'. An die eigene Sicht gebunden, luegt es nie."
       ]
      }
     },
@@ -633,7 +784,8 @@
      "titulo": {
       "es": "Lo que el programa te da para esto",
       "en": "What this program gives you for it",
-      "fr": "Ce que le programme vous donne pour cela"
+      "fr": "Ce que le programme vous donne pour cela",
+      "de": "Was dieses Programm dir dafuer gibt"
      },
      "texto": {
       "es": [
@@ -653,6 +805,12 @@
        "SELECTIONNER PLUSIEURS TOURS a la fois (avec Ctrl) pour voir le tour qui devrait sortir : bon dans le secteur 1 sur un tour et dans le 3 sur un autre.",
        "LA CARTE EN PISTE vous dit ou est chaque voiture sur le trace, et vous previent des voitures arretees devant avec plusieurs secondes d'avance. En multiclasse, c'est la moitie de la course.",
        "LES TRIANGLES de sortie de piste marquent le virage ou vous etes sorti, pour savoir ou vous en faites trop."
+      ],
+      "de": [
+       "LINIEN VERGLEICHEN (Optionen > Rundenzeiten > Linien vergleichen). Es zeichnet deine Runden ueber die Strecke in ihrer echten Breite und faerbt sie gegen die Referenz: rot, wo du langsamer bist, gruen, wo du gewinnst. Das ist der schnellste Weg zu sehen, dass du nicht die ganze Strecke nutzt oder zu frueh einlenkst.",
+       "MEHRERE RUNDEN GLEICHZEITIG markieren (mit Strg), um die Runde zu sehen, die eigentlich moeglich waere: in einer warst du im Sektor 1 gut, in einer anderen im Sektor 3.",
+       "DIE KARTE AUF DER STRECKE sagt dir, wo jedes Auto auf dem Kurs ist, und warnt vor stehenden Autos Sekunden im Voraus. Im Multiclass ist das das halbe Rennen.",
+       "DIE DREIECKE markieren, in welcher Kurve du neben die Strecke geraten bist, damit du weisst, wo du es uebertreibst."
       ]
      }
     },
@@ -661,7 +819,8 @@
      "titulo": {
       "es": "Cuando cada vuelta sale peor",
       "en": "When every lap is worse than the last",
-      "fr": "Quand chaque tour est pire que le precedent"
+      "fr": "Quand chaque tour est pire que le precedent",
+      "de": "Wenn jede Runde schlechter wird als die vorige"
      },
      "texto": {
       "es": [
@@ -681,6 +840,12 @@
        "QUE FAIRE : arretez-vous. Sortez de la voiture cinq minutes. Et en revenant, faites trois tours VOLONTAIREMENT LENTS, en ne cherchant qu'a les faire propres.",
        "Presque toujours, le probleme est que vous avez avance vos freinages tour apres tour sans vous en rendre compte, et que vous arrivez maintenant trop vite partout. La voiture n'a pas casse : c'est votre repere qui a casse.",
        "ET NE TOUCHEZ PAS AU REGLAGE dans cet etat. Vous finirez avec une voiture bizarre, en corrigeant un probleme qui etait le votre."
+      ],
+      "de": [
+       "Das passiert jedem: nach einer halben Stunde wirst du nicht schneller, du aergerst dich, druckst mehr und wirst noch langsamer.",
+       "WAS ZU TUN IST: aufhoeren. Fuenf Minuten aus dem Auto. Und wenn du zurueckkommst, drei ABSICHTLICH LANGSAME Runden fahren und nur darauf achten, dass sie sauber sind.",
+       "Fast immer liegt es daran, dass du deine Bremspunkte Runde fuer Runde unbemerkt nach vorn geschoben hast und jetzt ueberall zu schnell ankommst. Das Auto ist nicht kaputt: dein Orientierungspunkt ist es.",
+       "UND FASS IN DIESEM ZUSTAND DAS SETUP NICHT AN. Du endest mit einem seltsamen Auto und reparierst ein Problem, das deines war."
       ]
      }
     }
@@ -691,7 +856,8 @@
    "titulo": {
     "es": "Fallos tipicos y como se quitan",
     "en": "Common mistakes and how to get rid of them",
-    "fr": "Erreurs typiques et comment s'en debarrasser"
+    "fr": "Erreurs typiques et comment s'en debarrasser",
+    "de": "Typische Fehler und wie man sie loswird"
    },
    "entrada": {
     "es": [
@@ -705,6 +871,10 @@
     "fr": [
      "Classe par ce que vous ressentez, comme les recettes du tome reglages. La difference est qu'ici presque aucune solution n'est dans le garage : elles sont dans les pieds et dans les yeux.",
      "D'abord la question importante : SI LA VOITURE FAIT TOUJOURS LA MEME CHOSE, AU MEME ENDROIT ET AU MEME MOMENT, c'est la voiture et le reglage le corrigera. Si elle fait autre chose a chaque tour dans le meme virage, c'est vous, et aucun reglage n'y changera rien."
+    ],
+    "de": [
+     "Sortiert danach, was du spuerst, wie die Rezepte im Setup-Band. Der Unterschied: hier steht fast keine Loesung in der Box, sondern in den Fuessen und in den Augen.",
+     "Zuerst die wichtige Frage: MACHT DAS AUTO IMMER DASSELBE, AN DERSELBEN STELLE UND IM SELBEN MOMENT, dann liegt es am Auto und das Setup repariert es. Macht es in derselben Kurve jede Runde etwas anderes, liegt es an dir, und kein Setup wird das beheben."
     ]
    },
    "recetas": [
@@ -713,12 +883,14 @@
      "titulo": {
       "es": "Llego pasado y me como el vertice",
       "en": "I arrive too fast and miss the apex",
-      "fr": "J'arrive trop vite et je rate la corde"
+      "fr": "J'arrive trop vite et je rate la corde",
+      "de": "Ich komme zu schnell an und verpasse den Scheitelpunkt"
      },
      "sintoma": {
       "es": "Frenas, giras, y el coche llega al punto de giro con demasiada velocidad: te vas hacia fuera, tienes que corregir y sales fatal. Suele empeorar vuelta a vuelta.",
       "en": "You brake, you turn, and the car arrives at the turn-in point carrying too much speed: you run wide, you have to correct and the exit is ruined. It usually gets worse lap after lap.",
-      "fr": "Vous freinez, vous tournez, et la voiture arrive au point de braquage avec trop de vitesse : vous partez large, vous devez corriger et la sortie est gachee. Cela empire souvent tour apres tour."
+      "fr": "Vous freinez, vous tournez, et la voiture arrive au point de braquage avec trop de vitesse : vous partez large, vous devez corriger et la sortie est gachee. Cela empire souvent tour apres tour.",
+      "de": "Du bremst, lenkst ein, und das Auto erreicht den Einlenkpunkt mit zu viel Tempo: du faehrst nach aussen, musst korrigieren und der Ausgang ist ruiniert. Meist wird es Runde fuer Runde schlimmer."
      },
      "pasos": {
       "es": [
@@ -741,17 +913,26 @@
        "3. REGARDEZ LA CORDE, pas le capot. Avec le regard court, on est toujours en retard sur tout.",
        "4. TOURNEZ PLUS TARD. Une corde tardive pardonne une entree rapide ; une corde precoce ne pardonne rien.",
        "5. SI CELA PERSISTE, verifiez votre champ de vision. Un FOV trop ouvert fait paraitre les virages plus loin et plus lents, et c'est la cause numero un de cette erreur."
+      ],
+      "de": [
+       "1. BREMSE NICHT SPAETER: bremse am Anfang HAERTER. Das Problem ist fast nie der Bremspunkt, sondern dass du langsam draufgehst und am Ende der Bremszone ankommst, ohne Tempo abgebaut zu haben.",
+       "2. GEH ZURUECK ZU DEINEM ORIENTIERUNGSPUNKT. Faehrst du schon eine halbe Stunde, hast du deine Bremspunkte fast sicher unbemerkt nach vorn geschoben. Fahre drei Runden absichtlich fuenf Meter frueher.",
+       "3. SCHAU AUF DEN SCHEITELPUNKT, nicht auf die Motorhaube. Mit kurzem Blick kommst du ueberall zu spaet.",
+       "4. LENKE SPAETER EIN. Ein spaeter Scheitelpunkt verzeiht einen schnellen Eingang; ein frueher verzeiht gar nichts.",
+       "5. WENN ES BLEIBT, pruefe dein Sichtfeld. Ein zu weites FOV laesst Kurven weiter weg und langsamer aussehen und ist die Ursache Nummer eins fuer diesen Fehler."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      },
      "ojo": {
       "es": "Ojo con el vicio de compensar: si entras pasado y lo tapas soltando el gas a mitad de curva, el crono no lo ensena pero pierdes dos decimas en cada curva.",
       "en": "Watch out for the habit of covering it up: if you enter too fast and hide it by lifting mid-corner, the lap time will not show it but you are losing two tenths in every corner.",
-      "fr": "Attention a l'habitude de camoufler : si vous entrez trop vite et que vous compensez en levant le pied au milieu du virage, le chrono ne le montre pas mais vous perdez deux dixiemes a chaque virage."
+      "fr": "Attention a l'habitude de camoufler : si vous entrez trop vite et que vous compensez en levant le pied au milieu du virage, le chrono ne le montre pas mais vous perdez deux dixiemes a chaque virage.",
+      "de": "Achtung auf die Angewohnheit, es zu kaschieren: faehrst du zu schnell hinein und deckst das mit Gaswegnehmen mitten in der Kurve zu, zeigt die Rundenzeit es nicht, aber du verlierst in jeder Kurve zwei Zehntel."
      }
     },
     {
@@ -759,12 +940,14 @@
      "titulo": {
       "es": "Me voy largo en la salida",
       "en": "I run wide on the exit",
-      "fr": "Je pars large en sortie"
+      "fr": "Je pars large en sortie",
+      "de": "Ich trage am Ausgang zu weit hinaus"
      },
      "sintoma": {
       "es": "Sales de la curva y el coche se te va a la hierba o al piano de fuera. En carrera acaba en vuelta anulada o en sancion.",
       "en": "You come out of the corner and the car runs onto the grass or the outside kerb. In a race that ends in a deleted lap or a penalty.",
-      "fr": "Vous sortez du virage et la voiture part sur l'herbe ou sur le vibreur exterieur. En course cela finit en tour annule ou en penalite."
+      "fr": "Vous sortez du virage et la voiture part sur l'herbe ou sur le vibreur exterieur. En course cela finit en tour annule ou en penalite.",
+      "de": "Du kommst aus der Kurve und das Auto laeuft ins Gras oder auf den aeusseren Kerb. Im Rennen endet das in geloeschter Runde oder Strafe."
      },
      "pasos": {
       "es": [
@@ -787,12 +970,20 @@
        "3. OUVREZ LE VOLANT AVANT D'APPUYER. Si vous mettez les gaz volant encore tourne, la voiture s'elargit toute seule.",
        "4. SI C'EST DANS UN VIRAGE RAPIDE, cela peut vraiment venir de la voiture : voyez aileron et hauteur de caisse dans le tome reglages.",
        "5. UTILISEZ LES TRIANGLES de la carte du programme : ils marquent exactement le virage ou vous sortez, et il y en a souvent un ou deux qui reviennent."
+      ],
+      "de": [
+       "1. DAS PROBLEM LIEGT AM EINGANG, nicht am Ausgang. Fast immer ist es ein frueher Scheitelpunkt: du hast zu frueh eingelenkt und das Auto kommt nach aussen zeigend an.",
+       "2. LENKE SPAETER EIN. Warte etwas laenger und ziele auf einen spaeteren Scheitelpunkt.",
+       "3. MACH DIE LENKUNG AUF, BEVOR DU TRITTST. Gibst du Gas mit noch eingeschlagenem Lenkrad, weitet sich das Auto von selbst.",
+       "4. IN EINER SCHNELLEN KURVE kann es wirklich am Auto liegen: schau dir Fluegel und Fahrzeughoehe im Setup-Band an.",
+       "5. NUTZE DIE DREIECKE auf der Karte des Programms: sie zeigen genau, in welcher Kurve du hinausfaehrst, und meist sind es ein oder zwei, die sich wiederholen."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      }
     },
     {
@@ -800,12 +991,14 @@
      "titulo": {
       "es": "Salgo lento de las curvas lentas",
       "en": "I come out of slow corners badly",
-      "fr": "Je sors mal des virages lents"
+      "fr": "Je sors mal des virages lents",
+      "de": "Ich komme schlecht aus langsamen Kurven"
      },
      "sintoma": {
       "es": "En las horquillas y curvas de segunda pierdes tiempo contra los demas, aunque entres bien.",
       "en": "In hairpins and second gear corners you lose time to everyone else, even when the entry felt fine.",
-      "fr": "Dans les epingles et les virages de deuxieme vous perdez du temps sur les autres, meme quand l'entree semblait bonne."
+      "fr": "Dans les epingles et les virages de deuxieme vous perdez du temps sur les autres, meme quand l'entree semblait bonne.",
+      "de": "In Haarnadeln und Kurven im zweiten Gang verlierst du Zeit gegen die anderen, auch wenn sich der Eingang gut angefuehlt hat."
      },
      "pasos": {
       "es": [
@@ -828,17 +1021,26 @@
        "3. GAZ PROGRESSIFS MAIS TOT. Il ne s'agit pas d'etre a fond plus tot ; il s'agit de commencer a appuyer plus tot et d'arriver a fond quand le volant est deja droit.",
        "4. SI VOUS PATINEZ en faisant cela, voyez le differentiel et le controle de traction dans le tome reglages.",
        "5. UTILISEZ TOUTE LA PISTE en sortie, jusqu'au bord exterieur."
+      ],
+      "de": [
+       "1. SPAETERER SCHEITELPUNKT. In einer Kurve vor einer Geraden zaehlt nicht, wie du hineinfaehrst, sondern mit welchem Tempo die Gerade beginnt.",
+       "2. FAHR ABSICHTLICH LANGSAMER HINEIN. Klingt seltsam und ist die Uebung, die am meisten bringt: etwas frueher bremsen, spaeter einlenken und frueher ans Gas. Die Rundenzeit ist fast immer besser.",
+       "3. GAS PROGRESSIV, ABER FRUEH. Es geht nicht darum, frueher voll zu sein; es geht darum, frueher anzufangen und voll zu sein, wenn das Lenkrad gerade steht.",
+       "4. WENN DU DABEI DURCHDREHST, schau dir Differential und Traktionskontrolle im Setup-Band an.",
+       "5. NUTZE DIE GANZE STRECKE am Ausgang, bis an den aeusseren Rand."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      },
      "ojo": {
       "es": "La curva que da a la recta mas larga del circuito vale mas que ninguna otra. Si solo vas a trabajar una curva, trabaja esa.",
       "en": "The corner leading onto the longest straight is worth more than any other. If you are only going to work on one corner, work on that one.",
-      "fr": "Le virage qui debouche sur la plus longue ligne droite vaut plus que tous les autres. Si vous ne travaillez qu'un virage, travaillez celui-la."
+      "fr": "Le virage qui debouche sur la plus longue ligne droite vaut plus que tous les autres. Si vous ne travaillez qu'un virage, travaillez celui-la.",
+      "de": "Die Kurve vor der laengsten Geraden ist mehr wert als jede andere. Wenn du nur eine Kurve bearbeitest, dann diese."
      }
     },
     {
@@ -846,12 +1048,14 @@
      "titulo": {
       "es": "Bloqueo la rueda delantera",
       "en": "I lock the front wheel",
-      "fr": "Je bloque la roue avant"
+      "fr": "Je bloque la roue avant",
+      "de": "Ich blockiere das Vorderrad"
      },
      "sintoma": {
       "es": "Frenas fuerte y una rueda de delante se planta y chirria. Deja un plano en la goma que notaras el resto del relevo.",
       "en": "You brake hard and a front wheel locks and squeals. It leaves a flat spot on the tyre that you will feel for the rest of the stint.",
-      "fr": "Vous freinez fort et une roue avant se bloque et crisse. Elle laisse un plat sur le pneu que vous sentirez tout le relais."
+      "fr": "Vous freinez fort et une roue avant se bloque et crisse. Elle laisse un plat sur le pneu que vous sentirez tout le relais.",
+      "de": "Du bremst hart und ein Vorderrad blockiert und quietscht. Es hinterlaesst eine Platte im Reifen, die du den ganzen Stint spuerst."
      },
      "pasos": {
       "es": [
@@ -874,17 +1078,26 @@
        "3. N'ENCHAINEZ PAS TOUS LES RETROGRADAGES en fin de freinage.",
        "4. SI C'EST TOUJOURS LE MEME VIRAGE ET LA MEME ROUE, c'est la voiture : repartition de freinage ou pressions. Voyez le tome reglages.",
        "5. PNEUS FROIDS : sur les deux premiers tours vous bloquerez plus. Ce n'est pas un defaut, c'est la temperature."
+      ],
+      "de": [
+       "1. KURZ LOESEN UND WIEDER TRETEN. Im Moment das Einzige, was hilft: loesen, bis das Rad wieder rollt.",
+       "2. BREMSE AM ENDE WEICHER. Blockieren passiert fast immer im letzten Teil der Bremszone, wenn kein Abtrieb mehr da ist und du gleich stark trittst.",
+       "3. WIRF NICHT ALLE SCHALTVORGAENGE ans Ende der Bremszone.",
+       "4. IMMER DIESELBE KURVE UND DASSELBE RAD? Dann liegt es am Auto: Bremsbalance oder Reifendruck. Siehe Setup-Band.",
+       "5. KALTE REIFEN: in den ersten zwei Runden blockierst du mehr. Das ist kein Fehler, das ist Temperatur."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      },
      "ojo": {
       "es": "Con ABS (GT3 e Hypercar) no llegaras a bloquear, pero un reparto mal puesto se manifiesta de otra manera: el eje trasero se suelta sin avisar. Es mas traicionero que un bloqueo.",
       "en": "With ABS (GT3 and Hypercar) you will not actually lock, but a bad brake bias shows up another way: the rear axle lets go without warning. That is more treacherous than a lock-up.",
-      "fr": "Avec l'ABS (GT3 et Hypercar) vous ne bloquerez pas vraiment, mais une mauvaise repartition se manifeste autrement : le train arriere part sans prevenir. C'est plus traitre qu'un blocage."
+      "fr": "Avec l'ABS (GT3 et Hypercar) vous ne bloquerez pas vraiment, mais une mauvaise repartition se manifeste autrement : le train arriere part sans prevenir. C'est plus traitre qu'un blocage.",
+      "de": "Mit ABS (GT3 und Hypercar) blockierst du nicht wirklich, aber eine falsche Bremsbalance zeigt sich anders: die Hinterachse geht ohne Vorwarnung weg. Das ist hinterhaeltiger als ein Blockierer."
      }
     },
     {
@@ -892,12 +1105,14 @@
      "titulo": {
       "es": "Se me cruza al entrar en la curva",
       "en": "The rear steps out on entry",
-      "fr": "L'arriere part a l'entree du virage"
+      "fr": "L'arriere part a l'entree du virage",
+      "de": "Das Heck bricht beim Einlenken aus"
      },
      "sintoma": {
       "es": "Sueltas el freno, metes volante, y la cola se va. Pasa mas cuanto mas fuerte has frenado.",
       "en": "You release the brake, add steering, and the rear comes around. It happens more the harder you have braked.",
-      "fr": "Vous relachez le frein, vous mettez du volant, et l'arriere s'en va. Cela arrive d'autant plus que vous avez freine fort."
+      "fr": "Vous relachez le frein, vous mettez du volant, et l'arriere s'en va. Cela arrive d'autant plus que vous avez freine fort.",
+      "de": "Du loest die Bremse, lenkst ein, und das Heck kommt. Je haerter du gebremst hast, desto eher."
      },
      "pasos": {
       "es": [
@@ -920,12 +1135,20 @@
        "3. NE DESCENDEZ PAS AUTANT DE RAPPORTS d'un coup : le frein moteur arrive sur le train arriere au pire moment.",
        "4. SI CELA ARRIVE TOUJOURS PAREIL, c'est la voiture : avancez la repartition de freinage d'un point. C'est la premiere correction et elle se teste en un tour.",
        "5. DANS LES VOITURES A MOTEUR ARRIERE (911 GT3 R, 992 Cup) c'est leur caractere : on freine droit et on tourne apres, pas les deux a la fois."
+      ],
+      "de": [
+       "1. LOESE DIE BREMSE LANGSAMER. Die Hinterachse wird beim Bremsen leicht; laesst du zusaetzlich im Einlenken abrupt los, bleibt ihr nichts.",
+       "2. WENIGER LENKUNG AM EINGANG. Ein harter Einschlag bei noch bremsendem Auto ist das Rezept fuer den Ausbruch.",
+       "3. SCHALTE NICHT SO VIELE GAENGE auf einmal herunter: die Motorbremse trifft die Hinterachse im schlechtesten Moment.",
+       "4. PASSIERT ES IMMER GLEICH, liegt es am Auto: Bremsbalance einen Punkt nach vorn. Das ist die erste Korrektur und in einer Runde getestet.",
+       "5. BEI HECKMOTORAUTOS (911 GT3 R, 992 Cup) gehoert das zum Charakter: man bremst geradeaus und lenkt danach ein, nicht beides zugleich."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      }
     },
     {
@@ -933,12 +1156,14 @@
      "titulo": {
       "es": "Patino al acelerar",
       "en": "I spin the wheels on the throttle",
-      "fr": "Je patine a l'acceleration"
+      "fr": "Je patine a l'acceleration",
+      "de": "Ich drehe beim Beschleunigen durch"
      },
      "sintoma": {
       "es": "Abres el gas saliendo y el eje trasero se va o las ruedas giran en vacio. Peor con gomas usadas y con pista fria.",
       "en": "You open the throttle on exit and the rear steps out or the wheels spin. Worse with used tyres and a cold track.",
-      "fr": "Vous mettez les gaz en sortie et l'arriere part ou les roues tournent dans le vide. Pire avec des pneus uses et une piste froide."
+      "fr": "Vous mettez les gaz en sortie et l'arriere part ou les roues tournent dans le vide. Pire avec des pneus uses et une piste froide.",
+      "de": "Du gibst am Ausgang Gas und das Heck kommt oder die Raeder drehen durch. Schlimmer mit gebrauchten Reifen und kalter Strecke."
      },
      "pasos": {
       "es": [
@@ -961,17 +1186,26 @@
        "3. AVEC UN TURBO, comptez le retard : si vous attendez de sentir la poussee pour doser, vous etes deja en retard.",
        "4. SOUS LA PLUIE OU SUR PISTE FROIDE, tout cela est multiplie : il faut sortir bien plus droit.",
        "5. SI CELA PATINE ENCORE, montez d'un point le controle de traction ou fermez le differentiel en acceleration (tome reglages)."
+      ],
+      "de": [
+       "1. MACH DIE LENKUNG FRUEHER AUF. Es ist fast nie zu viel Gas: es ist zu viel Lenkung fuer das Gas, das du gibst.",
+       "2. GAS PROGRESSIV. Von 0 auf 100 in einer durchgehenden Bewegung, nicht als Stufe.",
+       "3. MIT TURBO die Verzoegerung einrechnen: wartest du auf den Schub, um zu dosieren, bist du schon zu spaet.",
+       "4. IM REGEN ODER AUF KALTER STRECKE vervielfacht sich all das: man muss viel gerader herausfahren.",
+       "5. DREHT ES IMMER NOCH DURCH, erhoehe die Traktionskontrolle um einen Punkt oder schliesse das Differential auf der Zugseite (Setup-Band)."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      },
      "ojo": {
       "es": "Patinar no solo te hace lento en esa salida: te calienta y te desgasta las gomas para todo el relevo.",
       "en": "Wheelspin does not only make that one exit slow: it heats and wears your tyres for the whole stint.",
-      "fr": "Patiner ne vous rend pas seulement lent sur cette sortie : cela chauffe et use vos pneus pour tout le relais."
+      "fr": "Patiner ne vous rend pas seulement lent sur cette sortie : cela chauffe et use vos pneus pour tout le relais.",
+      "de": "Durchdrehen macht dich nicht nur bei diesem Ausgang langsam: es heizt und verschleisst deine Reifen fuer den ganzen Stint."
      }
     },
     {
@@ -979,12 +1213,14 @@
      "titulo": {
       "es": "Hago una vuelta buena y luego cuatro regulares",
       "en": "One good lap and then four scrappy ones",
-      "fr": "Un bon tour puis quatre moyens"
+      "fr": "Un bon tour puis quatre moyens",
+      "de": "Eine gute Runde und danach vier maessige"
      },
      "sintoma": {
       "es": "Eres rapido a ratos pero no lo repites. En carrera pierdes mas por esto que por ritmo.",
       "en": "You are fast in patches but you cannot repeat it. In a race this costs you more than a lack of pace.",
-      "fr": "Vous etes rapide par moments mais vous ne le repetez pas. En course cela coute plus cher qu'un manque de rythme."
+      "fr": "Vous etes rapide par moments mais vous ne le repetez pas. En course cela coute plus cher qu'un manque de rythme.",
+      "de": "Du bist phasenweise schnell, wiederholst es aber nicht. Im Rennen kostet dich das mehr als fehlendes Tempo."
      },
      "pasos": {
       "es": [
@@ -1007,17 +1243,26 @@
        "3. DES REPERES FIXES. Si vous freinez au feeling, vous freinez a un endroit different a chaque tour sans le savoir.",
        "4. REGARDEZ VOS SECTEURS dans le comparateur de trajectoires : l'irregularite est presque toujours concentree sur deux virages.",
        "5. RESPIREZ ET DESSERREZ LES MAINS. Crispe, on n'est pas fin."
+      ],
+      "de": [
+       "1. NIMM ZWEI ZEHNTEL HERAUS. Mit 98 % zu fahren gibt bessere Durchschnitte als 100 % zu versuchen und jede dritte Runde zu patzen.",
+       "2. EINE SACHE PRO RUNDE. Nimm dir eine Kurve vor und mach sie gut; der Rest normal. Wenn die von allein sitzt, nimm die naechste.",
+       "3. FESTE ORIENTIERUNGSPUNKTE. Bremst du 'nach Gefuehl', bremst du jede Runde woanders, ohne es zu merken.",
+       "4. SCHAU DIR DEINE SEKTOREN im Linienvergleich an: die Schwankung steckt fast immer in zwei Kurven, nicht ueberall.",
+       "5. ATME UND MACH DIE HAENDE LOCKER. Verkrampft ist man nicht feinfuehlig."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      },
      "ojo": {
       "es": "Hasta que no seas consistente, no toques el reglaje: no vas a poder saber si un cambio ha servido.",
       "en": "Until you are consistent, do not touch the setup: you will not be able to tell whether a change helped.",
-      "fr": "Tant que vous n'etes pas regulier, ne touchez pas au reglage : vous ne pourrez pas savoir si un changement a servi."
+      "fr": "Tant que vous n'etes pas regulier, ne touchez pas au reglage : vous ne pourrez pas savoir si un changement a servi.",
+      "de": "Solange du nicht konstant bist, fass das Setup nicht an: du wirst nicht beurteilen koennen, ob eine Aenderung geholfen hat."
      }
     },
     {
@@ -1025,12 +1270,14 @@
      "titulo": {
       "es": "En la segunda hora pierdo un segundo por vuelta",
       "en": "In the second hour I lose a second a lap",
-      "fr": "A la deuxieme heure je perds une seconde au tour"
+      "fr": "A la deuxieme heure je perds une seconde au tour",
+      "de": "In der zweiten Stunde verliere ich eine Sekunde pro Runde"
      },
      "sintoma": {
       "es": "Empiezas bien y te vas cayendo segun avanza el relevo.",
       "en": "You start well and fade as the stint goes on.",
-      "fr": "Vous commencez bien et vous vous effondrez au fil du relais."
+      "fr": "Vous commencez bien et vous vous effondrez au fil du relais.",
+      "de": "Du faengst gut an und faellst im Lauf des Stints ab."
      },
      "pasos": {
       "es": [
@@ -1053,12 +1300,20 @@
        "3. BUVEZ DE L'EAU. Serieusement : deux heures de concentration deshydratent et la premiere chose qu'on perd, c'est la vision lointaine.",
        "4. REGLEZ LA VOITURE POUR LA FIN DU RELAIS, pas pour les trois premiers tours. Une voiture facile gagne les courses longues.",
        "5. UTILISEZ LES COMMANDES AU VOLANT : repartition de freinage, melange et controle de traction se bougent en roulant."
+      ],
+      "de": [
+       "1. SCHAU, OB ES DIE REIFEN SIND ODER DU. Rutscht das Auto mehr und sind die Temperaturen hoch, sind es die Reifen. Faehrt das Auto gleich und kommst du zu spaet an die Bremspunkte, bist du es.",
+       "2. SITZPOSITION UND LENKKRAFT. Ist der Arm am Ende tot, ist dein Force Feedback zu stark. Runter damit: niemand faehrt schneller, weil er leidet.",
+       "3. TRINK WASSER. Ernsthaft: zwei Stunden Konzentration dehydrieren, und das Erste, was verloren geht, ist der Blick in die Ferne.",
+       "4. STIMME DAS AUTO AUF DAS STINT-ENDE AB, nicht auf die ersten drei Runden. Ein leicht fahrbares Auto gewinnt lange Rennen.",
+       "5. NUTZE DIE LENKRADSCHALTER: Bremsbalance, Gemisch und Traktionskontrolle lassen sich waehrend der Fahrt anpassen."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      }
     },
     {
@@ -1066,12 +1321,14 @@
      "titulo": {
       "es": "No se si el problema soy yo o es el coche",
       "en": "I cannot tell if it is me or the car",
-      "fr": "Je ne sais pas si c'est moi ou la voiture"
+      "fr": "Je ne sais pas si c'est moi ou la voiture",
+      "de": "Ich weiss nicht, ob ich es bin oder das Auto"
      },
      "sintoma": {
       "es": "Vas lento y no sabes por donde atacarlo.",
       "en": "You are slow and you do not know where to start.",
-      "fr": "Vous etes lent et vous ne savez pas par ou commencer."
+      "fr": "Vous etes lent et vous ne savez pas par ou commencer.",
+      "de": "Du bist langsam und weisst nicht, wo du anfangen sollst."
      },
      "pasos": {
       "es": [
@@ -1094,12 +1351,20 @@
        "3. PRENEZ LE REGLAGE PAR DEFAUT du jeu et faites quelques tours. Si vous allez pareil, le probleme n'etait pas dans votre reglage.",
        "4. ESSAYEZ UNE AUTRE VOITURE de la meme categorie. Si vous allez bien avec, la votre demande un style que vous n'avez pas encore.",
        "5. COMPAREZ VOTRE TRAJECTOIRE avec un bon tour dans le programme : on voit tout de suite si vous perdez en virage, au freinage ou en sortie."
+      ],
+      "de": [
+       "1. DER FUENF-RUNDEN-TEST. Schwanken deine Zeiten um mehr als eine halbe Sekunde, bist du das Problem und das Setup kann warten.",
+       "2. SIND SIE KONSTANT, beschreibe WAS das Auto macht, WO und WANN. Mit diesen drei Angaben sagt dir der Ingenieur des Programms, was zu aendern ist.",
+       "3. NIMM DAS STANDARD-SETUP des Spiels und fahre ein paar Runden. Bist du damit aehnlich schnell, lag es nicht am Setup.",
+       "4. PROBIERE EIN ANDERES AUTO derselben Klasse. Geht es damit gut, verlangt deins einen Fahrstil, den du noch nicht hast.",
+       "5. VERGLEICHE DEINE LINIE mit einer guten Runde im Programm: dort sieht man sofort, ob du in der Kurve, beim Bremsen oder am Ausgang verlierst."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      }
     },
     {
@@ -1107,12 +1372,14 @@
      "titulo": {
       "es": "Levanto en las curvas rapidas",
       "en": "I lift in the fast corners",
-      "fr": "Je leve dans les virages rapides"
+      "fr": "Je leve dans les virages rapides",
+      "de": "Ich gehe in schnellen Kurven vom Gas"
      },
      "sintoma": {
       "es": "En las curvas de apoyo largo no te fias y levantas un poco, aunque el coche aguantaria.",
       "en": "In long, fast corners you do not trust it and lift slightly, even though the car would take it.",
-      "fr": "Dans les longs virages rapides vous ne vous fiez pas et vous levez un peu, alors que la voiture tiendrait."
+      "fr": "Dans les longs virages rapides vous ne vous fiez pas et vous levez un peu, alors que la voiture tiendrait.",
+      "de": "In langen schnellen Kurven traust du dich nicht und gehst kurz vom Gas, obwohl das Auto es halten wuerde."
      },
      "pasos": {
       "es": [
@@ -1135,17 +1402,26 @@
        "3. LEVER EN PLEIN VIRAGE EST PIRE QU'ENTRER UN PEU MOINS VITE : couper les gaz au milieu d'un virage rapide decharge le train arriere, et c'est la que les voitures partent vraiment. Si vous y allez, allez-y decide.",
        "4. FIEZ-VOUS AU VOLANT : s'il ne s'allege pas, l'avant a encore de l'adherence.",
        "5. SI LA VOITURE BOUGE VRAIMENT la-bas, ce n'est pas de la peur : il vous manque de l'appui. Montez l'aileron ou baissez la hauteur arriere."
+      ],
+      "de": [
+       "1. DAS IST NORMAL UND VERGEHT MIT WIEDERHOLUNG. Niemand faehrt am ersten Tag voll durch eine schnelle Kurve.",
+       "2. STEIGERE IN KLEINEN SCHRITTEN. Jede Runde eine Spur schneller. Versuche nicht, sie auf einen Schlag voll zu fahren.",
+       "3. MITTEN IN DER KURVE VOM GAS ZU GEHEN IST SCHLIMMER, ALS ETWAS LANGSAMER HINEINZUFAHREN: das Gaswegnehmen entlastet die Hinterachse, und dann drehen sich Autos wirklich. Wenn du hineinfaehrst, dann entschlossen.",
+       "4. VERTRAU DEM LENKRAD: wird es nicht leicht, hat die Vorderachse noch Grip.",
+       "5. BEWEGT SICH DAS AUTO DORT WIRKLICH, ist es keine Angst: dir fehlt Abtrieb. Mehr Fluegel oder die Hinterachse tiefer."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      },
      "ojo": {
       "es": "En un prototipo, las curvas rapidas se hacen a velocidades que parecen imposibles. Ahi la aerodinamica hace un trabajo que no se ve, y hay que aprender a fiarse de ella.",
       "en": "In a prototype, fast corners are taken at speeds that look impossible. There the aerodynamics do work you cannot see, and you have to learn to trust them.",
-      "fr": "En prototype, les virages rapides se prennent a des vitesses qui paraissent impossibles. L'aerodynamique y fait un travail qu'on ne voit pas, et il faut apprendre a lui faire confiance."
+      "fr": "En prototype, les virages rapides se prennent a des vitesses qui paraissent impossibles. L'aerodynamique y fait un travail qu'on ne voit pas, et il faut apprendre a lui faire confiance.",
+      "de": "In einem Prototyp werden schnelle Kurven mit Geschwindigkeiten gefahren, die unmoeglich aussehen. Dort leistet die Aerodynamik Arbeit, die man nicht sieht, und man muss lernen, ihr zu vertrauen."
      }
     },
     {
@@ -1153,12 +1429,14 @@
      "titulo": {
       "es": "Me quedo enganchado detras de un coche mas lento",
       "en": "I get stuck behind a slower car",
-      "fr": "Je reste bloque derriere une voiture plus lente"
+      "fr": "Je reste bloque derriere une voiture plus lente",
+      "de": "Ich haenge hinter einem langsameren Auto fest"
      },
      "sintoma": {
       "es": "Le alcanzas, te pegas, y pierdes mas tiempo del que perderias esperando.",
       "en": "You catch it, you sit on its gearbox, and you lose more time than you would by waiting.",
-      "fr": "Vous la rattrapez, vous vous collez, et vous perdez plus de temps qu'en attendant."
+      "fr": "Vous la rattrapez, vous vous collez, et vous perdez plus de temps qu'en attendant.",
+      "de": "Du holst es ein, klebst dran und verlierst mehr Zeit, als wenn du wartest."
      },
      "pasos": {
       "es": [
@@ -1181,12 +1459,20 @@
        "3. ANTICIPEZ AVEC LA CARTE : dans le programme vous voyez la voiture lente devant plusieurs secondes a l'avance.",
        "4. SI C'EST VOTRE CATEGORIE ET QU'IL NE VOUS LAISSE PAS, patientez : deux tours d'attente coutent moins qu'un accrochage.",
        "5. SI C'EST UNE AUTRE CATEGORIE, voyez le chapitre du trafic : les regles ne sont pas les memes."
+      ],
+      "de": [
+       "1. KLEB NICHT IN DEN KURVEN. Dicht dahinter verlierst du Frontabtrieb, untersteuerst und kochst die Reifen. Lass eine Luecke und bereite den Ausgang vor.",
+       "2. GIB IN DER KURVE DAVOR ETWAS AUF, um mit Schwung auf die Gerade zu kommen. Das ist das einfachste Ueberholmanoever, das es gibt.",
+       "3. NUTZE DIE KARTE: im Programm siehst du das langsame Auto Sekunden im Voraus und kommst mit einem Plan an.",
+       "4. IST ES DEINE KLASSE UND ER LAESST DICH NICHT VORBEI, hab Geduld: zwei Runden warten kosten weniger als eine Beruehrung.",
+       "5. IST ES EINE ANDERE KLASSE, siehe das Kapitel ueber Verkehr: dort gelten andere Regeln."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      }
     },
     {
@@ -1194,12 +1480,14 @@
      "titulo": {
       "es": "Me anulan las vueltas por limites de pista",
       "en": "My laps get deleted for track limits",
-      "fr": "On m'annule les tours pour limites de piste"
+      "fr": "On m'annule les tours pour limites de piste",
+      "de": "Meine Runden werden wegen Streckenbegrenzung geloescht"
      },
      "sintoma": {
       "es": "Pasas por fuera de la linea blanca y el juego te anula la vuelta o te sanciona.",
       "en": "You run beyond the white line and the game deletes the lap or gives you a penalty.",
-      "fr": "Vous passez au-dela de la ligne blanche et le jeu annule le tour ou vous penalise."
+      "fr": "Vous passez au-dela de la ligne blanche et le jeu annule le tour ou vous penalise.",
+      "de": "Du faehrst ueber die weisse Linie hinaus und das Spiel loescht die Runde oder bestraft dich."
      },
      "pasos": {
       "es": [
@@ -1222,12 +1510,20 @@
        "3. RETARDEZ LA CORDE de ce virage : presque tous les debordements de sortie viennent d'un braquage trop precoce.",
        "4. GARDEZ UNE MARGE en course. Grignoter la limite au tour 3 d'une course de six heures n'en vaut pas la peine.",
        "5. EN ESSAIS ET QUALIFICATIONS le jeu annule le tour ; en course il penalise. Ce sont deux avertissements differents."
+      ],
+      "de": [
+       "1. SCHAU, WO. Die Dreiecke auf der Karte zeigen die genauen Kurven, und es sind fast immer ein oder zwei.",
+       "2. ES IST NICHT DER KERB, ES IST DIE LINIE. LMU misst an der weissen Linie: man kann Kerb nehmen und trotzdem drin sein, oder draussen sein, ohne Gras beruehrt zu haben.",
+       "3. SCHEITELPUNKT SPAETER in dieser Kurve: fast jedes Hinaustragen kommt vom zu fruehen Einlenken.",
+       "4. LASS IM RENNEN LUFT. Am Limit der Streckenbegrenzung in Runde 3 eines Sechsstundenrennens lohnt sich nicht.",
+       "5. IM TRAINING UND QUALIFYING loescht das Spiel die Runde; im Rennen bestraft es. Das sind zwei verschiedene Meldungen."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      }
     },
     {
@@ -1235,12 +1531,14 @@
      "titulo": {
       "es": "Con las gomas usadas me caigo mucho",
       "en": "I fall away badly on old tyres",
-      "fr": "Avec des pneus uses je m'effondre"
+      "fr": "Avec des pneus uses je m'effondre",
+      "de": "Mit gebrauchten Reifen breche ich ein"
      },
      "sintoma": {
       "es": "Las primeras vueltas vas bien y a partir de la mitad del relevo pierdes un monton.",
       "en": "The first laps are fine and from mid-stint you lose a lot.",
-      "fr": "Les premiers tours vont bien et a partir du milieu du relais vous perdez enormement."
+      "fr": "Les premiers tours vont bien et a partir du milieu du relais vous perdez enormement.",
+      "de": "Die ersten Runden laufen gut und ab der Stintmitte verlierst du viel."
      },
      "pasos": {
       "es": [
@@ -1263,17 +1561,26 @@
        "3. MOINS DE VOLANT. Un pneu use pardonne beaucoup moins les mouvements brusques.",
        "4. UTILISEZ LES COMMANDES AU VOLANT : montez d'un point le controle de traction et avancez un peu la repartition de freinage.",
        "5. S'ILS S'EFFONDRENT TRES TOT, voyez pressions, carrossage et differentiel dans le tome reglages."
+      ],
+      "de": [
+       "1. AENDERE DEINEN FAHRSTIL, nicht nur das Auto. Mit gebrauchten Reifen bremst man frueher und weicher, faehrt langsamer hinein und gerader heraus.",
+       "2. NOCH SPAETERER SCHEITELPUNKT: mit weniger Grip muss das Auto mehr zum Ausgang zeigen, bevor du trittst.",
+       "3. WENIGER LENKUNG. Ein abgefahrener Reifen verzeiht harte Bewegungen viel weniger.",
+       "4. NUTZE DIE LENKRADSCHALTER: Traktionskontrolle einen Punkt hoch und die Bremsbalance im Lauf des Stints etwas nach vorn.",
+       "5. BRECHEN SIE SEHR FRUEH EIN, schau dir Druecke, Sturz und Differential im Setup-Band an."
       ]
      },
      "pasos_titulo": {
       "es": "QUE HACER, POR ORDEN",
       "en": "WHAT TO DO, IN ORDER",
-      "fr": "QUE FAIRE, DANS L'ORDRE"
+      "fr": "QUE FAIRE, DANS L'ORDRE",
+      "de": "WAS ZU TUN IST, DER REIHE NACH"
      },
      "ojo": {
       "es": "En resistencia esto no es un detalle: es la carrera. El que sabe rodar con gomas usadas hace un relevo mas que los demas.",
       "en": "In endurance racing this is not a detail: it is the race. Whoever can drive on worn tyres does one more stint than the rest.",
-      "fr": "En endurance ce n'est pas un detail : c'est la course. Celui qui sait rouler avec des pneus uses fait un relais de plus que les autres."
+      "fr": "En endurance ce n'est pas un detail : c'est la course. Celui qui sait rouler avec des pneus uses fait un relais de plus que les autres.",
+      "de": "In der Langstrecke ist das kein Detail: das IST das Rennen. Wer mit gebrauchten Reifen fahren kann, macht einen Stint mehr als die anderen."
      }
     }
    ]
@@ -1283,7 +1590,8 @@
    "titulo": {
     "es": "Carrera larga, trafico y condiciones",
     "en": "Long races, traffic and conditions",
-    "fr": "Course longue, trafic et conditions"
+    "fr": "Course longue, trafic et conditions",
+    "de": "Langes Rennen, Verkehr und Bedingungen"
    },
    "temas": [
     {
@@ -1291,7 +1599,8 @@
      "titulo": {
       "es": "Trafico multiclase: la regla del WEC",
       "en": "Multiclass traffic: the WEC rule",
-      "fr": "Trafic multiclasse : la regle du WEC"
+      "fr": "Trafic multiclasse : la regle du WEC",
+      "de": "Multiclass-Verkehr: die WEC-Regel"
      },
      "texto": {
       "es": [
@@ -1317,6 +1626,14 @@
        "SI VOUS RATTRAPEZ (vous etes en prototype) : passez en ligne droite des que possible, pas au milieu d'un virage rapide. Et ne plongez pas a l'interieur en comptant sur le fait que l'autre vous a vu.",
        "LE PROGRAMME AIDE : la carte montre les voitures par categorie avec des couleurs, et vous previent des voitures arretees plusieurs secondes a l'avance.",
        "EN PRATIQUE, la plupart des accrochages en endurance arrivent a deux endroits : au freinage d'un virage lent et a la sortie des stands."
+      ],
+      "de": [
+       "In LMU fahren mehrere Klassen gleichzeitig, mit sehr grossen Geschwindigkeitsunterschieden. Ein Hypercar holt alle paar Runden einen LMGT3 ein, und das muss von beiden Seiten gemanagt werden.",
+       "DIE GRUNDREGEL, die im WEC wirklich gilt: DER SCHNELLERE WAEHLT, DER LANGSAMERE HAELT SEINE LINIE. Wer aufholt, entscheidet, wo er vorbeigeht; wer eingeholt wird, faehrt seine normale Linie weiter, ohne Bremser und ohne seltsame Gesten, und geht wenn noetig kurz vom Gas.",
+       "WENN DU EINGEHOLT WIRST (du faehrst GT und ein Prototyp kommt): spring nicht abrupt zur Seite und verlass deine Linie nicht mitten in der Kurve. Halte deine Linie, sei BERECHENBAR, und mach das Ueberholen auf der naechsten Geraden leicht, indem du auf der Seite kurz vom Gas gehst, die nicht stoert. Gefaehrlich ist nicht, langsam zu sein: gefaehrlich ist, etwas zu tun, das der Hintermann nicht erwartet.",
+       "WENN DU AUFHOLST (du faehrst Prototyp): ueberhole auf der Geraden, wann immer es geht, nicht mitten in einer schnellen Kurve. Und stich nicht innen hinein im Vertrauen darauf, dass der andere dich gesehen hat.",
+       "DAS PROGRAMM HILFT: die Karte zeigt die Autos nach Klasse in Farben, du siehst den Prototyp also kommen, bevor du ihn hoerst, und sie warnt Sekunden im Voraus vor stehenden Autos.",
+       "IN DER PRAXIS passieren die meisten Beruehrungen in der Langstrecke an zwei Stellen: beim Bremsen in eine langsame Kurve und an der Boxenausfahrt."
       ]
      }
     },
@@ -1325,7 +1642,8 @@
      "titulo": {
       "es": "Banderas azules y espejos",
       "en": "Blue flags and mirrors",
-      "fr": "Drapeaux bleus et retroviseurs"
+      "fr": "Drapeaux bleus et retroviseurs",
+      "de": "Blaue Flaggen und Spiegel"
      },
      "texto": {
       "es": [
@@ -1345,6 +1663,12 @@
        "REGARDEZ LES RETROVISEURS DANS LES LIGNES DROITES, pas dans les virages. En virage vous devez regarder loin, et de toute facon il ne vous doublera pas la.",
        "SI ON DOIT VOUS DOUBLER DANS UNE SUITE DE VIRAGES, le mieux est presque toujours de garder votre trajectoire jusqu'a la prochaine ligne droite et de le laisser passer la.",
        "ET NE LEVEZ PAS BRUSQUEMENT. Un coup de frein pour 'etre gentil' est le moyen le plus rapide de se faire percuter."
+      ],
+      "de": [
+       "Die blaue Flagge sagt dir, dass ein schnelleres Auto kommt, meist aus einer anderen Klasse. Sie bedeutet NICHT, dass du anhalten oder die Strecke verlassen musst: sie bedeutet, ihn nicht aufzuhalten.",
+       "SCHAU AUF DEN GERADEN IN DIE SPIEGEL, nicht in den Kurven. In der Kurve musst du weit nach vorn schauen, und ueberholen wird er dich dort ohnehin nicht.",
+       "WIRST DU IN EINER KURVENKOMBINATION UEBERHOLT, ist es fast immer am besten, deine Linie bis zur naechsten Geraden zu halten und ihn dort vorbeizulassen.",
+       "UND GEH NICHT ABRUPT VOM GAS. Ein Bremser aus Hoeflichkeit ist der schnellste Weg, von hinten getroffen zu werden."
       ]
      }
     },
@@ -1353,7 +1677,8 @@
      "titulo": {
       "es": "La salida y la primera vuelta",
       "en": "The start and the first lap",
-      "fr": "Le depart et le premier tour"
+      "fr": "Le depart et le premier tour",
+      "de": "Der Start und die erste Runde"
      },
      "texto": {
       "es": [
@@ -1376,6 +1701,13 @@
        "LAISSEZ DE L'ESPACE. Au premier virage, tout le monde groupe, l'espace que vous croyiez avoir a disparu. Une place ne vaut pas six heures de course.",
        "MULTICLASSE AU DEPART : la grille est en general rangee par categorie, donc tout se melange dans les premiers tours. C'est le plus gros trafic de toute la course.",
        "PATIENCE AVEC LE PLEIN : la voiture est lourde, freine moins bien, touche plus et les pneus souffrent. Les premiers tours sont les plus lents du relais et c'est normal."
+      ],
+      "de": [
+       "Ein Rennen gewinnt man nicht in Runde 1, aber man verliert es dort sehr oft.",
+       "KALTE REIFEN UND BREMSEN: das Auto haftet und bremst nicht wie im Qualifying. Bremse frueher und geh nicht an die Streckengrenzen.",
+       "LASS PLATZ. In der ersten Kurve, mit allen zusammen, ist die Luecke, die du zu sehen glaubtest, verschwunden. Eine Position ist kein Sechsstundenrennen wert.",
+       "MULTICLASS AM START: das Feld steht meist nach Klassen sortiert, also mischt sich in den ersten Runden alles. Das ist der dichteste Verkehr des ganzen Rennens.",
+       "GEDULD MIT VOLLEM TANK: das Auto ist schwer, bremst schlechter, setzt eher auf und die Reifen leiden. Die ersten Runden sind die langsamsten des Stints, und das ist in Ordnung."
       ]
      }
     },
@@ -1384,7 +1716,8 @@
      "titulo": {
       "es": "Gestionar gomas y hacer un doble relevo",
       "en": "Managing tyres and double stinting",
-      "fr": "Gerer les pneus et faire un double relais"
+      "fr": "Gerer les pneus et faire un double relais",
+      "de": "Reifen managen und einen Doppelstint fahren"
      },
      "texto": {
       "es": [
@@ -1407,6 +1740,13 @@
        "COMMENT LES MENAGER : des gaz plus progressifs, des entrees plus propres et surtout ne pas se battre avec le volant. Rouler deux dixiemes moins vite peut vous donner cinq tours de pneu utile en plus.",
        "REGARDEZ LES DONNEES : les resultats ecrits par le jeu contiennent l'usure de chaque pneu tour par tour, la votre et celle des autres.",
        "AU DEUXIEME RELAIS avec les memes pneus : attendez-vous a moins d'adherence des le premier virage, pas des le cinquieme."
+      ],
+      "de": [
+       "In der Langstrecke spart dir ein Reifensatz, der zwei Stints haelt, einen Stopp und kann das Rennen gewinnen.",
+       "WAS SIE TOETET: Durchdrehen beim Beschleunigen, Blockieren beim Bremsen, seitliches Rutschen in Kurven und falsche Druecke. All das ist Hitze, und Hitze ist Verschleiss.",
+       "WIE MAN SIE SCHONT: progressiveres Gas, sauberere Eingaenge und vor allem nicht mit dem Lenkrad kaempfen. Zwei Zehntel langsamer zu fahren kann dir fuenf nutzbare Runden mehr geben.",
+       "SCHAU DIR DIE DATEN AN: in den Ergebnissen, die das Spiel schreibt, steht der Reifenverschleiss Runde fuer Runde, deiner und der der anderen.",
+       "IM ZWEITEN STINT mit denselben Reifen: rechne ab der ersten Kurve mit weniger Grip, nicht ab der fuenften."
       ]
      }
     },
@@ -1415,7 +1755,8 @@
      "titulo": {
       "es": "Ahorrar combustible y energia sin perder tiempo",
       "en": "Saving fuel and energy without losing time",
-      "fr": "Economiser carburant et energie sans perdre de temps"
+      "fr": "Economiser carburant et energie sans perdre de temps",
+      "de": "Sprit und Energie sparen, ohne Zeit zu verlieren"
      },
      "texto": {
       "es": [
@@ -1438,6 +1779,13 @@
        "MELANGE PLUS PAUVRE : cela se change au volant. Dans les zones ou la puissance compte moins, vous pouvez rouler en carte d'economie.",
        "PASSER AVANT LE RUPTEUR economise et ne coute presque rien.",
        "ET LE PLUS IMPORTANT : avant de sortir, verifiez que le carburant vous donne autant de tours que l'energie. C'est l'avertissement de carburant court que donne la bibliotheque du programme."
+      ],
+      "de": [
+       "In LMU faehrt man fast immer am Energielimit, also ist Sparen ohne viel langsamer zu werden mehr wert als reines Tempo.",
+       "FRUEHER VOM GAS ('lift and coast'): statt bis zum Bremspunkt voll zu bleiben, gehst du ein paar Meter frueher vom Gas und rollst hinein. Das kostet sehr wenig Zeit und spart einiges, weil der Motor genau dann aufhoert zu verbrauchen, wenn du diese Energie ohnehin in die Bremsen geworfen haettest.",
+       "MAGERERES GEMISCH: am Lenkrad umschaltbar. In Abschnitten, wo Leistung weniger zaehlt, kannst du im Sparmodus fahren.",
+       "VOR DEM BEGRENZER SCHALTEN spart und kostet fast nichts.",
+       "UND DAS WICHTIGSTE: pruefe vor der Ausfahrt, ob der Sprit fuer so viele Runden reicht wie die Energie. Das ist die Warnung vor knappem Sprit, die dir die Setup-Bibliothek des Programms gibt."
       ]
      }
     },
@@ -1446,7 +1794,8 @@
      "titulo": {
       "es": "Frenos, boxes y la parada",
       "en": "Brakes, pit lane and the stop",
-      "fr": "Freins, stands et arret"
+      "fr": "Freins, stands et arret",
+      "de": "Bremsen, Boxengasse und der Stopp"
      },
      "texto": {
       "es": [
@@ -1466,6 +1815,12 @@
        "LE LIMITEUR : enclenchez-le AVANT la ligne, pas dessus. Une penalite pour exces de vitesse aux stands coute plus que tout ce que vous avez gagne en piste.",
        "SORTIE DES STANDS : pneus froids, freins froids et voiture pleine. Les deux premiers virages sont les plus dangereux du relais.",
        "AVANT DE VOUS ARRETER, sachez ce que vous demandez : pneus ou pas, combien d'energie, et s'il y a un changement de pilote."
+      ],
+      "de": [
+       "BREMSEN VERSCHLEISSEN AUCH. Die Scheibe wird aufgebraucht, und wenn du sie am Limit faehrst, stehst du in den letzten Stunden ohne Bremse da. Man schont sie durch richtiges Bremsen (hart am Anfang, progressiv am Ende) und mit den richtigen Bremsschaechten.",
+       "DER BOXENBEGRENZER: schalte ihn VOR der Linie ein, nicht auf ihr. Eine Strafe wegen zu schnellen Fahrens in der Box kostet mehr als alles, was du auf der Strecke gewonnen hast.",
+       "BOXENAUSFAHRT: kalte Reifen, kalte Bremsen und volles Auto. Die ersten zwei Kurven sind die gefaehrlichsten des Stints.",
+       "BEVOR DU STOPPST, wisse, was du willst: Reifen oder nicht, wie viel Energie, und ob ein Fahrerwechsel ansteht."
       ]
      }
     },
@@ -1474,7 +1829,8 @@
      "titulo": {
       "es": "De noche",
       "en": "At night",
-      "fr": "De nuit"
+      "fr": "De nuit",
+      "de": "Bei Nacht"
      },
      "texto": {
       "es": [
@@ -1497,6 +1853,13 @@
        "LA PISTE REFROIDIT : moins d'adherence et des pneus plus longs a monter en temperature. Les pressions baissent. La voiture qui allait bien a cinq heures de l'apres-midi n'est plus la meme a minuit.",
        "LE TRAFIC SE VOIT MIEUX de nuit, parce qu'on voit arriver les phares de loin. Profitez-en.",
        "ET CELA FATIGUE PLUS. Des relais plus courts et plus d'eau."
+      ],
+      "de": [
+       "In einem langen Rennen faehrst du bei Nacht, und das ist nicht dasselbe.",
+       "DIE ORIENTIERUNGSPUNKTE AENDERN SICH: die Haelfte der Punkte vom Tag ist nicht mehr zu sehen. Dreh vor dem Rennen ein paar Runden im Dunkeln und such neue.",
+       "DIE STRECKE KUEHLT AB: weniger Grip und Reifen, die laenger brauchen. Die Druecke sinken. Das Auto, das um fuenf Uhr nachmittags gut war, ist um Mitternacht nicht dasselbe.",
+       "DER VERKEHR IST NACHTS BESSER ZU SEHEN, weil man Scheinwerfer von weitem kommen sieht. Nutze das.",
+       "UND ES ERMUEDET MEHR. Kuerzere Stints und mehr Wasser."
       ]
      }
     },
@@ -1505,7 +1868,8 @@
      "titulo": {
       "es": "Con lluvia y con pista secandose",
       "en": "In the rain and on a drying track",
-      "fr": "Sous la pluie et sur piste qui seche"
+      "fr": "Sous la pluie et sur piste qui seche",
+      "de": "Bei Regen und auf abtrocknender Strecke"
      },
      "texto": {
       "es": [
@@ -1528,6 +1892,13 @@
        "ATTENTION A L'EAU STAGNANTE : les flaques font flotter la voiture et vous perdez completement la direction. C'est la seule chose qui ne se corrige pas : il faut les eviter.",
        "PISTE QUI SECHE : une ligne seche apparait et s'elargit. La bonne trajectoire revient peu a peu vers l'habituelle, et celui qui s'adapte le premier gagne beaucoup de temps.",
        "ET LES PNEUS PLUIE MEURENT SUR PISTE SECHE : si cela seche et que vous restez dessus, vous ne faites pas que perdre du temps, vous les detruisez."
+      ],
+      "de": [
+       "BEI REGEN passiert alles frueher und sanfter: frueher bremsen, frueher einlenken, frueher aber langsamer ans Gas. Harte Bewegungen verzeiht niemand.",
+       "DIE LINIE AENDERT SICH: die uebliche Linie ist voller Gummi und die rutschigste. Im Regen faehrt man AUSSERHALB der normalen Linie und sucht sauberen Asphalt.",
+       "VORSICHT VOR STEHENDEM WASSER: Pfuetzen lassen das Auto aufschwimmen und du verlierst die Lenkung ganz. Das ist das Einzige am Regen, das man nicht korrigieren kann: man muss sie meiden.",
+       "ABTROCKNENDE STRECKE: eine trockene Linie entsteht und wird breiter. Die gute Linie wandert langsam zur ueblichen zurueck, und wer sich zuerst anpasst, gewinnt viel Zeit.",
+       "UND REGENREIFEN STERBEN AUF TROCKENER STRECKE: trocknet es ab und du bleibst drauf, bist du nicht nur langsam, du zerstoerst sie."
       ]
      }
     },
@@ -1536,7 +1907,8 @@
      "titulo": {
       "es": "Neutralizaciones y banderas",
       "en": "Neutralisations and flags",
-      "fr": "Neutralisations et drapeaux"
+      "fr": "Neutralisations et drapeaux",
+      "de": "Neutralisierungen und Flaggen"
      },
      "texto": {
       "es": [
@@ -1556,6 +1928,12 @@
        "FULL COURSE YELLOW : tout le circuit est neutralise et il faut rouler a vitesse limitee. Gardez vos distances et restez eveille : la relance se fait d'un coup.",
        "VOITURE DE SECURITE : on roule en file. C'est le moment de chauffer pneus et freins par des zigzags doux si vous avez la place, et de regarder la strategie.",
        "NOTE SUR LE PROGRAMME : LMU ne publie pas les drapeaux pour les programmes externes, donc la carte ne peut pas vous les montrer. En revanche elle marque les voitures arretees en piste, qui sont le vrai danger."
+      ],
+      "de": [
+       "GELB in einem Sektor: es liegt etwas auf der Strecke. Geh wirklich vom Gas und ueberhole dort nicht.",
+       "FULL COURSE YELLOW: die ganze Strecke wird neutralisiert und man faehrt mit begrenztem Tempo. Halte Abstand und bleib wach: die Freigabe kommt auf einen Schlag.",
+       "SAFETY CAR: man faehrt in einer Reihe. Das ist der Moment, Reifen und Bremsen mit sanftem Schlangenlinienfahren zu waermen, wenn Platz ist, und die Strategie anzuschauen.",
+       "HINWEIS ZUM PROGRAMM: LMU veroeffentlicht Flaggen nicht fuer externe Programme, die Karte kann sie dir also nicht zeigen. Was sie kann: stehende Autos markieren, und das ist die echte Gefahr."
       ]
      }
     },
@@ -1564,7 +1942,8 @@
      "titulo": {
       "es": "Carreras por equipos: el cambio de piloto",
       "en": "Team races: the driver change",
-      "fr": "Courses par equipes : le changement de pilote"
+      "fr": "Courses par equipes : le changement de pilote",
+      "de": "Teamrennen: der Fahrerwechsel"
      },
      "texto": {
       "es": [
@@ -1584,6 +1963,12 @@
        "LAISSEZ LA VOITURE COMME VOUS AIMERIEZ LA TROUVER : si vous avez change la repartition de freinage ou le controle de traction, dites-le.",
        "EN PRENANT LA VOITURE, les deux premiers tours servent a s'adapter : pneus et freins peuvent etre chauds ou froids selon l'arret, et la voiture peut etre reglee au gout d'un autre.",
        "UN AVERTISSEMENT DU PROGRAMME : quand vous entrez en cours de course ou que vous prenez le relais, le jeu ne dit parfois pas quelle voiture est la votre. Si la carte suit quelqu'un d'autre, un avertissement rouge apparait et F11 permet de la choisir dans la liste. Cela nous est arrive pour de vrai aux 6 Heures de Silverstone."
+      ],
+      "de": [
+       "Faehrst du mit Teamkollegen, gehoert ein Teil des Rennens nicht zum Fahren.",
+       "HINTERLASS DAS AUTO SO, WIE DU ES VORFINDEN MOECHTEST: hast du waehrend deines Stints Bremsbalance oder Traktionskontrolle veraendert, sag es.",
+       "WENN DU UEBERNIMMST, sind die ersten zwei Runden zum Eingewoehnen: Reifen und Bremsen koennen heiss oder kalt sein, je nach Stopp, und das Auto kann nach dem Geschmack eines anderen abgestimmt sein.",
+       "EIN HINWEIS DES PROGRAMMS: steigst du mitten im Rennen ein oder uebernimmst du das Auto, sagt das Spiel manchmal nicht, welches Auto deines ist. Folgt die Karte einem anderen, erscheint eine rote Warnung und mit F11 waehlst du es aus der Liste. Uns ist das in den 6 Stunden von Silverstone wirklich passiert."
       ]
      }
     },
@@ -1592,7 +1977,8 @@
      "titulo": {
       "es": "Como se pierde una carrera larga",
       "en": "How a long race is actually lost",
-      "fr": "Comment on perd vraiment une course longue"
+      "fr": "Comment on perd vraiment une course longue",
+      "de": "Wie man ein langes Rennen wirklich verliert"
      },
      "texto": {
       "es": [
@@ -1624,6 +2010,16 @@
        "5. DETRUIRE LES PNEUS au premier relais en roulant deux dixiemes plus vite que possible.",
        "6. UNE BAISSE DE CONCENTRATION dans la derniere heure, faute d'avoir bu de l'eau et repose les yeux.",
        "Aucune de ces six n'a de rapport avec le fait d'etre rapide."
+      ],
+      "de": [
+       "Die Liste, nach Haeufigkeit:",
+       "1. EINE VERMEIDBARE BERUEHRUNG IM VERKEHR, fast immer beim Bremsen in eine langsame Kurve und fast immer in der ersten Stunde.",
+       "2. OHNE SPRIT LIEGEN BLEIBEN, weil niemand geprueft hat, ob der Sprit fuer so viele Runden reicht wie die Energie.",
+       "3. EINE STRAFE in der Boxengasse.",
+       "4. STAENDIG AN DER STRECKENBEGRENZUNG fahren und Verwarnungen sammeln.",
+       "5. DIE REIFEN IM ERSTEN STINT ZERSTOEREN, weil man zwei Zehntel schneller faehrt, als das Auto vertraegt.",
+       "6. EIN KONZENTRATIONSFEHLER in der letzten Stunde, weil man nichts getrunken und die Augen nicht ausgeruht hat.",
+       "Keiner dieser sechs Punkte hat damit zu tun, schnell zu sein."
       ]
      }
     }
@@ -1634,7 +2030,8 @@
    "titulo": {
     "es": "Por categoria",
     "en": "By class",
-    "fr": "Par categorie"
+    "fr": "Par categorie",
+    "de": "Nach Klasse"
    },
    "entrada": {
     "es": [
@@ -1648,6 +2045,10 @@
     "fr": [
      "Ce qui change d'une categorie a l'autre n'est pas la theorie, c'est le dosage : la duree de chaque partie du virage, ce a quoi vous vous fiez, et ou se trouve le temps.",
      "Si vous passez d'une categorie a une autre, voila ce qu'il faut desapprendre. Etre a deux secondes pendant les premieres heures avec une voiture d'une autre classe est normal, et ce n'est pas la faute du reglage."
+    ],
+    "de": [
+     "Was sich von einer Klasse zur anderen aendert, ist nicht die Theorie, sondern die Gewichtung: wie lange jeder Teil der Kurve dauert, worauf du dich verlaesst und wo die Zeit liegt.",
+     "Wechselst du die Klasse, ist das hier das, was du verlernen musst. Zwei Sekunden langsam zu sein in den ersten Stunden mit einem Auto aus einer anderen Klasse ist normal, und es liegt nicht am Setup."
     ]
    },
    "temas": [
@@ -1656,7 +2057,8 @@
      "titulo": {
       "es": "Hypercar: fiarse del aire",
       "en": "Hypercar: trusting the air",
-      "fr": "Hypercar : faire confiance a l'air"
+      "fr": "Hypercar : faire confiance a l'air",
+      "de": "Hypercar: der Luft vertrauen"
      },
      "texto": {
       "es": [
@@ -1682,6 +2084,14 @@
        "LES QUATRE ROUES MOTRICES (499P, Toyota, Peugeot) poussent depuis l'essieu avant au-dessus d'une certaine vitesse : elles sortent des virages rapides comme rien d'autre, et dans les lents non.",
        "L'ENERGIE COMMANDE LA COURSE. Ici on ne conduit pas pour le meilleur tour : on conduit pour finir le relais avec ce qu'on a.",
        "ET DANS LE TRAFIC VOUS ETES LE RAPIDE : c'est vous qui choisissez ou passer, et donc c'est vous qui etes responsable de ne pas mettre une roue la ou elle ne rentre pas."
+      ],
+      "de": [
+       "SIE SIND DIE SCHNELLSTEN UND VERLANGEN DAS MEISTE VERTRAUEN. Das meiste, was dich in einer schnellen Kurve haelt, ist nicht der Reifen: es ist die Luft. Und Abtrieb entsteht mit Geschwindigkeit, also hast du mehr Grip, je schneller du hineinfaehrst. Das widerspricht jedem Instinkt.",
+       "DAS BREMSEN ist der groesste Unterschied. Du kannst unglaublich spaet und hart anbremsen, bei 300 mit auf den Boden gepresstem Auto, aber du MUSST stark loesen, wenn das Tempo faellt, weil dieser Abtrieb verschwindet. Ein Hypercar, das man wie ein GT3 bremst, blockiert oder bricht am Ende jeder Bremszone aus.",
+       "DER HYBRID AENDERT DAS BREMSEN. Die Energierueckgewinnung bremst die Hinterachse beim Gaswegnehmen. Das spuert man, bei manchen Autos deutlich.",
+       "DIE ALLRADLER (499P, Toyota, Peugeot) schieben oberhalb einer bestimmten Geschwindigkeit von der Vorderachse: sie kommen aus schnellen Kurven heraus wie nichts anderes, aus langsamen nicht.",
+       "DIE ENERGIE BESTIMMT DAS RENNEN. Hier faehrt man nicht auf die schnellste Runde: man faehrt, um mit dem, was da ist, ans Stint-Ende zu kommen.",
+       "UND IM VERKEHR BIST DU DER SCHNELLE: du entscheidest, wo du vorbeigehst, und genau deshalb liegt die Verantwortung bei dir, kein Rad dorthin zu stellen, wo es nicht hinpasst."
       ]
      }
     },
@@ -1690,7 +2100,8 @@
      "titulo": {
       "es": "LMP2: mucha frenada y ningun ABS",
       "en": "LMP2: huge braking and no ABS",
-      "fr": "LMP2 : enormement de freinage et pas d'ABS"
+      "fr": "LMP2 : enormement de freinage et pas d'ABS",
+      "de": "LMP2: enormes Bremsen und kein ABS"
      },
      "texto": {
       "es": [
@@ -1716,6 +2127,14 @@
        "DANS LES VIRAGES RAPIDES ELLE EST ENORME. C'est la qu'est le temps, et la qu'il faut apprendre a se fier a la voiture.",
        "LES VIBREURS, MAL. C'est l'une des voitures qui les supportent le moins bien : basse et raide, un vibreur haut la derange.",
        "DANS LE TRAFIC VOUS ETES AU MILIEU : vous rattrapez des GT3 sans arret et les Hypercars vous rattrapent. C'est la categorie qui demande le plus de lucidite en course."
+      ],
+      "de": [
+       "EINHEITSKLASSE: alle im selben Oreca 07, der einzige Unterschied sind das Setup und du. Das ist die Klasse, in der man am meisten ueber sich selbst lernt.",
+       "ZUERST: KEIN ABS. Man kann blockieren, und ein Blockierer hinterlaesst eine Platte, die du den ganzen Stint spuerst. Die ganze Bremstechnik (hart am Anfang, loesen zum Ende) ist hier Pflicht, kein Ratschlag.",
+       "SIE BREMST WIE KEIN ZWEITES. Ein leichtes Auto mit viel Abtrieb: die Bremszonen sind winzig und du musst Fuss und Orientierungspunkte neu erziehen.",
+       "IN SCHNELLEN KURVEN IST SIE GEWALTIG. Dort liegt die Zeit, und dort muss man lernen zu vertrauen.",
+       "KERBS: SCHLECHT. Sie ist eines der Autos, die sie am schlechtesten vertragen: tief und hart, ein hoher Kerb bringt sie aus der Ruhe.",
+       "IM VERKEHR BIST DU IN DER MITTE: du holst staendig GT3 ein und die Hypercars holen dich ein. Diese Klasse verlangt im Rennen die meiste Aufmerksamkeit."
       ]
      }
     },
@@ -1724,7 +2143,8 @@
      "titulo": {
       "es": "LMP3: prototipo sin la aerodinamica",
       "en": "LMP3: a prototype without the aerodynamics",
-      "fr": "LMP3 : un prototype sans l'aerodynamique"
+      "fr": "LMP3 : un prototype sans l'aerodynamique",
+      "de": "LMP3: ein Prototyp ohne die Aerodynamik"
      },
      "texto": {
       "es": [
@@ -1744,6 +2164,12 @@
        "ELLES SE CONDUISENT PLUS AU VOLANT qu'avec l'air : le temps est dans les virages moyens et lents et dans la motricite.",
        "ELLES ONT TOUTES LE MEME MOTEUR, donc rien a grappiller en ligne droite. Tout est dans la facon de sortir des virages.",
        "ELLES SONT BONNES POUR APPRENDRE les prototypes avant de passer a la LMP2 : elles pardonnent plus."
+      ],
+      "de": [
+       "Sie sehen aus wie kleine LMP2 und sind es nicht: sie haben deutlich weniger Abtrieb, in schnellen Kurven halten sie also nicht, was ein LMP2 haelt.",
+       "SIE WERDEN MEHR UEBER DAS LENKRAD GEFAHREN als ueber die Luft: die Zeit liegt in mittleren und langsamen Kurven und in der Traktion.",
+       "ALLE HABEN DENSELBEN MOTOR, auf den Geraden ist also nichts zu holen. Alles liegt darin, wie du aus den Kurven kommst.",
+       "SIE SIND GUT ZUM LERNEN von Prototypen vor dem Sprung in den LMP2: sie verzeihen mehr."
       ]
      }
     },
@@ -1752,7 +2178,8 @@
      "titulo": {
       "es": "LMGT3: peso, gomas y paciencia",
       "en": "LMGT3: weight, tyres and patience",
-      "fr": "LMGT3 : poids, pneus et patience"
+      "fr": "LMGT3 : poids, pneus et patience",
+      "de": "LMGT3: Gewicht, Reifen und Geduld"
      },
      "texto": {
       "es": [
@@ -1775,6 +2202,13 @@
        "LE TEMPS EST DANS LES PNEUS. C'est la categorie ou l'usure se voit le plus et ou celui qui ne les maltraite pas gagne le plus.",
        "DANS LES VIRAGES LENTS il faut etre patient : la voiture est lourde et ne tourne pas toute seule. Corde tardive, gaz progressifs.",
        "ET DANS LE TRAFIC VOUS ETES LE LENT : votre travail n'est pas de vous ecarter, c'est d'etre PREVISIBLE. Gardez la trajectoire, pas de coup de frein, et facilitez le passage en ligne droite."
+      ],
+      "de": [
+       "SIE WIEGEN VIEL MEHR und haben viel weniger Abtrieb als ein Prototyp. Alles passiert langsamer, man hat mehr Zeit zum Denken, und Fehler werden spaeter, aber genauso bezahlt.",
+       "SIE HABEN ABS UND TRAKTIONSKONTROLLE. Das aendert das Fahren: du kannst die Bremse selbstbewusster treten, aber du verlierst die Warnung durch das Blockieren. Wenn beim Bremsen etwas nicht stimmt, spuerst du kein blockiertes Rad: du spuerst, wie die Hinterachse weggeht. Das ist hinterhaeltiger.",
+       "DIE ZEIT LIEGT IN DEN REIFEN. Das ist die Klasse, in der der Verschleiss am meisten zaehlt und in der derjenige am meisten gewinnt, der sie nicht misshandelt.",
+       "IN LANGSAMEN KURVEN braucht man Geduld: das Auto ist schwer und dreht nicht von allein ein. Spaeter Scheitelpunkt, progressives Gas.",
+       "UND IM VERKEHR BIST DU DER LANGSAME: deine Aufgabe ist nicht, zur Seite zu springen, sondern BERECHENBAR zu sein. Linie halten, keine Bremser, und das Vorbeifahren auf der Geraden leicht machen."
       ]
      }
     },
@@ -1783,7 +2217,8 @@
      "titulo": {
       "es": "GTE: a medio camino",
       "en": "GTE: halfway between",
-      "fr": "GTE : a mi-chemin"
+      "fr": "GTE : a mi-chemin",
+      "de": "GTE: dazwischen"
      },
      "texto": {
       "es": [
@@ -1803,6 +2238,12 @@
        "TOUT SE PASSE PLUS VITE qu'en GT3 et la marge d'erreur est plus petite. L'aerodynamique compte vraiment dans les virages rapides.",
        "SI VOUS VENEZ D'UNE GT3 du meme constructeur, oubliez : elles ne se conduisent pas pareil, meme si la voiture porte le meme nom.",
        "ET ATTENTION A LA PORSCHE 911 RSR-19 : son moteur est devant l'essieu arriere, pas derriere. Elle ne se conduit pas comme la 911 GT3 R."
+      ],
+      "de": [
+       "Die verbliebenen GTE sind reine Rennautos: weniger Gewicht und mehr Abtrieb als ein moderner GT3.",
+       "ALLES PASSIERT SCHNELLER als im GT3 und der Spielraum fuer Fehler ist kleiner. Die Aerodynamik zaehlt in schnellen Kurven wirklich.",
+       "KOMMST DU VON EINEM GT3 desselben Herstellers, vergiss es: sie fahren sich nicht gleich, auch wenn das Auto genauso heisst.",
+       "UND ACHTUNG BEIM PORSCHE 911 RSR-19: sein Motor sitzt VOR der Hinterachse, nicht dahinter. Er faehrt sich nicht wie der 911 GT3 R."
       ]
      }
     },
@@ -1811,7 +2252,8 @@
      "titulo": {
       "es": "Coches de copa: la escuela",
       "en": "Cup cars: the school",
-      "fr": "Voitures de coupe : l'ecole"
+      "fr": "Voitures de coupe : l'ecole",
+      "de": "Cup-Autos: die Schule"
      },
      "texto": {
       "es": [
@@ -1831,6 +2273,12 @@
        "CE SONT LA MEILLEURE ECOLE DU JEU. Elles obligent a freiner droit, a relacher le frein du bout du pied et a remettre les gaz proprement. Tout ce que vous y apprenez se retrouve ensuite dans les voitures avec aides.",
        "LA 992 CUP porte en plus son moteur derriere l'essieu arriere : elle vous apprend a la dure ce qu'est le transfert de masse.",
        "CONSEIL : si vous bloquez avec une GT3 sans savoir pourquoi, passez un apres-midi en voiture de coupe. Vous en revenez en sachant des choses."
+      ],
+      "de": [
+       "Der Porsche 992 Cup und der McLaren Challenge fahren OHNE ABS und OHNE TRAKTIONSKONTROLLE. Da ist kein Netz drunter.",
+       "SIE SIND DIE BESTE SCHULE IM SPIEL. Sie zwingen dich, geradeaus zu bremsen, die Bremse mit der Fussspitze zu loesen und sauber ans Gas zu gehen. Alles, was du dort lernst, nimmst du in jedes Auto mit Hilfen mit.",
+       "DER 992 CUP traegt seinen Motor ausserdem hinter der Hinterachse: er bringt dir auf die harte Tour bei, was Gewichtsverlagerung ist.",
+       "EMPFEHLUNG: haengst du mit einem GT3 fest und weisst nicht warum, verbring einen Nachmittag in einem Cup-Auto. Du kommst klueger zurueck."
       ]
      }
     }
@@ -1841,7 +2289,8 @@
    "titulo": {
     "es": "Por coche",
     "en": "By car",
-    "fr": "Par voiture"
+    "fr": "Par voiture",
+    "de": "Nach Auto"
    },
    "entrada": {
     "es": [
@@ -1858,6 +2307,11 @@
      "Les 35 voitures, avec ce que chacune demande AU VOLANT. C'est different de ce que dit le tome reglages sur la meme voiture : la-bas c'est comment on la regle, ici comment on la conduit.",
      "Une idee valable pour toutes : ce qui change le plus la conduite, c'est OU SE TROUVE LE MOTEUR. Devant, la voiture est lourde du nez et il faut de la patience dans les virages lents. Au centre, elle tourne toute seule et il faut la contenir. En porte-a-faux arriere, elle sort comme aucune autre mais ne pardonne pas de freiner en tournant.",
      "Si votre voiture n'y est pas, cherchez-en une avec le moteur au meme endroit et dans la meme categorie."
+    ],
+    "de": [
+     "Alle 35 Autos, mit dem, was jedes AM LENKRAD verlangt. Das ist etwas anderes als das, was das Setup-Band ueber dasselbe Auto sagt: dort geht es ums Abstimmen, hier ums Fahren.",
+     "Ein Gedanke, der fuer alle gilt: was das Fahrverhalten am meisten aendert, ist, WO DER MOTOR SITZT. Vorn ist das Auto kopflastig und braucht Geduld in langsamen Kurven. In der Mitte dreht es von allein ein und man muss es baendigen. Hinter der Achse kommt es aus Kurven heraus wie kein anderes, verzeiht aber kein Bremsen im Einlenken.",
+     "Ist dein Auto nicht dabei, such eines mit dem Motor an derselben Stelle und aus derselben Klasse."
     ]
    },
    "grupos": [
@@ -1866,7 +2320,8 @@
      "titulo": {
       "es": "Hypercar",
       "en": "Hypercar",
-      "fr": "Hypercar"
+      "fr": "Hypercar",
+      "de": "Hypercar"
      },
      "temas": [
       {
@@ -1875,7 +2330,8 @@
        "titulo": {
         "es": "Alpine A424",
         "en": "Alpine A424",
-        "fr": "Alpine A424"
+        "fr": "Alpine A424",
+        "de": "Alpine A424"
        },
        "texto": {
         "es": [
@@ -1892,6 +2348,11 @@
          "Petit moteur turbo : il pousse tard mais tres fort en haut. En sortie de virage lent on a l'impression qu'il ne se passe rien et deux cents metres plus loin tout arrive d'un coup.",
          "COMMENT LA CONDUIRE : ouvrez les gaz PLUS TOT que ce que dicte l'instinct, et progressivement, en comptant ce retard.",
          "Elle s'appuie bien sur l'avant, on peut se fier a l'entree dans les virages moyens."
+        ],
+        "de": [
+         "Kleiner Turbomotor: er schiebt spaet, aber oben sehr stark. Am Ausgang einer langsamen Kurve scheint nichts zu passieren, und zweihundert Meter spaeter kommt alles auf einmal.",
+         "WIE MAN IHN FAEHRT: geh FRUEHER ans Gas, als es sich richtig anfuehlt, und progressiv, mit dieser Verzoegerung im Kopf.",
+         "Er stuetzt sich gut auf die Vorderachse, dem Eingang in mittleren Kurven kann man vertrauen."
         ]
        }
       },
@@ -1901,7 +2362,8 @@
        "titulo": {
         "es": "Aston Martin Valkyrie",
         "en": "Aston Martin Valkyrie",
-        "fr": "Aston Martin Valkyrie"
+        "fr": "Aston Martin Valkyrie",
+        "de": "Aston Martin Valkyrie"
        },
        "texto": {
         "es": [
@@ -1918,6 +2380,11 @@
          "La seule atmospherique et sans hybride de la categorie. Les gaz repondent instantanement et le moteur freine vraiment quand on leve.",
          "COMMENT LA CONDUIRE : c'est la plus 'analogique' du plateau et la plus gratifiante pour qui a un bon pied. Le frein moteur devient un outil d'entree.",
          "OU ELLE SOUFFRE : en sortie de virage lent face aux hybrides. La il faut etre particulierement propre."
+        ],
+        "de": [
+         "Der einzige Sauger ohne Hybrid der Klasse. Das Gas spricht sofort an und der Motor bremst beim Gaswegnehmen wirklich.",
+         "WIE MAN IHN FAEHRT: das analogste Auto im Feld und das dankbarste fuer einen guten Fuss. Die Motorbremse wird zum Werkzeug fuer den Eingang.",
+         "WO ER LEIDET: am Ausgang langsamer Kurven gegen die Hybride. Dort muss man besonders sauber sein."
         ]
        }
       },
@@ -1927,7 +2394,8 @@
        "titulo": {
         "es": "BMW M Hybrid V8",
         "en": "BMW M Hybrid V8",
-        "fr": "BMW M Hybrid V8"
+        "fr": "BMW M Hybrid V8",
+        "de": "BMW M Hybrid V8"
        },
        "texto": {
         "es": [
@@ -1944,6 +2412,11 @@
          "Beaucoup de couple en bas : c'est l'une des plus faciles a faire partir de l'arriere si on ouvre trop tot.",
          "COMMENT LA CONDUIRE : patience en sortie. Attendez d'avoir le volant plus ouvert que d'habitude avant de mettre a fond, surtout pneus uses.",
          "A l'entree elle est saine ; tout le travail est dans le pied droit."
+        ],
+        "de": [
+         "Viel Drehmoment von unten: eines der Autos, bei denen das Heck am leichtesten weggeht, wenn du frueh aufmachst.",
+         "WIE MAN IHN FAEHRT: Geduld am Ausgang. Warte, bis das Lenkrad gerader steht als gewohnt, bevor du voll trittst, vor allem mit gebrauchten Reifen.",
+         "Am Eingang ist er gutmuetig; die Arbeit steckt im rechten Fuss."
         ]
        }
       },
@@ -1953,7 +2426,8 @@
        "titulo": {
         "es": "Cadillac V-Series.R",
         "en": "Cadillac V-Series.R",
-        "fr": "Cadillac V-Series.R"
+        "fr": "Cadillac V-Series.R",
+        "de": "Cadillac V-Series.R"
        },
        "texto": {
         "es": [
@@ -1970,6 +2444,11 @@
          "Livraison tres lineaire, l'une des plus faciles a doser.",
          "COMMENT LA CONDUIRE : c'est l'Hypercar que je choisirais pour debuter. Elle fait ce qu'on lui demande et previent avant de decrocher.",
          "Elle supporte bien l'aspiration : elle se derange moins que d'autres en trafic."
+        ],
+        "de": [
+         "Sehr lineare Leistungsabgabe, eines der am leichtesten zu dosierenden Autos.",
+         "WIE MAN IHN FAEHRT: das Hypercar, das ich zum Einstieg waehlen wuerde. Er macht, was man verlangt, und warnt, bevor er wegrutscht.",
+         "Er vertraegt den Windschatten gut: im Verkehr wird er weniger unruhig als andere."
         ]
        }
       },
@@ -1979,7 +2458,8 @@
        "titulo": {
         "es": "Ferrari 499P",
         "en": "Ferrari 499P",
-        "fr": "Ferrari 499P"
+        "fr": "Ferrari 499P",
+        "de": "Ferrari 499P"
        },
        "texto": {
         "es": [
@@ -1998,6 +2478,11 @@
          "Moteur electrique sur l'essieu AVANT : au-dessus d'environ 190 km/h elle est a quatre roues motrices, en dessous non.",
          "COMMENT LA CONDUIRE : en sortie rapide elle vous tire par le nez ; en sortie lente c'est une propulsion normale, et paresseuse de l'avant en plus. Ce sont deux voitures en une, gardez-le en tete a chaque virage.",
          "ATTENTION AU LEVER DE PIED : la regeneration freine l'essieu et change l'entree plus qu'on ne croit. Si la voiture est bizarre quand vous levez, c'est cela, pas la suspension."
+        ],
+        "de": [
+         "Elektromotor an der VORDERACHSE: oberhalb von etwa 190 km/h treibt er alle vier Raeder an, darunter nicht.",
+         "WIE MAN IHN FAEHRT: an schnellen Ausgaengen zieht er dich an der Nase heraus; an langsamen ist er ein normaler Hecktriebler und dazu vorn traege. Das sind zwei Autos in einem, und das muss man bei jeder Kurve im Kopf haben.",
+         "ACHTUNG BEIM GASWEGNEHMEN: die Rekuperation bremst die Achse und veraendert den Eingang staerker, als man denkt. Fuehlt sich das Auto beim Lupfen seltsam an, ist es das und nicht die Federung."
         ]
        }
       },
@@ -2007,7 +2492,8 @@
        "titulo": {
         "es": "Genesis GMR-001",
         "en": "Genesis GMR-001",
-        "fr": "Genesis GMR-001"
+        "fr": "Genesis GMR-001",
+        "de": "Genesis GMR-001"
        },
        "texto": {
         "es": [
@@ -2021,6 +2507,10 @@
         "fr": [
          "Neutre, sans manies. La plus 'normale' de la categorie.",
          "COMMENT LA CONDUIRE : sans truc particulier. C'est donc une bonne base pour apprendre la categorie et pour tester des choses."
+        ],
+        "de": [
+         "Neutral, ohne Macken. Das 'normalste' Auto der Klasse.",
+         "WIE MAN IHN FAEHRT: ohne Tricks. Genau deshalb ist er eine gute Basis, um die Klasse zu lernen und Dinge auszuprobieren."
         ]
        }
       },
@@ -2030,7 +2520,8 @@
        "titulo": {
         "es": "Isotta Fraschini Tipo 6",
         "en": "Isotta Fraschini Tipo 6",
-        "fr": "Isotta Fraschini Tipo 6"
+        "fr": "Isotta Fraschini Tipo 6",
+        "de": "Isotta Fraschini Tipo 6"
        },
        "texto": {
         "es": [
@@ -2047,6 +2538,11 @@
          "Plus lourde et moins appuyee que les autres : elle punit davantage le pneu.",
          "COMMENT LA CONDUIRE : en douceur. C'est la voiture ou rouler deux dixiemes sous la limite rapporte le plus.",
          "N'attendez pas les vitesses de passage des meilleures : le temps se cherche dans la proprete."
+        ],
+        "de": [
+         "Schwerer und mit weniger Abtrieb als der Rest: das bedeutet mehr Belastung fuer den Reifen.",
+         "WIE MAN IHN FAEHRT: weich. Das ist das Auto, bei dem sich zwei Zehntel unter dem Limit am meisten auszahlen.",
+         "Erwarte nicht die Kurvengeschwindigkeiten der Besten: die Zeit muss aus der Sauberkeit kommen."
         ]
        }
       },
@@ -2056,7 +2552,8 @@
        "titulo": {
         "es": "Lamborghini SC63",
         "en": "Lamborghini SC63",
-        "fr": "Lamborghini SC63"
+        "fr": "Lamborghini SC63",
+        "de": "Lamborghini SC63"
        },
        "texto": {
         "es": [
@@ -2073,6 +2570,11 @@
          "Nerveuse a l'entree. Lachez le frein d'un coup et elle part.",
          "COMMENT LA CONDUIRE : le relachement de frein doit etre particulierement progressif. C'est la voiture ou cela se voit le plus.",
          "Elle va mieux avec la barre arriere souple, mais l'entree se travaille quand meme au pied."
+        ],
+        "de": [
+         "Nervoes am Eingang: laesst du die Bremse abrupt los, bricht er aus.",
+         "WIE MAN IHN FAEHRT: das Loesen der Bremse muss besonders progressiv sein. Bei diesem Auto sieht man am deutlichsten, ob man es gut macht.",
+         "Er geht besser mit lockerem Hinterstabilisator, aber der Eingang bleibt Fussarbeit."
         ]
        }
       },
@@ -2082,7 +2584,8 @@
        "titulo": {
         "es": "Peugeot 9X8",
         "en": "Peugeot 9X8",
-        "fr": "Peugeot 9X8"
+        "fr": "Peugeot 9X8",
+        "de": "Peugeot 9X8"
        },
        "texto": {
         "es": [
@@ -2099,6 +2602,11 @@
          "Son aerodynamique depend enormement de la hauteur de caisse.",
          "COMMENT LA CONDUIRE : elle change de caractere selon la charge de carburant et selon son assiette. C'est normal, ce n'est pas vous.",
          "Dans les virages rapides avec rupture de pente, restez concentre : c'est la que son appui bouge le plus."
+        ],
+        "de": [
+         "Seine Aerodynamik haengt enorm von der Fahrzeughoehe ab.",
+         "WIE MAN IHN FAEHRT: er wechselt den Charakter je nach Tankfuellung und Lage. Das ist normal und liegt nicht an dir.",
+         "In schnellen Kurven mit Kuppe voll bei der Sache bleiben: dort bewegt sich sein Abtrieb am meisten."
         ]
        }
       },
@@ -2108,7 +2616,8 @@
        "titulo": {
         "es": "Porsche 963",
         "en": "Porsche 963",
-        "fr": "Porsche 963"
+        "fr": "Porsche 963",
+        "de": "Porsche 963"
        },
        "texto": {
         "es": [
@@ -2124,6 +2633,10 @@
         "fr": [
          "L'une des plus equilibrees. Elle freine tres tard et menage ses pneus.",
          "COMMENT LA CONDUIRE : profitez du freinage, son point fort, mais pensez a relacher quand la vitesse tombe. Elle vous laisse vous concentrer sur la course au lieu de vous battre avec elle."
+        ],
+        "de": [
+         "Eines der ausgewogensten Autos. Er bremst sehr spaet und schont die Reifen.",
+         "WIE MAN IHN FAEHRT: nutze die Bremse, seine Staerke, aber denk daran zu loesen, wenn das Tempo faellt. Ein Auto, bei dem man sich auf das Rennen konzentrieren kann statt zu kaempfen."
         ]
        }
       },
@@ -2133,7 +2646,8 @@
        "titulo": {
         "es": "Toyota GR010 Hybrid",
         "en": "Toyota GR010 Hybrid",
-        "fr": "Toyota GR010 Hybrid"
+        "fr": "Toyota GR010 Hybrid",
+        "de": "Toyota GR010 Hybrid"
        },
        "texto": {
         "es": [
@@ -2150,6 +2664,11 @@
          "La plus aboutie de la categorie : stable et previsible.",
          "COMMENT LA CONDUIRE : sous la pluie, la traction avant lui donne une stabilite en sortie que les propulsions n'ont pas. Sur le mouille c'est l'une des meilleures du jeu.",
          "Sur le sec elle ne demande rien de particulier."
+        ],
+        "de": [
+         "Der ausgereifteste der Klasse: stabil und berechenbar.",
+         "WIE MAN IHN FAEHRT: im Regen gibt der Vorderradantrieb eine Stabilitaet am Ausgang, die Hecktriebler nicht haben. Auf nasser Strecke einer der besten Wagen im Spiel.",
+         "Im Trockenen verlangt er nichts Ungewoehnliches."
         ]
        }
       },
@@ -2159,7 +2678,8 @@
        "titulo": {
         "es": "Vanwall Vandervell 680",
         "en": "Vanwall Vandervell 680",
-        "fr": "Vanwall Vandervell 680"
+        "fr": "Vanwall Vandervell 680",
+        "de": "Vanwall Vandervell 680"
        },
        "texto": {
         "es": [
@@ -2176,6 +2696,11 @@
          "Sans hybride et sans aides. Dure, et elle punit le pneu arriere.",
          "COMMENT LA CONDUIRE : c'est l'une de celles qui demandent le plus de discipline aux gaz. Chaque patinage se paie deux fois.",
          "Elle recompense le pilote propre : bonne voiture pour mesurer sa propre technique."
+        ],
+        "de": [
+         "Ohne Hybrid und ohne Hilfen. Hart, und er bestraft den Hinterreifen.",
+         "WIE MAN IHN FAEHRT: eines der Autos, die am meisten Disziplin am Gas verlangen. Jeder Schlupf wird doppelt bezahlt.",
+         "Er belohnt den sauberen Fahrer: ein gutes Auto, um die eigene Technik zu messen."
         ]
        }
       },
@@ -2185,7 +2710,8 @@
        "titulo": {
         "es": "Glickenhaus SCG 007",
         "en": "Glickenhaus SCG 007",
-        "fr": "Glickenhaus SCG 007"
+        "fr": "Glickenhaus SCG 007",
+        "de": "Glickenhaus SCG 007"
        },
        "texto": {
         "es": [
@@ -2202,6 +2728,11 @@
          "Peu d'appui : rapide en ligne droite et en difficulte des que les virages s'enchainent.",
          "COMMENT LA CONDUIRE : ne vous fiez pas a l'air comme dans les autres Hypercars. Dans les virages rapides il y en a moins que vous ne croyez.",
          "Son terrain, ce sont les circuits a longues lignes droites."
+        ],
+        "de": [
+         "Wenig Abtrieb: schnell auf der Geraden und in Not, sobald sich die Kurven aneinanderreihen.",
+         "WIE MAN IHN FAEHRT: vertrau der Luft nicht wie bei den anderen Hypercars. In schnellen Kurven ist weniger da, als du denkst.",
+         "Sein Terrain sind Strecken mit langen Geraden."
         ]
        }
       }
@@ -2212,7 +2743,8 @@
      "titulo": {
       "es": "LMP2 y LMP3",
       "en": "LMP2 and LMP3",
-      "fr": "LMP2 et LMP3"
+      "fr": "LMP2 et LMP3",
+      "de": "LMP2 und LMP3"
      },
      "temas": [
       {
@@ -2221,7 +2753,8 @@
        "titulo": {
         "es": "Oreca 07 (WEC y ELMS)",
         "en": "Oreca 07 (WEC and ELMS)",
-        "fr": "Oreca 07 (WEC et ELMS)"
+        "fr": "Oreca 07 (WEC et ELMS)",
+        "de": "Oreca 07 (WEC und ELMS)"
        },
        "texto": {
         "es": [
@@ -2244,6 +2777,13 @@
          "DANS LES VIRAGES RAPIDES ELLE EST ENORME. Lever au milieu d'un virage rapide est pire qu'entrer un peu moins vite.",
          "LES VIBREURS, LE MINIMUM : elle les supporte mal.",
          "EN COURSE : vous passerez votre vie a doubler des GT3 et a etre double par des Hypercars. Apprenez a preparer vos depassements dans le virage precedent."
+        ],
+        "de": [
+         "Dasselbe Auto fuer alle, mit etwas mehr Leistung in der WEC-Version.",
+         "DAS BREMSEN IST SEIN CHARAKTER: man muss es sehen, um es zu glauben, und das OHNE ABS. Anfangs bremst du fuenfzig Meter zu frueh. Schiebe den Punkt nach und nach nach hinten und arbeite am Ende der Bremszone, wo er blockiert.",
+         "IN SCHNELLEN KURVEN IST ER GEWALTIG. Mitten in einer schnellen Kurve vom Gas zu gehen ist schlimmer, als etwas langsamer hineinzufahren.",
+         "KERBS NUR DAS NOETIGSTE: er vertraegt sie schlecht.",
+         "IM RENNEN: du wirst dein Leben damit verbringen, GT3 zu ueberholen und von Hypercars ueberholt zu werden. Lerne, Ueberholmanoever in der Kurve davor vorzubereiten."
         ]
        }
       },
@@ -2253,7 +2793,8 @@
        "titulo": {
         "es": "Oreca 07 (version ELMS)",
         "en": "Oreca 07 (ELMS version)",
-        "fr": "Oreca 07 (version ELMS)"
+        "fr": "Oreca 07 (version ELMS)",
+        "de": "Oreca 07 (ELMS-Version)"
        },
        "texto": {
         "es": [
@@ -2267,6 +2808,10 @@
         "fr": [
          "La meme voiture avec moins de puissance par reglement.",
          "LA DIFFERENCE AU VOLANT : avec moins de moteur, les erreurs de sortie se paient plus cher, parce qu'il n'y a pas de puissance en reserve pour masquer une sortie moyenne. Et en ligne droite, l'aspiration compte davantage."
+        ],
+        "de": [
+         "Dasselbe Auto mit weniger Leistung laut Reglement.",
+         "DER UNTERSCHIED AM LENKRAD: mit weniger Motor werden Fehler am Kurvenausgang teurer, weil keine Leistung uebrig ist, um einen maessigen Ausgang zu kaschieren. Und auf den Geraden zaehlt der Windschatten mehr."
         ]
        }
       },
@@ -2276,7 +2821,8 @@
        "titulo": {
         "es": "ADESS AD25 (LMP3)",
         "en": "ADESS AD25 (LMP3)",
-        "fr": "ADESS AD25 (LMP3)"
+        "fr": "ADESS AD25 (LMP3)",
+        "de": "ADESS AD25 (LMP3)"
        },
        "texto": {
         "es": [
@@ -2290,6 +2836,10 @@
         "fr": [
          "Peu d'appui pour un prototype : elle se conduit au volant.",
          "COMMENT LA CONDUIRE : le temps est dans les virages moyens et dans la motricite."
+        ],
+        "de": [
+         "Wenig Abtrieb fuer einen Prototyp: er wird ueber das Lenkrad gefahren.",
+         "WIE MAN IHN FAEHRT: die Zeit liegt in mittleren Kurven und in der Traktion."
         ]
        }
       },
@@ -2299,7 +2849,8 @@
        "titulo": {
         "es": "Duqueine D09 (LMP3)",
         "en": "Duqueine D09 (LMP3)",
-        "fr": "Duqueine D09 (LMP3)"
+        "fr": "Duqueine D09 (LMP3)",
+        "de": "Duqueine D09 (LMP3)"
        },
        "texto": {
         "es": [
@@ -2313,6 +2864,10 @@
         "fr": [
          "Stable de l'arriere et un peu paresseuse du nez.",
          "COMMENT LA CONDUIRE : vous pouvez forcer l'entree plus que dans d'autres LMP3. Corde tardive pour compenser la paresse."
+        ],
+        "de": [
+         "Hinten stabil und vorn etwas traege.",
+         "WIE MAN IHN FAEHRT: du kannst den Eingang staerker forcieren als bei anderen LMP3, weil das Heck es mitmacht. Spaeter Scheitelpunkt gegen die Traegheit."
         ]
        }
       },
@@ -2322,7 +2877,8 @@
        "titulo": {
         "es": "Ginetta G61-LT-P3 Evo (LMP3)",
         "en": "Ginetta G61-LT-P3 Evo (LMP3)",
-        "fr": "Ginetta G61-LT-P3 Evo (LMP3)"
+        "fr": "Ginetta G61-LT-P3 Evo (LMP3)",
+        "de": "Ginetta G61-LT-P3 Evo (LMP3)"
        },
        "texto": {
         "es": [
@@ -2336,6 +2892,10 @@
         "fr": [
          "Reactions lentes et tres saine.",
          "COMMENT LA CONDUIRE : c'est celle que je choisirais pour un premier prototype. Elle pardonne beaucoup, mais attention : reagissant lentement, elle est aussi lente a vous prevenir."
+        ],
+        "de": [
+         "Langsame Reaktionen und sehr gutmuetig.",
+         "WIE MAN IHN FAEHRT: den wuerde ich fuer den ersten Prototyp waehlen. Er verzeiht viel, aber Vorsicht: wer langsam reagiert, warnt auch langsam."
         ]
        }
       },
@@ -2345,7 +2905,8 @@
        "titulo": {
         "es": "Ligier JS P325 (LMP3)",
         "en": "Ligier JS P325 (LMP3)",
-        "fr": "Ligier JS P325 (LMP3)"
+        "fr": "Ligier JS P325 (LMP3)",
+        "de": "Ligier JS P325 (LMP3)"
        },
        "texto": {
         "es": [
@@ -2359,6 +2920,10 @@
         "fr": [
          "La plus vive des LMP3. Elle tourne tres bien et demande un pied droit discipline.",
          "COMMENT LA CONDUIRE : profitez de l'entree, mais sortez droit. C'est celle qui part le plus facilement aux gaz."
+        ],
+        "de": [
+         "Der lebhafteste der LMP3. Er lenkt sehr gut ein und verlangt einen disziplinierten rechten Fuss.",
+         "WIE MAN IHN FAEHRT: nutze den guten Eingang, aber komm gerade heraus. Er bricht am Gas am leichtesten aus."
         ]
        }
       }
@@ -2369,7 +2934,8 @@
      "titulo": {
       "es": "LMGT3 y GT3",
       "en": "LMGT3 and GT3",
-      "fr": "LMGT3 et GT3"
+      "fr": "LMGT3 et GT3",
+      "de": "LMGT3 und GT3"
      },
      "temas": [
       {
@@ -2378,7 +2944,8 @@
        "titulo": {
         "es": "Lexus RC F GT3",
         "en": "Lexus RC F GT3",
-        "fr": "Lexus RC F GT3"
+        "fr": "Lexus RC F GT3",
+        "de": "Lexus RC F GT3"
        },
        "texto": {
         "es": [
@@ -2398,6 +2965,12 @@
          "COMMENT LA CONDUIRE : elle est lourde du nez. Elle freine tres bien en ligne droite, et dans les virages lents il faut de la patience car elle ne tourne pas toute seule. Corde tardive et attendre la voiture.",
          "SA QUALITE : avec des pneus uses et sous la pluie, c'est l'une des plus saines de la categorie. En deuxieme moitie de relais vous pouvez reprendre beaucoup de temps.",
          "ATTENTION A CE QUE NOUS AVONS MESURE : les reglages payants qui circulent donnent a cette voiture un freinage tres recule (48 % avant), ce qui la fait partir de l'arriere a l'entree sans prevenir, l'ABS empechant le blocage. Si vous ressentez cela, ce n'est pas votre technique : regardez la repartition de freinage."
+        ],
+        "de": [
+         "V8-Sauger vorn, sehr sanfte Leistungsabgabe.",
+         "WIE MAN IHN FAEHRT: er ist kopflastig. Er bremst hervorragend geradeaus, und in langsamen Kurven braucht man Geduld, weil er nicht von allein einlenkt. Spaeter Scheitelpunkt und auf das Auto warten.",
+         "SEINE STAERKE: mit gebrauchten Reifen und im Regen einer der gutmuetigsten der Klasse. In der zweiten Haelfte eines langen Stints holst du viel Zeit zurueck.",
+         "ACHTUNG AUF DAS, WAS WIR GEMESSEN HABEN: die gekauften Setups, die kursieren, haben bei diesem Auto die Bremsbalance sehr weit hinten (48 % vorn), und dadurch geht die Hinterachse am Eingang ohne Vorwarnung weg, weil das ABS das Blockieren verhindert. Spuerst du das, liegt es nicht an deiner Technik: schau dir die Bremsbalance an."
         ]
        }
       },
@@ -2407,7 +2980,8 @@
        "titulo": {
         "es": "Porsche 911 GT3 R",
         "en": "Porsche 911 GT3 R",
-        "fr": "Porsche 911 GT3 R"
+        "fr": "Porsche 911 GT3 R",
+        "de": "Porsche 911 GT3 R"
        },
        "texto": {
         "es": [
@@ -2430,6 +3004,13 @@
          "EN ECHANGE, ELLE SORT COMME AUCUNE AUTRE. Tout ce poids est sur les roues motrices : vous pouvez appuyer plus tot et plus fort que dans n'importe quelle GT3.",
          "DANS LES CHANGEMENTS D'APPUI RAPIDES elle est paresseuse : anticipez davantage dans les chicanes.",
          "Si vous venez d'une autre GT3, comptez deux ou trois sessions pour la prendre en main. Cela en vaut la peine."
+        ],
+        "de": [
+         "Der Motor haengt HINTER der Hinterachse. Das ist das andersartigste Auto im Feld.",
+         "DIE REGEL: GERADEAUS BREMSEN UND DANACH EINLENKEN. Bremst du im Einlenken, schiebt das Gewicht des Hecks nach aussen und du drehst dich. Alles, was du ueber Trail Braking gelernt hast, muss hier abgeschwaecht werden.",
+         "DAFUER KOMMT ER HERAUS WIE KEIN ANDERER. All das Gewicht liegt auf den Antriebsraedern: du kannst frueher und staerker treten als in jedem anderen GT3.",
+         "IN SCHNELLEN RICHTUNGSWECHSELN ist er traege: das Heck braucht Zeit. In Schikanen frueher anfangen.",
+         "Kommst du von einem anderen GT3, rechne mit zwei oder drei Runs, bis du ihn im Griff hast. Es lohnt sich."
         ]
        }
       },
@@ -2439,7 +3020,8 @@
        "titulo": {
         "es": "BMW M4 LMGT3",
         "en": "BMW M4 LMGT3",
-        "fr": "BMW M4 LMGT3"
+        "fr": "BMW M4 LMGT3",
+        "de": "BMW M4 LMGT3"
        },
        "texto": {
         "es": [
@@ -2456,6 +3038,11 @@
          "Moteur avant mais tres recule, presque central. La plus neutre de la categorie.",
          "COMMENT LA CONDUIRE : elle fait ce qu'on lui demande et previent avant de decrocher. Pour apprendre la categorie ou essayer une technique nouvelle, c'est la voiture.",
          "Elle menage ses pneus : elle pardonne les longs relais."
+        ],
+        "de": [
+         "Frontmotor, aber weit hinten eingebaut, fast mittig. Der neutralste der Klasse.",
+         "WIE MAN IHN FAEHRT: er macht, was man verlangt, und warnt, bevor er wegrutscht. Zum Lernen der Klasse oder zum Ausprobieren einer neuen Technik ist das das Auto.",
+         "Er schont die Reifen und verzeiht lange Stints."
         ]
        }
       },
@@ -2465,7 +3052,8 @@
        "titulo": {
         "es": "Ferrari 296 LMGT3",
         "en": "Ferrari 296 LMGT3",
-        "fr": "Ferrari 296 LMGT3"
+        "fr": "Ferrari 296 LMGT3",
+        "de": "Ferrari 296 LMGT3"
        },
        "texto": {
         "es": [
@@ -2482,6 +3070,11 @@
          "Turbo a moteur central. L'une des meilleures en entree de la categorie.",
          "COMMENT LA CONDUIRE : elle se met toute seule dans le virage, le travail est donc de LA CONTENIR. Moins de volant qu'on ne croit, et attention au lever de pied en plein virage car elle pivote aussitot.",
          "AVEC LE TURBO, anticipez la sortie : appuyez plus tot et progressivement."
+        ],
+        "de": [
+         "Mittelmotor mit Turbo. Einer der besten Einlenker der Klasse.",
+         "WIE MAN IHN FAEHRT: er zieht sich selbst in die Kurve, die Arbeit besteht also im BAENDIGEN. Weniger Lenkung als man denkt, und Vorsicht beim Gaswegnehmen mitten in der Kurve, weil er sofort dreht.",
+         "MIT DEM TURBO den Ausgang vorwegnehmen: frueher und progressiv treten."
         ]
        }
       },
@@ -2491,7 +3084,8 @@
        "titulo": {
         "es": "McLaren 720S GT3 Evo",
         "en": "McLaren 720S GT3 Evo",
-        "fr": "McLaren 720S GT3 Evo"
+        "fr": "McLaren 720S GT3 Evo",
+        "de": "McLaren 720S GT3 Evo"
        },
        "texto": {
         "es": [
@@ -2505,6 +3099,10 @@
         "fr": [
          "Turbo central avec beaucoup d'appui pour une GT3 : elle vole dans les virages rapides.",
          "COMMENT LA CONDUIRE : dans les virages lents il faut attendre le turbo avant d'ouvrir, et c'est la qu'on perd si on est impatient."
+        ],
+        "de": [
+         "Mittelmotor-Turbo mit viel Abtrieb fuer einen GT3: er fliegt durch schnelle Kurven.",
+         "WIE MAN IHN FAEHRT: in langsamen Kurven muss man auf den Turbo warten, bevor man aufmacht, und dort verliert man, wenn man ungeduldig ist."
         ]
        }
       },
@@ -2514,7 +3112,8 @@
        "titulo": {
         "es": "Lamborghini Huracan GT3 Evo2",
         "en": "Lamborghini Huracan GT3 Evo2",
-        "fr": "Lamborghini Huracan GT3 Evo2"
+        "fr": "Lamborghini Huracan GT3 Evo2",
+        "de": "Lamborghini Huracan GT3 Evo2"
        },
        "texto": {
         "es": [
@@ -2528,6 +3127,10 @@
         "fr": [
          "L'une des plus rapides en virage de la categorie et tres directe.",
          "COMMENT LA CONDUIRE : elle exige de la precision. Chaque correction de volant se paie, il faut donc preparer l'entree et ne pas improviser dans le virage."
+        ],
+        "de": [
+         "Einer der schnellsten Kurvenwagen der Klasse und sehr direkt.",
+         "WIE MAN IHN FAEHRT: er verlangt Praezision. Jede Lenkkorrektur kostet Zeit, also muss der Eingang vorbereitet und nicht in der Kurve improvisiert werden."
         ]
        }
       },
@@ -2537,7 +3140,8 @@
        "titulo": {
         "es": "Mercedes-AMG GT3 Evo",
         "en": "Mercedes-AMG GT3 Evo",
-        "fr": "Mercedes-AMG GT3 Evo"
+        "fr": "Mercedes-AMG GT3 Evo",
+        "de": "Mercedes-AMG GT3 Evo"
        },
        "texto": {
         "es": [
@@ -2551,6 +3155,10 @@
         "fr": [
          "Gros moteur avant, doux. Stable et previsible.",
          "COMMENT LA CONDUIRE : comme la Lexus, il faut de la patience dans les lents. C'est l'une des plus faciles et une bonne voiture d'endurance."
+        ],
+        "de": [
+         "Grosser, sanfter Frontmotor. Stabil und berechenbar.",
+         "WIE MAN IHN FAEHRT: wie beim Lexus braucht man in langsamen Kurven Geduld. Eines der einfachsten Autos der Klasse und gut fuer lange Rennen."
         ]
        }
       },
@@ -2560,7 +3168,8 @@
        "titulo": {
         "es": "Ford Mustang LMGT3",
         "en": "Ford Mustang LMGT3",
-        "fr": "Ford Mustang LMGT3"
+        "fr": "Ford Mustang LMGT3",
+        "de": "Ford Mustang LMGT3"
        },
        "texto": {
         "es": [
@@ -2574,6 +3183,10 @@
         "fr": [
          "Lourde du nez et tres saine : elle pardonne les erreurs.",
          "COMMENT LA CONDUIRE : elle punit le pneu avant sur les longs relais, donc soignez vos entrees : chaque entree trop rapide ne se rattrape pas."
+        ],
+        "de": [
+         "Kopflastig und sehr gutmuetig: er verzeiht Fehler.",
+         "WIE MAN IHN FAEHRT: er bestraft den Vorderreifen auf langen Stints, also pfleg deine Eingaenge: jeder zu schnelle Eingang kommt nicht zurueck."
         ]
        }
       },
@@ -2583,7 +3196,8 @@
        "titulo": {
         "es": "Chevrolet Corvette Z06 GT3.R",
         "en": "Chevrolet Corvette Z06 GT3.R",
-        "fr": "Chevrolet Corvette Z06 GT3.R"
+        "fr": "Chevrolet Corvette Z06 GT3.R",
+        "de": "Chevrolet Corvette Z06 GT3.R"
        },
        "texto": {
         "es": [
@@ -2600,6 +3214,11 @@
          "Atmospherique a reponse directe. Elle freine tres fort.",
          "COMMENT LA CONDUIRE : profitez du freinage. Dans les lents elle est lourde du nez comme toutes les moteur avant : corde tardive.",
          "Atmospherique, les gaz se dosent tres bien : la sortie est tres propre si vous etes fin."
+        ],
+        "de": [
+         "Sauger mit direkter Reaktion. Er bremst sehr stark.",
+         "WIE MAN IHN FAEHRT: nutze die Bremse. In langsamen Kurven ist er kopflastig wie alle Frontmotorautos: spaeter Scheitelpunkt.",
+         "Als Sauger laesst sich das Gas sehr fein dosieren: der Ausgang wird sehr sauber, wenn du praezise bist."
         ]
        }
       },
@@ -2609,7 +3228,8 @@
        "titulo": {
         "es": "Aston Martin Vantage AMR GT3 Evo",
         "en": "Aston Martin Vantage AMR GT3 Evo",
-        "fr": "Aston Martin Vantage AMR GT3 Evo"
+        "fr": "Aston Martin Vantage AMR GT3 Evo",
+        "de": "Aston Martin Vantage AMR GT3 Evo"
        },
        "texto": {
         "es": [
@@ -2623,6 +3243,10 @@
         "fr": [
          "V8 turbo avant avec beaucoup de couple en bas. Tres stable au freinage.",
          "COMMENT LA CONDUIRE : le couple arrive tot et d'un coup, la sortie se dose. Si vous patinez, ouvrez davantage le volant avant d'appuyer."
+        ],
+        "de": [
+         "V8-Turbo vorn mit viel Drehmoment von unten. Sehr stabil beim Bremsen.",
+         "WIE MAN IHN FAEHRT: das Drehmoment kommt frueh und auf einmal, der Ausgang will dosiert werden. Drehst du durch, mach die Lenkung frueher auf, bevor du trittst."
         ]
        }
       },
@@ -2632,7 +3256,8 @@
        "titulo": {
         "es": "Aston Martin Vantage AMR GT3",
         "en": "Aston Martin Vantage AMR GT3",
-        "fr": "Aston Martin Vantage AMR GT3"
+        "fr": "Aston Martin Vantage AMR GT3",
+        "de": "Aston Martin Vantage AMR GT3"
        },
        "texto": {
         "es": [
@@ -2646,6 +3271,10 @@
         "fr": [
          "La version precedente. Saine de l'arriere, avec tendance au sous-virage.",
          "COMMENT LA CONDUIRE : ne chargez pas trop le nez a l'entree : plus vous voulez la faire tourner au frein, plus elle sous-vire. Entree plus douce et corde tardive."
+        ],
+        "de": [
+         "Die aeltere Version. Hinten gutmuetig, mit Hang zum Untersteuern.",
+         "WIE MAN IHN FAEHRT: belaste die Nase am Eingang nicht zu sehr: je mehr du ihn mit der Bremse zum Einlenken zwingen willst, desto mehr untersteuert er. Sanfterer Eingang und spaeter Scheitelpunkt."
         ]
        }
       }
@@ -2656,7 +3285,8 @@
      "titulo": {
       "es": "GTE y coches de copa",
       "en": "GTE and cup cars",
-      "fr": "GTE et voitures de coupe"
+      "fr": "GTE et voitures de coupe",
+      "de": "GTE und Cup-Autos"
      },
      "temas": [
       {
@@ -2665,7 +3295,8 @@
        "titulo": {
         "es": "Ferrari 488 GTE Evo",
         "en": "Ferrari 488 GTE Evo",
-        "fr": "Ferrari 488 GTE Evo"
+        "fr": "Ferrari 488 GTE Evo",
+        "de": "Ferrari 488 GTE Evo"
        },
        "texto": {
         "es": [
@@ -2679,6 +3310,10 @@
         "fr": [
          "GTE tres aboutie, turbo a reponse rapide et excellente motricite.",
          "COMMENT LA CONDUIRE : plus d'appui et moins de poids qu'une GT3, tout va donc plus vite. Vous pouvez vous fier a l'air dans les rapides plus que dans une GT3."
+        ],
+        "de": [
+         "Sehr ausgereifter GTE, mit schnell ansprechendem Turbo und exzellenter Traktion.",
+         "WIE MAN IHN FAEHRT: mehr Abtrieb und weniger Gewicht als ein GT3, also geht alles schneller. Der Luft kann man in schnellen Kurven mehr vertrauen als im GT3."
         ]
        }
       },
@@ -2688,7 +3323,8 @@
        "titulo": {
         "es": "Chevrolet Corvette C8.R",
         "en": "Chevrolet Corvette C8.R",
-        "fr": "Chevrolet Corvette C8.R"
+        "fr": "Chevrolet Corvette C8.R",
+        "de": "Chevrolet Corvette C8.R"
        },
        "texto": {
         "es": [
@@ -2702,6 +3338,10 @@
         "fr": [
          "GTE a moteur central.",
          "COMMENT LA CONDUIRE : comme toutes les centrales, elle tourne bien et il faut soigner la stabilite arriere. Ne la conduisez pas comme la Corvette GT3 : elles n'ont rien a voir."
+        ],
+        "de": [
+         "GTE mit Mittelmotor.",
+         "WIE MAN IHN FAEHRT: wie alle Mittelmotorautos lenkt er gut ein und man muss die Heckstabilitaet pflegen. Fahr ihn nicht wie die Corvette GT3: sie haben nichts miteinander zu tun."
         ]
        }
       },
@@ -2711,7 +3351,8 @@
        "titulo": {
         "es": "Porsche 911 RSR-19",
         "en": "Porsche 911 RSR-19",
-        "fr": "Porsche 911 RSR-19"
+        "fr": "Porsche 911 RSR-19",
+        "de": "Porsche 911 RSR-19"
        },
        "texto": {
         "es": [
@@ -2728,6 +3369,11 @@
          "ATTENTION : meme si elle s'appelle 911, son moteur est DEVANT l'essieu arriere.",
          "COMMENT LA CONDUIRE : comme une centrale, pas comme la 911 GT3 R. Ici vous pouvez trainer du frein a l'entree ; elle n'a pas cette queue qui pousse.",
          "C'est l'erreur la plus frequente de qui y monte pour la premiere fois."
+        ],
+        "de": [
+         "ACHTUNG: obwohl er 911 heisst, sitzt der Motor VOR der Hinterachse.",
+         "WIE MAN IHN FAEHRT: wie ein Mittelmotorauto, nicht wie den 911 GT3 R. Hier darfst du die Bremse in den Eingang mitnehmen; er hat kein schiebendes Heck.",
+         "Das ist der haeufigste Fehler von allen, die zum ersten Mal einsteigen."
         ]
        }
       },
@@ -2737,7 +3383,8 @@
        "titulo": {
         "es": "Porsche 911 GT3 Cup (992)",
         "en": "Porsche 911 GT3 Cup (992)",
-        "fr": "Porsche 911 GT3 Cup (992)"
+        "fr": "Porsche 911 GT3 Cup (992)",
+        "de": "Porsche 911 GT3 Cup (992)"
        },
        "texto": {
         "es": [
@@ -2754,6 +3401,11 @@
          "Sans ABS, sans controle de traction et moteur en porte-a-faux arriere.",
          "COMMENT LA CONDUIRE : ecole pure. Freinez DROIT, relachez le frein du bout du pied, tournez ensuite et sortez droit. Deux choses a la fois et elle part.",
          "C'est la voiture qui apprend le plus vite a etre fin des pieds."
+        ],
+        "de": [
+         "Ohne ABS, ohne Traktionskontrolle und mit dem Motor hinter der Hinterachse.",
+         "WIE MAN IHN FAEHRT: reine Schule. Bremse GERADEAUS, loese die Bremse mit der Fussspitze, lenke danach ein und komm gerade heraus. Zwei Dinge gleichzeitig, und er ist weg.",
+         "Das Auto, das dir am schnellsten beibringt, mit den Fuessen fein zu sein."
         ]
        }
       },
@@ -2763,7 +3415,8 @@
        "titulo": {
         "es": "McLaren 720S GT3 Challenge",
         "en": "McLaren 720S GT3 Challenge",
-        "fr": "McLaren 720S GT3 Challenge"
+        "fr": "McLaren 720S GT3 Challenge",
+        "de": "McLaren 720S GT3 Challenge"
        },
        "texto": {
         "es": [
@@ -2780,6 +3433,11 @@
          "Beaucoup de puissance et peu d'appui, sans aides.",
          "COMMENT LA CONDUIRE : sorties droites et gaz progressifs, sinon vous passerez l'apres-midi en tete-a-queue.",
          "Comme l'air ne vous tient pas autant que dans une GT3 de course, plus de respect dans les virages rapides."
+        ],
+        "de": [
+         "Viel Leistung und wenig Abtrieb, ohne Hilfen.",
+         "WIE MAN IHN FAEHRT: gerade Ausgaenge und progressives Gas, sonst verbringst du den Nachmittag mit Drehern.",
+         "Da die Luft dich nicht so haelt wie in einem Renn-GT3, in schnellen Kurven mit mehr Respekt."
         ]
        }
       }
@@ -2792,7 +3450,8 @@
    "titulo": {
     "es": "Por circuito",
     "en": "By track",
-    "fr": "Par circuit"
+    "fr": "Par circuit",
+    "de": "Nach Strecke"
    },
    "entrada": {
     "es": [
@@ -2812,6 +3471,12 @@
      "COMMENT S'EN SERVIR : lisez avant de sortir, faites trois ou quatre tours lents en reconnaissant ce qui est decrit, et relisez apres. La deuxieme fois vous comprendrez la moitie des choses qui vous auront paru obscures la premiere.",
      "Les points de freinage ne sont volontairement pas donnes en metres : ils dependent de votre voiture, de votre charge de carburant et de l'etat de vos pneus. Ce qui est ici, c'est le CARACTERE de chaque virage, et cela ne change pas.",
      "Et un avertissement honnete : personne n'apprend un circuit en lisant. Ceci vous evite les premieres heures a tatonner, pas les tours."
+    ],
+    "de": [
+     "Jede Strecke, mit der Runde nach Abschnitten erklaert, wo die Zeit liegt, den Fallen, und am Ende ein Abschnitt nach Klasse, denn ein Prototyp und ein GT3 fahren nicht dieselbe Runde, auch wenn sie ueber dieselbe Strecke fahren.",
+     "SO NUTZT MAN DAS: lies es vor der Ausfahrt, dreh drei oder vier langsame Runden und erkenne wieder, was hier steht, und lies es danach noch einmal. Beim zweiten Mal verstehst du die Haelfte der Dinge, die beim ersten Mal boehmische Doerfer waren.",
+     "Bremspunkte stehen absichtlich nicht in Metern: sie haengen von deinem Auto, deiner Tankfuellung und dem Zustand deiner Reifen ab. Was hier steht, ist der CHARAKTER jeder Kurve, und der aendert sich nicht.",
+     "Und eine ehrliche Warnung: niemand lernt eine Strecke durch Lesen. Das hier spart dir die ersten Stunden des Herumratens, nicht die Runden."
     ]
    },
    "temas": [
@@ -2820,7 +3485,8 @@
      "titulo": {
       "es": "Barcelona-Catalunya",
       "en": "Barcelona-Catalunya",
-      "fr": "Barcelone-Catalogne"
+      "fr": "Barcelone-Catalogne",
+      "de": "Barcelona-Catalunya"
      },
      "texto": {
       "es": [
@@ -2852,6 +3518,16 @@
        "TRAFIC : la zone du 4 au 9 est etroite et peu visible. Les depassements se preparent pour la ligne droite principale ou le freinage du 10.",
        "EN PROTOTYPE : le 3 se prend pratiquement a plat et le secteur 1 est un spectacle. Attention a la chicane finale, ou les vibreurs font le plus de mal a ces voitures.",
        "EN GT : patience dans le 5 et le 10, lents, avec une voiture lourde. Le temps est dans la motricite en sortie de chicane et dans le fait de ne pas detruire le pneu avant dans le 3."
+      ],
+      "de": [
+       "CHARAKTER: eine Pruefungsstrecke. Sie hat alles, vor allem lange Kurven mit anhaltender Last, die den Vorderreifen mehr strafen als alles andere im Kalender.",
+       "DIE RUNDE. Kurve 1 ist eine harte Bremszone von der Geraden in eine Rechtskurve, die in Kurve 2 uebergeht: verschluck dich nicht am ersten Teil, sonst kommst du quer im zweiten an. Kurve 3 ist der Schluessel der Strecke, eine sehr lange Rechte mit anhaltender Last: man faehrt ohne zu zoegern hinein und haelt, und dort verbrennt der rechte Vorderreifen. Kurve 4 und 5 leiten die Abfahrt ein; 5 gibt viel zurueck, wenn der Ausgang stimmt.",
+       "Der Abschnitt von 7 bis 9 (mit Campsa, der blinden Kuppe) verlangt Vertrauen: man faehrt hinein, ohne den Ausgang zu sehen, und das Auto wird auf der Kuppe leicht. Kurve 10 ist eine Bremszone bergab, hinterhaeltig. Und die Schikane am Ende ist die Stelle, an der die meisten das Auto verlieren.",
+       "WO DIE ZEIT LIEGT: in Kurve 3 und am Ausgang der letzten Schikane auf die Start-Ziel-Gerade. Dieser Ausgang ist die wichtigste Kurve der Runde.",
+       "DIE FALLEN. Die Kerbs der letzten Schikane sind hart und bringen das Auto aus der Ruhe, wenn man sie mit Lenkeinschlag nimmt. Und das Untersteuern in Kurve 3 schaukelt sich auf: je mehr du draufhaeltst, desto heisser wird der Vorderreifen und desto schlechter wird es.",
+       "VERKEHR: der Abschnitt von 4 bis 9 ist eng und unuebersichtlich. Ueberholmanoever bereitet man fuer die Start-Ziel-Gerade oder die Bremszone von Kurve 10 vor.",
+       "IM PROTOTYP: Kurve 3 geht praktisch voll und Sektor 1 ist ein Schauspiel. Vorsicht in der letzten Schikane, wo die Kerbs diesen Autos am meisten schaden.",
+       "IM GT: Geduld in Kurve 5 und 10, sie sind langsam und das Auto ist schwer. Die Zeit liegt in der Traktion am Schikanenausgang und darin, den Vorderreifen in Kurve 3 nicht zu zerstoeren."
       ]
      }
     },
@@ -2860,7 +3536,8 @@
      "titulo": {
       "es": "Spa-Francorchamps",
       "en": "Spa-Francorchamps",
-      "fr": "Spa-Francorchamps"
+      "fr": "Spa-Francorchamps",
+      "de": "Spa-Francorchamps"
      },
      "texto": {
       "es": [
@@ -2892,6 +3569,16 @@
        "TRAFIC : le Kemmel est la meilleure zone pour passer. N'essayez jamais de doubler dans l'Eau Rouge.",
        "EN PROTOTYPE : Eau Rouge, Pouhon et Blanchimont a plat, et il faut y croire. Le compromis appui / vitesse de pointe fait plus mal ici qu'ailleurs.",
        "EN GT : l'Eau Rouge ne passe pas a plat avec le plein, et ce n'est pas grave. Le temps est a La Source, aux Combes et dans la sortie de Stavelot. Et preparez les retroviseurs : dans le secteur 2 les prototypes vous rattraperont sans arret."
+      ],
+      "de": [
+       "CHARAKTER: sieben Kilometer, gewaltige Hoehenunterschiede und von allem etwas. Der Liebling fast aller und eine der Strecken mit dem meisten Respekt.",
+       "DIE RUNDE. La Source ist eine langsame Haarnadel nach der Geraden: hart bremsen, langsam einlenken, und was zaehlt, ist der Ausgang, denn unten beginnt Eau Rouge. Eau Rouge und Raidillon sind der blinde Anstieg: unten links hinein, im Hochfahren wird das Auto zusammengedrueckt, und oben rechts wieder hinaus, ohne etwas zu sehen. Mit einem stabilen Auto geht das voll; bewegt sich das Auto dort, ist es keine Angst, sondern fehlender Abtrieb oder eine zu tiefe Lage.",
+       "Oben kommt die Kemmel-Gerade und an ihrem Ende Les Combes, eine Rechts-links-Schikane, die beste Ueberholstelle. Dann Malmedy, Rivage (Bremszone bergab, sehr hinterhaeltig) und die Abfahrt nach Pouhon, eine sehr schnelle Doppellinks bergab und eine der besten Kurven der Welt. Danach Fagnes, Stavelot und der Anstieg nach Blanchimont, eine schnelle Linke, die praktisch voll geht. Zum Schluss die Bus-Stop-Schikane.",
+       "WO DIE ZEIT LIEGT: in Sektor 2, der komplett aus anhaltender Last besteht (Pouhon und Fagnes), und am Ausgang von La Source, denn dort beginnt der ganze Anstieg bis Les Combes.",
+       "DIE FALLEN. Rivage: bergab in die Kurve bremsen, dort verschaetzen sich die meisten. Eau Rouge mit vollem Tank oder zu tiefem Auto: dort wird das Auto auf den Boden gedrueckt, und wenn es aufsetzt, bist du weg. Und das Wetter: Spa ist so lang, dass es in einem Sektor regnen kann und im anderen nicht.",
+       "VERKEHR: Kemmel ist die beste und sicherste Stelle zum Ueberholen. Versuche nie, in Eau Rouge zu ueberholen.",
+       "IM PROTOTYP: Eau Rouge, Pouhon und Blanchimont gehen voll, und man muss daran glauben. Der Kompromiss zwischen Abtrieb und Endgeschwindigkeit tut hier mehr weh als anderswo.",
+       "IM GT: Eau Rouge geht mit vollem Tank nicht voll, und das ist in Ordnung. Die Zeit liegt in La Source, Les Combes und einem guten Ausgang aus Stavelot. Und halt die Spiegel bereit: in Sektor 2 holen dich die Prototypen staendig ein."
       ]
      }
     },
@@ -2900,7 +3587,8 @@
      "titulo": {
       "es": "Le Mans (Circuit de la Sarthe)",
       "en": "Le Mans (Circuit de la Sarthe)",
-      "fr": "Le Mans (Circuit de la Sarthe)"
+      "fr": "Le Mans (Circuit de la Sarthe)",
+      "de": "Le Mans (Circuit de la Sarthe)"
      },
      "texto": {
       "es": [
@@ -2929,6 +3617,15 @@
        "TRAFIC : l'endroit ou l'on souffre le plus de toute l'annee. Les vitesses de rapprochement en ligne droite sont brutales, et dans les Porsche il n'y a pas la place pour deux.",
        "EN PROTOTYPE : vous roulez avec tres peu d'aileron, donc la voiture est plus nerveuse que d'habitude dans les Porsche, la ou il faut etre fin.",
        "EN GT : on vous doublera des centaines de fois. Regardez les retroviseurs dans les lignes droites, pas dans les virages. Et dans les chicanes, soyez PREVISIBLE."
+      ],
+      "de": [
+       "CHARAKTER: dreizehneinhalb Kilometer, die Haelfte davon Gerade. Nichts ist damit vergleichbar: hier zaehlt die schnellste Runde weit weniger als heil anzukommen.",
+       "DIE RUNDE. Vom Start weg und Bremsen in die Dunlop-Kurve unter der Bruecke. Dann die Esses und Tertre Rouge, DIE wichtige Kurve der Runde: dort beginnt die Hunaudieres-Gerade, ein schlechter Ausgang kostet dich also sechs Kilometer lang Zeit. Danach die beiden Schikanen, die die Gerade teilen, die Mulsanne-Haarnadel, die Gerade bis Indianapolis (sehr harte Bremszone und lange Rechte), Arnage und schliesslich die Porsche-Kurven, der wirklich technische Teil. Es endet mit den Ford-Schikanen.",
+       "WO DIE ZEIT LIEGT: in Tertre Rouge, in den Porsche-Kurven und darin, in den Schikanen nichts zu verlieren. Auf den Geraden gewinnt man nicht: man bewahrt.",
+       "DIE FALLEN. Die Schikanen der Hunaudieres haben Kerbs, die man nehmen muss, und mit einem fuer die Gerade hart abgestimmten Auto werfen sie dich ab. Die Porsche-Kurven sind eng, ohne Auslauf und kommen, wenn du schon Stunden gefahren bist: dort zerbrechen Rennen.",
+       "VERKEHR: die Stelle, an der man das ganze Jahr am meisten leidet. Die Annaeherungsgeschwindigkeiten auf den Geraden sind brutal, und in den Porsche-Kurven ist kein Platz fuer zwei.",
+       "IM PROTOTYP: du faehrst mit sehr wenig Fluegel, das Auto ist also in den Porsche-Kurven nervoeser als sonst, genau dort, wo Feingefuehl noetig ist.",
+       "IM GT: du wirst hunderte Male ueberholt. Schau auf den Geraden in die Spiegel, nicht in den Kurven. Und sei in den Schikanen BERECHENBAR."
       ]
      }
     },
@@ -2937,7 +3634,8 @@
      "titulo": {
       "es": "Monza",
       "en": "Monza",
-      "fr": "Monza"
+      "fr": "Monza",
+      "de": "Monza"
      },
      "texto": {
       "es": [
@@ -2966,6 +3664,15 @@
        "TRAFIC : les trois chicanes sont les endroits pour doubler, et donc la ou se concentrent les accrochages.",
        "EN PROTOTYPE : vous aurez le reglage le plus extreme de l'annee avec Le Mans. La voiture sera inconfortable dans les chicanes, il faut l'accepter.",
        "EN GT : vous perdez moins au reglage extreme et vous gagnez a etre propre dans les chicanes. La Parabolique avec des pneus uses devient un probleme."
+      ],
+      "de": [
+       "CHARAKTER: sehr lange Geraden und drei Schikanen. Die am leichtesten zu lernende Strecke und eine der am schwersten gut zu fahrenden, weil alles vom Bremsen aus sehr hohem Tempo abhaengt.",
+       "DIE RUNDE. Die erste Schikane (Rettifilo) kommt nach der schnellsten Geraden: sehr lange Bremszone von ganz oben, und man muss den Kerb nehmen, um keine Zeit zu verlieren. Die Curva Grande geht voll. Die Roggia ist eine weitere Schikane, eine gute Ueberholstelle. Dann die beiden Lesmo, zwei schnelle blinde Rechtskurven, die Abfahrt am Serraglio, die Variante Ascari (schnell und dreiteilig, die schoenste Kurve der Strecke) und die Parabolica, eine sehr lange Rechte auf die Start-Ziel-Gerade.",
+       "WO DIE ZEIT LIEGT: in der Parabolica, ohne Diskussion, und in Ascari, die denjenigen belohnt, der die drei Teile ohne Korrektur verbindet.",
+       "DIE FALLEN. Aus 300 mit wenig Abtrieb zu bremsen ist das Schwierigste ueberhaupt: das Auto kommt leicht am Ende der Bremszone an und blockiert oder bricht aus. Die Kerbs der Schikanen sind sehr hoch: man muss sie nehmen, aber mit geradem Auto.",
+       "VERKEHR: die drei Schikanen sind die Ueberholstellen und genau deshalb auch die Stellen mit den Beruehrungen.",
+       "IM PROTOTYP: du faehrst zusammen mit Le Mans das extremste Setup des Jahres. Das Auto wird sich in den Schikanen unwohl anfuehlen, und das muss man akzeptieren.",
+       "IM GT: du verlierst weniger durch das extreme Setup und gewinnst durch Sauberkeit in den Schikanen. Die Parabolica mit gebrauchten Reifen wird zum Problem."
       ]
      }
     },
@@ -2974,7 +3681,8 @@
      "titulo": {
       "es": "Sebring",
       "en": "Sebring",
-      "fr": "Sebring"
+      "fr": "Sebring",
+      "de": "Sebring"
      },
      "texto": {
       "es": [
@@ -3002,6 +3710,14 @@
        "LES PIEGES. Les bosses : elles bougent vraiment la voiture et peuvent la faire toucher. Tout ce qui est bas et raide souffre ici. Et de nuit, on ne les voit pas arriver.",
        "EN PROTOTYPE : c'est ici qu'une voiture plus haute et plus souple paie le plus.",
        "EN GT : vous souffrez moins de la hauteur, mais les pneus sont maltraites par l'abrasivite. Rythme constant et douceur valent plus qu'ailleurs."
+      ],
+      "de": [
+       "CHARAKTER: der schlechteste Belag der Welt, alter Flugplatzbeton, Wellen ueberall. Eine Strecke, die Autos zerlegt und auf der man stundenlang bei Nacht faehrt.",
+       "DIE RUNDE. Ein flacher Kurs mit Kurven mittlerer Geschwindigkeit, einer sehr langsamen Haarnadel in der Rundenmitte und mehreren Betonpassagen, auf denen das Auto tanzt. Die letzte Kurve, Turn 17, ist eine lange, wellige Rechte auf die Start-Ziel-Gerade: die wichtigste der Runde und die am schwersten gut zu fahrende.",
+       "WO DIE ZEIT LIEGT: in Turn 17 und auf den Betonpassagen, wo derjenige viel gewinnt, der das Auto ruhig haelt.",
+       "DIE FALLEN. Die Wellen: sie bewegen das Auto wirklich und koennen es zum Aufsetzen bringen. Alles Tiefe und Harte leidet hier. Und bei Nacht sieht man sie nicht kommen.",
+       "IM PROTOTYP: hier zahlt sich ein hoeheres und weicheres Auto am meisten aus.",
+       "IM GT: du leidest weniger unter der Fahrzeughoehe, aber die Reifen bekommen den abrasiven Belag zu spueren. Gleichmaessiges Tempo und Weichheit sind hier mehr wert als anderswo."
       ]
      }
     },
@@ -3010,7 +3726,8 @@
      "titulo": {
       "es": "Portimao (Algarve)",
       "en": "Portimao (Algarve)",
-      "fr": "Portimao (Algarve)"
+      "fr": "Portimao (Algarve)",
+      "de": "Portimao (Algarve)"
      },
      "texto": {
       "es": [
@@ -3039,6 +3756,15 @@
        "REPERES : difficiles, car beaucoup de virages s'abordent sans en voir la fin. Cherchez des reperes au bord de la piste, pas a l'horizon.",
        "EN PROTOTYPE : la voiture change de caractere a chaque rupture de pente.",
        "EN GT : moins d'appui veut dire que les virages aveugles impressionnent davantage. Corde tardive dans tout le secteur final."
+      ],
+      "de": [
+       "CHARAKTER: eine Achterbahn. Anstiege, Abfahrten, blinde Kuppen und sehr wenige Orientierungspunkte. Die Strecke, die am schwersten zu lernen ist.",
+       "DIE RUNDE. Vom Start bergauf in eine blinde Rechte auf einer Kuppe, ohne den Ausgang zu sehen. Dann eine lange Abfahrt mit mehreren verbundenen Kurven, in denen das Auto leicht wird, ein Mittelteil mit staendigen Kuppen, und ein Anstieg bis zur letzten Kurve.",
+       "WO DIE ZEIT LIEGT: am Ausgang der letzten Kurve und darin, sich in den blinden Kurven der Abfahrt etwas zu trauen, wo fast alle zu viel vom Gas gehen.",
+       "DIE FALLEN. Die Kuppen: das Auto wird in den Senken zusammengedrueckt (ist es tief, setzt es auf) und oben leicht, genau wenn du einlenkst.",
+       "ORIENTIERUNGSPUNKTE: schwierig, weil viele Kurven ohne Sicht auf das Ende angefahren werden. Such Punkte am Streckenrand, nicht am Horizont.",
+       "IM PROTOTYP: das Auto wechselt bei jeder Kuppe den Charakter.",
+       "IM GT: weniger Abtrieb heisst, dass die blinden Kurven mehr Respekt einfloessen. Spaeter Scheitelpunkt im ganzen Schlusssektor."
       ]
      }
     },
@@ -3047,7 +3773,8 @@
      "titulo": {
       "es": "Imola",
       "en": "Imola",
-      "fr": "Imola"
+      "fr": "Imola",
+      "de": "Imola"
      },
      "texto": {
       "es": [
@@ -3076,6 +3803,15 @@
        "TRAFIC : c'est le pire du calendrier pour le multiclasse, il n'y a pas de place. Les prototypes doivent passer a Tosa ou attendre.",
        "EN PROTOTYPE : les chicanes sont l'ennemi. Et la montee vers Piratella se prend tres vite.",
        "EN GT : plusieurs sorties de virage lent en montee (Rivazza, Tosa) ou la motricite fait tout."
+      ],
+      "de": [
+       "CHARAKTER: eng, altmodisch, mit hohen Kerbs und sehr wenig Platz zum Ueberholen. Eine Praezisionsstrecke.",
+       "DIE RUNDE. Tamburello ist die erste Schikane, schnell, und man muss den Kerb nehmen. Villeneuve ist eine weitere Schikane, dann geht es hinunter nach Tosa, eine Linkshaarnadel am Ende einer Abfahrt und die beste Ueberholstelle. Bergauf nach Piratella (blinde Linke oben), hinunter nach Acque Minerali (Rechte bergab, sehr technisch), Variante Alta (Schikane mit sehr hohen Kerbs) und zum Schluss die beiden Rivazza und die letzte Schikane.",
+       "WO DIE ZEIT LIEGT: am Ausgang der Rivazza auf die Gerade und in Acque Minerali.",
+       "DIE FALLEN. Die Kerbs der Variante Alta gehoeren zu den hoechsten des Kalenders. Und die Strecke ist eng: ein Fehler bringt dich ins Kiesbett.",
+       "VERKEHR: die schlimmste Strecke des Kalenders fuer Multiclass, weil kein Platz ist. Prototypen muessen in Tosa vorbei oder warten.",
+       "IM PROTOTYP: die Schikanen sind der Feind. Und der Anstieg nach Piratella geht sehr schnell.",
+       "IM GT: es gibt mehrere langsame Kurvenausgaenge bergauf (Rivazza, Tosa), wo Traktion alles ist."
       ]
      }
     },
@@ -3084,7 +3820,8 @@
      "titulo": {
       "es": "Fuji",
       "en": "Fuji",
-      "fr": "Fuji"
+      "fr": "Fuji",
+      "de": "Fuji"
      },
      "texto": {
       "es": [
@@ -3115,6 +3852,15 @@
        "TEMPERATURE : il y fait frais. Les pneus montent lentement et le premier secteur d'un tour lance est une loterie.",
        "EN PROTOTYPE : peu d'aileron pour la ligne droite, et un secteur final inconfortable. C'est un compromis tres marque ici.",
        "EN GT : le secteur final est a vous. Avec de la patience et de la motricite on reprend beaucoup."
+      ],
+      "de": [
+       "CHARAKTER: eine anderthalb Kilometer lange Gerade und danach ein langsamer, technischer Schlusssektor. Zwei Strecken in einer.",
+       "DIE RUNDE. Die Start-Ziel-Gerade ist sehr lang und endet in einer harten Bremszone in Kurve 1. Dann ein Abschnitt mittlerer Geschwindigkeit, die Coca-Cola-Kurve, und danach der Schlusssektor: verbundene langsame Kurven, eine Haarnadel und die letzte Kurve zurueck auf die Gerade.",
+       "WO DIE ZEIT LIEGT: im Schlusssektor und vor allem am Ausgang der letzten Kurve.",
+       "DIE FALLEN. Die Bremszone in Kurve 1, vor allem mit wenig Fluegel. Und das Wetter: hier regnet es oft und es kann mitten im Rennen umschlagen.",
+       "TEMPERATUR: es ist meist kuehl. Die Reifen brauchen laenger und der erste Sektor einer fliegenden Runde ist ein Gluecksspiel.",
+       "IM PROTOTYP: wenig Fluegel wegen der Geraden, und der Schlusssektor wird unbequem. Dieser Kompromiss faellt hier stark auf.",
+       "IM GT: der Schlusssektor gehoert dir. Mit Geduld und Traktion holt man viel zurueck."
       ]
      }
     },
@@ -3123,7 +3869,8 @@
      "titulo": {
       "es": "Bahrein",
       "en": "Bahrain",
-      "fr": "Bahrein"
+      "fr": "Bahrein",
+      "de": "Bahrain"
      },
      "texto": {
       "es": [
@@ -3152,6 +3899,15 @@
        "TRAFIC : c'est large avec plusieurs gros freinages, l'un des circuits les plus confortables pour doubler.",
        "EN PROTOTYPE : surveillez la temperature des freins dans les freinages enchaines.",
        "EN GT : c'est une course de gestion de pneus, et cela se voit ici plus qu'ailleurs."
+      ],
+      "de": [
+       "CHARAKTER: viele harte Bremszonen, Hitze, Sand und abrasiver Asphalt. Die Strecke, die Bremsen und Reifen am meisten strapaziert. Man faehrt bei Nacht.",
+       "DIE RUNDE. Harte Bremszone in Kurve 1, ein Abschnitt mittlerer Kurven, eine weitere harte Bremszone in der Rundenmitte und ein verbundener Schlusssektor auf die Hauptgerade.",
+       "WO DIE ZEIT LIEGT: in der Traktion aus den langsamen Kurven und darin, mit Reifen ans Stint-Ende zu kommen.",
+       "DIE FALLEN. Die Temperatur: Bremsen und Reifen verlassen leicht ihr Fenster. Und der Sand neben der Ideallinie: faehrst du hinaus, rechne mit zwei schlechten Runden.",
+       "VERKEHR: breit und mit mehreren harten Bremszonen, eine der bequemsten Strecken zum Ueberholen.",
+       "IM PROTOTYP: achte auf die Bremstemperaturen in den aufeinanderfolgenden Bremszonen.",
+       "IM GT: das ist ein Reifenmanagement-Rennen, und hier zeigt es sich mehr als anderswo."
       ]
      }
     },
@@ -3160,7 +3916,8 @@
      "titulo": {
       "es": "Interlagos",
       "en": "Interlagos",
-      "fr": "Interlagos"
+      "fr": "Interlagos",
+      "de": "Interlagos"
      },
      "texto": {
       "es": [
@@ -3188,6 +3945,14 @@
        "LES PIEGES. Les bosses du secteur 2 derangent la voiture. Le S de Senna est un freinage en descente ou l'on deborde facilement.",
        "EN PROTOTYPE : attention a la hauteur de caisse avec les bosses et le denivele. La Curva do Sol passe pratiquement a plat.",
        "EN GT : la motricite a la Juncao fait tout."
+      ],
+      "de": [
+       "CHARAKTER: kurz, mit Hoehenunterschied, unebenem Belag und dem Schlusssektor bergauf. Er wird gegen den Uhrzeigersinn gefahren.",
+       "DIE RUNDE. Es geht hinunter in das Senna-S, eine Links-rechts-Kombination bergab, die haerteste Bremszone und die beste Ueberholstelle. Dann die Curva do Sol, lang und zunehmend, auf die Gegengerade. An deren Ende eine weitere harte Bremszone, und der Mittelsektor beginnt: mittlere und langsame Kurven, wellig, bis zur Juncao, einer langsamen Linken bergauf. Von dort geht der ganze Anstieg bis ins Ziel.",
+       "WO DIE ZEIT LIEGT: in der Juncao, ohne Zweifel. Sie ist die wichtigste Kurve der Strecke. Und in der Curva do Sol.",
+       "DIE FALLEN. Die Wellen im Sektor 2 bringen das Auto aus der Ruhe. Das Senna-S ist eine Bremszone bergab, in der man leicht zu weit geht.",
+       "IM PROTOTYP: achte wegen der Wellen und des Gefaelles auf die Fahrzeughoehe. Die Curva do Sol geht praktisch voll.",
+       "IM GT: die Traktion in der Juncao ist alles."
       ]
      }
     },
@@ -3196,7 +3961,8 @@
      "titulo": {
       "es": "Circuit of the Americas (COTA)",
       "en": "Circuit of the Americas (COTA)",
-      "fr": "Circuit of the Americas (COTA)"
+      "fr": "Circuit of the Americas (COTA)",
+      "de": "Circuit of the Americas (COTA)"
      },
      "texto": {
       "es": [
@@ -3224,6 +3990,14 @@
        "LES PIEGES. Le terrain s'est affaisse par endroits et il y a de grosses bosses dans des zones rapides. Le 1 est aveugle et en montee.",
        "EN PROTOTYPE : les esses se prennent a une vitesse impressionnante.",
        "EN GT : le secteur final est la ou se fait le temps, avec patience et motricite."
+      ],
+      "de": [
+       "CHARAKTER: eine moderne Strecke mit allem: ein blinder Anstieg am Start, ein Abschnitt schneller verbundener Kurven und ein langsamer, technischer Schluss.",
+       "DIE RUNDE. Kurve 1 ist ein sehr steiler Anstieg in eine Linkshaarnadel: man bremst bergauf (man steht besser, als man denkt) und faehrt hinein, ohne den Ausgang zu sehen. Dann geht es hinunter in die Esses von 3 bis 6, schnell und verbunden, das Beste an der Strecke. Danach ein Mittelteil, die Haarnadel in Kurve 11, die lange Gegengerade, eine harte Bremszone in Kurve 12 und der Schlusssektor: eine Spirale langsamer Kurven und die letzte Schikane.",
+       "WO DIE ZEIT LIEGT: in den Esses von Sektor 1 und am Ausgang von Kurve 11 auf die Gegengerade.",
+       "DIE FALLEN. Der Boden hat sich stellenweise gesenkt und es gibt grosse Wellen in schnellen Passagen. Kurve 1 ist blind und bergauf.",
+       "IM PROTOTYP: die Esses werden mit beeindruckendem Tempo gefahren.",
+       "IM GT: im Schlusssektor wird die Zeit gemacht, mit Geduld und Traktion."
       ]
      }
     },
@@ -3232,7 +4006,8 @@
      "titulo": {
       "es": "Silverstone",
       "en": "Silverstone",
-      "fr": "Silverstone"
+      "fr": "Silverstone",
+      "de": "Silverstone"
      },
      "texto": {
       "es": [
@@ -3263,6 +4038,15 @@
        "EN PROTOTYPE : Copse et Becketts a plat. C'est la categorie qui profite le plus de ce circuit.",
        "EN GT : dans Becketts il faut etre doux, la voiture est lourde et chaque correction se traine jusqu'au virage suivant.",
        "NOTE DU PROGRAMME : Silverstone est le seul circuit avec deux variantes de trace (WEC et ELMS) a scanner separement."
+      ],
+      "de": [
+       "CHARAKTER: echte schnelle Kurven und sehr wenig Zeit mit geradem Lenkrad. Dazu Wind, den man spuert. Die Strecke, die ein bei hohem Tempo stabiles Auto am meisten belohnt.",
+       "DIE RUNDE. Es beginnt mit Abbey, einer sehr schnellen Rechten, die praktisch ohne Lupfen geht, und Farm. Dann faellt das Tempo: Village, The Loop und Aintree, der langsame Teil. Danach die Wellington-Gerade bis Brooklands und Luffield, zwei langsame lange Kurven, und Woodcote zurueck zur Linie. Die zweite Haelfte ist die gute: Copse (sehr schnelle Rechte) und die Kombination Maggotts-Becketts-Chapel, die beste Kurvenfolge des Kalenders. Daraus entsteht die Hangar-Gerade bis Stowe, dann Vale und Club.",
+       "WO DIE ZEIT LIEGT: in Maggotts-Becketts. Man faehrt sehr schnell hinein und jede Kurve haengt davon ab, wie man aus der vorigen gekommen ist: ein Fehler in der ersten ruiniert die folgenden fuenf. Und am Ausgang von Luffield.",
+       "DIE FALLEN. Der Wind: ein Auto, das bei der Stabilitaet knapp ist, wird unangenehm, sobald es blaest, und in Silverstone blaest es. Und Stowe am Ende von Hangar ist eine lange Bremszone aus sehr hohem Tempo.",
+       "IM PROTOTYP: Copse und Becketts voll. Die Klasse, die diese Strecke am meisten geniesst.",
+       "IM GT: in Becketts muss man weich sein, das Auto ist schwer und jede Korrektur zieht sich in die naechste Kurve.",
+       "HINWEIS ZUM PROGRAMM: Silverstone ist die einzige Strecke mit zwei Streckenvarianten (WEC und ELMS), die getrennt gescannt werden muessen."
       ]
      }
     },
@@ -3271,7 +4055,8 @@
      "titulo": {
       "es": "Losail (Qatar)",
       "en": "Losail (Qatar)",
-      "fr": "Losail (Qatar)"
+      "fr": "Losail (Qatar)",
+      "de": "Losail (Katar)"
      },
      "texto": {
       "es": [
@@ -3302,6 +4087,15 @@
        "DE NUIT : l'eclairage est bon, mais la temperature tombe et les pressions avec elle.",
        "EN PROTOTYPE : ce circuit est fait pour vous.",
        "EN GT : le pneu souffre de temperature soutenue, pas de pics."
+      ],
+      "de": [
+       "CHARAKTER: mittlere und schnelle verbundene Kurven, sehr fliessend, in der Wueste und bei Nacht unter Flutlicht.",
+       "DIE RUNDE. Harte Bremszone am Ende der Hauptgeraden und danach eine Folge verbundener Kurven mittlerer und hoher Geschwindigkeit, fast ohne Pause.",
+       "WO DIE ZEIT LIEGT: im Verbinden. Es ist eine Rhythmusstrecke: man gewinnt, indem man das Auto fliessen laesst und zwischen den Kurven kein Tempo verliert.",
+       "DIE FALLEN. Der Sand. Die Strecke entwickelt sich waehrend einer Session enorm, und was du auf schmutziger Strecke gelernt hast, gilt auf eingefahrener nicht mehr.",
+       "BEI NACHT: die Temperatur faellt und mit ihr die Reifendruecke.",
+       "IM PROTOTYP: diese Strecke ist fuer euch gemacht.",
+       "IM GT: der Reifen leidet unter anhaltender Temperatur, nicht unter Spitzen."
       ]
      }
     },
@@ -3310,7 +4104,8 @@
      "titulo": {
       "es": "Paul Ricard",
       "en": "Paul Ricard",
-      "fr": "Paul Ricard"
+      "fr": "Paul Ricard",
+      "de": "Paul Ricard"
      },
      "texto": {
       "es": [
@@ -3338,6 +4133,14 @@
        "LES PIEGES. Les zones peintes accrochent bien moins que le bitume : y poser les roues n'est pas gratuit. Et le circuit est si large et si uniforme qu'il est difficile d'y trouver des reperes.",
        "EN PROTOTYPE : Signes a plat avec une voiture stable ; si elle bouge la, verifiez l'appui arriere avant de chercher du courage.",
        "EN GT : le secteur final est la ou est votre temps. Dans le Mistral on vous doublera, et ce n'est pas grave."
+      ],
+      "de": [
+       "CHARAKTER: die Mistral-Gerade, von einer Schikane geteilt, ein technischer Schlusssektor, und bemalte Auslaufzonen statt Kies.",
+       "DIE RUNDE. Vom Start durch einen Abschnitt mittlerer Kurven und auf die Mistral, sehr lang mit einer Schikane in der Mitte. Am Ende der Mistral liegt Signes, eine sehr schnelle Rechte, die fast voll geht und die Stabilitaetspruefung der Strecke ist. Dann die Doppelrechte von Beausset und ein Schlusssektor aus mittleren und langsamen Kurven.",
+       "WO DIE ZEIT LIEGT: in Signes (wenn du dich traust) und im Schlusssektor.",
+       "DIE FALLEN. Die bemalten Zonen haben viel weniger Grip als Asphalt: darauf zu fahren ist nicht gratis. Und die Strecke ist so breit und so gleichfoermig, dass Orientierungspunkte schwer zu finden sind.",
+       "IM PROTOTYP: Signes voll mit einem stabilen Auto; bewegt es sich dort, pruef den Heckabtrieb, bevor du Mut suchst.",
+       "IM GT: der Schlusssektor ist deine Zeit. Auf der Mistral wirst du ueberholt, und das ist in Ordnung."
       ]
      }
     },
@@ -3346,7 +4149,8 @@
      "titulo": {
       "es": "Daytona (trazado con peraltes)",
       "en": "Daytona (road course with banking)",
-      "fr": "Daytona (trace avec anneau incline)"
+      "fr": "Daytona (trace avec anneau incline)",
+      "de": "Daytona (Kurs mit Steilkurven)"
      },
      "texto": {
       "es": [
@@ -3374,6 +4178,14 @@
        "LES PIEGES. L'inclinaison charge la voiture comme nulle part ailleurs : les pneus d'un cote travaillent beaucoup plus et la voiture peut toucher. L'entree et la sortie de l'anneau sont les moments ou elle se derange.",
        "EN PROTOTYPE : tres attention a la hauteur de caisse a cause de la compression.",
        "EN GT : les pneus exterieurs vont souffrir. Surveillez temperatures et pressions, elles ne se comportent pas comme sur un circuit normal."
+      ],
+      "de": [
+       "CHARAKTER: halb Steilkurven-Oval, halb Innenkurs. Ein seltsames Layout und sehr anders als alles andere im Spiel.",
+       "DIE RUNDE. Man faehrt die Steilkurven voll, mit enorm belastetem Auto und leidenden rechten Reifen, faehrt in die Bus-Stop-Schikane, und dann kommt der Innenkurs mit langsamen und mittleren Kurven, bevor es zurueck auf das Oval geht.",
+       "WO DIE ZEIT LIEGT: im Innenkurs und vor allem am Ausgang auf die Steilkurve. Auf dem Oval gewinnt man fast nichts: es geht voll.",
+       "DIE FALLEN. Die Ueberhoehung belastet das Auto wie keine andere Strecke: die Reifen einer Seite arbeiten viel mehr und das Auto kann aufsetzen. Ein- und Ausfahrt der Steilkurve sind die Momente, in denen es unruhig wird.",
+       "IM PROTOTYP: sehr auf die Fahrzeughoehe achten wegen der Kompression.",
+       "IM GT: die aeusseren Reifen leiden. Temperaturen und Druecke im Auge behalten, sie verhalten sich hier nicht wie auf einer normalen Strecke."
       ]
      }
     },
@@ -3382,7 +4194,8 @@
      "titulo": {
       "es": "Laguna Seca",
       "en": "Laguna Seca",
-      "fr": "Laguna Seca"
+      "fr": "Laguna Seca",
+      "de": "Laguna Seca"
      },
      "texto": {
       "es": [
@@ -3411,6 +4224,15 @@
        "TRAFIC : circuit etroit et court, peu de place. On ne double jamais dans le Corkscrew.",
        "EN PROTOTYPE : le denivele joue avec l'aerodynamique en permanence.",
        "EN GT : les virages lents et la motricite en montee sont votre terrain."
+      ],
+      "de": [
+       "CHARAKTER: kurz, sehr huegelig und mit einer beruehmten Kurve. Wenig Auslauf und gleichmaessiger Rhythmus.",
+       "DIE RUNDE. Hinunter in die erste Haarnadel, hinauf durch einen Abschnitt mittlerer Kurven, und in der Rundenmitte kommt der Corkscrew: eine blinde Links-rechts-Kombination auf einer Kuppe mit einem brutalen Gefaelle direkt danach. Man faehrt hinein, ohne zu sehen, wo es hinunter geht. Dann die Abfahrt mit Rainey und die letzten beiden Kurven.",
+       "WO DIE ZEIT LIEGT: am Ausgang der letzten Kurve und in der Abfahrt nach dem Corkscrew, wo das Auto leicht ist und man fein sein muss.",
+       "DIE FALLEN. Der Corkscrew: man muss sich den Einfahrtspunkt merken, weil man den Ausgang nicht sieht. Und in der Abfahrt wird das Auto entlastet: korrigierst du dort, bist du weg.",
+       "VERKEHR: enge, kurze Strecke mit wenig Platz. Im Corkscrew wird nie ueberholt.",
+       "IM PROTOTYP: das Gefaelle spielt permanent mit der Aerodynamik.",
+       "IM GT: die langsamen Kurven und die Traktion bergauf sind dein Terrain."
       ]
      }
     }
