@@ -27,7 +27,7 @@ DIST = os.path.join(AQUI, "dist")
 BUILD = os.path.join(AQUI, "build")
 CARPETA_FINAL = os.path.join(DIST, "MapaLMU")
 
-VERSION = "1.8"
+VERSION = "1.9"
 
 # Lo que se copia al lado del .exe. Carpetas y archivos sueltos.
 #
@@ -38,6 +38,10 @@ VERSION = "1.8"
 # identifican solos con el catalogo que sale de los resultados del juego
 # (resultados.py); esto son solo retoques a mano, y encima van por nombre de
 # equipo, que online se lo pone cada uno como quiere.
+# el manual (manual_*.json) va suelto por lo mismo que reglas.json: es
+# texto, y quien sepa de reglajes tiene que poder corregirlo o traducirlo
+# sin recompilar. Si el de conduccion aun no existe, compilar.py avisa y
+# sigue.
 # reglas.json es la tabla del ingeniero y va suelta, fuera del .exe, a
 # proposito: es el conocimiento del programa y tiene que poder tocarlo
 # quien sepa de reglajes sin recompilar nada. calibracion.json NO va:
@@ -46,6 +50,7 @@ VERSION = "1.8"
 # los sonidos van sueltos para que cualquiera pueda dejar el suyo en la
 # carpeta y que salga en la lista sin recompilar nada.
 ACOMPANA = ["circuitos", "idiomas", "sonidos", "reglas.json",
+            "manual_reglajes.json", "manual_conduccion.json",
             "INSTRUCCIONES.txt", "README.md"]
 
 # Lo que NO se copia aunque este en esas carpetas.

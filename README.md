@@ -41,6 +41,27 @@ Es gratuito. Úsalo y pásalo a quien quieras.
   frenar") y te dice qué tocar y cuánto: el qué sale de una tabla de reglas que
   puedes leer y corregir (`reglas.json`), y el cuánto lo aprende de los reglajes
   que ya tienes. **No hay ninguna IA aquí dentro**, y es a propósito.
+- **Calculadora de campo de visión (FOV)** *(nueva en la 1.9)*: dentro del
+  programa y en los siete idiomas. Metes el ancho, el alto y la distancia a tus
+  ojos y te da los grados que pide el juego (el **vertical**, que es como lo
+  configura LMU). Si no sabes las medidas, las saca de las pulgadas. Se abre
+  desde el manual, en el apartado que explica por qué es lo primero que hay que
+  ajustar.
+- **Manual de conducción** *(nuevo en la 1.9)*: el segundo tomo. El puesto de
+  conducción (campo de visión, grados de volante, fuerza del FFB, pedales), la
+  técnica curva a curva, los fallos típicos ordenados por lo que notas, la
+  carrera larga —gomas, energía, boxes, noche, lluvia— y el **tráfico
+  multiclase**, que en este juego es media carrera. Con apartados por categoría,
+  por coche y **por circuito**: la vuelta explicada por zonas, dónde se gana el
+  tiempo, las trampas, y qué cambia según vayas en prototipo o en GT.
+- **Manual de reglajes** *(nuevo en la 1.9)*: un curso completo dentro del
+  programa. Los cien ajustes del garaje explicados uno a uno (qué es, qué pasa
+  si subes el número, qué pasa si lo bajas, dónde se nota y **con qué otro
+  ajuste se toca en pareja**), recetas ordenadas por lo que hace el coche, y
+  apartados por categoría, por coche y por circuito. Desde el editor, pulsando
+  en el nombre de cualquier ajuste se abre el manual por su explicación. Es un
+  archivo de texto (`manual_reglajes.json`) que se puede corregir y ampliar sin
+  recompilar nada. De momento está en español.
 - **Escáner de circuitos**, para medir una pista nueva desde dentro del juego.
 - **Siete idiomas**: español, inglés, francés, italiano, alemán, portugués y
   polaco.
@@ -148,6 +169,26 @@ It is free. Use it and pass it on to anyone.
   comes from a rules table you can read and correct (`reglas.json`), and the
   *how much* is learnt from the setups you already own. **There is no AI in
   here**, and that is on purpose.
+- **Field of view (FOV) calculator** *(new in 1.9)*: built in, in all seven
+  languages. Enter your screen width and height and how far your eyes are, and
+  it gives you the angle the game asks for (the **vertical** one, which is how
+  LMU configures it). No idea of the measurements? It works them out from the
+  inches. It opens straight from the manual, in the section explaining why this
+  is the first thing to set up.
+- **Driving manual** *(new in 1.9)*: the second volume. Seating position (FOV,
+  wheel rotation, force feedback, pedals), technique corner by corner, common
+  mistakes sorted by what you feel, endurance racing —tyres, energy, pit stops,
+  night, rain— and **multiclass traffic**, which in this game is half the race.
+  With sections by class, by car and **by track**: the lap explained zone by
+  zone, where the time is, the traps, and what changes in a prototype vs a GT.
+- **Setup manual** *(new in 1.9)*: a full course inside the program. All one
+  hundred garage settings explained one by one (what it is, what happens if you
+  raise the number, what happens if you lower it, where you feel it and **which
+  other setting it is adjusted with**), recipes sorted by what the car is doing,
+  plus sections by class, by car and by track. From the editor, clicking a
+  setting's name opens the manual straight at its page. It is a text file
+  (`manual_reglajes.json`) you can correct and extend without recompiling.
+  Spanish only for now; the file is laid out for translation.
 - **Track scanner**, to measure a new track from inside the game.
 - **Seven languages**: Spanish, English, French, Italian, German, Portuguese and
   Polish.

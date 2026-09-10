@@ -178,7 +178,7 @@ def comparar(uno, otro):
             nombre = nombre_de(seccion, clave)
         filas.append({
             "clave": clave, "nombre": nombre,
-            "de": x["texto"] or ("%g" % x["indice"] if x["indice"] is not None else "?"),
+            "de": sin_marcas(x["texto"]) or ("%g" % x["indice"] if x["indice"] is not None else "?"),
             # Los dos reglajes pueden venir guardados en idiomas distintos.
             # Se ensena el segundo como lo escribe el primero para que las
             # dos columnas se puedan comparar de un vistazo.
@@ -292,9 +292,14 @@ def calibrar(carpeta_settings, guardar=True):
             # aleron de un Lexus no es la de un Mustang aunque los dos sean
             # GT3. Y esto es como es el coche en el juego, no el reglaje de
             # nadie: se ve entrando al garaje.
-            if a["texto"] and not _NO_SE_TOCA.match(a["texto"]):
+            # Sin marcas: si el reglaje viene de una prueba de este mismo
+            # programa, su texto trae el "(antes ...)" pegado, y guardarlo
+            # asi dejaria el aleron llamandose "10.0 deg (antes 9.0 deg)"
+            # para siempre y en todas las pantallas.
+            limpio = sin_marcas(a["texto"])
+            if limpio and not _NO_SE_TOCA.match(limpio):
                 (valores.setdefault(corto, {}).setdefault(a["clave"], {})
-                 .setdefault(str(int(a["indice"])), a["texto"]))
+                 .setdefault(str(int(a["indice"])), limpio))
 
         d = B.describir(ficha)
         clave = "%s|%s" % (corto, ficha["circuito"])
@@ -378,7 +383,14 @@ def como_queda(calibracion, coche, clave, indice, como_ahora=""):
         crudo = calibracion["valores"][coche][clave][str(int(indice))]
     except (KeyError, TypeError, ValueError):
         return ""
-    return con_el_formato_de(como_ahora, crudo)
+    # Red de seguridad: una calibracion vieja puede traer valores con las
+    # marcas de este programa pegadas ("<- 5"), porque se genero antes de
+    # que calibrar() las limpiara. Se quitan tambien aqui para no tener que
+    # obligar a nadie a recalibrar.
+    crudo = sin_marcas(crudo)
+    if not crudo:
+        return ""
+    return con_el_formato_de(sin_marcas(como_ahora), crudo)
 
 
 def paso_de(calibracion, categoria, clave):
@@ -583,13 +595,22 @@ def proponer(ficha, regla, calibracion=None, codigo="es"):
         salida.append({
             "param": param, "claves": destinos, "clave": clave,
             "nombre": nombre_ajuste(clave, codigo) + _apellido(seccion, codigo),
-            "ahora": actual["texto"] or "%g" % actual["indice"],
+            # Si el texto lo dejo este programa, esta desfasado y manda
+            # el indice. Ver `editor_gui._valor`.
+            "ahora": (_como_se_ve(calibracion, B.coche_de(ficha)["corto"],
+                                  clave, actual["indice"], actual["texto"])),
             "indice_ahora": int(actual["indice"]), "indice_nuevo": int(nuevo),
             "saltos": int(abs(nuevo - actual["indice"])),
             "sube": nuevo > actual["indice"],
             "queda": como_queda(calibracion, B.coche_de(ficha)["corto"],
                                 clave, nuevo, actual["texto"]),
             "porque": en_idioma(cambio, codigo),
+            # Si el escalon siguiente no es "mas blando" sino quitar la
+            # pieza, hay que decirlo aqui y no dejar que se descubra en
+            # pista. Le paso a Manuel con la barra trasera del Lexus.
+            "desconecta": esta_desconectado(
+                como_queda(calibracion, B.coche_de(ficha)["corto"],
+                           clave, nuevo, "")),
         })
     return salida
 
@@ -606,6 +627,26 @@ def _apellido(seccion, codigo):
 # tocar. Aparece traducido, asi que se mira el principio de la palabra.
 _NO_SE_TOCA = re.compile(r"^\s*(n/?a\b|n/?d\b|non-?adjust|no ajust|nicht|"
                          r"non regol|nao ajust|non modif|niereg)", re.I)
+
+
+# Cuando un ajuste llega a su ultimo escalon, algunos coches no lo dejan
+# "muy blando": lo QUITAN. La barra estabilizadora trasera del Lexus en el
+# indice 0 no es la mas blanda, es la barra desconectada, y el juego lo
+# escribe como "Detached". Eso no es un escalon mas: cambia el coche de
+# arriba abajo, y hay que decirlo antes de que alguien salga a pista sin
+# saberlo.
+#
+# Va en varios idiomas porque el juego guarda el texto en el idioma de
+# quien grabo el reglaje, y en los reglajes de Manuel conviven "Detached"
+# y "Desacoplada" para lo mismo.
+_DESCONECTADO = re.compile(
+    r"^\s*(detach|desacopl|desconect|desconnect|detach[ée]|distacc|"
+    r"abgekoppelt|getrennt|odlacz|odlącz|separad)", re.I)
+
+
+def esta_desconectado(texto):
+    """Si ese valor no es un ajuste flojo, sino la pieza quitada."""
+    return bool(_DESCONECTADO.match(texto or ""))
 
 
 def _donde_aplicar(ficha, seccion, clave):
@@ -640,15 +681,102 @@ def _donde_aplicar(ficha, seccion, clave):
 
 def _recortar(calibracion, categoria, clave, valor):
     """
-    Deja el valor dentro de lo que se ha visto de verdad en reglajes de esa
-    categoria. Sin esto se podria pedir un aleron que ese coche no tiene, y
-    el juego se comeria el reglaje entero sin decir nada.
+    Deja el valor dentro de lo que ese coche puede aceptar. El tope de
+    arriba y el de abajo NO se tratan igual, y hay motivo.
+
+    POR ARRIBA se respeta el maximo visto en reglajes de la categoria.
+    Pedirle al juego un aleron que ese coche no tiene hace que se coma el
+    reglaje entero sin decir nada, asi que ahi se es conservador.
+
+    POR ABAJO se baja hasta CERO, no hasta el minimo visto. Los indices de
+    un .svm empiezan siempre en cero, asi que bajar nunca inventa un valor
+    que no exista. Y el minimo visto se queda corto de verdad: el control
+    de traccion del Lexus admite 4, pero en 52 reglajes no habia aparecido
+    nunca por debajo de 5, asi que el editor no dejaba bajarlo aunque el
+    juego si. Lo mismo pasaba con la precarga del diferencial, calibrada
+    con minimo 34 mientras el Lexus la trae a 0: al tocarla, esto la
+    empujaba de 0 a 34 de un salto.
+
+    El limite de abajo era, en realidad, "lo que Manuel ya habia probado",
+    y eso no es el limite del coche.
     """
     try:
         d = calibracion["pasos"][categoria][clave]
-        return max(d["min"], min(d["max"], valor))
+        return max(0, min(d["max"], valor))
     except (KeyError, TypeError):
         return max(0, valor)
+
+
+_MARCA_VIEJA = re.compile(r"^\s*<-\s*")
+_MARCA_ANTES = re.compile(r"\s*\(antes\s+[^)]*\)\s*$", re.I)
+
+
+def sin_marcas(texto):
+    """
+    El texto del ajuste sin lo que haya escrito este programa encima.
+
+    Hace falta para que no se apilen: sin esto, tres cambios seguidos
+    dejaban 'P5 (antes P4) (antes P3)' y cada vez mas largo.
+    """
+    t = _MARCA_VIEJA.sub("", texto or "")
+    t = _MARCA_ANTES.sub("", t)
+    return t.strip()
+
+
+def tiene_marca(texto):
+    """
+    Si ese texto lo ha tocado este programa, o sea si esta DESFASADO.
+
+    El texto de un ajuste sin tocar lo escribe el juego y es de fiar. Pero
+    en cuanto aqui se cambia un ajuste, el comentario se queda contando el
+    valor anterior, y a partir de ahi el numero y el texto dicen cosas
+    distintas. Cuando eso pasa hay que hacerle caso al numero.
+    """
+    t = texto or ""
+    return bool(_MARCA_VIEJA.search(t) or _MARCA_ANTES.search(t))
+
+
+def comentario(texto_nuevo, texto_viejo):
+    """
+    Lo que se escribe detras de la barra, en el hueco del comentario.
+
+    Delante va el valor NUEVO, que es lo que el reglaje tiene de verdad, y
+    el anterior detras entre parentesis.
+
+    Antes se escribia solo el viejo con una flecha ("//<- 9.0 deg") y eso
+    dejaba el archivo diciendo una cosa distinta de la que valia: con el
+    aleron subido a 11 grados el comentario seguia poniendo 9.0. No es solo
+    feo, es que el propio programa lee ese texto la siguiente vez, y en la
+    pantalla del ingeniero salia "P1 (soft) -> P1 (soft)", como si el
+    cambio no hiciera nada.
+
+    Si no se sabe como se llama el valor nuevo -el programa no ha visto ese
+    numero en ningun reglaje- se escribe solo el anterior avisando de que
+    es el anterior. Poner el viejo a secas, como si fuera el de ahora,
+    seria peor que no poner nada.
+    """
+    nuevo = sin_marcas(texto_nuevo)
+    viejo = sin_marcas(texto_viejo)
+    if nuevo and viejo and nuevo != viejo:
+        return "%s (antes %s)" % (nuevo, viejo)
+    if nuevo:
+        return nuevo
+    return "(antes %s)" % viejo if viejo else ""
+
+
+def _como_se_ve(calibracion, coche, clave, indice, texto):
+    """
+    Como se le ensena a una persona el valor que tiene ahora un ajuste.
+
+    Mismo criterio que en el editor: si el texto del archivo lo escribio
+    este programa esta desfasado y manda el indice; si lo escribio el
+    juego, es de fiar y se usa tal cual.
+    """
+    limpio = sin_marcas(texto)
+    if not tiene_marca(texto):
+        return limpio or "%g" % indice
+    return (como_queda(calibracion, coche, clave, indice, limpio)
+            or "%g" % indice)
 
 
 def aplicar(ficha, cambios, destino):
@@ -662,7 +790,7 @@ def aplicar(ficha, cambios, destino):
     nuevos = {}
     for c in cambios:
         for llave in c["claves"]:
-            nuevos[llave] = c["indice_nuevo"]
+            nuevos[llave] = (c["indice_nuevo"], c.get("queda") or "")
 
     seccion = "GENERAL"
     salida = []
@@ -678,12 +806,10 @@ def aplicar(ficha, cambios, destino):
         clave = pelada.split("=", 1)[0].strip()
         llave = "%s/%s" % (seccion, clave)
         if llave in nuevos:
-            # Se deja el comentario viejo entre parentesis. El juego lo
-            # rehace en cuanto se guarda el reglaje desde el garaje, y
-            # mientras tanto se ve de un vistazo de donde venia.
+            indice, texto_nuevo = nuevos[llave]
             viejo = ficha["ajustes"][llave]["texto"]
-            salida.append("%s=%d//%s" % (clave, nuevos[llave],
-                                         ("<- %s" % viejo) if viejo else ""))
+            salida.append("%s=%d//%s"
+                          % (clave, indice, comentario(texto_nuevo, viejo)))
         else:
             salida.append(linea)
 

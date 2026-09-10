@@ -1345,6 +1345,23 @@ def comprobar():
     except Exception as e:
         print("  trazados instalados: no se han podido leer (%s)" % e)
 
+    # El manual va suelto al lado del .exe, asi que puede faltar: si alguien
+    # descomprime a medias o borra el archivo, el boton abriria una ventana
+    # vacia y no se sabria por que.
+    try:
+        import manual
+        puestos = manual.tomos()
+        if puestos:
+            cuenta = ", ".join("%s: %d apartados" % (t, len(manual.todos(t)))
+                               for t in puestos)
+            print("  manual             : %s" % cuenta)
+        else:
+            print("  manual             : NO ESTA")
+            fallos.append("falta manual_reglajes.json: el manual saldra vacio")
+    except Exception as e:
+        print("  manual             : no se ha podido leer (%s)" % e)
+        fallos.append("el manual no se puede leer: %s" % e)
+
     try:
         lmu.Scoring()
         print("  el juego            : abierto y publicando datos")
@@ -1377,6 +1394,24 @@ def comprobar():
             raiz.update()
         print("  ventana de opciones : %d pestanas, todas se dibujan"
               % len(cuaderno.tabs()))
+
+        # Y la del manual, por lo mismo: compilado, si el modulo se hubiera
+        # quedado fuera del ejecutable, se veria aqui y no al pulsar el boton.
+        try:
+            import manual_gui
+            m = manual_gui.Manual(raiz)
+            raiz.update()
+            m.v.destroy()
+            print("  ventana del manual  : se abre")
+            import fov_gui
+            c = fov_gui.Calculadora(raiz)
+            raiz.update()
+            c.v.destroy()
+            print("  calculadora de FOV  : se abre")
+        except Exception as e:
+            print("  ventana del manual  : FALLA (%s)" % e)
+            fallos.append("el manual no se abre: %s" % e)
+
         raiz.destroy()
     except Exception as e:
         print("  ventana de opciones : FALLA (%s)" % e)

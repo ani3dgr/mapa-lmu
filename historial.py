@@ -24,6 +24,7 @@ import json
 import os
 import time
 
+import ingenieria
 import rutas
 
 RUTA = rutas.datos("historial_reglajes.json")
@@ -140,9 +141,12 @@ def restaurar(apunte, ficha_actual, destino):
         # en 0 al pasarlas por un entero. Tocar solo lo justo evita esa
         # clase entera de problemas.
         if llave in antes and ahora is not None and ahora != antes[llave]:
+            # Al restaurar no se sabe como se llamaba el valor al que se
+            # vuelve, asi que se escribe solo de donde venia, y dicho con
+            # todas las letras. Ver `ingenieria.comentario`.
             viejo = ficha_actual["ajustes"][llave]["texto"]
             salida.append("%s=%d//%s" % (clave, int(antes[llave]),
-                                         ("<- %s" % viejo) if viejo else ""))
+                                         ingenieria.comentario("", viejo)))
         else:
             salida.append(linea)
 

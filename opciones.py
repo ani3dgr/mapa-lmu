@@ -834,6 +834,10 @@ class Opciones:
         fila[0] += 1
         ttk.Button(arriba, text=T("reg.biblioteca"),
                    command=self._abrir_biblioteca).pack(side="left")
+        ttk.Button(arriba, text=T("man.abrir"),
+                   command=self._abrir_manual).pack(side="left", padx=(6, 0))
+        ttk.Button(arriba, text=T("fov.abrir"),
+                   command=self._abrir_fov).pack(side="left", padx=(6, 0))
         self.rotulo_reglaje = ttk.Label(arriba, foreground="#555",
                                         justify="left", font=("Segoe UI", 9))
         self.rotulo_reglaje.pack(side="left", padx=(12, 0))
@@ -909,6 +913,23 @@ class Opciones:
         """
         import biblioteca_gui
         biblioteca_gui.abrir(self.v)
+
+    def _abrir_manual(self):
+        """
+        El manual, en ventana aparte y sin cerrar las opciones: la gracia es
+        poder leer lo que hace un ajuste con la pantalla del reglaje delante.
+        """
+        import manual_gui
+        manual_gui.abrir(self.v)
+
+    def _abrir_fov(self):
+        """
+        La calculadora de campo de vision. No es un reglaje del coche, pero
+        se abre desde aqui porque es el ajuste que mas cambia como conduces
+        y el manual empieza hablando de el.
+        """
+        import fov_gui
+        fov_gui.abrir(self.v)
 
     def _llenar_arbol_reglajes(self):
         arbol = self.arbol_reglajes

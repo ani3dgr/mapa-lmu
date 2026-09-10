@@ -32,6 +32,15 @@ ROJO = "#b03a2e"
 VERDE = "#1e7a44"
 
 
+def _visible(texto):
+    """
+    "Detached" no es un valor de la escala: es que la pieza no esta puesta.
+    Se dice en el idioma del programa y siempre igual, venga escrito como
+    venga en el reglaje. Mismo criterio que en `editor_gui._visible`.
+    """
+    return T("ed.desconectado") if I.esta_desconectado(texto) else texto
+
+
 def _codigo():
     """El idioma que hay puesto, para los textos de reglas.json."""
     try:
@@ -252,7 +261,8 @@ class Ingeniero:
             # estan topados se han caido solos por el camino, asi que el 1
             # siempre es algo que se puede tocar de verdad en este coche.
             self.tabla.insert("", "end",
-                              values=(n, p["nombre"], p["ahora"], queda),
+                              values=(n, p["nombre"], _visible(p["ahora"]),
+                                      _visible(queda)),
                               tags=("primero",) if n == 1 else ())
         hijos = self.tabla.get_children()
         if not hijos:
@@ -268,11 +278,17 @@ class Ingeniero:
             return
         i = self.tabla.index(sel[0])
         if 0 <= i < len(self.propuestas):
-            porque = self.propuestas[i]["porque"]
+            p = self.propuestas[i]
+            porque = p["porque"]
             # Al de arriba se le pone delante por que es el de arriba. Los
             # demas siguen ahi por si el primero no convence o ya se probo.
             if i == 0:
                 porque = T("ing.es_el_primero") + "\n\n" + porque
+            # Y si ese escalon no ablanda la pieza sino que la QUITA, eso va
+            # lo primero de todo: es el cambio que mas altera el coche de
+            # toda la lista y no se puede colar como un punto mas.
+            if p.get("desconecta"):
+                porque = T("ed.desconecta_aviso") + "\n\n" + porque
             self._escribir(self.explica, porque)
 
     def aplicar(self):

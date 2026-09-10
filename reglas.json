@@ -791,6 +791,48 @@
      "pasos": 1,
      "es": "Menos precarga: el diferencial tarda menos en soltarse.",
      "en": "Less preload: the diff releases sooner."
+    },
+    {
+     "param": "SUSPENSION/RearAntiSwaySetting",
+     "dir": 1,
+     "pasos": 1,
+     "es": "Barra trasera mas dura: le quita agarre al eje de atras, y con menos agarre detras el coche gira mas. Es lo contrario de lo que se hace cuando se va de atras, y aqui es justo lo que buscas.",
+     "en": "Stiffer rear bar: it takes grip off the rear axle, and with less grip at the back the car rotates more. It is the opposite of the fix for oversteer, and here it is exactly what you want."
+    },
+    {
+     "param": "SUSPENSION/FrontAntiSwaySetting",
+     "dir": -1,
+     "pasos": 1,
+     "es": "Barra delantera mas blanda: reparte mejor el peso entre las dos ruedas de delante y les saca mas agarro justo cuando abres gas.",
+     "en": "Softer front bar: it shares the load better between the two front wheels and finds them more grip right as you open the throttle."
+    },
+    {
+     "param": "REARWING/RWSetting",
+     "dir": -1,
+     "pasos": 1,
+     "es": "Menos aleron trasero: quita carga de atras, que es lo que esta anclando la cola y no deja girar al coche. Ademas ganas algo de punta en recta.",
+     "en": "Less rear wing: it takes load off the rear, which is what is anchoring the tail and stopping the car from rotating. You also gain a little top speed."
+    },
+    {
+     "param": "EJE_del/SpringSetting",
+     "dir": -1,
+     "pasos": 1,
+     "es": "Muelles delanteros mas blandos: el morro se apoya mas en la rueda de fuera y muerde mejor al salir.",
+     "en": "Softer front springs: the nose leans more on the outside wheel and bites better on the way out."
+    },
+    {
+     "param": "SUSPENSION/FrontToeInSetting",
+     "dir": -1,
+     "pasos": 1,
+     "es": "Menos convergencia delantera: las ruedas de delante pelean menos entre ellas y el coche entra mas facil.",
+     "en": "Less front toe-in: the front wheels fight each other less and the car turns in more easily."
+    },
+    {
+     "param": "CONTROLS/TractionControlMapSetting",
+     "dir": -1,
+     "pasos": 1,
+     "es": "Un punto menos de control de traccion: si corta demasiado pronto, el coche se queda plantado y no termina de girar. OJO: con menos control hay que ser mas fino con el gas.",
+     "en": "One click less of traction control: if it cuts in too early the car just sits there and will not finish the corner. NOTE: with less control you have to be smoother on the throttle."
     }
    ]
   },

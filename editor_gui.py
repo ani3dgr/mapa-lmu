@@ -33,6 +33,19 @@ ROJO = "#b03a2e"
 VERDE = "#1e7a44"
 AZUL = "#1f5fa8"
 GRIS = "#9a9a9a"
+AMBAR = "#b8860b"       # una pieza desconectada: ni error ni cambio normal
+
+
+def _visible(texto):
+    """
+    El valor tal y como hay que ensenarlo.
+
+    El juego escribe "Detached" cuando una pieza va desconectada, y ademas
+    lo escribe en el idioma de quien grabo el reglaje ("Desacoplada" en los
+    de Manuel). Aqui se dice siempre igual y en el idioma del programa,
+    porque no es un valor mas: es que esa pieza no esta puesta.
+    """
+    return T("ed.desconectado") if I.esta_desconectado(texto) else texto
 
 
 class Editor:
@@ -95,6 +108,8 @@ class Editor:
                    command=self.ver_historial).pack(side="left", padx=(6, 0))
         self.estado = ttk.Label(pie, text="", foreground="#555")
         self.estado.pack(side="left", padx=(12, 0))
+        ttk.Label(pie, text=T("ed.pista_manual"), foreground="#777",
+                  font=("Segoe UI", 8)).pack(side="right")
 
     def _rueda(self, evento):
         try:
@@ -112,18 +127,43 @@ class Editor:
         self.pintar()
 
     def _valor(self, clave):
-        """Lo que hay que ensenar en una linea: el pendiente o el guardado."""
+        """
+        Lo que hay que ensenar en una linea: el pendiente o el guardado.
+
+        MANDA EL NUMERO, NO EL TEXTO. En el .svm cada ajuste trae su indice
+        y, detras de la barra, un texto con el valor en unidades. El indice
+        es lo unico de fiar: el texto puede estar desfasado, porque cuando
+        este programa toca un ajuste deja escrito de donde venia, y porque
+        el juego lo guarda en el idioma de quien lo grabo.
+
+        Paso justo esto el 08/09/2026: el aleron estaba puesto en 11 grados
+        (indice 4) y el editor seguia ensenando "9.0 deg", que era la
+        etiqueta anterior. Parecia que el juego hubiera deshecho el cambio,
+        y lo que pasaba es que el mapa lo contaba mal.
+
+        Asi que el indice se traduce con la calibracion, que sabe a que
+        equivale cada numero en ESTE coche, y solo se cae al texto del
+        archivo cuando ese numero no se ha visto nunca.
+        """
         reales = paginas.reparte(clave)
         primera = next((r for r in reales if r in self.ficha["ajustes"]), None)
         if primera is None:
             return None, "", False
         a = self.ficha["ajustes"][primera]
+        corto = B.coche_de(self.ficha)["corto"]
+        crudo = I.sin_marcas(a["texto"])
         if primera in self.pendientes:
             nuevo = self.pendientes[primera]
-            texto = I.como_queda(self.cal, B.coche_de(self.ficha)["corto"],
-                                 a["clave"], nuevo, a["texto"]) or ("%d" % nuevo)
-            return nuevo, texto, True
-        return a["indice"], a["texto"] or ("%g" % (a["indice"] or 0)), False
+            texto = I.como_queda(self.cal, corto, a["clave"], nuevo, crudo)
+            return nuevo, _visible(texto or ("%d" % nuevo)), True
+        if not I.tiene_marca(a["texto"]):
+            # Sin tocar: el texto lo escribio el juego y es de fiar.
+            return a["indice"], _visible(crudo or ("%g" % (a["indice"] or 0))), False
+        # Tocado por este programa: el texto cuenta el valor viejo, asi que
+        # se traduce el indice. Y si ese numero no se ha visto nunca, se
+        # ensena el numero pelado antes que un texto que ya no es verdad.
+        texto = I.como_queda(self.cal, corto, a["clave"], a["indice"], crudo)
+        return a["indice"], _visible(texto or ("%g" % (a["indice"] or 0))), False
 
     def _desparejadas(self, clave):
         """True si las dos ruedas del eje llevan cosas distintas."""
@@ -167,13 +207,22 @@ class Editor:
             return False
 
         se_toca = not I._NO_SE_TOCA.match(texto or "") and not self._desparejadas(clave)
-        color = AZUL if tocado else ("#222" if se_toca else GRIS)
+        # Una pieza desconectada se canta en ambar y en negrita, aunque no
+        # se acabe de tocar. No es un valor mas de la escala: es que esa
+        # pieza no esta puesta, y quien mire el reglaje tiene que verlo de
+        # un vistazo sin ir buscandolo.
+        suelta = I.esta_desconectado(texto)
+        color = (AMBAR if suelta else
+                 (AZUL if tocado else ("#222" if se_toca else GRIS)))
 
-        ttk.Label(marco, text=nombre, foreground=color,
-                  width=30, anchor="w").grid(row=fila, column=0, sticky="w")
+        rotulo = ttk.Label(marco, text=nombre, foreground=color,
+                           width=30, anchor="w")
+        rotulo.grid(row=fila, column=0, sticky="w")
+        self._enlazar_manual(rotulo, clave)
         valor = ttk.Label(marco, text=texto, foreground=color,
                           width=24, anchor="e",
-                          font=("Segoe UI", 9, "bold" if tocado else "normal"))
+                          font=("Segoe UI", 9,
+                                "bold" if (tocado or suelta) else "normal"))
         valor.grid(row=fila, column=1, sticky="e", padx=(8, 6))
 
         if se_toca:
@@ -198,11 +247,34 @@ class Editor:
         self.filas[clave] = valor
         return True
 
+    def _enlazar_manual(self, rotulo, clave):
+        """
+        Pulsar en el nombre de un ajuste abre el manual por su explicacion.
+
+        Va en el propio nombre y no en un boton aparte porque son cien
+        lineas: cien botones de ayuda serian mas ruido que ayuda. Se subraya
+        al pasar el raton para que se vea que se puede pulsar.
+        """
+        import manual
+        if not manual.por_clave(clave):
+            return
+        normal = rotulo.cget("font") or "TkDefaultFont"
+        rotulo.bind("<Button-1>", lambda _e, c=clave: self._ver_manual(c))
+        rotulo.bind("<Enter>", lambda _e: rotulo.configure(
+            cursor="hand2", font=("Segoe UI", 9, "underline")))
+        rotulo.bind("<Leave>", lambda _e: rotulo.configure(
+            cursor="", font=normal))
+
+    def _ver_manual(self, clave):
+        import manual_gui
+        manual_gui.abrir(self.hueco.winfo_toplevel(), clave=clave)
+
     # -------------------------------------------------------------- tocar
     def _siguiente(self, clave, signo):
         """
-        A que indice pasaria un ajuste al pulsar la flecha, o None si ya
-        esta en el tope de lo que se ha visto en reglajes de esa clase.
+        A que indice pasaria un ajuste al pulsar la flecha, o None si ya no
+        se puede mover para ese lado: por arriba manda el maximo visto en
+        reglajes de esa clase, y por abajo el cero. Ver `_recortar`.
         """
         reales = [r for r in paginas.reparte(clave) if r in self.ficha["ajustes"]]
         if not reales:
@@ -278,7 +350,7 @@ class Editor:
                 "param": a["clave"], "clave": a["clave"], "claves": [],
                 "nombre": I.nombre_ajuste(a["clave"], _codigo())
                           + _lado(a["seccion"]),
-                "ahora": a["texto"] or "%g" % (a["indice"] or 0),
+                "ahora": I.sin_marcas(a["texto"]) or "%g" % (a["indice"] or 0),
                 "indice_ahora": int(a["indice"] or 0),
                 "indice_nuevo": int(nuevo),
                 "queda": I.como_queda(self.cal, B.coche_de(self.ficha)["corto"],

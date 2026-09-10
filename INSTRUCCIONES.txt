@@ -248,6 +248,48 @@ dentro. Si tienes dudas, pulsalo.
     la carpeta "copias_reglajes". Esa carpeta es tuya y no se pierde
     al actualizar.
 
+    "Manual de reglajes y conduccion..." abre el manual: un curso
+    entero escrito para este juego, en DOS TOMOS que se cambian con
+    los botones de arriba de la ventana.
+
+    EL TOMO DE CONDUCCION es lo que se arregla con los pies, los
+    ojos y la cabeza: el puesto de conduccion (campo de vision,
+    grados del volante, fuerza, pedales), la tecnica curva a curva,
+    como se aprende un circuito, los fallos tipicos ordenados por lo
+    que notas, la carrera larga (gomas, energia, boxes, noche,
+    lluvia) y el trafico multiclase, que en este juego es media
+    carrera. Y despues, un apartado por categoria, uno por cada
+    coche y uno por cada circuito, con la vuelta explicada por zonas
+    y lo que cambia segun si vas en prototipo o en GT.
+
+    LA CALCULADORA DE CAMPO DE VISION (FOV) va con el manual y
+    tambien tiene su boton aqui al lado. Metes el ancho y el alto de
+    la pantalla (solo la imagen, sin marcos) y la distancia a la que
+    tienes los ojos, y te da los grados que hay que poner en el
+    juego. Si no sabes el ancho y el alto, los saca de las pulgadas.
+    El numero que usa Le Mans Ultimate es el VERTICAL, que es el
+    grande; los otros dos son para juegos que lo piden de otra
+    manera. Esta traducida a los siete idiomas.
+    Es lo primero que deberia ajustar cualquiera: con el campo de
+    vision mal puesto, todo parece mas lento y mas lejos de lo que
+    esta, y se frena tarde sin saber por que.
+
+    EL TOMO DE REGLAJES es un curso entero de reglajes escrito para
+    este juego. Tiene cinco partes: como se
+    trabaja (una cosa cada vez, como se prueba un cambio), los CIEN
+    ajustes del garaje uno a uno, recetas por lo que hace el coche
+    ("se me va de atras al entrar"), lo propio de cada categoria y
+    de cada coche, y lo que pide cada circuito.
+    Cada ficha de ajuste dice que es, que pasa si subes el numero,
+    que pasa si lo bajas, donde se nota en la pista, CON QUE OTRO
+    AJUSTE SE TOCA EN PAREJA y de que hay que tener cuidado. Los
+    ajustes de la pareja son enlaces azules: se pulsa y te lleva.
+    Y hay un atajo: en el editor de reglajes, PULSANDO EN EL NOMBRE
+    de cualquier ajuste se abre el manual justo por su explicacion.
+    El manual es un archivo de texto al lado del programa
+    (manual_reglajes.json). Se puede corregir, ampliar y traducir sin
+    tocar el programa, igual que reglas.json.
+
   ACERCA DE
     El idioma del programa, las donaciones, el patrocinador, y el
     boton para cerrar el programa.
@@ -282,6 +324,18 @@ IDIOMAS
   blanco.
   Los textos que llevan %s o %d dentro son huecos que rellena el
   programa (un nombre, un numero). Hay que dejarlos como estan.
+
+EL MANUAL
+  El manual son dos archivos de texto sueltos al lado del programa,
+  "manual_reglajes.json" y "manual_conduccion.json". Se pueden abrir
+  con el bloc de notas.
+  Si sabes de reglajes y crees que algo esta mal explicado, cambialo
+  ahi: el programa lo ensena tal cual, sin recompilar nada. Y si te
+  falta un ajuste o quieres anadir un circuito, se copia un bloque
+  de los que hay y se rellena.
+  Cada texto lleva el idioma delante ("es"). Para traducirlo se
+  copia esa linea y se le pone el codigo del idioma nuevo. Lo que
+  falte sale en espanol.
 
 ACTUALIZAR A UNA VERSION NUEVA
   Se descomprime el ZIP ENCIMA de la carpeta que ya tienes,
