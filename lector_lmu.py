@@ -467,12 +467,12 @@ def apuntar(texto):
 class Scoring:
     def __init__(self):
         self.sco = abrir(SCO_MAP)
-        try:
-            # Si no estuviera -otra version del juego- el mapa sigue
-            # funcionando como antes: es una ayuda, no un requisito.
-            self.lmu = abrir(LMU_MAP)
-        except OSError:
-            self.lmu = None
+        # Si no estuviera -otra version del juego- el mapa sigue funcionando
+        # como antes: es una ayuda, no un requisito. Se abre en `_lmu()`, que
+        # lo reintenta, y NO aqui de una vez: ver el porque alli.
+        self.lmu = None
+        self._reintento_lmu = 0.0
+        self._lmu()
         self.off_pos = None            # se confirma contra el trazado al entrar
         self.off_jugador = OFF_YO      # verificados en pista; la autodeteccion
         self.off_clase = OFF_CLASE     # solo hace falta si el juego los mueve
@@ -486,6 +486,31 @@ class Scoring:
                                        # NO adivina. Con False el mapa avisa y
                                        # no graba vueltas como tuyas.
         self._apunte = None            # ultimo apunte escrito, para no repetir
+
+    def _lmu(self):
+        """
+        La memoria propia del juego (`LMU_Data`), abriendola cuando aparezca.
+
+        NO se abre una sola vez al arrancar, y esto es un arreglo, no un
+        capricho. El juego publica DOS memorias: el scoring, que es la de
+        rFactor 2 y aparece pronto, y `LMU_Data`, que es suya y aparece
+        despues. El mapa se engancha en cuanto ve el scoring, y si en ese
+        instante `LMU_Data` todavia no estaba, antes se quedaba a None PARA
+        SIEMPRE: la bola de fuerzas G no se movia del centro y el reparto de
+        peso salia vacio durante toda la sesion, aunque el juego llevara
+        media hora abierto. Habia que cerrar el mapa y volver a abrirlo.
+
+        Se reintenta cada dos segundos, que es de sobra: abrir un mapa que no
+        existe cuesta muy poco, pero hacerlo veinte veces por segundo seria
+        tirar tiempo en el bucle del mapa.
+        """
+        if self.lmu is None and time.monotonic() >= self._reintento_lmu:
+            self._reintento_lmu = time.monotonic() + 2.0
+            try:
+                self.lmu = abrir(LMU_MAP)
+            except OSError:
+                self.lmu = None
+        return self.lmu
 
     def telemetria(self):
         """
@@ -506,7 +531,7 @@ class Scoring:
         la esquina, comparable entre el eje delantero y el trasero, y ademas es
         la que esta siempre.
         """
-        if self.lmu is None:
+        if self._lmu() is None:
             return None
         try:
             if not u1(self.lmu, LMU_TELE + 2):        # playerHasVehicle
@@ -669,7 +694,7 @@ class Scoring:
         None si no se puede leer. Ojo: es una senal para BORRAR, nunca para
         pintar. Si fallara, el mapa se queda como estaba, que es lo de antes.
         """
-        if self.lmu is None:
+        if self._lmu() is None:
             return None
         try:
             for i in range(LMU_AVISOS_N):
@@ -692,7 +717,7 @@ class Scoring:
         Es mejor fuente que la marca `mIsPlayer` y que el nombre del piloto,
         porque no hay que deducir nada: lo dice el juego.
         """
-        if self.lmu is None:
+        if self._lmu() is None:
             return None
         try:
             activos = u1(self.lmu, LMU_TELE)
