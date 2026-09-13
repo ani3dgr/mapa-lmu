@@ -62,9 +62,25 @@ Es gratuito. Úsalo y pásalo a quien quieras.
   en el nombre de cualquier ajuste se abre el manual por su explicación. Es un
   archivo de texto (`manual_reglajes.json`) que se puede corregir y ampliar sin
   recompilar nada. De momento está en español.
+- **Panel del clima** *(nuevo en la 1.10)*: en su propia ventana, lo que hace
+  ahora —temperatura del aire y del asfalto, cómo está la pista, el agarre y la
+  hora del circuito— y el pronóstico de la sesión en cinco momentos, con
+  dibujos de sol, luna, nubes, lluvia y tormenta. Y **puedes ver el pronóstico
+  de la carrera mientras estás en los libres**, que es cuando se deciden las
+  gomas: eso la pantalla del juego no lo da. Si viene agua y aún no ha llegado,
+  abajo dice cuánto falta. Ojo: es el pronóstico **del servidor en el que
+  estás**, así que para ver el de tu carrera hay que estar conectado a ella.
 - **Escáner de circuitos**, para medir una pista nueva desde dentro del juego.
 - **Siete idiomas**: español, inglés, francés, italiano, alemán, portugués y
   polaco.
+
+> **Sobre el modo de pantalla.** El mapa es una ventana encima del juego, así
+> que necesita que el juego no se adueñe del monitor. Con *Borderless* funciona
+> siempre; en *Pantalla completa* suele funcionar también, porque Windows la
+> convierte en ventana sin bordes por detrás. Si te preocupa el rendimiento,
+> pulsa **F9** en marcha y compara los FPS: eso es exactamente lo que cuesta el
+> mapa en tu máquina. Las instrucciones traen un apartado entero con el porqué
+> y con las cinco formas de reducirlo.
 
 ## Cómo se instala
 
@@ -189,9 +205,24 @@ It is free. Use it and pass it on to anyone.
   setting's name opens the manual straight at its page. It is a text file
   (`manual_reglajes.json`) you can correct and extend without recompiling.
   Spanish only for now; the file is laid out for translation.
+- **Weather panel** *(new in 1.10)*: in its own window, current conditions
+  —air and track temperature, how wet the track is, grip and the track clock—
+  plus the session forecast at five points, drawn with sun, moon, clouds, rain
+  and storm icons. And **you can see the race forecast while still in
+  practice**, which is when tyres get decided: the game's own screen will not
+  give you that. If rain is coming but has not arrived yet, the bottom line
+  says how long is left. Mind you: it is the forecast of **the server you are
+  on**, so to see your race's you have to be connected to it.
 - **Track scanner**, to measure a new track from inside the game.
 - **Seven languages**: Spanish, English, French, Italian, German, Portuguese and
   Polish.
+
+> **About the display mode.** The map is a window on top of the game, so the
+> game must not take sole ownership of the monitor. *Borderless* always works;
+> *Fullscreen* usually works too, because Windows quietly turns it into a
+> borderless window. If you worry about performance, press **F9** while driving
+> and compare the FPS: that is exactly what the map costs on your machine. The
+> instructions have a whole section on why, and five ways to reduce it.
 
 ## How to install it
 

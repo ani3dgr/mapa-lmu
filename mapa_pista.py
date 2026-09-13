@@ -27,6 +27,7 @@ import time
 import tkinter as tk
 from tkinter import ttk, colorchooser
 
+import clima
 import comparador as comp
 import grabador as grab
 import lector_lmu as lmu
@@ -157,6 +158,43 @@ POR_DEFECTO = {
     "bola_color_punto": "#00ff00",
     "bola_color_circulo": "#b0b0b0",
     "bola_color_numeros": "#ffffff",
+    # El panel del clima. Va apagado de salida como los demas instrumentos:
+    # quien lo quiera lo enciende, y quien no, ni se enteraba de que existe.
+    "clima_ver": False,
+    "clima_x": 60,
+    "clima_y": 260,
+    "clima_tam": 100,
+    "clima_opacidad": 1.0,
+    # Con fondo por defecto: los numeros pequenos encima de un cielo claro o
+    # de un muro blanco no se leen, y este panel se mira de reojo. Sin fondo
+    # el texto se pinta con sombra, que ayuda pero no tanto.
+    "clima_fondo": True,
+    "clima_color_fondo": "#0d1116",
+    "clima_color_texto": "#ffffff",
+    "clima_color_aviso": "#ff9f0a",
+    "clima_ahora": True,
+    "clima_pronostico": True,
+    "clima_temps": True,
+    "clima_pista": True,
+    "clima_hora": True,
+    "clima_viento": False,
+    "clima_humedad": False,
+    "clima_aviso_lluvia": True,
+    # Que sesion ensena el pronostico: "auto" la que se este corriendo, o una
+    # fija. Ponerlo en "race" en los libres es lo que da la ventaja: se ve lo
+    # que va a caer en la carrera antes de decidir la estrategia.
+    "clima_que_sesion": "auto",
+    # Que se rotula encima de cada punto del pronostico: "circuito" la hora
+    # del circuito (la del sol que se ve por el parabrisas, que es la que
+    # manda para el clima y los faros) o "falta" lo que queda de carrera.
+    #
+    # Por defecto la del circuito, porque es la misma que ensenan las
+    # pantallas del juego y asi los dos numeros cuadran. OJO: no es la hora
+    # real. El juego mete la carrera en la franja de tarde del circuito -una
+    # de 6 h empezada a las 17:23 reales salia a las 14:00 del circuito- asi
+    # que las dos van desfasadas, y si la escala de tiempo no es 1 el desfase
+    # ademas crece.
+    "clima_reloj": "circuito",
     "ver_salidas": True,
     # Por defecto NO: en carrera el juego solo publica la salida cuando llega
     # a sancionar, y los avisos de limites de pista no salen en la memoria
@@ -338,6 +376,13 @@ class Juego:
         self.yo_fiable = False         # y si esa via lo SABE o lo supone
         self.nueva_sesion = False      # obliga a empezar de cero
         self.congelado = False         # el juego no publica: pausa o menu
+        self.publicando = False        # si AHORA MISMO llegan datos frescos.
+                                       # El panel del clima lo necesita: la
+                                       # memoria compartida se queda con lo
+                                       # ultimo cuando el juego se cierra, y
+                                       # sin esto seguia ensenando la
+                                       # temperatura y la hora de la ultima
+                                       # sesion como si nada
         self._version = None
         self._version_desde = 0.0
         self._et = None
@@ -353,6 +398,7 @@ class Juego:
         except OSError:
             self.sco = None
             self.datos = None
+            self.publicando = False
             self.aviso = idiomas.t("map.esperando_juego")
             return []
 
@@ -378,6 +424,7 @@ class Juego:
             if sco.circuito_descargado():
                 self.datos = None
                 self.congelado = False
+                self.publicando = False
                 self.estado = ""
                 self._ultimos = []
                 sco.fijar_coche(None)  # fuera de sesion, el coche elegido
@@ -390,6 +437,7 @@ class Juego:
             # poder seguir ajustando colores y grosores con el juego en pausa,
             # que es cuando hace falta.
             self.congelado = True
+            self.publicando = False
             if self.datos:
                 self.estado = idiomas.t("map.pausa")
                 return self._ultimos
@@ -397,6 +445,7 @@ class Juego:
             return []
 
         self.congelado = False
+        self.publicando = True
 
         n = sco.n_coches()
         if n == 0:
@@ -592,6 +641,7 @@ class Mapa:
         self.avisador = None
         self.bola = None
         self._bola_pos = [0.0, 0.0]     # el punto ya suavizado
+        self.clima = None
         self.grabador = None
 
         self.root = tk.Tk()
@@ -951,6 +1001,7 @@ class Mapa:
         try:
             coches = self.fuente.leer()
             self._llevar_bola()
+            self._llevar_clima()
             self._restaurar_elegido(coches)
             self._llevar_comparador(coches)
             if self.visible and self._toca_dibujar():
@@ -1081,6 +1132,8 @@ class Mapa:
             self.avisador.colocar(False)
         if self.bola is not None:
             self.bola.colocar(False)
+        if self.clima is not None:
+            self.clima.colocar(False)
         guardar_config(self.cfg)
         click_atraviesa(self.hwnd, True)
         if self.opciones:
@@ -1127,6 +1180,60 @@ class Mapa:
         # se van a la derecha. Comprobado con los datos de Daytona.
         x, y = self._suavizar(tele["g_lateral"] / escala, tele["g_larga"] / escala)
         self.bola.pintar(x, y, reparto_de(tele["cargas"]))
+
+    def _llevar_clima(self):
+        """
+        Refresca el panel del clima.
+
+        Son dos fuentes que van a ritmos muy distintos: lo que hace AHORA sale
+        de la memoria compartida y se lee aqui mismo, y el PRONOSTICO lo trae
+        clima.py de la API web del juego en su propio hilo, cada veinte
+        segundos. Aqui solo se recoge lo ultimo que haya llegado, sin esperar
+        a nadie: una peticion HTTP en este bucle congelaria el mapa.
+
+        El panel se pinta aunque no haya coches en pista -en el garaje, sin
+        salir- porque es justo ahi donde se mira el pronostico para decidir la
+        estrategia.
+        """
+        if not self.cfg.get("clima_ver", False) and self.clima is None:
+            return
+        if self.clima is None:
+            import clima_gui
+            self.clima = clima_gui.Panel(self.root, self.cfg, guardar_config)
+            self.clima.colocar(self.modo_mover)
+        if not self.cfg.get("clima_ver", False):
+            self.clima.esconder()
+            return
+        # Solo se ensena el tiempo si el juego lo esta publicando AHORA. La
+        # memoria compartida se queda con lo ultimo al cerrar el juego, asi
+        # que sin esta condicion el panel seguia ensenando la temperatura y la
+        # hora de la sesion de hace un rato, tan convencido. Visto el
+        # 12/09/2026: LMU cerrado y el panel marcando 20 grados y las 15:26
+        # del circuito.
+        sco = getattr(self.fuente, "sco", None)
+        ahora = None
+        if (sco is not None and hasattr(sco, "clima")
+                and getattr(self.fuente, "publicando", True)):
+            ahora = sco.clima()
+        # Que pronostico se ensena, y -esto es lo importante- si es el de la
+        # sesion que se esta corriendo. Solo entonces el panel puede poner
+        # horas y cuenta atras; con el de la carrera puesto desde los libres
+        # no se sabe ni cuando empieza ni cuanto dura, y una hora inventada
+        # ahi seria peor que no poner ninguna.
+        de_ahora = clima.bloque_de_sesion(getattr(self.fuente, "sesion", None))
+        elegida = self.cfg.get("clima_que_sesion", "auto")
+        cual = elegida.upper() if elegida in ("practice", "qualify", "race") \
+            else de_ahora
+        # El cielo de AHORA se saca interpolando el pronostico de la sesion en
+        # curso (ver clima.cielo_ahora), que da el mismo estado que ensena la
+        # pantalla del juego. Ojo: el de la sesion EN CURSO, que no tiene que
+        # ser el que se este ensenando abajo -se puede estar mirando el de la
+        # carrera desde los libres-.
+        if ahora:
+            ahora["cielo"] = clima.cielo_ahora(
+                clima.pronostico.sesion(de_ahora), ahora)
+        self.clima.pintar(ahora, clima.pronostico.sesion(cual), cual,
+                          cual == de_ahora)
 
     def _suavizar(self, x, y):
         """
@@ -1228,6 +1335,8 @@ class Mapa:
             self.avisador.colocar(True)
         if self.bola is not None:
             self.bola.colocar(True)
+        if self.clima is not None:
+            self.clima.colocar(True)
         self.opciones = opciones.abrir(self, guardar_config)
 
     def cerrar_programa(self):
@@ -1362,11 +1471,54 @@ def comprobar():
         print("  manual             : no se ha podido leer (%s)" % e)
         fallos.append("el manual no se puede leer: %s" % e)
 
+    # El clima llega por dos caminos distintos, asi que se comprueban los dos:
+    # la memoria compartida (lo que hace ahora) y la API web del juego (el
+    # pronostico). Uno puede funcionar sin el otro, y saber cual falla ahorra
+    # media hora de buscar a ciegas.
+    # Que la memoria compartida se pueda ABRIR no quiere decir que el juego
+    # este vivo: al cerrarse, el mapa la mantiene abierta y ahi se queda, con
+    # los ultimos valores o a ceros. Lo unico que lo delata es el contador de
+    # version, que solo se mueve mientras el juego publica.
+    publicando = False
     try:
-        lmu.Scoring()
-        print("  el juego            : abierto y publicando datos")
+        _sco = lmu.Scoring()
+        _v = _sco.version()
+        time.sleep(1.2)
+        publicando = _sco.version() != _v
     except OSError:
+        _sco = None
+
+    if _sco is None:
         print("  el juego            : cerrado (normal si no estas jugando)")
+    elif publicando:
+        print("  el juego            : abierto y publicando datos")
+    else:
+        print("  el juego            : la memoria esta ahi pero NO llegan "
+              "datos (cerrado, en el menu o en pausa)")
+
+    if _sco is not None and publicando:
+        sco_clima = _sco.clima()
+        if sco_clima:
+            print("  clima ahora         : aire %.0f, asfalto %.0f, %s"
+                  % (sco_clima["aire"], sco_clima["asfalto"],
+                     clima.nombre_cielo(sco_clima["cielo"])))
+        else:
+            print("  clima ahora         : no se puede leer")
+    else:
+        print("  clima ahora         : sin datos del juego")
+    clima.pronostico.arrancar()
+    espera = time.monotonic() + 5.0
+    while clima.pronostico.datos() is None and time.monotonic() < espera:
+        time.sleep(0.2)
+    nodos = clima.pronostico.sesion("RACE")
+    if nodos:
+        print("  pronostico          : %d puntos de la carrera, hasta %d%% de "
+              "lluvia" % (len(nodos), max(n["lluvia"] for n in nodos)))
+    else:
+        print("  pronostico          : la interfaz del juego no contesta "
+              "(normal con el juego cerrado)")
+
+
 
     # Se monta la ventana de opciones sin ensenarla. Es la parte con mas
     # codigo de todo el programa, asi que si se dibuja entera es que no falta
@@ -1446,6 +1598,10 @@ def arranque():
         "escanear_bordes": "escanear_bordes",
         "escanear_boxes": "escanear_boxes",
         "buscar_aviso": "buscar_aviso",
+        # Herramienta de taller: apunta el clima en un archivo para poder
+        # calibrar luego con calma. Va aqui para que tambien funcione desde
+        # el ejecutable con consola.
+        "registrar_clima": "registrar_clima",
     }
     if len(sys.argv) > 1 and sys.argv[1] == "comprobar":
         return comprobar()

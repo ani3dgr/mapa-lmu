@@ -63,3 +63,5 @@ catalogo_coches.json
 #   circuitos/   los circuitos medidos, para que la gente los tenga
 #   idiomas/     las traducciones
 #   coches.json  la tabla de equipo -> marca y modelo
+registro_clima.txt
+.mio_mientras_compilo/

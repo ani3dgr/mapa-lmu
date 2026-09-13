@@ -20,14 +20,20 @@ PASO 1 - Quita el mapa del juego
   Desactiva el mapa que trae el juego. Si no, tendras dos mapas en
   pantalla y estorban.
 
-PASO 2 - Pon el juego en modo BORDERLESS
+PASO 2 - El modo de pantalla del juego
   Le Mans Ultimate -> Ajustes -> Video (o Graficos)
-  Busca el modo de pantalla y ponlo en "Borderless" (ventana sin
-  bordes a pantalla completa).
 
-  ESTO ES OBLIGATORIO. En pantalla completa exclusiva Windows no
-  deja poner nada encima del juego, y el mapa no se veria. En
-  rendimiento la diferencia hoy es practicamente nula.
+  Lo seguro es ponerlo en "Borderless" (ventana sin bordes a
+  pantalla completa). Con eso el mapa se ve siempre.
+
+  Pero puede que en "Pantalla completa" tambien se vea: hoy Windows
+  suele convertir la pantalla completa en ventana sin bordes por
+  detras, sin decir nada. Pruebalo: si en pantalla completa ves el
+  mapa, dejalo asi, que va igual de bien.
+
+  Si no lo ves, cambia a Borderless. Y si te preocupa el
+  rendimiento, lee mas abajo el apartado EL MODO DE PANTALLA Y LA
+  FLUIDEZ, que lo cuenta entero.
 
 PASO 3 - Arranca el mapa
   Doble clic en MAPA.bat
@@ -91,7 +97,7 @@ dentro las hojas de ese grupo. Cada hoja tiene un boton azul con una
 dentro. Si tienes dudas, pulsalo.
 
   EL MAPA ....... Que se ve  ·  Tamanos y colores
-  EN PISTA ...... Fuerzas G  ·  Avisos
+  EN PISTA ...... Fuerzas G  ·  Clima  ·  Avisos
   TIEMPOS ....... Comparar tiempos  ·  Comparar trazadas
   LO GUARDADO ... Coches  ·  Reglajes  ·  Escanear pistas
   ACERCA DE
@@ -120,6 +126,69 @@ dentro. Si tienes dudas, pulsalo.
 
     El aviso de coches parados ya no esta aqui: tiene pestana
     propia, AVISOS.
+
+  CLIMA
+    Un panel aparte, como la bola, con dos partes.
+
+    Arriba, lo que hace AHORA: la temperatura del aire y la del
+    asfalto, si la pista esta seca o mojada y cuanto, el agarre y la
+    hora del circuito. Eso sale de la memoria compartida del juego,
+    igual que las posiciones de los coches.
+
+    Abajo, el PRONOSTICO de la sesion en cinco momentos -la salida,
+    el 25 %, la mitad, el 75 % y el final- con el dibujo del cielo,
+    la probabilidad de lluvia y la temperatura de cada uno. Eso no
+    esta en la memoria compartida: se le pregunta a la propia
+    interfaz del juego cada veinte segundos.
+
+    PRONOSTICO DE ensena el de la sesion que estes corriendo, o el
+    de la que elijas. Ponlo en CARRERA estando en los libres y veras
+    lo que va a caer antes de decidir las gomas; ahi los cinco
+    puntos van rotulados SALIDA, MITAD, FINAL, porque desde los
+    libres no se puede saber a que hora le toca a cada uno. Con el
+    de la sesion que corres, cada punto lleva su hora del circuito y
+    se recuadra el punto por el que vamos.
+
+    Si viene agua y todavia no ha llegado, abajo sale cuanto falta.
+    La probabilidad se pinta en color a partir del 50 %, y a ese
+    icono se le ponen gotas aunque el cielo de ese momento venga
+    flojo: un 90 % de lluvia dibujado con un sol no lo entiende
+    nadie de un vistazo.
+
+    OJO CON UNA COSA: el pronostico es el DEL SERVIDOR EN EL QUE
+    ESTAS. Un servidor de practicas suelto lleva tambien su propia
+    carrera configurada por dentro, aunque nadie la corra nunca, y
+    esa carrera no es la tuya. Para ver el pronostico de tu carrera
+    de verdad hay que estar conectado a su servidor: en los minutos
+    de libres y clasificacion del propio evento ya se ve, y ahi es
+    justo cuando sirve. Cuando lo que se ensena no es la sesion que
+    estas corriendo, el rotulo pone ESTE EVENTO para recordarlo.
+
+    EL RENGLON DE ABAJO contesta a "vale, y ahora que viene":
+    pone LUEGO, el dibujo del tiempo del punto siguiente y cuanto
+    falta para el. Si viene agua manda el agua -aunque no sea en el
+    punto siguiente sino tres mas alla- y sale en naranja, porque es
+    lo unico del panel por lo que merece la pena apartar los ojos de
+    la pista.
+
+    LA HORA. Los rotulos de encima de cada punto son la hora DEL
+    CIRCUITO: la del sol que ves por el parabrisas, la misma que
+    ensenan las pantallas del juego. No es la hora real, porque el
+    juego mete la carrera en la franja de tarde del circuito (una de
+    6 h empezada a las 17:23 reales salio a las 14:00 del circuito).
+
+    En ENCIMA DE CADA PUNTO se elige que poner: solo la del
+    circuito, la del circuito con la real debajo en pequeno, o lo que
+    falta de carrera (+1h12). Con la segunda opcion la hora real sale
+    tambien arriba a la derecha, debajo de la del circuito, y eso
+    tiene su motivo: dentro del juego no hay ningun sitio donde ver
+    la hora de verdad, y mirarse el reloj de la muneca conduciendo es
+    como se sale uno de la pista.
+
+    De noche el sol se cambia por la luna.
+
+    Con las opciones abiertas se arrastra con el raton, y el tamano,
+    la opacidad y los colores se cambian aqui.
 
   FUERZAS G
     Una circunferencia con un punto que se va hacia donde tira el
@@ -391,11 +460,145 @@ boxes: son medidas aparte y siguen valiendo.
 
 
 --------------------------------------------------------------------
+  EL MODO DE PANTALLA Y LA FLUIDEZ
+--------------------------------------------------------------------
+
+Este apartado es largo porque la pregunta se repite mucho: "¿el
+mapa me va a quitar FPS?". La respuesta honrada es "depende, y se
+puede medir en un minuto".
+
+
+POR QUE EN PANTALLA COMPLETA NO SE VE NADA ENCIMA
+
+  En pantalla completa EXCLUSIVA el juego le pide a Windows la
+  propiedad del monitor entero, y Windows se la da. A partir de ahi
+  Windows apaga el montador de escritorio en esa pantalla: ya no hay
+  nada que montar, porque el juego ES la pantalla.
+
+  Y los overlays los dibuja precisamente ese montador. Si esta
+  apagado, no hay donde dibujarlos. No es que Windows los prohiba:
+  es que la maquina que los pinta esta apagada, y la apago el juego
+  al pedir la exclusiva.
+
+  Por eso los overlays que SI se ven en exclusiva -Steam, Discord,
+  Afterburner- no usan una ventana: se meten dentro del juego y
+  pintan dentro de su propia imagen antes de que salga a la
+  pantalla. Es mucho mas invasivo, algunos anticheats lo toman por
+  lo que parece, y si falla se lleva el juego por delante. Este
+  programa no hace eso a proposito: es una ventana normal y no toca
+  el juego por dentro.
+
+
+LO QUE CUESTA UNA VENTANA ENCIMA
+
+  Sin bordes, el juego ya no manda en el monitor: entrega cada
+  imagen a Windows, y Windows monta la pantalla final juntando el
+  juego con lo que haya encima. Eso es una copia mas de la pantalla
+  entera, sesenta o mas veces por segundo, y un hueco mas en la
+  cadena (de ahi tambien algo mas de retardo).
+
+  Desde Windows 10 eso esta casi resuelto: si una ventana sin bordes
+  ocupa la pantalla entera y NO HAY NADA ENCIMA, Windows le da el
+  mismo camino directo que a la exclusiva. Por eso hoy casi nadie
+  nota diferencia entre los dos modos.
+
+  La trampa esta en ese "no hay nada encima". Al poner un overlay
+  delante, Windows vuelve al montaje completo. Y si el overlay es
+  transparente -como este, que tiene un color que se vuelve
+  invisible- ademas hay que mezclarlo punto por punto en cada
+  imagen.
+
+  O sea: sin bordes por si solo es casi gratis. Lo que cuesta es el
+  overlay. Conviene saberlo para no echarle la culpa al juego ni a
+  la grafica, que no la tienen.
+
+
+MIDELO TU, QUE SE TARDA UN MINUTO
+
+  No hay que fiarse de lo que diga nadie por internet, incluido
+  esto: cada ordenador es un mundo. Y hay una prueba exacta y sin
+  tocar ninguna configuracion, porque F9 no esconde el mapa, lo
+  QUITA: la ventana desaparece y Windows deja de montarla.
+
+    1. Sal a pista tu solo, mismo circuito y mismo tiempo.
+    2. Mira los FPS con el mapa a la vista.
+    3. Pulsa F9 y vuelve a mirarlos.
+
+  Esa diferencia es lo que cuesta el mapa EN TU MAQUINA. Si son uno
+  o dos fotogramas, olvidate del asunto. Si son diez, sigue leyendo.
+
+
+SI CUESTA DEMASIADO, DE MAS A MENOS EFECTIVO
+
+  1. BAJA LOS DIBUJOS POR SEGUNDO. En F10 -> Tamanos y colores hay
+     un ajuste de fluidez. De 20 a 8 por segundo, el trabajo de
+     Windows se reduce a menos de la mitad y el mapa se sigue
+     leyendo igual de bien. Es lo que mas se nota y no cuesta nada.
+
+  2. HAZ EL PANEL MAS PEQUENO. El coste va por puntos de pantalla:
+     la mitad de tamano es la cuarta parte de trabajo.
+
+  3. CIERRA LOS DEMAS OVERLAYS (Steam, Discord, GeForce
+     Experience). Cada uno suma y casi nadie los cuenta.
+
+  4. DEJALE AIRE A LA GRAFICA. Si va al 100 % clavado, el montaje de
+     Windows le roba tiempo al juego. Limitando los FPS un poco por
+     debajo del maximo se suele ir MAS SUAVE aunque el numero sea
+     menor.
+
+  5. COMPRUEBA LAS OPTIMIZACIONES DE PANTALLA COMPLETA. Boton
+     derecho en el .exe del juego -> Propiedades -> Compatibilidad.
+     La casilla "Deshabilitar las optimizaciones de pantalla
+     completa" tiene que estar SIN marcar.
+
+     Suena al reves, pero es asi: esas optimizaciones son justo el
+     apano que hace que sin bordes vaya casi como la exclusiva. Si
+     alguien las desactivo en su dia -es un consejo que circula
+     mucho-, vuelve el comportamiento antiguo y sin bordes va
+     lento de verdad. Esta es la causa mas probable cuando alguien
+     dice que sin bordes le va mal.
+
+
+LA SOLUCION QUE LO QUITA DEL TODO: UNA SEGUNDA PANTALLA
+
+  El juego se queda en pantalla completa en el monitor bueno, sin
+  perder un solo fotograma, y el mapa se arrastra a la otra
+  pantalla. La exclusiva solo se aduena de UN monitor; en la otra el
+  mapa funciona igual y sin coste ninguno.
+
+  Vale cualquier pantalla vieja, una tele o el panel del portatil.
+  Con las opciones abiertas (F10) se arrastra el mapa hasta alli y
+  se queda.
+
+  Dos avisos:
+
+  - Al encender una segunda pantalla, Windows baja a veces la
+    frecuencia de la principal para "cuadrarlas". Comprueba despues
+    que tu monitor sigue a los Hz de siempre y no se ha quedado en
+    60.
+
+  - Para el CLIMA la segunda pantalla es perfecta, que se mira de
+    tarde en tarde. Para el MAPA con el aviso de coche parado es
+    peor: eso lo quieres por el rabillo del ojo, no agachando la
+    cabeza.
+
+
+--------------------------------------------------------------------
   SI ALGO NO VA
 --------------------------------------------------------------------
 
 No se ve el mapa encima del juego
-  El juego no esta en borderless. Repasa el PASO 2.
+  El juego esta en pantalla completa exclusiva de verdad. Ponlo en
+  Borderless (PASO 2). Si ya lo estaba, mira en las propiedades del
+  .exe del juego que no tenga marcada la casilla "Deshabilitar las
+  optimizaciones de pantalla completa". Lo cuenta entero el apartado
+  EL MODO DE PANTALLA Y LA FLUIDEZ.
+
+El juego me va menos fluido con el mapa puesto
+  Pulsa F9 con el juego en marcha y compara los FPS: esa es la
+  medida exacta de lo que cuesta. En el apartado EL MODO DE PANTALLA
+  Y LA FLUIDEZ estan las cinco cosas que se pueden hacer, empezando
+  por bajar los dibujos por segundo.
 
 Pone "Esperando al juego..."
   El juego no esta abierto, o el plugin de telemetria no esta

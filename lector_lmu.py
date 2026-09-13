@@ -101,6 +101,35 @@ OFF_VALIDA = 506        # mCountLapFlag: veredicto del JUEGO sobre la vuelta.
                         # 0 = no cuenta ninguna de las dos
                         # Baja de 2 en cuanto el juego invalida por salirse.
 
+# ---------------- el clima, en la cabecera del buffer ----------------
+#
+# Calculados del `InternalsPlugin.hpp` del propio juego con pack(4), contando
+# desde el principio de ScoringInfoV01 (que empieza en el byte 12) y
+# COMPROBADOS en pista el 12/09/2026 en Barcelona: la temperatura del aire
+# (20,02) y la del asfalto (37,55) salieron clavadas a lo que decia en ese
+# mismo instante la API web del juego, y el reloj del dia dio la hora real de
+# la sesion. Que el ultimo campo del bloque (mVehicle) caiga justo en el byte
+# 560, donde empieza el primer coche, confirma que toda la cuenta cuadra.
+#
+# Los cinco ultimos son ANADIDOS DE LMU: no estan en el rFactor 2 original, el
+# juego los mete donde aquel dejaba sitio de reserva. Y son justo los mas
+# utiles: el estado del cielo con un numero y la hora del dia.
+OFF_T_AIRE = 240        # mAmbientTemp: grados del aire
+OFF_T_ASFALTO = 248     # mTrackTemp: grados del asfalto
+OFF_LLUVIA = 232        # mRaining: cuanto llueve AHORA, de 0 a 1
+OFF_NUBES = 224         # mDarkCloud: lo oscuro que esta el cielo, de 0 a 1
+OFF_VIENTO = 256        # mWind: 3 dobles, metros por segundo
+OFF_MOJADO_MIN = 280    # mMinPathWetness: lo menos mojado de la trazada
+OFF_MOJADO_MAX = 288    # mMaxPathWetness: lo mas mojado de la trazada
+OFF_MOJADO_MED = 344    # mAvgPathWetness: la media (anadido de LMU)
+OFF_HORA_DIA = 356      # mTimeOfDay: segundos desde medianoche (float). Con
+                        # esto se sabe si es de noche sin adivinar nada
+OFF_AGARRE = 361        # mTrackGripLevel: 0 baja, 1 media, 2 alta, 3 optima
+OFF_CIELO = 362         # mCloudCoverage: el estado del cielo, 0..10, con los
+                        # mismos numeros que el pronostico de la API web
+OFF_ET = 80             # mCurrentET: segundos de sesion transcurridos
+OFF_FIN_ET = 88         # mEndET: segundos de sesion en los que se acaba
+
 MAX_COCHES = 128
 
 # ---------------- acceso a memoria compartida ----------------
@@ -139,6 +168,11 @@ def i2(base, off):
 
 def u1(base, off):
     return ctypes.string_at(base + off, 1)[0]
+
+
+def f4(base, off):
+    """Un float de 4 bytes. LMU usa estos para la hora del dia y el reloj."""
+    return struct.unpack("<f", ctypes.string_at(base + off, 4))[0]
 
 
 def txt(base, off, n):
@@ -573,6 +607,41 @@ class Scoring:
         self.origen_yo = "manual" if mid is not None else None
         self.yo_fiable = mid is not None
         self._apunte = None            # que el cambio quede apuntado
+
+    def clima(self):
+        """
+        El tiempo que hace AHORA MISMO, tal cual lo publica el juego.
+
+        Todo sale de la cabecera del buffer de scoring, asi que no cuesta
+        nada: ya estaba abierto para leer las posiciones de los coches. Se
+        refresca a la vez que el resto, o sea 5 veces por segundo, que para el
+        clima es una exageracion pero sale gratis.
+
+        Lo que NO esta aqui es el pronostico: eso hay que pedirselo a la API
+        web del juego y lo hace `clima.py` en su propio hilo.
+        """
+        try:
+            sco = self.sco
+            return {
+                "aire": d(sco, OFF_T_AIRE),
+                "asfalto": d(sco, OFF_T_ASFALTO),
+                "lluvia": d(sco, OFF_LLUVIA),
+                "nubes": d(sco, OFF_NUBES),
+                "cielo": u1(sco, OFF_CIELO),
+                "agarre": u1(sco, OFF_AGARRE),
+                "mojado": d(sco, OFF_MOJADO_MED),
+                "mojado_min": d(sco, OFF_MOJADO_MIN),
+                "mojado_max": d(sco, OFF_MOJADO_MAX),
+                # El viento viene en 3 ejes y en metros por segundo; lo que
+                # interesa es cuanto sopla, asi que se da el modulo en km/h.
+                "viento": math.sqrt(sum(d(sco, OFF_VIENTO + 8 * i) ** 2
+                                        for i in range(3))) * 3.6,
+                "hora_dia": f4(sco, OFF_HORA_DIA),
+                "reloj_sesion": d(sco, OFF_ET),
+                "fin_sesion": d(sco, OFF_FIN_ET),
+            }
+        except (OSError, struct.error, ValueError):
+            return None
 
     def circuito(self):
         return txt(self.sco, OFF_TRACK, 64)

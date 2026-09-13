@@ -51,6 +51,9 @@ OCULTOS = [
     "lector_lmu",
     "elegir_coche",
     "bola_gui",
+    "clima",
+    "clima_gui",
+    "registrar_clima",
 ]
 
 a = Analysis(

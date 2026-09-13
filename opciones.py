@@ -62,6 +62,7 @@ class Opciones:
 
         pista = self._grupo(cuaderno, T("grupo.pista"))
         self._pestana_fuerzas(pista)
+        self._pestana_clima(pista)
         self._pestana_avisos(pista)
 
         tiempos = self._grupo(cuaderno, T("grupo.tiempos"))
@@ -381,6 +382,94 @@ class Opciones:
 
     def _abrir_visor(self):
         visor.abrir(self.v, self.cfg)
+
+    def _pestana_clima(self, cuaderno):
+        """
+        El panel del clima.
+
+        Hoja propia, como la bola de fuerzas G: es otro instrumento con su
+        ventana, su sitio en la pantalla y sus ajustes, no algo que se dibuje
+        dentro del mapa.
+        """
+        m, fila = self._hoja(cuaderno, T("tab.clima"), "clima")
+        self._interruptor(m, fila, T("clima.opt.ver"), "clima_ver")
+        self._titulo(m, fila, T("clima.opt.tit_que_sale"))
+        self._interruptor(m, fila, T("clima.opt.ahora"), "clima_ahora")
+        self._interruptor(m, fila, T("clima.opt.pronostico"), "clima_pronostico")
+        self._interruptor(m, fila, T("clima.opt.temps"), "clima_temps", 20)
+        self._interruptor(m, fila, T("clima.opt.pista"), "clima_pista", 20)
+        self._interruptor(m, fila, T("clima.opt.hora"), "clima_hora", 20)
+        self._interruptor(m, fila, T("clima.opt.viento"), "clima_viento", 20)
+        self._interruptor(m, fila, T("clima.opt.humedad"), "clima_humedad", 20)
+        self._interruptor(m, fila, T("clima.opt.aviso"), "clima_aviso_lluvia")
+
+        self._titulo(m, fila, T("clima.opt.tit_sesion"))
+        self._sesion_del_clima(m, fila)
+        ttk.Label(m, foreground="#666", justify="left",
+                  text=T("clima.opt.sesion_nota")).grid(
+            row=fila[0], column=0, columnspan=3, sticky="w", padx=(20, 0))
+        fila[0] += 1
+
+        self._reloj_del_clima(m, fila)
+        ttk.Label(m, foreground="#666", justify="left",
+                  text=T("clima.opt.reloj_nota")).grid(
+            row=fila[0], column=0, columnspan=3, sticky="w", padx=(20, 0))
+        fila[0] += 1
+
+        self._titulo(m, fila, T("clima.opt.tit_aspecto"))
+        self._deslizador(m, fila, T("clima.opt.tam"), "clima_tam", 60, 220)
+        self._deslizador(m, fila, T("asp.opacidad"), "clima_opacidad", 0.2, 1.0, 2)
+        self._interruptor(m, fila, T("clima.opt.fondo"), "clima_fondo")
+        self._color(m, fila, T("clima.opt.color_fondo"), "clima_color_fondo")
+        self._color(m, fila, T("clima.opt.color_texto"), "clima_color_texto")
+        self._color(m, fila, T("clima.opt.color_aviso"), "clima_color_aviso")
+        ttk.Label(m, foreground="#666", justify="left",
+                  text=T("clima.opt.mover")).grid(
+            row=fila[0], column=0, columnspan=3, sticky="w", pady=(8, 0))
+        fila[0] += 1
+
+    # Las cuatro opciones de que pronostico se ensena. El valor que se guarda
+    # no es el texto traducido, que cambia con el idioma, sino el codigo.
+    SESIONES_CLIMA = ["auto", "practice", "qualify", "race"]
+
+    RELOJES_CLIMA = ["circuito", "ambas", "falta"]
+
+    def _reloj_del_clima(self, m, fila):
+        nombres = [T("clima.opt.reloj_" + c) for c in self.RELOJES_CLIMA]
+        actual = self.cfg.get("clima_reloj", "circuito")
+        if actual not in self.RELOJES_CLIMA:
+            actual = "circuito"
+        ttk.Label(m, text=T("clima.opt.reloj")).grid(
+            row=fila[0], column=0, sticky="w")
+        var = tk.StringVar(value=nombres[self.RELOJES_CLIMA.index(actual)])
+
+        def cambio(_=None):
+            self.cfg["clima_reloj"] = \
+                self.RELOJES_CLIMA[nombres.index(var.get())]
+            self.guardar(self.cfg)
+        combo = ttk.Combobox(m, textvariable=var, values=nombres,
+                             state="readonly", width=22)
+        combo.grid(row=fila[0], column=1, sticky="w", padx=4, pady=1)
+        combo.bind("<<ComboboxSelected>>", cambio)
+        fila[0] += 1
+
+    def _sesion_del_clima(self, m, fila):
+        nombres = [T("clima.opt.ses_" + c) for c in self.SESIONES_CLIMA]
+        actual = self.cfg.get("clima_que_sesion", "auto")
+        if actual not in self.SESIONES_CLIMA:
+            actual = "auto"
+        ttk.Label(m, text=T("clima.opt.que_sesion")).grid(
+            row=fila[0], column=0, sticky="w")
+        var = tk.StringVar(value=nombres[self.SESIONES_CLIMA.index(actual)])
+
+        def cambio(_=None):
+            self.cfg["clima_que_sesion"] =                 self.SESIONES_CLIMA[nombres.index(var.get())]
+            self.guardar(self.cfg)
+        combo = ttk.Combobox(m, textvariable=var, values=nombres,
+                             state="readonly", width=22)
+        combo.grid(row=fila[0], column=1, sticky="w", padx=4, pady=1)
+        combo.bind("<<ComboboxSelected>>", cambio)
+        fila[0] += 1
 
     def _pestana_avisos(self, cuaderno):
         """
