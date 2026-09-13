@@ -79,8 +79,9 @@ Es gratuito. Úsalo y pásalo a quien quieras.
 > siempre; en *Pantalla completa* suele funcionar también, porque Windows la
 > convierte en ventana sin bordes por detrás. Si te preocupa el rendimiento,
 > pulsa **F9** en marcha y compara los FPS: eso es exactamente lo que cuesta el
-> mapa en tu máquina. Las instrucciones traen un apartado entero con el porqué
-> y con las cinco formas de reducirlo.
+> mapa en tu máquina. Y si no lo ves aparecer, el propio programa te dice por
+> qué: en *El mapa → Pantalla y fluidez* mira el modo de pantalla del juego y
+> la casilla de Windows que lo impide, y la quita con un botón.
 
 ## Cómo se instala
 
@@ -221,8 +222,10 @@ It is free. Use it and pass it on to anyone.
 > game must not take sole ownership of the monitor. *Borderless* always works;
 > *Fullscreen* usually works too, because Windows quietly turns it into a
 > borderless window. If you worry about performance, press **F9** while driving
-> and compare the FPS: that is exactly what the map costs on your machine. The
-> instructions have a whole section on why, and five ways to reduce it.
+> and compare the FPS: that is exactly what the map costs on your machine. And
+> if it does not show up, the program itself tells you why: under *The map →
+> Display and smoothness* it checks the game's display mode and the Windows
+> checkbox that blocks it, and removes it with a button.
 
 ## How to install it
 

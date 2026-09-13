@@ -59,6 +59,7 @@ class Opciones:
         mapa_ = self._grupo(cuaderno, T("grupo.mapa"))
         self._pestana_ver(mapa_)
         self._pestana_aspecto(mapa_)
+        self._pestana_pantalla(mapa_)
 
         pista = self._grupo(cuaderno, T("grupo.pista"))
         self._pestana_fuerzas(pista)
@@ -382,6 +383,99 @@ class Opciones:
 
     def _abrir_visor(self):
         visor.abrir(self.v, self.cfg)
+
+    def _pestana_pantalla(self, cuaderno):
+        """
+        Por que se ve (o no) el mapa encima del juego, y que cuesta.
+
+        Es la unica hoja que mira COSAS DE FUERA del programa: el modo de
+        pantalla que tiene puesto el juego y una casilla de Windows. Estan
+        aqui porque son las dos unicas razones por las que alguien abre el
+        mapa y no ve nada, y ninguna de las dos se ve a simple vista.
+        """
+        m, fila = self._hoja(cuaderno, T("tab.pantalla"), "pantalla")
+        self.marco_pantalla = ttk.Frame(m)
+        self.marco_pantalla.grid(row=fila[0], column=0, columnspan=3,
+                                 sticky="we")
+        fila[0] += 1
+        self._pintar_pantalla()
+
+        self._titulo(m, fila, T("pan.tit_fluidez"))
+        self._fluidez(m, fila)
+        ttk.Label(m, foreground="#666", justify="left",
+                  text=T("pan.fluidez_nota")).grid(
+            row=fila[0], column=0, columnspan=3, sticky="w", padx=(20, 0))
+        fila[0] += 1
+
+    def _pintar_pantalla(self):
+        """El diagnostico, que se vuelve a pintar despues de arreglar nada."""
+        import juego
+        import pantalla
+        for hijo in self.marco_pantalla.winfo_children():
+            hijo.destroy()
+        d = pantalla.diagnostico(juego.carpeta())
+        f = [0]
+
+        def linea(texto, valor, color=None):
+            ttk.Label(self.marco_pantalla, text=texto).grid(
+                row=f[0], column=0, sticky="w", pady=1)
+            et = tk.Label(self.marco_pantalla, text=valor, anchor="w")
+            if color:
+                et.config(fg=color)
+            et.grid(row=f[0], column=1, sticky="w", padx=6)
+            f[0] += 1
+
+        modos = {"exclusiva": T("pan.modo_exclusiva"),
+                 "sin_bordes": T("pan.modo_sin_bordes"),
+                 "ventana": T("pan.modo_ventana")}
+        linea(T("pan.modo"), modos.get(d["modo"], T("pan.no_se_sabe")))
+
+        if d["optimizaciones"] is None:
+            linea(T("pan.optimizaciones"), T("pan.no_se_sabe"))
+        elif d["optimizaciones"]:
+            linea(T("pan.optimizaciones"), T("pan.opt_si"), "#1a7f37")
+        else:
+            linea(T("pan.optimizaciones"), T("pan.opt_no"), "#b3261e")
+
+        if d["se_vera"] is True:
+            linea(T("pan.conclusion"), T("pan.si_se_ve"), "#1a7f37")
+        elif d["se_vera"] is False:
+            linea(T("pan.conclusion"), T("pan.no_se_ve"), "#b3261e")
+        else:
+            linea(T("pan.conclusion"), T("pan.no_se_sabe"))
+
+        # El boton solo aparece cuando hay algo que arreglar. Si esta todo
+        # bien no se ensena: un boton que no hace falta solo invita a tocar.
+        if d["optimizaciones"] is False and d["exe"]:
+            ttk.Label(self.marco_pantalla, foreground="#666", justify="left",
+                      text=T("pan.aviso_arreglo")).grid(
+                row=f[0], column=0, columnspan=3, sticky="w", pady=(8, 2))
+            f[0] += 1
+            ttk.Button(self.marco_pantalla, text=T("pan.arreglar"),
+                       command=lambda: self._arreglar_pantalla(d["exe"])).grid(
+                row=f[0], column=0, columnspan=2, sticky="w")
+            f[0] += 1
+
+    def _arreglar_pantalla(self, exe):
+        """
+        Quita la casilla que impide ver el mapa en pantalla completa.
+
+        Es lo unico que el programa escribe fuera de su carpeta, asi que se
+        pregunta antes, se dice exactamente que se toca, y se conservan las
+        demas marcas de compatibilidad que hubiera en esa linea.
+        """
+        import pantalla
+        if not messagebox.askyesno(T("pan.arreglar"),
+                                   T("pan.confirmar") % exe, parent=self.v):
+            return
+        bien, motivo = pantalla.activar_optimizaciones(exe)
+        if bien:
+            messagebox.showinfo(T("pan.arreglar"), T("pan.arreglado"),
+                                parent=self.v)
+        else:
+            messagebox.showerror(T("pan.arreglar"),
+                                 T("pan.no_arreglado") % motivo, parent=self.v)
+        self._pintar_pantalla()
 
     def _pestana_clima(self, cuaderno):
         """

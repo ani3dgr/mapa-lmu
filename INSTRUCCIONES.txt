@@ -96,7 +96,7 @@ dentro las hojas de ese grupo. Cada hoja tiene un boton azul con una
 "i" arriba a la derecha que explica para que sirve lo que hay
 dentro. Si tienes dudas, pulsalo.
 
-  EL MAPA ....... Que se ve  ·  Tamanos y colores
+  EL MAPA ....... Que se ve  ·  Tamanos y colores  ·  Pantalla y fluidez
   EN PISTA ...... Fuerzas G  ·  Clima  ·  Avisos
   TIEMPOS ....... Comparar tiempos  ·  Comparar trazadas
   LO GUARDADO ... Coches  ·  Reglajes  ·  Escanear pistas
@@ -126,6 +126,30 @@ dentro. Si tienes dudas, pulsalo.
 
     El aviso de coches parados ya no esta aqui: tiene pestana
     propia, AVISOS.
+
+  PANTALLA Y FLUIDEZ
+    Las dos unicas razones por las que alguien abre el mapa y no ve
+    nada, y ninguna de las dos se ve a simple vista. El programa las
+    mira por ti y te dice como estan:
+
+      Modo de pantalla del juego
+      Optimizaciones de Windows
+      El mapa se vera encima:  si / no
+
+    Si sale que NO, aparece un boton para arreglarlo. Lo que hace es
+    quitar la casilla "Deshabilitar las optimizaciones de pantalla
+    completa" del ejecutable del juego, que alguien marco en su dia
+    -es un consejo que circula mucho por foros de rendimiento- sin
+    saber que con eso se queda sin ver ningun overlay.
+
+    ESTO ES LO UNICO QUE EL PROGRAMA ESCRIBE FUERA DE SU CARPETA.
+    Pregunta antes, dice exactamente que va a cambiar, y si esa linea
+    tiene otros ajustes (escalado, ejecutar como administrador) los
+    deja como estan. No hacen falta permisos de administrador, y hay
+    que reiniciar el juego para que tenga efecto.
+
+    Debajo esta la fluidez del mapa, que es lo que mas alivia si el
+    juego va justo, y el boton (i) lo cuenta todo.
 
   CLIMA
     Un panel aparte, como la bola, con dos partes.
@@ -546,10 +570,14 @@ SI CUESTA DEMASIADO, DE MAS A MENOS EFECTIVO
      debajo del maximo se suele ir MAS SUAVE aunque el numero sea
      menor.
 
-  5. COMPRUEBA LAS OPTIMIZACIONES DE PANTALLA COMPLETA. Boton
-     derecho en el .exe del juego -> Propiedades -> Compatibilidad.
-     La casilla "Deshabilitar las optimizaciones de pantalla
-     completa" tiene que estar SIN marcar.
+  5. COMPRUEBA LAS OPTIMIZACIONES DE PANTALLA COMPLETA. Esto ya no
+     hay que buscarlo a mano: abre F10 -> EL MAPA -> Pantalla y
+     fluidez y el programa te lo dice, y te lo arregla con un boton
+     si hace falta.
+
+     A mano seria boton derecho en el .exe del juego -> Propiedades
+     -> Compatibilidad, y la casilla "Deshabilitar las optimizaciones
+     de pantalla completa" tiene que estar SIN marcar.
 
      Suena al reves, pero es asi: esas optimizaciones son justo el
      apano que hace que sin bordes vaya casi como la exclusiva. Si

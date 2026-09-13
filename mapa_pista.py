@@ -1471,6 +1471,30 @@ def comprobar():
         print("  manual             : no se ha podido leer (%s)" % e)
         fallos.append("el manual no se puede leer: %s" % e)
 
+    # Las dos razones por las que alguien abre el mapa y no ve nada, y que no
+    # se ven a simple vista: el modo de pantalla del juego y una casilla de
+    # Windows escondida en las propiedades del ejecutable.
+    try:
+        import pantalla
+        d = pantalla.diagnostico(juego.carpeta())
+        modos = {"exclusiva": "pantalla completa", "sin_bordes": "sin bordes",
+                 "ventana": "en ventana"}
+        print("  modo de pantalla    : %s" % modos.get(d["modo"], "no se sabe"))
+        if d["optimizaciones"] is False:
+            print("  optimizaciones win  : DESACTIVADAS  <-- por esto no se ve "
+                  "el mapa en pantalla completa")
+            fallos.append("alguien marco 'Deshabilitar las optimizaciones de "
+                          "pantalla completa' en el .exe del juego: quitalo "
+                          "desde F10 -> EL MAPA -> Pantalla y fluidez")
+        elif d["optimizaciones"]:
+            print("  optimizaciones win  : activadas (bien)")
+        if d["se_vera"] is False:
+            print("  el mapa se vera     : NO con lo que hay puesto")
+        elif d["se_vera"]:
+            print("  el mapa se vera     : si")
+    except Exception as e:
+        print("  modo de pantalla    : no se ha podido mirar (%s)" % e)
+
     # El clima llega por dos caminos distintos, asi que se comprueban los dos:
     # la memoria compartida (lo que hace ahora) y la API web del juego (el
     # pronostico). Uno puede funcionar sin el otro, y saber cual falla ahorra

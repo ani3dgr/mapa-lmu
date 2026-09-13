@@ -54,6 +54,7 @@ OCULTOS = [
     "clima",
     "clima_gui",
     "registrar_clima",
+    "pantalla",
 ]
 
 a = Analysis(
