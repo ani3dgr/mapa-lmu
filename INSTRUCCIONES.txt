@@ -570,14 +570,18 @@ SI CUESTA DEMASIADO, DE MAS A MENOS EFECTIVO
      debajo del maximo se suele ir MAS SUAVE aunque el numero sea
      menor.
 
-  5. COMPRUEBA LAS OPTIMIZACIONES DE PANTALLA COMPLETA. Esto ya no
-     hay que buscarlo a mano: abre F10 -> EL MAPA -> Pantalla y
-     fluidez y el programa te lo dice, y te lo arregla con un boton
-     si hace falta.
+  5. Y UNA QUE NO SIRVE, PARA QUE NO PIERDAS EL TIEMPO: la casilla
+     "Deshabilitar las optimizaciones de pantalla completa", que
+     circula por los foros como truco de rendimiento.
 
-     A mano seria boton derecho en el .exe del juego -> Propiedades
-     -> Compatibilidad, y la casilla "Deshabilitar las optimizaciones
-     de pantalla completa" tiene que estar SIN marcar.
+     MEDIDO el 13/09/2026 con PresentMon, jugando SIN BORDES y con el
+     mapa encima, con la casilla marcada y sin marcar: Windows le da
+     al juego exactamente el mismo camino en los dos casos. En ventana
+     o sin bordes esa casilla NO HACE NADA.
+
+     Solo actua si el juego pide pantalla completa exclusiva, y ahi lo
+     unico que consigue es que no puedas ver el mapa. El programa te
+     avisa si te pasa eso (F10 -> EL MAPA -> Pantalla y fluidez).
 
      Suena al reves, pero es asi: esas optimizaciones son justo el
      apano que hace que sin bordes vaya casi como la exclusiva. Si

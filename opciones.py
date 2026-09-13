@@ -444,9 +444,18 @@ class Opciones:
         else:
             linea(T("pan.conclusion"), T("pan.no_se_sabe"))
 
-        # El boton solo aparece cuando hay algo que arreglar. Si esta todo
-        # bien no se ensena: un boton que no hace falta solo invita a tocar.
-        if d["optimizaciones"] is False and d["exe"]:
+        # El boton solo aparece cuando hay algo que arreglar DE VERDAD: la
+        # casilla marcada Y el juego pidiendo pantalla completa.
+        #
+        # Medido el 13/09/2026 con PresentMon, en sin bordes y con la casilla
+        # en los dos estados: el camino que da Windows es el mismo
+        # ("Hardware Composed: Independent Flip") con ella marcada y sin
+        # marcar. O sea que **en ventana o sin bordes la casilla no hace
+        # nada**, y ofrecer ahi un boton seria invitar a tocar lo que no
+        # estorba. Solo actua cuando el juego pide la exclusiva, que es lo
+        # unico que esa casilla impide que Windows convierta.
+        if (d["optimizaciones"] is False and d["exe"]
+                and d["modo"] == "exclusiva"):
             ttk.Label(self.marco_pantalla, foreground="#666", justify="left",
                       text=T("pan.aviso_arreglo")).grid(
                 row=f[0], column=0, columnspan=3, sticky="w", pady=(8, 2))
