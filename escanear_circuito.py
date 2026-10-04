@@ -190,6 +190,10 @@ def main():
         print(idiomas.t("sc.tz.pocos_puntos") % len(filas))
         return 1
 
+    # La grabacion cruda se guarda ANTES de elegir la vuelta: si no sale
+    # ninguna vuelta entera, al menos no se pierde lo conducido y se puede
+    # sacar el trazado despues a mano.
+    csv_guardado = guardar_escaneo(pista, filas)
     elegida, cierre = elegir_vuelta(filas)
     if not elegida:
         print(idiomas.t("sc.tz.ninguna_entera"))
@@ -197,7 +201,6 @@ def main():
 
     vuelta, pts = elegida
     trazado = remuestrear(pts, PUNTOS_TRAZADO)
-    csv_guardado = guardar_escaneo(pista, filas)
     xs = [p[0] for p in trazado]
     zs = [p[1] for p in trazado]
     ys = [p["y"] for p in pts]
@@ -221,6 +224,7 @@ def main():
         "altura": [round(min(ys), 1), round(max(ys), 1)],
     })
     entrada.pop("curvas", None)      # se recalculan con el trazado nuevo
+    entrada.pop("trazado_de_bordes", None)   # ya hay trazado de verdad
     circuitos[clave] = entrada
     almacen.guardar_uno(clave, entrada)
 

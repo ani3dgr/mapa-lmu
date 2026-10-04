@@ -383,12 +383,15 @@ def como_queda(calibracion, coche, clave, indice, como_ahora=""):
     Que valor de verdad es un indice en este coche: 3 -> '10.0 deg'.
 
     Sale de la escala aprendida en calibrar(). Si ese numero no se ha visto
-    nunca en ningun reglaje, no se inventa nada y se devuelve vacio.
+    nunca en ningun reglaje se saca con la cuenta del juego (ver mas abajo),
+    y si tampoco se puede, no se inventa nada y se devuelve vacio.
     """
     try:
         crudo = calibracion["valores"][coche][clave][str(int(indice))]
     except (KeyError, TypeError, ValueError):
-        return ""
+        crudo = rellena_hueco(calibracion, coche, clave, indice)
+        if not crudo:
+            return ""
     # Red de seguridad: una calibracion vieja puede traer valores con las
     # marcas de este programa pegadas ("<- 5"), porque se genero antes de
     # que calibrar() las limpiara. Se quitan tambien aqui para no tener que
@@ -397,6 +400,175 @@ def como_queda(calibracion, coche, clave, indice, como_ahora=""):
     if not crudo:
         return ""
     return con_el_formato_de(sin_marcas(como_ahora), crudo)
+
+
+# ------------------------------------------------- los huecos de la escala
+#
+# Un .svm solo trae escrito el texto de los indices que alguien haya llegado
+# a guardar alguna vez. Si nadie guardo nunca el reparto de frenada en el 37,
+# ese texto no esta en ningun archivo del ordenador, y el editor se quedaba
+# ensenando un "37" pelado en mitad de una columna de "48.0:52.0". Asi lo
+# encontro Manuel: llevaba el reparto hacia atras y de pronto el valor
+# desaparecia y salia un numero suelto.
+#
+# Pero la escala del juego no es una lista de valores sueltos. Cada ajuste
+# sale de una cuenta de una linea, valor = base + escalon por indice, con la
+# base y el escalon escritos dentro del coche. Esa cuenta se puede deducir de
+# los valores que SI se conocen.
+#
+# Y la gracia esta en lo que se hace despues: se exige que la cuenta deducida
+# vuelva a dar, letra por letra, TODOS los textos que el juego ha escrito. Si
+# falla uno solo se tira la cuenta entera y se sigue ensenando el numero
+# pelado. Aqui no se rellena un hueco con algo parecido: o es la cuenta del
+# juego o no se dice nada.
+#
+# Con el reparto del Lexus salen 57.0 - 0.25 por indice delante y 43.0 + 0.25
+# detras. Deducida con los doce valores que habia en la calibracion, acierta
+# los cinco que no estaban (el 37 es 47.8:52.2 y el 39 es 47.2:52.8) y dice
+# donde acaba la escala: el indice 56 da 43.0:57.0, que es exactamente el
+# tope que ensena el juego.
+#
+# LO QUE MAS COSTO FUE EL REDONDEO. El juego no lleva la cuenta en tanto por
+# ciento sino en tanto por uno, y eso cambia los valores que caen justo en la
+# mitad del ultimo decimal: (1 - (0.43 + 0.0025 x 35)) x 100 da 48.3, que es
+# lo que ensena el juego, mientras que 57.0 - 0.25 x 35 da 48.2. Son la misma
+# recta escrita de dos maneras y no dan lo mismo. Por eso se prueban las tres
+# formas de escribirla y se queda la que reproduce los textos del juego.
+#
+# Probado a ciegas contra los reglajes del ordenador: tapando uno de cada
+# tres valores conocidos y pidiendole que los adivine, acierta 129 de 134.
+
+_CUENTAS = {
+    "por_uno": lambda a, b, n: (a / 100.0 + b / 100.0 * n) * 100.0,
+    "lo_que_falta": lambda a, b, n: (1.0 - ((100.0 - a) / 100.0
+                                            - b / 100.0 * n)) * 100.0,
+    "directa": lambda a, b, n: a + b * n,
+}
+
+# Cuantos valores conocidos hacen falta para fiarse. Con pocos, o con todos
+# pegados, una recta se ajusta a cualquier cosa y la cuenta saldria de la
+# nada: la caida del 963 se conoce en tres indices y en dos de ellos pone lo
+# mismo, y con eso salia una recta casi plana que no es la del juego. Se
+# piden cuatro indices, separados, y tres textos distintos entre ellos, que
+# es lo minimo para que la recta la manden los valores y no el azar.
+_MINIMOS = 4
+_ANCHO_MINIMO = 4
+_DISTINTOS_MINIMO = 3
+
+
+def _decimales(trozo):
+    trozo = trozo.replace(",", ".")
+    return len(trozo.split(".")[1]) if "." in trozo else 0
+
+
+def _recta(xs, ys):
+    """La recta que mejor pasa por unos puntos: devuelve (altura, pendiente)."""
+    n = len(xs)
+    sx = sum(xs)
+    sy = sum(ys)
+    den = n * sum(x * x for x in xs) - sx * sx
+    if not den:
+        return None
+    b = (n * sum(x * y for x, y in zip(xs, ys)) - sx * sy) / den
+    return (sy - b * sx) / n, b
+
+
+def _deducir_escala(textos):
+    """
+    De {indice: texto} saca la cuenta del juego, o None si no encaja.
+
+    `textos` son los valores que el juego ha escrito. Todos tienen que estar
+    escritos igual ("48.0:52.0", "116 kgf (97%)"): lo que cambia son los
+    numeros, y cada numero lleva su propia cuenta. Se prueban primero las
+    cuentas de numeros redondos, porque la base y el escalon que trae un
+    coche son numeros redondos y no el resultado de un ajuste fino.
+    """
+    indices = sorted(textos)
+    if (len(indices) < _MINIMOS or indices[-1] - indices[0] < _ANCHO_MINIMO
+            or len(set(textos.values())) < _DISTINTOS_MINIMO):
+        return None
+    partes = _TROZOS.split(textos[indices[0]])
+    if any(_TROZOS.split(textos[n]) != partes for n in indices):
+        return None                      # no estan escritos todos igual
+    numeros = {n: _TROZOS.findall(textos[n]) for n in indices}
+    cuantos = len(numeros[indices[0]])
+    if not cuantos or any(len(numeros[n]) != cuantos for n in indices):
+        return None
+
+    cuentas = []
+    for hueco in range(cuantos):
+        decimales = max(_decimales(numeros[n][hueco]) for n in indices)
+        ys = [float(numeros[n][hueco].replace(",", ".")) for n in indices]
+        recta = _recta(indices, ys)
+        if recta is None:
+            return None
+        altura, pendiente = recta
+        elegida = None
+        for redondeo_a in (0, 1, 2, 3, 4, None):
+            for redondeo_p in (2, 3, 4, 5, 6, None):
+                a = altura if redondeo_a is None else round(altura, redondeo_a)
+                b = (pendiente if redondeo_p is None
+                     else round(pendiente, redondeo_p))
+                for nombre, cuenta in _CUENTAS.items():
+                    if all("%.*f" % (decimales, cuenta(a, b, n))
+                           == "%.*f" % (decimales, y)
+                           for n, y in zip(indices, ys)):
+                        elegida = (nombre, a, b, decimales)
+                        break
+                if elegida:
+                    break
+            if elegida:
+                break
+        if not elegida:
+            return None                  # este numero no va en linea recta
+        cuentas.append(elegida)
+    return {"partes": partes, "cuentas": cuentas}
+
+
+def escala_de(calibracion, coche, clave):
+    """
+    La cuenta de un ajuste en un coche, deducida una sola vez.
+
+    Se guarda en la propia calibracion que ya esta en memoria, asi que vive
+    lo mismo que ella y se rehace sola cuando se vuelve a calibrar. False
+    quiere decir "ya se miro y no encaja", para no repetir el trabajo en cada
+    repintado de la pantalla.
+    """
+    memoria = calibracion.setdefault("_escalas", {})
+    llave = "%s|%s" % (coche, clave)
+    if llave not in memoria:
+        try:
+            crudos = calibracion["valores"][coche][clave]
+        except (KeyError, TypeError):
+            crudos = {}
+        textos = {}
+        for indice, texto in crudos.items():
+            limpio = sin_marcas(texto)
+            # Un "Non-adjustable" o un "Detached" no son un punto de la
+            # recta: son el juego diciendo otra cosa.
+            if limpio and not _NO_SE_TOCA.match(limpio) and not esta_desconectado(limpio):
+                try:
+                    textos[int(indice)] = limpio
+                except (TypeError, ValueError):
+                    pass
+        memoria[llave] = _deducir_escala(textos) or False
+    return memoria[llave] or None
+
+
+def rellena_hueco(calibracion, coche, clave, indice):
+    """El texto de un indice que no se ha visto nunca, o '' si no se sabe."""
+    escala = escala_de(calibracion, coche, clave)
+    if not escala:
+        return ""
+    try:
+        indice = int(indice)
+    except (TypeError, ValueError):
+        return ""
+    salida = escala["partes"][0]
+    for (nombre, a, b, decimales), resto in zip(escala["cuentas"],
+                                                escala["partes"][1:]):
+        salida += "%.*f" % (decimales, _CUENTAS[nombre](a, b, indice)) + resto
+    return salida
 
 
 def paso_de(calibracion, categoria, clave):

@@ -29,6 +29,9 @@ import time
 import circuitos as almacen
 import idiomas
 import lector_lmu as lmu
+from construir_circuitos import PUNTOS_TRAZADO
+from construir_circuitos import remuestrear as remuestrear_trazado
+from escanear_circuito import _clave_para
 
 # La consola de Windows habla cp1252 por defecto y se cae al imprimir una
 # letra que no sea de las suyas (una polaca, por ejemplo). Con esto se le dice
@@ -99,6 +102,33 @@ def remuestrear(puntos, n):
     return salida
 
 
+def trazado_desde_bordes(izq, der):
+    """
+    La linea central entre los dos bordes, para cuando el circuito no tiene
+    trazado escaneado.
+
+    Lo normal es que la gente escanee solo los lados, y antes eso se tiraba
+    entero al final porque faltaba el trazado (le paso a Manuel en Long Beach).
+    Para dibujar el mapa y situar los coches el centro de la pista vale igual
+    que una vuelta grabada.
+
+    Los dos bordes empiezan en meta y van en el sentido de la marcha, pero el
+    de fuera es mas largo en las curvas: el punto i de uno no cae justo frente
+    al punto i del otro. Por eso a cada punto de la izquierda se le busca el
+    mas cercano de la derecha en una ventana alrededor de su indice.
+    """
+    n = len(der)
+    ventana = max(10, n // 20)
+    centro = []
+    for i, a in enumerate(izq):
+        j = min(((i + k) % n for k in range(-ventana, ventana + 1)),
+                key=lambda j: math.dist(a, der[j]))
+        b = der[j]
+        centro.append({"x": (a[0] + b[0]) / 2, "z": (a[1] + b[1]) / 2})
+    centro.append(centro[0])          # cierra la vuelta para remuestrear
+    return remuestrear_trazado(centro, PUNTOS_TRAZADO)
+
+
 def main():
     try:
         sco = lmu.Scoring()
@@ -126,7 +156,8 @@ def main():
     print()
 
     circuitos_previos = lmu.cargar_circuitos()
-    if (circuitos_previos.get(lmu.normaliza(pista)) or {}).get("bordes"):
+    clave = _clave_para(circuitos_previos, pista, largo)
+    if (circuitos_previos.get(clave) or {}).get("bordes"):
         print(idiomas.t("sc.bo.ya_escaneado"))
         respuesta = input(idiomas.t("sc.bo.se_sustituyen"))
         if respuesta.strip().lower() not in ("s", "si", "y"):
@@ -138,6 +169,7 @@ def main():
     puntos = []
     dist_antes = lmu.d(sco.sco, base + lmu.OFF_DIST)
     bordes = {}
+    alturas = []
     ultimo_aviso = 0.0
     print(">>> %s" % idiomas.t(FASES[fase][1]))
 
@@ -169,8 +201,11 @@ def main():
                 if FASES[fase][0] != "transicion":
                     x = lmu.d(sco.sco, base + lmu.OFF_POS)
                     z = lmu.d(sco.sco, base + lmu.OFF_POS + 16)
+                    y = lmu.d(sco.sco, base + lmu.OFF_POS + 8)
                     if math.isfinite(x) and math.isfinite(z):
                         puntos.append((x, z))
+                    if math.isfinite(y):
+                        alturas.append(y)
                     kmh = (dist - dist_antes) * HZ * 3.6
                     ahora = time.time()
                     if kmh > VELOCIDAD_AVISO and ahora - ultimo_aviso > 3.0:
@@ -190,17 +225,34 @@ def main():
     mediana = anchos[len(anchos) // 2]
 
     circuitos = lmu.cargar_circuitos()
-    clave = lmu.normaliza(pista)
     entrada = circuitos.get(clave)
-    if entrada is None:
-        print(idiomas.t("sc.bo.sin_trazado"))
-        return 1
+    sin_trazado = not (entrada or {}).get("puntos")
+    if sin_trazado:
+        # No hay trazado: se saca de los propios bordes en vez de tirar el
+        # escaneo. Si luego se escanea el trazado, ese lo sustituye y los
+        # bordes se conservan.
+        trazado = trazado_desde_bordes(bordes["izquierda"], bordes["derecha"])
+        xs = [p[0] for p in bordes["izquierda"] + bordes["derecha"]]
+        zs = [p[1] for p in bordes["izquierda"] + bordes["derecha"]]
+        entrada = entrada or {}
+        entrada.update({
+            "nombre": pista,
+            "largo": round(largo, 1) if largo else None,
+            "puntos": trazado,
+            "limites": [min(xs), min(zs), max(xs), max(zs)],
+            "altura": ([round(min(alturas), 1), round(max(alturas), 1)]
+                       if alturas else [0.0, 0.0]),
+            "trazado_de_bordes": True,
+        })
+        entrada.pop("curvas", None)
 
     entrada["bordes"] = {"izquierda": bordes["izquierda"], "derecha": bordes["derecha"]}
     almacen.guardar_uno(clave, entrada)
 
     print()
     print(idiomas.t("sc.bo.guardado") % pista)
+    if sin_trazado:
+        print(idiomas.t("sc.bo.trazado_creado"))
     print(idiomas.t("sc.bo.anchura")
           % (mediana, anchos[0], anchos[-1]))
     if not 6.0 < mediana < 25.0:

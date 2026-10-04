@@ -35,6 +35,10 @@ AZUL = "#1f5fa8"
 GRIS = "#9a9a9a"
 AMBAR = "#b8860b"       # una pieza desconectada: ni error ni cambio normal
 
+# Lo que ocupan de ancho las dos primeras columnas, en letras.
+LETRAS_NOMBRE = 30
+LETRAS_VALOR = 24
+
 
 def _visible(texto):
     """
@@ -63,6 +67,7 @@ class Editor:
         self.cal = I.leer_calibracion()
         self.pendientes = {}       # "SECCION/Clave" -> indice nuevo
         self.filas = {}            # clave de pagina -> widgets
+        self._anchos = None        # ver `_clavar_columnas`
 
         self.pagina = tk.IntVar(value=0)
         self._montar()
@@ -193,6 +198,7 @@ class Editor:
         for titulo, filas in grupos:
             marco = ttk.LabelFrame(self.dentro, text=titulo, padding=(8, 4))
             marco.pack(fill="x", padx=6, pady=4)
+            self._clavar_columnas(marco)
             hay = False
             for fila, (nombre, clave) in enumerate(filas):
                 if self._linea(marco, fila, nombre, clave):
@@ -200,6 +206,50 @@ class Editor:
             if not hay:
                 ttk.Label(marco, text=T("ed.no_tiene"),
                           foreground=GRIS).grid(row=0, column=0, sticky="w")
+
+    def _clavar_columnas(self, marco):
+        """
+        Deja clavado el ancho de las dos primeras columnas.
+
+        LAS FLECHAS NO SE PUEDEN MOVER DE SITIO. Un ajuste se toca dandole
+        varias veces seguidas a la misma flecha, y hasta ahora, al primer
+        clic, toda la columna se iba unos pixeles a la derecha y habia que
+        ir a buscar la flecha otra vez con el raton para el segundo clic.
+
+        Pasaba porque el valor tocado se pone en negrita y la negrita es mas
+        ancha que la redonda: una etiqueta de 24 letras en negrita pide mas
+        pixeles que la misma de 24 letras en redonda, la columna crecia con
+        ella y se llevaba las flechas por delante. Y se notaba en el grupo
+        entero, no solo en la linea tocada, porque las columnas son del
+        grupo. Por eso en las capturas de Manuel el bloque DIFERENCIAL
+        estaba mas a la izquierda que MOTOR: era el unico sin nada tocado.
+
+        Se mide en negrita a proposito, que es el ancho mas grande de los
+        dos: la columna ocupa desde el principio lo que va a ocupar cuando
+        se toque, y ya no se mueve nadie. Lo mismo con el nombre, que al
+        pasar el raton por encima se subraya y cambia de letra.
+        """
+        if not self._anchos:
+            # Se mide preguntandoselo a una etiqueta de verdad y no a la
+            # fuente: la etiqueta anade su propio borde, y midiendo solo las
+            # letras se quedaba corto por cuatro pixeles, que es justo lo que
+            # hacia falta para que la columna siguiera creciendo.
+            def pide(letras, fuente=None):
+                opciones = {"width": letras}
+                if fuente:
+                    opciones["font"] = fuente
+                falsa = ttk.Label(self.hueco, **opciones)
+                ancho = falsa.winfo_reqwidth()
+                falsa.destroy()
+                return ancho
+
+            hueco = 14          # el padx que lleva la etiqueta del valor
+            nombre = max(pide(LETRAS_NOMBRE),
+                         pide(LETRAS_NOMBRE, ("Segoe UI", 9, "underline")))
+            valor = pide(LETRAS_VALOR, ("Segoe UI", 9, "bold"))
+            self._anchos = (nombre, valor + hueco)
+        marco.grid_columnconfigure(0, minsize=self._anchos[0])
+        marco.grid_columnconfigure(1, minsize=self._anchos[1])
 
     def _linea(self, marco, fila, nombre, clave):
         indice, texto, tocado = self._valor(clave)
@@ -216,11 +266,11 @@ class Editor:
                  (AZUL if tocado else ("#222" if se_toca else GRIS)))
 
         rotulo = ttk.Label(marco, text=nombre, foreground=color,
-                           width=30, anchor="w")
+                           width=LETRAS_NOMBRE, anchor="w")
         rotulo.grid(row=fila, column=0, sticky="w")
         self._enlazar_manual(rotulo, clave)
         valor = ttk.Label(marco, text=texto, foreground=color,
-                          width=24, anchor="e",
+                          width=LETRAS_VALOR, anchor="e",
                           font=("Segoe UI", 9,
                                 "bold" if (tocado or suelta) else "normal"))
         valor.grid(row=fila, column=1, sticky="e", padx=(8, 6))
@@ -275,6 +325,16 @@ class Editor:
         A que indice pasaria un ajuste al pulsar la flecha, o None si ya no
         se puede mover para ese lado: por arriba manda el maximo visto en
         reglajes de esa clase, y por abajo el cero. Ver `_recortar`.
+
+        LA FLECHA MUEVE UN ESCALON, el del juego, no el escalon aprendido.
+        Antes movia el aprendido, que es de cuanto en cuanto se mueve un
+        ajuste en los reglajes de los que saben; para el reparto de frenada
+        de un GT3 salian dos, y con eso el editor se saltaba la mitad de los
+        valores que el juego si tiene: iba de 48.8:51.2 a 48.3:51.7 sin
+        pasar por 48.5:51.5. Esta pantalla es la del juego pero que se toca,
+        y su flecha tiene que llegar a donde llega la del juego. El escalon
+        aprendido sigue valiendo para lo que se penso: lo que el ingeniero
+        propone mover, en ingenieria.py.
         """
         reales = [r for r in paginas.reparte(clave) if r in self.ficha["ajustes"]]
         if not reales:
@@ -284,7 +344,7 @@ class Editor:
             return None
         ahora = self.pendientes.get(reales[0], a["indice"])
         categoria = B.coche_de(self.ficha)["categoria"] or "?"
-        nuevo = int(ahora) + signo * I.paso_de(self.cal, categoria, a["clave"])
+        nuevo = int(ahora) + signo
         nuevo = int(I._recortar(self.cal, categoria, a["clave"], nuevo))
         return None if nuevo == int(ahora) else nuevo
 

@@ -712,9 +712,9 @@ class Opciones:
             row=fila[0], column=0, columnspan=3, sticky="w", pady=(0, 4))
         fila[0] += 1
         for texto, guion in (
-                (T("esc.paso1"), "escanear_circuito.py"),
                 (T("esc.paso2"), "escanear_bordes.py"),
-                (T("esc.paso3"), "escanear_boxes.py")):
+                (T("esc.paso3"), "escanear_boxes.py"),
+                (T("esc.paso1"), "escanear_circuito.py")):
             ttk.Button(m, text=texto, width=42,
                        command=self._lanzar(guion)).grid(
                 row=fila[0], column=0, columnspan=3, sticky="we", pady=2)
