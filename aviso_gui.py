@@ -102,6 +102,9 @@ def tocar(nombre, volumen=100, encendido=True):
         pass          # sin sonido se sigue viendo el cartel; no es motivo de error
 
 
+# El color de la flecha del lado: amarillo bandera, distinto del rojo del texto.
+AMARILLO = "#ffd400"
+
 class Cartel:
     """
     La ventanita del aviso.
@@ -153,7 +156,8 @@ class Cartel:
         """
         self.modo_mover = moviendo
         if moviendo:
-            self._pintar(T("avi.muestra"), muestra=True)
+            self._pintar(T("avi.muestra"), muestra=True,
+                         lado="izq" if self.cfg.get("aviso_flecha", True) else None)
         elif not self.visible:
             self.esconder()
 
@@ -166,7 +170,7 @@ class Cartel:
                 texto = texto % int(round(peligro["segundos"]))
             except (TypeError, ValueError):
                 pass
-        self._pintar(texto)
+        self._pintar(texto, lado=peligro.get("lado") if self.cfg.get("aviso_flecha", True) else None)
         self.visible = True
 
     def esconder(self):
@@ -175,29 +179,49 @@ class Cartel:
         self.visible = False
         self.v.withdraw()
 
-    def _pintar(self, texto, muestra=False):
+    def _pintar(self, texto, muestra=False, lado=None):
         tam = int(self.cfg.get("aviso_tam", 26))
         color = self.cfg.get("aviso_color", "#ff2d2d")
         fuente = ("Segoe UI", tam, "bold")
 
+        # El lado del coche parado: una flecha AMARILLA delante del texto si
+        # esta a la izquierda y detras si esta a la derecha. De otro color que
+        # el texto para que se vea de reojo, sin tener que leer (lo pidio
+        # Manuel asi). Si esta en medio de la pista, no hay flecha.
+        # (los triangulos salen pequenos al lado de las mayusculas: van mas grandes)
+        fuente_flecha = ("Segoe UI", int(tam * 1.4), "bold")
+        trozos = [(texto, "#8a8a8a" if muestra else color, fuente)]
+        if lado == "izq":
+            trozos.insert(0, ("◀◀", AMARILLO, fuente_flecha))
+        elif lado == "der":
+            trozos.append(("▶▶", AMARILLO, fuente_flecha))
+
         c = self.lienzo
         c.delete("all")
-        # Se mide el texto con un dibujo de prueba para que la ventana quede
+        # Se mide cada trozo con un dibujo de prueba para que la ventana quede
         # justo del tamano que hace falta. Si sobrara fondo, ese trozo seria
         # un rectangulo transparente que se come los clics del juego.
-        temporal = c.create_text(0, 0, text=texto, font=fuente, anchor="nw")
-        x1, y1, x2, y2 = c.bbox(temporal)
-        c.delete(temporal)
-        ancho, alto = x2 - x1 + 24, y2 - y1 + 14
+        hueco = tam // 2
+        medidas = []
+        for t, _, letra in trozos:
+            temporal = c.create_text(0, 0, text=t, font=letra, anchor="nw")
+            x1, y1, x2, y2 = c.bbox(temporal)
+            c.delete(temporal)
+            medidas.append((x2 - x1, y2 - y1))
+        ancho = sum(m[0] for m in medidas) + hueco * (len(trozos) - 1) + 24
+        alto = max(m[1] for m in medidas) + 14
 
         c.configure(width=ancho, height=alto)
-        # Un borde oscuro detras de la letra: sobre un cielo claro o sobre
-        # asfalto, un texto de un solo color se pierde en uno de los dos.
-        for dx, dy in ((-2, 0), (2, 0), (0, -2), (0, 2), (-2, -2), (2, 2)):
-            c.create_text(ancho / 2 + dx, alto / 2 + dy, text=texto,
-                          font=fuente, fill="#000000")
-        c.create_text(ancho / 2, alto / 2, text=texto, font=fuente,
-                      fill="#8a8a8a" if muestra else color)
+        x = 12
+        for (t, tinta, letra), (w, _) in zip(trozos, medidas):
+            centro = x + w / 2
+            # Un borde oscuro detras de la letra: sobre un cielo claro o sobre
+            # asfalto, un texto de un solo color se pierde en uno de los dos.
+            for dx, dy in ((-2, 0), (2, 0), (0, -2), (0, 2), (-2, -2), (2, 2)):
+                c.create_text(centro + dx, alto / 2 + dy, text=t,
+                              font=letra, fill="#000000")
+            c.create_text(centro, alto / 2, text=t, font=letra, fill=tinta)
+            x += w + hueco
 
         self.v.geometry("%dx%d+%d+%d" % (ancho, alto,
                                          self.cfg["aviso_x"], self.cfg["aviso_y"]))

@@ -27,7 +27,7 @@ DIST = os.path.join(AQUI, "dist")
 BUILD = os.path.join(AQUI, "build")
 CARPETA_FINAL = os.path.join(DIST, "MapaLMU")
 
-VERSION = "1.10.3"
+VERSION = "1.10.4"
 
 # Lo que se copia al lado del .exe. Carpetas y archivos sueltos.
 #
@@ -262,7 +262,7 @@ DE DONDE SALE ESTO
   Ahi tambien se pueden pedir cosas o avisar de fallos.
 
 Es gratuito. Usalo y pasalo a quien quieras.
-Patrocinado por ciclotracker.com
+Apoya a CicloTracker y nos ayudas a seguir creando proyectos: ciclotracker.com
 """
     ruta = os.path.join(CARPETA_FINAL, "LEEME PRIMERO.txt")
     with open(ruta, "w", encoding="utf-8") as f:

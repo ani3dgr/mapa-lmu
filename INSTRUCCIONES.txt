@@ -1,6 +1,5 @@
 ====================================================================
   MAPA DE PISTA PARA LE MANS ULTIMATE
-  Patrocinado por ciclotracker.com
 ====================================================================
 
 Un mapa que se pone encima del juego y te muestra donde esta cada
@@ -384,7 +383,7 @@ dentro. Si tienes dudas, pulsalo.
     tocar el programa, igual que reglas.json.
 
   ACERCA DE
-    El idioma del programa, las donaciones, el patrocinador, y el
+    El idioma del programa, las donaciones, CicloTracker, y el
     boton para cerrar el programa.
     IDIOMA: se elige de la lista. Lo que ya esta abierto se queda
     como esta; el cambio se ve entero al volver a abrir el programa.
@@ -651,4 +650,4 @@ Las teclas F9 o F10 me hacen algo raro en el juego
 --------------------------------------------------------------------
 
 Programa gratuito para la comunidad de Le Mans Ultimate.
-Patrocinado por ciclotracker.com
+Apoya a CicloTracker (ciclotracker.com) y nos ayudas a seguir creando proyectos.

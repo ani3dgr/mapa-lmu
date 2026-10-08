@@ -48,7 +48,6 @@ CHROMA = "#010203"          # este color se vuelve transparente
 # veintidos metros), asi que un margen generoso no las distinguiria, que es
 # justo lo que hace falta cazar.
 MARGEN_LARGO = 10.0
-PATROCINIO = idiomas.t("acerca.patrocinio")
 REFRESCO_MS = 50            # 20 veces por segundo
 SEGUNDOS_SIN_DATOS = 3.0    # sin novedades del juego, se da la sesion por salida
 SALTO_SESION = 5.0          # s de desfase del reloj de sesion contra el reloj
@@ -718,9 +717,7 @@ class Mapa:
         # queda pegado al trazado y se lee mal en marcha.
         cuantas = len(self._lineas_rotulo())
         banda = 8 + cuantas * (self.cfg["tam_estado"] + 5) if cuantas else 0
-        # y otra banda abajo para el patrocinador, para que no roce el trazado
-        pie = (self.cfg["tam_patrocinador"] + 8) if self.cfg["ver_patrocinador"] else 0
-        util = t - banda - pie
+        util = t - banda
         escala = min((t - 2 * margen) / ancho, (util - 2 * margen) / alto)
         despx = (t - ancho * escala) / 2
         despy = (util - alto * escala) / 2
@@ -853,9 +850,6 @@ class Mapa:
                 propio -= 1
             self._texto_con_sombra(c, t / 2, 4 + tam + n * (tam + 5), texto,
                                    color, propio)
-        if self.cfg["ver_patrocinador"]:
-            self._texto_con_sombra(c, t / 2, t - 6, PATROCINIO, "#9aa0a6",
-                                   self.cfg["tam_patrocinador"], anclaje="s")
 
     def _pintar_comparacion(self, c, pantalla):
         """

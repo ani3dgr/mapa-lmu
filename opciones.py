@@ -171,7 +171,6 @@ class Opciones:
         self._titulo(m, fila, T("ver.tit_textos"))
         self._interruptor(m, fila, T("ver.sesion"), "ver_sesion")
         self._interruptor(m, fila, T("ver.rotulo"), "ver_texto_estado")
-        self._interruptor(m, fila, T("ver.patrocinador"), "ver_patrocinador")
 
 
     def _pestana_aspecto(self, cuaderno):
@@ -182,7 +181,6 @@ class Opciones:
         self._deslizador(m, fila, T("asp.num_posicion"), "tam_numero", 6, 16)
         self._deslizador(m, fila, T("asp.texto_curvas"), "tam_curva", 6, 16)
         self._deslizador(m, fila, T("asp.rotulo"), "tam_estado", 7, 20)
-        self._deslizador(m, fila, T("asp.texto_patro"), "tam_patrocinador", 6, 14)
         self._deslizador(m, fila, T("asp.aviso_salida"), "tam_salida", 5, 16)
         self._titulo(m, fila, T("asp.tit_mapa"))
         self._deslizador(m, fila, T("asp.tam_mapa"), "tamano", 200, 800)
@@ -1312,10 +1310,11 @@ class Opciones:
             ttk.Label(botones, foreground="#aaa",
                       text=T("acerca.sin_enlace")).pack(side="left")
 
-        # ---- el patrocinador
+        # ---- CicloTracker: ya no "patrocinado por", sino apoyarlo para que sigamos
+        # haciendo proyectos (lo pidio Manuel el 08/10/2026, igual que en LMU Chat Radio)
         linea()
         tk.Label(m, text=T("acerca.patrocinio"), font=("Segoe UI", 10, "bold"),
-                 fg="#6a4c93").grid(row=fila[0], column=0, columnspan=3, sticky="w")
+                 fg="#2e9e4f").grid(row=fila[0], column=0, columnspan=3, sticky="w")
         fila[0] += 1
         ttk.Label(m, foreground="#666", justify="left",
                   text=T("acerca.patrocinio.texto")).grid(
@@ -1324,7 +1323,7 @@ class Opciones:
         patro = ttk.Frame(m)
         patro.grid(row=fila[0], column=0, columnspan=3, sticky="w")
         fila[0] += 1
-        tk.Button(patro, text=T("acerca.patrocinio.web"), bg="#6a4c93", fg="white",
+        tk.Button(patro, text=T("acerca.patrocinio.web"), bg="#2e9e4f", fg="white",
                   relief="groove", font=("Segoe UI", 9, "bold"),
                   command=lambda: enlaces.abrir(enlaces.CICLOTRACKER)).pack(side="left")
         if enlaces.CICLOTRACKER_ANDROID:

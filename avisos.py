@@ -68,11 +68,36 @@ def _por_delante(mi_dist, su_dist, largo):
     return hueco
 
 
+# A menos de esto del centro de la pista no se dice lado: el coche esta en
+# medio y una flecha mandaria a esquivarlo por donde no toca.
+LADO_MINIMO = 1.5
+
+
+def lado(lateral):
+    """
+    "izq", "der" o None: a que lado de la pista esta el coche, mirando en el
+    sentido de la marcha.
+
+    Sale de mPathLateral, la separacion del centro de la pista que publica el
+    juego: NEGATIVO es la IZQUIERDA y POSITIVO la DERECHA. Medido el 08/10/2026
+    en Road Atlanta con los 23 coches que se vieron fuera del centro, contra el
+    trazado grabado (la izquierda es la perpendicular (-dz, dx) a la marcha,
+    la misma que usa escanear_bordes.py): cuadraron los 23.
+
+    El juego no dice el lado de ninguna otra forma: sus avisos de bandera
+    amarilla no lo llevan, y las banderas ni siquiera estan en la memoria
+    compartida.
+    """
+    if lateral is None or abs(lateral) < LADO_MINIMO:
+        return None
+    return "der" if lateral > 0 else "izq"
+
+
 def peligros(coches, parados, largo, mi_kmh, margen_seg):
     """
     Los coches parados que tienes por delante, del mas cercano al mas lejano.
 
-    Devuelve [{"nombre", "metros", "segundos", "clase"}, ...] ya filtrado
+    Devuelve [{"nombre", "metros", "segundos", "clase", "lado"}, ...] ya filtrado
     por el margen que se haya configurado.
 
     `parados` es lo que devuelve comparador.parados(): los que llevan varias
@@ -102,7 +127,8 @@ def peligros(coches, parados, largo, mi_kmh, margen_seg):
         if segundos <= limite:
             salida.append({"nombre": c.get("nombre") or "",
                            "clase": c.get("clase") or "",
-                           "metros": metros, "segundos": segundos})
+                           "metros": metros, "segundos": segundos,
+                           "lado": lado(c.get("lateral"))})
     salida.sort(key=lambda p: p["segundos"])
     return salida
 

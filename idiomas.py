@@ -94,10 +94,10 @@ BASE = {
     "acerca.donar.kofi": "Donar por Ko-fi",
     "acerca.donar.paypal": "Donar por PayPal",
     "acerca.proyecto": "Pagina del programa",
-    "acerca.patrocinio": "Patrocinado por ciclotracker.com",
-    "acerca.patrocinio.texto": "Si ademas de simracing le das al pedal de verdad,\n"
-                               "ciclotracker.com lleva la cuenta de tus rutas.",
-    "acerca.patrocinio.web": "Ir a ciclotracker.com",
+    "acerca.patrocinio": "Apoya a CicloTracker",
+    "acerca.patrocinio.texto": "Apoya a CicloTracker y nos ayudas a seguir creando proyectos.\n"
+                               "GPS para la bici, en Google Play.",
+    "acerca.patrocinio.web": "Conocer CicloTracker",
     "acerca.patrocinio.android": "Bajarla para Android",
     "acerca.cerrar": "CERRAR EL MAPA",
     # reglajes
